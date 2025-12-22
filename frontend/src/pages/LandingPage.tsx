@@ -3,7 +3,7 @@ import { ArrowRight, Brain, Code2, Zap, Eye, ShieldCheck, Terminal, Cpu, Layers 
 
 const LandingPage = () => {
   const scrollToBooking = () => {
-    window.open('https://calendly.com/charles-chasecontinental/chase-continental-discovery-call', '_blank');
+    window.open('https://calendar.app.google/8oZYnnuHcaiH64Ky8', '_blank');
   };
 
   return (
