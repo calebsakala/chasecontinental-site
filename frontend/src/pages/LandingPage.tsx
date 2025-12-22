@@ -8,7 +8,7 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0B1120] text-slate-300 font-sans selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden">
-      
+
       {/* Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/5 blur-[120px]" />
@@ -25,7 +25,7 @@ const LandingPage = () => {
             <a href="#problem" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">The Problem</a>
             <a href="#solution" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">The Solution</a>
             <a href="#how-it-works" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">How It Works</a>
-            <Button 
+            <Button
               onClick={scrollToBooking}
               className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 rounded-full shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all hover:shadow-[0_0_25px_-5px_rgba(16,185,129,0.6)] cursor-pointer"
             >
@@ -46,28 +46,28 @@ const LandingPage = () => {
               </span>
               The Future of Enterprise Automation
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8 leading-[1.1]">
               Reliability of Code. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Intelligence of AI.</span>
             </h1>
-            
+
             <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
               <span className="text-white font-semibold">Chase Agents</span> bridges the gap between rigid traditional software and unpredictable AI models. Our flagship agentic software allows you to build automations that are smart, adaptable, and finally trustworthy.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
-              <Button 
+              <Button
                 onClick={scrollToBooking}
-                size="lg" 
+                size="lg"
                 className="bg-white text-slate-900 hover:bg-slate-100 text-lg px-8 h-14 rounded-full font-semibold cursor-pointer"
               >
                 Book a Demo
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
+              <Button
                 variant="outline"
-                size="lg" 
+                size="lg"
                 onClick={scrollToBooking}
                 className="border-white/10 bg-white/5 text-white hover:bg-white/10 text-lg px-8 h-14 rounded-full backdrop-blur-sm cursor-pointer"
               >
@@ -76,7 +76,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Abstract Grid Decoration */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
       </header>
@@ -90,7 +90,7 @@ const LandingPage = () => {
               <p className="text-lg text-slate-400 mb-8 leading-relaxed">
                 Businesses today are caught in a dangerous trade-off. You have to choose between the rock-solid reliability of old software and the game-changing intelligence of new AI.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/30 transition-colors">
                   <div className="flex items-center gap-4 mb-3">
@@ -113,7 +113,7 @@ const LandingPage = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 blur-3xl rounded-full opacity-30"></div>
               <div className="relative bg-[#0F1629] border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
@@ -202,7 +202,7 @@ const LandingPage = () => {
       <section className="py-32 px-6">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-16 text-center">Enterprise-Grade Capabilities</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Large Card */}
             <div className="md:col-span-2 bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
@@ -228,9 +228,9 @@ const LandingPage = () => {
                 </p>
               </div>
               <div className="mt-8 p-4 bg-black/40 rounded-xl border border-white/5 font-mono text-xs text-emerald-400">
-                &gt; Analyzing request...<br/>
-                &gt; Plan generated.<br/>
-                &gt; Executing step 1...<br/>
+                &gt; Analyzing request...<br />
+                &gt; Plan generated.<br />
+                &gt; Executing step 1...<br />
                 &gt; Success.
               </div>
             </div>
@@ -256,7 +256,7 @@ const LandingPage = () => {
       <section className="py-32 px-6 bg-[#0F1629] border-t border-white/5">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl font-bold text-white mb-12 text-center">Why It's Different</h2>
-          
+
           <div className="space-y-4">
             {[
               {
@@ -309,15 +309,15 @@ const LandingPage = () => {
       <section className="py-32 px-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-emerald-600/10"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120] via-transparent to-[#0B1120]"></div>
-        
+
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Ready to Automate?</h2>
           <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
             Stop choosing between rigid software and risky AI. Implement the future of automation today.
           </p>
-          <Button 
+          <Button
             onClick={scrollToBooking}
-            size="lg" 
+            size="lg"
             className="bg-emerald-500 hover:bg-emerald-400 text-white text-lg px-12 h-16 rounded-full font-bold shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] transition-all hover:scale-105 cursor-pointer"
           >
             Book a Demo
