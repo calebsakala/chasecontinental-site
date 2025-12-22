@@ -53,7 +53,7 @@ const LandingPage = () => {
             </h1>
 
             <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
-              <span className="text-white font-semibold">Chase Agents</span> bridges the gap between rigid traditional software and unpredictable AI models. Our flagship agentic software allows you to build automations that are smart, adaptable, and finally trustworthy.
+              <span className="text-white font-semibold">Chase Agents</span> delivers enterprise automation that combines uncompromising precision with real-world adaptability. What used to take engineering teams months now deploys in days.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
@@ -152,9 +152,9 @@ const LandingPage = () => {
       <section id="how-it-works" className="py-32 px-6 bg-[#0F1629] border-y border-white/5">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">The Core Architecture</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">How It Works</h2>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              We separate planning from action. AI is firewalled to the planning stage, while deterministic code handles the execution.
+              Our proprietary approach isolates intelligence from execution, delivering both adaptability and reliability where it matters most.
             </p>
           </div>
 
@@ -167,9 +167,9 @@ const LandingPage = () => {
               <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
                 <Brain className="h-6 w-6 text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">1. AI Planner</h3>
+              <h3 className="text-xl font-bold text-white mb-3">1. Understanding</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                The "Adaptation Layer". It analyzes your goal in plain English and writes a specific code recipe.
+                Natural language input meets advanced analysis. Your intent becomes a structured execution plan.
               </p>
             </div>
 
@@ -178,9 +178,9 @@ const LandingPage = () => {
               <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
                 <FileCode className="h-6 w-6 text-blue-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">2. Code Generation</h3>
+              <h3 className="text-xl font-bold text-white mb-3">2. Translation</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                The AI creates deterministic, verifiable code. This code is static and safe, not a hallucination.
+                Proprietary layers convert high-level goals into precise, verifiable instructions optimized for your infrastructure.
               </p>
             </div>
 
@@ -189,9 +189,9 @@ const LandingPage = () => {
               <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
                 <Terminal className="h-6 w-6 text-purple-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">3. Rigid Execution</h3>
+              <h3 className="text-xl font-bold text-white mb-3">3. Execution</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                The "Execution Layer". A dumb, reliable robot executes the code exactly as written. Zero variance.
+                Mission-critical operations run with zero variance. Every action is traceable, auditable, and guaranteed.
               </p>
             </div>
           </div>
@@ -211,7 +211,7 @@ const LandingPage = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Real-Time Adaptability</h3>
               <p className="text-slate-400 max-w-md leading-relaxed">
-                If an API changes or a data format shifts, traditional scripts break. Chase Agents detects the error, rewrites its own adapter code, and heals itself without human intervention.
+                When external systems change, traditional automations break. Chase Agents self-correct in real-time, maintaining operational continuity without manual intervention.
               </p>
             </div>
 
@@ -261,18 +261,18 @@ const LandingPage = () => {
             {[
               {
                 icon: Layers,
-                title: "Vs. Pure AI Agents",
-                desc: "We use AI to write code, not to execute it. This prevents runtime hallucinations."
+                title: "Vs. Traditional AI Solutions",
+                desc: "While others struggle with unpredictable behavior, we've engineered deterministic outcomes at scale."
               },
               {
                 icon: Code2,
-                title: "Vs. Copilot / Coding Assistants",
-                desc: "Copilots help developers write code. Agentic Software writes and runs code itself for non-developers."
+                title: "Vs. Developer Tools",
+                desc: "We don't assist—we autonomously build, deploy, and maintain complex systems without developer intervention."
               },
               {
                 icon: Zap,
                 title: "Vs. Low-Code Platforms",
-                desc: "We add an AI adaptation layer. Low-code breaks when APIs change; we adapt automatically."
+                desc: "Static platforms break when reality shifts. We continuously adapt to changes in your ecosystem."
               }
             ].map((item, i) => (
               <div key={i} className="flex flex-col md:flex-row items-start md:items-center gap-6 p-8 rounded-2xl bg-[#0B1120] border border-white/5 hover:border-emerald-500/20 transition-all">
@@ -297,10 +297,10 @@ const LandingPage = () => {
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">About Chase Continental</h2>
           <p className="text-xl text-slate-400 leading-relaxed mb-12">
-            Chase Continental is an AI studio and consultancy transforming the way people work. We don't just build software; we design intelligent systems that empower businesses to scale without chaos.
+            Chase Continental is an AI innovation lab building the infrastructure for autonomous enterprise operations. Our systems combine years of research in reliability engineering with breakthrough capabilities in adaptive intelligence.
           </p>
           <p className="text-lg text-slate-500 leading-relaxed">
-            <span className="text-white font-semibold">Chase Agents</span> is our flagship product—the culmination of our expertise in enterprise automation and agentic workflows.
+            <span className="text-white font-semibold">Chase Agents</span> represents the next evolution in enterprise software—where automation meets autonomy.
           </p>
         </div>
       </section>
