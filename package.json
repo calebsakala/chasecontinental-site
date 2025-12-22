@@ -6,7 +6,8 @@
     "dev": "cd frontend && npm run dev",
     "build": "cd frontend && npm run build && cp -r frontend/dist .",
     "preview": "cd frontend && npm run preview",
-    "lint": "cd frontend && npm run lint"
+    "lint": "cd frontend && npm run lint",
+    "deploy": "npm run build && npx wrangler deploy"
   },
   "keywords": [
     "ai",
@@ -17,5 +18,8 @@
   ],
   "author": "Chase Continental",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "wrangler": "^4.56.0"
+  }
 }
