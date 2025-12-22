@@ -1,287 +1,376 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Brain, Code2, Zap, Eye, ShieldCheck, Terminal, Cpu, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import {
+  ArrowRight,
+  Brain,
+  Zap,
+  ShieldCheck,
+  Terminal,
+  Layers,
+  FileCode2,
+  Menu,
+  Cloud,
+  Search,
+  Bot,
+  Settings,
+  BarChart3,
+  Rocket,
+  TrendingUp,
+  Building2,
+  Leaf,
+  Building,
+  Settings2,
+  Smartphone,
+  Activity,
+  Users,
+  Star,
+  Linkedin,
+  Twitter
+} from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const LandingPage = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const scrollToBooking = () => {
     window.open('https://calendar.app.google/8oZYnnuHcaiH64Ky8', '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1120] text-slate-300 font-sans selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary overflow-x-hidden">
 
-      {/* Background Effects */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/5 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/5 blur-[120px]" />
+      {/* Background Elements */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/20" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px] animate-pulse duration-[10000ms]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/10 blur-[120px]" />
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-[#0B1120]/80 backdrop-blur-xl border-b border-white/5 z-50">
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white border-b border-border shadow-sm' : 'bg-transparent'}`}>
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-bold tracking-tight text-white">CHASE<span className="text-emerald-500">CONTINENTAL</span></span>
-          </div>
+          <a href="#top" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <img
+                src="/static/images/chase-continental-header-logo.png"
+                alt="Chase Continental"
+                className="h-9 w-auto relative z-10"
+              />
+            </div>
+            <span className="text-sm font-bold tracking-wide text-primary hidden sm:block">CHASE CONTINENTAL</span>
+          </a>
+
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#problem" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">The Problem</a>
-            <a href="#solution" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">The Solution</a>
-            <a href="#how-it-works" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">How It Works</a>
+            <a href="#platform" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Platform</a>
+            <a href="#fractal-flow" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Principles</a>
+            <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">How It Works</a>
             <Button
               onClick={scrollToBooking}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 rounded-full shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all hover:shadow-[0_0_25px_-5px_rgba(16,185,129,0.6)] cursor-pointer"
+              className="rounded-full font-semibold px-6 border-2 border-black shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:bg-black hover:text-white"
             >
               Book a Demo
             </Button>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden p-2 text-primary"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <Menu className="h-6 w-6" />
+          </button>
         </div>
+
+        {/* Mobile Nav */}
+        {mobileMenuOpen && (
+          <div className="md:hidden fixed top-20 left-0 w-full z-60 bg-white border-b border-border p-6 flex flex-col gap-4 shadow-xl animate-in slide-in-from-top-5">
+            <a href="#platform" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Platform</a>
+            <a href="#fractal-flow" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Principles</a>
+            <a href="#how-it-works" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
+            <Button onClick={scrollToBooking} className="w-full rounded-full border-2 border-black cursor-pointer hover:bg-black hover:text-white">Book a Demo</Button>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
-      <header className="relative pt-40 pb-32 px-6 z-10">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-sm font-medium mb-8 backdrop-blur-sm animate-fade-in-up">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              The Future of Enterprise Automation
-            </div>
-
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8 leading-[1.1]">
-              Reliability of Code. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Intelligence of AI.</span>
-            </h1>
-
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
-              <span className="text-white font-semibold">Chase Agents</span> delivers enterprise automation that combines uncompromising precision with real-world adaptability. What used to take engineering teams months now deploys in days.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
-              <Button
-                onClick={scrollToBooking}
-                size="lg"
-                className="bg-white text-slate-900 hover:bg-slate-100 text-lg px-8 h-14 rounded-full font-semibold cursor-pointer"
-              >
-                Book a Demo
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={scrollToBooking}
-                className="border-white/10 bg-white/5 text-white hover:bg-white/10 text-lg px-8 h-14 rounded-full backdrop-blur-sm cursor-pointer"
-              >
-                See It In Action
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Abstract Grid Decoration */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-      </header>
-
-      {/* The Conflict Section (Dark Card Style) */}
-      <section id="problem" className="py-32 px-6 relative">
+      <header id="top" className="relative pt-40 pb-24 px-6 z-10">
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">The Enterprise Dilemma</h2>
-              <p className="text-lg text-slate-400 mb-8 leading-relaxed">
-                Businesses today are caught in a dangerous trade-off. You have to choose between the rock-solid reliability of old software and the game-changing intelligence of new AI.
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-bold tracking-wide mb-8 hover:bg-primary/10 transition-colors cursor-default">
+                <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                ENTERPRISE AI STUDIO
+              </div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary mb-6 leading-tight">
+                Building software that changes the way people work.
+              </h1>
+
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-xl">
+                Unlocking hidden capacity. Building tomorrow's organisations today with a product-first platform designed for real operations.
               </p>
 
-              <div className="space-y-6">
-                <div className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/30 transition-colors">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="p-2 rounded-lg bg-red-500/10 text-red-400">
-                      <Code2 className="h-6 w-6" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-white">Traditional Software</h3>
-                  </div>
-                  <p className="text-slate-400">Reliable but rigid. Like a train on a track—if the track changes, the train crashes.</p>
-                </div>
+              <p className="text-base text-foreground/80 leading-relaxed mb-10 max-w-xl border-l-2 border-primary/20 pl-4">
+                <span className="font-bold text-primary">Chase Agents</span> is our flagship product for intelligent automation. Built on <span className="font-bold text-primary">Fractal Flow</span>, our operating principle that turns repeatable work into composable, scalable flows.
+              </p>
 
-                <div className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition-colors">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400">
-                      <Brain className="h-6 w-6" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-white">Modern AI Models</h3>
-                  </div>
-                  <p className="text-slate-400">Creative but chaotic. Like a brilliant artist who hallucinates—great for ideas, dangerous for operations.</p>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  onClick={scrollToBooking}
+                  size="lg"
+                  className="text-lg px-8 h-14 rounded-full font-semibold border-2 border-black shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:bg-black hover:text-white"
+                >
+                  Book a Demo
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button
+                  size="sm"
+                  asChild
+                  className="text-sm px-4 h-10 rounded-full bg-background hover:bg-secondary/50 transition-all"
+                >
+                  <a href="#fractal-flow">Learn More</a>
+                </Button>
               </div>
             </div>
 
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 blur-3xl rounded-full opacity-30"></div>
-              <div className="relative bg-[#0F1629] border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
-                <div className="flex flex-col gap-8">
-                  <div className="flex justify-between items-center border-b border-white/5 pb-8">
-                    <span className="text-slate-400 font-mono text-sm">METRIC</span>
-                    <span className="text-slate-400 font-mono text-sm">STATUS</span>
-                  </div>
-                  <div className="space-y-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-white font-medium">Reliability</span>
-                      <div className="flex gap-2">
-                        <span className="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-medium border border-red-500/20">LOW (AI)</span>
-                        <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">HIGH (CODE)</span>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white font-medium">Adaptability</span>
-                      <div className="flex gap-2">
-                        <span className="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-medium border border-red-500/20">LOW (CODE)</span>
-                        <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">HIGH (AI)</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-8 pt-8 border-t border-white/5">
-                    <p className="text-center text-white font-medium">The Solution: <span className="text-emerald-400">Chase Agents</span></p>
-                  </div>
-                </div>
+            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/20 blur-3xl rounded-full" />
+              <div className="relative rounded-2xl bg-white p-8 shadow-2xl">
+                <img
+                  src="/static/images/chasecontinental-logo.png"
+                  alt="Chase Continental logo"
+                  className="w-full h-auto object-contain max-h-[420px]"
+                />
+
+
               </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Stats / Intro Section */}
+      <section className="py-24 px-6 bg-primary text-primary-foreground">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8">
+            Unlocking Hidden Capacity Through Digital Transformation
+          </h2>
+          <p className="text-xl text-primary-foreground/80 leading-relaxed mb-16 max-w-3xl mx-auto">
+            Chase Continental unlocks your organization's hidden potential through digital transformation and practical AI. We transform paper-based processes to cloud systems, then automate with hybrid teams that deliver measurable results.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-12 border-t border-primary-foreground/20 pt-12">
+            <div>
+              <div className="text-4xl font-bold mb-2">100+</div>
+              <div className="text-sm font-medium text-primary-foreground/70">Processes Automated</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">3 years</div>
+              <div className="text-sm font-medium text-primary-foreground/70">Industry Experience</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">98%</div>
+              <div className="text-sm font-medium text-primary-foreground/70">Uptime Achieved</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Solution / How it Works */}
-      <section id="how-it-works" className="py-32 px-6 bg-[#0F1629] border-y border-white/5">
+      {/* What We Offer */}
+      <section id="services" className="py-32 px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">How It Works</h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Our proprietary approach isolates intelligence from execution, delivering both adaptability and reliability where it matters most.
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">What We Offer</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Our comprehensive service portfolio covers every aspect of AI automation, from initial strategy to production deployment and ongoing optimization.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connecting Line */}
-            <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent -translate-y-1/2 z-0"></div>
-
-            {/* Step 1 */}
-            <div className="relative z-10 bg-[#0B1120] border border-white/10 p-8 rounded-2xl hover:border-emerald-500/30 transition-all group">
-              <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
-                <Brain className="h-6 w-6 text-emerald-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">1. Understanding</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Natural language input meets advanced analysis. Your intent becomes a structured execution plan.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="relative z-10 bg-[#0B1120] border border-white/10 p-8 rounded-2xl hover:border-emerald-500/30 transition-all group">
-              <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-                <FileCode className="h-6 w-6 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">2. Translation</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Proprietary layers convert high-level goals into precise, verifiable instructions optimized for your infrastructure.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="relative z-10 bg-[#0B1120] border border-white/10 p-8 rounded-2xl hover:border-emerald-500/30 transition-all group">
-              <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-                <Terminal className="h-6 w-6 text-purple-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">3. Execution</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Mission-critical operations run with zero variance. Every action is traceable, auditable, and guaranteed.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bento Grid Features */}
-      <section className="py-32 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-16 text-center">Enterprise-Grade Capabilities</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Large Card */}
-            <div className="md:col-span-2 bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-30 transition-opacity">
-                <Zap className="h-32 w-32 text-emerald-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Real-Time Adaptability</h3>
-              <p className="text-slate-400 max-w-md leading-relaxed">
-                When external systems change, traditional automations break. Chase Agents self-correct in real-time, maintaining operational continuity without manual intervention.
-              </p>
-            </div>
-
-            {/* Tall Card */}
-            <div className="md:row-span-2 bg-[#0F1629] border border-white/10 rounded-3xl p-8 flex flex-col relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="mb-auto">
-                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6">
-                  <Eye className="h-6 w-6 text-white" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: Cloud, title: "Digital Transformation", desc: "Modernize legacy systems, migrate to cloud, and build digital foundations that enable AI automation. Transform paper-based processes into intelligent operations." },
+              { icon: Search, title: "Process Analysis & Mapping", desc: "We analyze your current workflows, identify bottlenecks, and map out opportunities for intelligent automation." },
+              { icon: Bot, title: "AI Agent Development", desc: "Custom AI agents tailored to your specific business needs, from document processing to customer service automation." },
+              { icon: Settings, title: "System Integration", desc: "Seamless integration with your existing tools and platforms, ensuring minimal disruption to current operations." },
+              { icon: BarChart3, title: "Performance Monitoring", desc: "Comprehensive monitoring and analytics to track performance, identify issues, and optimize results continuously." },
+              { icon: Rocket, title: "Deployment & Support", desc: "End-to-end deployment with ongoing support and maintenance to ensure your systems run smoothly in production." },
+              { icon: TrendingUp, title: "Scaling & Optimization", desc: "As your business grows, we help scale your automation systems and optimize them for maximum efficiency." }
+            ].map((item, i) => (
+              <div key={i} className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300">
+                <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <item.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Total Observability</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  No more black boxes. See exactly what the system planned and executed in plain English. Audit every decision.
-                </p>
+                <h3 className="text-xl font-bold text-primary mb-4">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
               </div>
-              <div className="mt-8 p-4 bg-black/40 rounded-xl border border-white/5 font-mono text-xs text-emerald-400">
-                &gt; Analyzing request...<br />
-                &gt; Plan generated.<br />
-                &gt; Executing step 1...<br />
-                &gt; Success.
-              </div>
-            </div>
-
-            {/* Small Card 1 */}
-            <div className="bg-[#0F1629] border border-white/10 rounded-3xl p-8 hover:bg-white/5 transition-colors">
-              <ShieldCheck className="h-8 w-8 text-emerald-400 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Trustworthy</h3>
-              <p className="text-slate-400 text-sm">Eliminates AI variance during critical execution steps.</p>
-            </div>
-
-            {/* Small Card 2 */}
-            <div className="bg-[#0F1629] border border-white/10 rounded-3xl p-8 hover:bg-white/5 transition-colors">
-              <Cpu className="h-8 w-8 text-blue-400 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Democratized</h3>
-              <p className="text-slate-400 text-sm">Non-technical users can build complex backends just by describing them.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Comparison Table Redesigned */}
-      <section className="py-32 px-6 bg-[#0F1629] border-t border-white/5">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">Why It's Different</h2>
+      {/* Fractal Flow */}
+      <section id="fractal-flow" className="py-32 px-6 bg-secondary/30 border-y border-border">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">Fractal Flow</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Our core operating principle: repeatable building blocks that scale from a single team to an entire enterprise. Powers Chase Agents and all our automation systems.
+            </p>
+          </div>
 
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: Layers,
-                title: "Vs. Traditional AI Solutions",
-                desc: "While others struggle with unpredictable behavior, we've engineered deterministic outcomes at scale."
-              },
-              {
-                icon: Code2,
-                title: "Vs. Developer Tools",
-                desc: "We don't assist—we autonomously build, deploy, and maintain complex systems without developer intervention."
+                title: 'Composable blocks',
+                desc: 'Design work as small, reusable units that can be assembled into larger flows without rewriting everything.'
               },
               {
                 icon: Zap,
-                title: "Vs. Low-Code Platforms",
-                desc: "Static platforms break when reality shifts. We continuously adapt to changes in your ecosystem."
+                title: 'Hidden capacity',
+                desc: 'Reduce handoffs, rework, and waiting freeing teams to focus on high-leverage outcomes.'
+              },
+              {
+                icon: ShieldCheck,
+                title: 'Enterprise control',
+                desc: 'Run work with governance: traceability, oversight, and a clear operational record.'
               }
             ].map((item, i) => (
-              <div key={i} className="flex flex-col md:flex-row items-start md:items-center gap-6 p-8 rounded-2xl bg-[#0B1120] border border-white/5 hover:border-emerald-500/20 transition-all">
-                <div className="p-4 rounded-full bg-white/5 text-emerald-400 shrink-0">
-                  <item.icon className="h-6 w-6" />
+              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group">
+                <div className="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                  <item.icon className="h-7 w-7" />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                  <p className="text-slate-400">{item.desc}</p>
+                <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works */}
+      <section id="how-it-works" className="py-32 px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-24">
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">How Chase Agents Works</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Built on the Fractal Flow principle, Chase Agents turns scattered knowledge into a shared operating system so teams can run the same work the same way, and improve it over time.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-10 relative">
+            {/* Connecting Line */}
+            <div className="hidden md:block absolute top-[3.5rem] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-border to-transparent z-0"></div>
+
+            {[
+              { icon: Brain, title: "1. Map the work", desc: "Capture intent, constraints, and context so the organisation shares one understanding of what “done” means." },
+              { icon: FileCode2, title: "2. Compose flows", desc: "Build repeatable flows from small components so improvements propagate everywhere the work appears." },
+              { icon: Terminal, title: "3. Run with governance", desc: "Operate with oversight and a clear record: what was decided, what changed, and why." }
+            ].map((item, i) => (
+              <div key={i} className="relative z-10 bg-card border border-border p-8 rounded-2xl hover:border-primary/30 transition-all group">
+                <div className="w-14 h-14 bg-background border-2 border-border rounded-xl flex items-center justify-center mb-6 group-hover:border-primary group-hover:text-primary transition-colors mx-auto md:mx-0 shadow-sm">
+                  <item.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                </div>
+                <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Proven Results */}
+      <section className="py-32 px-6 bg-secondary/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">Proven Results in Production</h2>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(220_100%_20%)] text-white text-sm font-semibold">
+              Real case studies from organizations that have transformed their operations
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Building2,
+                title: "CCID Digital Transformation",
+                desc: "Complete digital transformation from paper-based processes to cloud automation with hybrid teams of 2 people + 7 AI agents running full operations that inform smart city decisions.",
+                industry: "Government & Urban Planning",
+                results: ["Paper → Cloud → Automated", "2 people + 7 agents", "Smart city insights"]
+              },
+              {
+                icon: Leaf,
+                title: "Heineken Sustainability Tracking",
+                desc: "Real-time environmental impact monitoring across global manufacturing operations.",
+                industry: "Manufacturing & Consumer Goods",
+                results: ["Real-time dashboards", "Automated compliance", "Value chain optimized"]
+              },
+              {
+                icon: Building,
+                title: "MRI Property Tech Integration",
+                desc: "Streamlined property management workflows with intelligent automation systems.",
+                industry: "Property Technology",
+                results: ["Reduced manual work", "Faster processing", "Better accuracy"]
+              },
+              {
+                icon: Settings2,
+                title: "DevOps Pipeline Automation",
+                desc: "Intelligent CI/CD pipelines with automated testing and deployment systems.",
+                industry: "Software & Technology",
+                results: ["Zero-downtime deploys", "Automated testing", "Faster releases"]
+              },
+              {
+                icon: Smartphone,
+                title: "Retail Notification System",
+                desc: "Smart customer engagement platform with personalized messaging and timing.",
+                industry: "Retail & E-commerce",
+                results: ["Higher engagement", "Personalized experience", "Automated campaigns"]
+              },
+              {
+                icon: Activity,
+                title: "Healthcare Document Processing",
+                desc: "Automated medical document classification and processing system.",
+                industry: "Healthcare",
+                results: ["95% accuracy", "Instant processing", "Compliance assured"]
+              }
+            ].map((item, i) => (
+              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 flex flex-col">
+                <div className="mb-6">
+                  <item.icon className="h-8 w-8 text-primary mb-4" />
+                  <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.desc}</p>
+                </div>
+
+                <div className="mt-auto space-y-4">
+                  <div>
+                    <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Industry</div>
+                    <div className="text-sm text-muted-foreground">{item.industry}</div>
+                  </div>
+
+                  <div>
+                    <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Results</div>
+                    <ul className="space-y-1">
+                      {item.results.map((result, r) => (
+                        <li key={r} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                          {result}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}
@@ -289,36 +378,146 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* About Chase Continental */}
-      <section className="py-32 px-6 bg-[#0B1120] border-t border-white/5">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-medium mb-8">
-            The Studio Behind The Software
+      {/* Our Values */}
+      <section className="py-32 px-6 bg-secondary/30 border-t border-border">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-primary mb-6">Our Values</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              The principles that guide our work, our partnerships, and the systems we build.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">About Chase Continental</h2>
-          <p className="text-xl text-slate-400 leading-relaxed mb-12">
-            Chase Continental is an AI innovation lab building the infrastructure for autonomous enterprise operations. Our systems combine years of research in reliability engineering with breakthrough capabilities in adaptive intelligence.
-          </p>
-          <p className="text-lg text-slate-500 leading-relaxed">
-            <span className="text-white font-semibold">Chase Agents</span> represents the next evolution in enterprise software—where automation meets autonomy.
-          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                icon: Zap,
+                title: "Innovation",
+                desc: "We constantly push the boundaries of what's possible with AI and automation, turning cutting-edge technology into practical business value."
+              },
+              {
+                icon: ShieldCheck,
+                title: "Integrity",
+                desc: "We build trust through transparency, honesty, and ethical practices. We believe in systems that are auditable, secure, and reliable."
+              },
+              {
+                icon: Users,
+                title: "Collaboration",
+                desc: "We believe in the power of working together. Our agents don't replace humans; they amplify human potential and enable better teamwork."
+              },
+              {
+                icon: Star,
+                title: "Excellence",
+                desc: "We strive for the highest quality in everything we do, from the code we write to the operational outcomes we deliver for our clients."
+              }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300">
+                <div className="p-4 rounded-full bg-primary/5 text-primary shrink-0 ring-1 ring-primary/10">
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-primary mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Team */}
+      <section className="py-32 px-6 bg-background border-t border-border">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-semibold mb-8">
+              Product company. Enterprise focus.
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-8">Leadership Team</h2>
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              Chase Continental builds platform software for organisations that want to scale operations without scaling complexity. We productise repeatable work so teams move faster with more control.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            {/* Charles */}
+            <div className="group relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+              <div className="relative bg-card border border-border rounded-2xl p-8 h-full flex flex-col">
+                <div className="flex items-center gap-6 mb-6">
+                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
+                    <img
+                      src="/static/images/team/charles.png"
+                      alt="Charles K. Chirongoma"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-primary">Charles K. Chirongoma</h3>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">CEO, Implementation & Consulting</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
+                  Economist and management consultant turned CEO. Leads digital transformation initiatives and specializes in identifying optimal AI applications, process mapping, and business intelligence optimization that drives measurable outcomes.
+                </p>
+                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50">
+                  <a href="https://www.linkedin.com/in/charles-k-chirongoma-41327716b/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a href="https://x.com/tue_sday" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Caleb */}
+            <div className="group relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+              <div className="relative bg-card border border-border rounded-2xl p-8 h-full flex flex-col">
+                <div className="flex items-center gap-6 mb-6">
+                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
+                    <img
+                      src="/static/images/team/caleb.jpg"
+                      alt="Caleb Sakala"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-primary">Caleb Sakala</h3>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">CTO, Product & Engineering</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
+                  Full-stack engineer and early AI mover who heads up product and engineering. Led multiple engineering teams, shipped multiple SaaS products, and built platforms competing against Lovable.
+                </p>
+                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50">
+                  <a href="https://www.linkedin.com/in/calebsakala" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a href="https://x.com/bytecaleb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-32 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-emerald-600/10"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120] via-transparent to-[#0B1120]"></div>
+        <div className="absolute inset-0 bg-primary/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
 
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Ready to Automate?</h2>
-          <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-            Stop choosing between rigid software and risky AI. Implement the future of automation today.
+          <h2 className="text-4xl md:text-6xl font-bold text-primary mb-8">Ready to unlock capacity?</h2>
+          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+            See how Chase Agents can standardise core work, speed up delivery, and improve operational control.
           </p>
           <Button
             onClick={scrollToBooking}
             size="lg"
-            className="bg-emerald-500 hover:bg-emerald-400 text-white text-lg px-12 h-16 rounded-full font-bold shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] transition-all hover:scale-105 cursor-pointer"
+            className="text-lg px-12 h-16 rounded-full font-bold border-2 border-black shadow-2xl shadow-primary/30 hover:shadow-primary/40 transition-all cursor-pointer hover:bg-black hover:text-white"
           >
             Book a Demo
           </Button>
@@ -326,60 +525,46 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#050911] text-slate-500 py-16 px-6 border-t border-white/5">
+      <footer className="bg-card text-muted-foreground py-16 px-6 border-t border-border">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-2">
-              <span className="text-2xl font-bold text-white block mb-6">CHASE<span className="text-emerald-500">CONTINENTAL</span></span>
-              <p className="max-w-sm">
-                Building the next generation of enterprise automation. Smart, adaptable, and trustworthy.
+              <div className="flex items-center gap-3 mb-6">
+                <img
+                  src="/static/images/chasecontinental-logo.png"
+                  alt="Chase Continental"
+                  className="h-10 w-auto grayscale hover:grayscale-0 transition-all"
+                />
+                <span className="text-sm font-bold tracking-wide text-primary">CHASE CONTINENTAL</span>
+              </div>
+              <p className="max-w-sm text-sm leading-relaxed">
+                Building platform software that changes the way people work.
               </p>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Terms of Service</a></li>
+              <h4 className="text-primary font-bold mb-6">Legal</h4>
+              <ul className="space-y-3 text-sm">
+                <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">LinkedIn</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Email Us</a></li>
+              <h4 className="text-primary font-bold mb-6">Connect</h4>
+              <ul className="space-y-3 text-sm">
+                <li><a href="https://www.linkedin.com/company/chase-continental" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a></li>
+                <li><a href="mailto:charles@chasecontinental.com" className="hover:text-primary transition-colors">Email Us</a></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-white/5 text-center text-sm">
+          <div className="pt-8 border-t border-border text-center text-sm flex flex-col md:flex-row justify-between items-center gap-4">
             <p>© {new Date().getFullYear()} Chase Continental. All rights reserved.</p>
+            <div className="flex gap-4">
+              {/* Social Icons could go here */}
+            </div>
           </div>
         </div>
       </footer>
     </div>
   );
 };
-
-function FileCode(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-      <polyline points="14 2 14 8 20 8" />
-      <path d="m10 13-2 2 2 2" />
-      <path d="m14 17 2-2-2-2" />
-    </svg>
-  )
-}
 
 export default LandingPage;
