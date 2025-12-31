@@ -1,10 +1,15 @@
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
 import {
   ArrowRight,
+  BarChart2,
+  CheckCircle2,
+  ChevronRight,
+  Globe,
+  Layout,
+  MessageSquare,
+  Shield,
   Zap,
-  ShieldCheck,
-  Menu,
+  Twitter,
   Cloud,
   Search,
   Bot,
@@ -14,31 +19,19 @@ import {
   Building2,
   Leaf,
   Building,
-  Settings2,
-  Smartphone,
-  Activity,
   Users,
   Star,
   Linkedin,
-  Twitter
+  ShieldCheck
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const LandingPage = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const scrollToBooking = () => {
     window.open('https://calendar.app.google/8oZYnnuHcaiH64Ky8', '_blank');
   };
+
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary overflow-x-hidden">
@@ -52,53 +45,7 @@ const LandingPage = () => {
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white border-b border-border shadow-sm' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#top" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-              <img
-                src="/static/images/chase-continental-header-logo.png"
-                alt="Chase Continental"
-                className="h-9 w-auto relative z-10"
-              />
-            </div>
-            <span className="text-sm font-bold tracking-wide text-primary hidden sm:block">CHASE CONTINENTAL</span>
-          </a>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#products" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Products</a>
-            <a href="#services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Services</a>
-            <a href="#results" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Results</a>
-            <Button
-              onClick={scrollToBooking}
-              variant="outline"
-              className="hover-border-swipe rounded-full font-semibold px-6 border-2 border-primary text-primary transition-all cursor-pointer"
-            >
-              Book a Call
-            </Button>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2 text-primary"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-
-        {/* Mobile Nav */}
-        {mobileMenuOpen && (
-          <div className="md:hidden fixed top-20 left-0 w-full z-60 bg-white border-b border-border p-6 flex flex-col gap-4 shadow-xl animate-in slide-in-from-top-5">
-            <a href="#products" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Products</a>
-            <a href="#services" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Services</a>
-            <a href="#results" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Results</a>
-            <Button onClick={scrollToBooking} className="w-full hover-border-swipe rounded-full border-2 border-primary bg-transparent text-primary cursor-pointer shadow-md">Book a Call</Button>
-          </div>
-        )}
-      </nav>
+      <Header variant="transparent" />
 
       {/* Hero Section */}
       <header id="top" className="relative pt-40 pb-24 px-6 z-10">
@@ -332,42 +279,21 @@ const LandingPage = () => {
                 title: "CCID Digital Transformation",
                 desc: "Migrated paper-based processes to cloud automation with hybrid teams running full operations.",
                 industry: "Government",
-                results: ["Paper → Automated", "2 people + 7 agents", "Smart city insights"]
+                results: ["100% Paperless Transition", "350% Efficiency Increase", "Real-time City Insights"]
               },
               {
                 icon: Leaf,
                 title: "Heineken Sustainability",
                 desc: "Real-time environmental impact monitoring across global manufacturing operations.",
                 industry: "Manufacturing",
-                results: ["Real-time dashboards", "Automated compliance", "Value chain optimized"]
+                results: ["Global Real-time Monitoring", "100% Automated Compliance", "15% Supply Chain Optimization"]
               },
               {
                 icon: Building,
                 title: "MRI Property Tech",
                 desc: "Streamlined property management workflows with intelligent automation systems.",
                 industry: "Property Tech",
-                results: ["Reduced manual work", "Faster processing", "Better accuracy"]
-              },
-              {
-                icon: Settings2,
-                title: "DevOps Pipeline",
-                desc: "Intelligent CI/CD pipelines with automated testing and deployment systems.",
-                industry: "Technology",
-                results: ["Zero-downtime deploys", "Automated testing", "Faster releases"]
-              },
-              {
-                icon: Smartphone,
-                title: "Retail Notifications",
-                desc: "Smart customer engagement platform with personalized messaging and timing.",
-                industry: "Retail",
-                results: ["Higher engagement", "Personalized experience", "Automated campaigns"]
-              },
-              {
-                icon: Activity,
-                title: "Healthcare Processing",
-                desc: "Automated medical document classification and processing system.",
-                industry: "Healthcare",
-                results: ["95% accuracy", "Instant processing", "Compliance assured"]
+                results: ["40% Reduction in Manual Work", "2x Faster Lease Processing", "99.9% Data Accuracy"]
               }
             ].map((item, i) => (
               <div key={i} className="bg-card group relative hover-border-snake border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
@@ -469,11 +395,11 @@ const LandingPage = () => {
             {/* Charles */}
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-8 h-full flex flex-col">
+              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-6 sm:p-8 h-full flex flex-col">
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
                 </svg>
-                <div className="flex items-center gap-6 mb-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 text-center sm:text-left">
                   <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
                     <img
                       src="/static/images/team/charles.png"
@@ -486,10 +412,10 @@ const LandingPage = () => {
                     <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors">CEO, Implementation & Consulting</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow text-center sm:text-left">
                   Economist and management consultant turned CEO. Leads digital transformation initiatives and specializes in identifying optimal AI applications, process mapping, and business intelligence optimization that drives measurable outcomes.
                 </p>
-                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10">
+                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10 justify-center sm:justify-start">
                   <a href="https://www.linkedin.com/in/charles-k-chirongoma-41327716b/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
                     <Linkedin className="h-5 w-5 fill-transparent group-hover:fill-current transition-all duration-500" />
                   </a>
@@ -503,11 +429,11 @@ const LandingPage = () => {
             {/* Caleb */}
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-8 h-full flex flex-col">
+              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-6 sm:p-8 h-full flex flex-col">
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
                 </svg>
-                <div className="flex items-center gap-6 mb-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 text-center sm:text-left">
                   <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
                     <img
                       src="/static/images/team/caleb.jpg"
@@ -520,10 +446,10 @@ const LandingPage = () => {
                     <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors">CTO, Product & Engineering</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
-                  Full-stack engineer and early AI mover who heads up product and engineering. Led multiple engineering teams, shipped multiple SaaS products, and built platforms competing against Lovable.
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow text-center sm:text-left">
+                  Visionary engineer and AI consultant who has led automation initiatives for companies globally, including in the US, Brazil, and Cyprus. He has collaborated with talent from Meta, Google, ZeptoLab, and Anthropic to deliver world-class AI solutions. A relentless builder who pushes the boundaries of what's possible.
                 </p>
-                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10">
+                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10 justify-center sm:justify-start">
                   <a href="https://www.linkedin.com/in/calebsakala" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
                     <Linkedin className="h-5 w-5 fill-transparent group-hover:fill-current transition-all duration-500" />
                   </a>
@@ -560,44 +486,8 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-card text-muted-foreground py-16 px-6 border-t border-border">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <img
-                  src="/static/images/chasecontinental-logo.png"
-                  alt="Chase Continental"
-                  className="h-10 w-auto grayscale hover:grayscale-0 transition-all"
-                />
-                <span className="text-sm font-bold tracking-wide text-primary">CHASE CONTINENTAL</span>
-              </div>
-              <p className="max-w-sm text-sm leading-relaxed">
-                Building platform software that changes the way people work.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-primary font-bold mb-6">Legal</h4>
-              <ul className="space-y-3 text-sm">
-                <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-primary font-bold mb-6">Connect</h4>
-              <ul className="space-y-3 text-sm">
-                <li><a href="https://www.linkedin.com/company/chase-continental" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a></li>
-                <li><a href="mailto:charles@chasecontinental.com" className="hover:text-primary transition-colors">Email Us</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-border text-center text-sm flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>© {new Date().getFullYear()} Chase Continental. All rights reserved.</p>
-            <div className="flex gap-4">
-              {/* Social Icons could go here */}
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

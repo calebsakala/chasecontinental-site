@@ -1,34 +1,11 @@
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const PrivacyPolicy = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
-      {/* Header */}
-      <nav className="fixed top-0 w-full z-50 bg-white border-b border-border shadow-sm">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-3 group">
-            <img
-              src="/static/images/chase-continental-header-logo.png"
-              alt="Chase Continental"
-              className="h-9 w-auto"
-            />
-            <span className="text-sm font-bold tracking-wide text-primary hidden sm:block">CHASE CONTINENTAL</span>
-          </a>
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => navigate('/')}
-            className="gap-2 cursor-pointer rounded-full"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Button>
-        </div>
-      </nav>
+      {/* Navigation */}
+      <Header />
 
       {/* Content */}
       <main className="pt-32 pb-24 px-6">
@@ -193,12 +170,9 @@ const PrivacyPolicy = () => {
         </div>
       </main>
 
+
       {/* Footer */}
-      <footer className="bg-card text-muted-foreground py-8 px-6 border-t border-border">
-        <div className="container mx-auto text-center text-sm">
-          <p>© {new Date().getFullYear()} Chase Continental. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
