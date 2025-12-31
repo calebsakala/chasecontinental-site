@@ -15,7 +15,6 @@ import {
   Settings,
   BarChart3,
   Rocket,
-  TrendingUp,
   Building2,
   Leaf,
   Building,
@@ -309,84 +308,86 @@ const LandingPage = () => {
       </section>
 
       {/* Proven Results */}
-      <section className="py-32 px-6 bg-secondary/30">
+      <section className="py-24 px-6 bg-secondary/30">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">Proven Results in Production</h2>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(220_100%_20%)] text-white text-sm font-semibold">
-              Real case studies from organizations that have transformed their operations
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">Proven Results in Production</h2>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold border border-primary/20">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              Real case studies from live operations
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: Building2,
                 title: "CCID Digital Transformation",
-                desc: "Complete digital transformation from paper-based processes to cloud automation with hybrid teams of 2 people + 7 AI agents running full operations that inform smart city decisions.",
-                industry: "Government & Urban Planning",
-                results: ["Paper → Cloud → Automated", "2 people + 7 agents", "Smart city insights"]
+                desc: "Migrated paper-based processes to cloud automation with hybrid teams running full operations.",
+                industry: "Government",
+                results: ["Paper → Automated", "2 people + 7 agents", "Smart city insights"]
               },
               {
                 icon: Leaf,
-                title: "Heineken Sustainability Tracking",
+                title: "Heineken Sustainability",
                 desc: "Real-time environmental impact monitoring across global manufacturing operations.",
-                industry: "Manufacturing & Consumer Goods",
+                industry: "Manufacturing",
                 results: ["Real-time dashboards", "Automated compliance", "Value chain optimized"]
               },
               {
                 icon: Building,
-                title: "MRI Property Tech Integration",
+                title: "MRI Property Tech",
                 desc: "Streamlined property management workflows with intelligent automation systems.",
-                industry: "Property Technology",
+                industry: "Property Tech",
                 results: ["Reduced manual work", "Faster processing", "Better accuracy"]
               },
               {
                 icon: Settings2,
-                title: "DevOps Pipeline Automation",
+                title: "DevOps Pipeline",
                 desc: "Intelligent CI/CD pipelines with automated testing and deployment systems.",
-                industry: "Software & Technology",
+                industry: "Technology",
                 results: ["Zero-downtime deploys", "Automated testing", "Faster releases"]
               },
               {
                 icon: Smartphone,
-                title: "Retail Notification System",
+                title: "Retail Notifications",
                 desc: "Smart customer engagement platform with personalized messaging and timing.",
-                industry: "Retail & E-commerce",
+                industry: "Retail",
                 results: ["Higher engagement", "Personalized experience", "Automated campaigns"]
               },
               {
                 icon: Activity,
-                title: "Healthcare Document Processing",
+                title: "Healthcare Processing",
                 desc: "Automated medical document classification and processing system.",
                 industry: "Healthcare",
                 results: ["95% accuracy", "Instant processing", "Compliance assured"]
               }
             ].map((item, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                <div className="mb-6">
-                  <item.icon className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
+              <div key={i} className="bg-card border border-border rounded-xl p-6 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                <div className="mb-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 rounded-lg bg-primary/5 text-primary">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div className="text-xs font-bold text-primary/70 uppercase tracking-wider">{item.industry}</div>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2 leading-tight">{item.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.desc}</p>
                 </div>
 
-                <div className="mt-auto space-y-4">
-                  <div>
-                    <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Industry</div>
-                    <div className="text-sm text-muted-foreground">{item.industry}</div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Results</div>
-                    <ul className="space-y-1">
-                      {item.results.map((result, r) => (
-                        <li key={r} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                          {result}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="mt-auto pt-4 border-t border-border/50">
+                  <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Results</div>
+                  <ul className="space-y-1.5">
+                    {item.results.map((result, r) => (
+                      <li key={r} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0" />
+                        <span className="text-[13px]">{result}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
@@ -533,9 +534,10 @@ const LandingPage = () => {
           <Button
             onClick={scrollToBooking}
             size="lg"
-            className="text-lg px-12 h-16 rounded-full font-bold bg-primary text-primary-foreground border-2 border-transparent shadow-2xl shadow-primary/30 hover:shadow-primary/40 transition-all cursor-pointer hover:-translate-y-1"
+            className="text-lg px-12 h-16 rounded-full font-bold bg-primary text-primary-foreground border-2 border-transparent shadow-2xl shadow-primary/30 hover:shadow-primary/40 transition-all cursor-pointer hover:-translate-y-1 group"
           >
             Book a Demo
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </section>
