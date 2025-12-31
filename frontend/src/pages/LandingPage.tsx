@@ -1,13 +1,7 @@
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight,
-  BarChart2,
   CheckCircle2,
-  ChevronRight,
-  Globe,
-  Layout,
-  MessageSquare,
-  Shield,
   Zap,
   Twitter,
   Cloud,
@@ -24,14 +18,16 @@ import {
   Linkedin,
   ShieldCheck
 } from 'lucide-react';
+import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 const LandingPage = () => {
+  const [hoveredResult, setHoveredResult] = useState<number | null>(null);
+
   const scrollToBooking = () => {
     window.open('https://calendar.app.google/8oZYnnuHcaiH64Ky8', '_blank');
   };
-
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/15 selection:text-primary overflow-x-hidden">
@@ -54,7 +50,7 @@ const LandingPage = () => {
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-bold tracking-wide mb-8 hover:bg-primary/10 transition-colors cursor-default">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                ENTERPRISE AI STUDIO
+                WE ARE AN AFRICAN ENTERPRISE AI STUDIO
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary mb-6 leading-tight">
@@ -295,35 +291,66 @@ const LandingPage = () => {
                 industry: "Property Tech",
                 results: ["40% Reduction in Manual Work", "2x Faster Lease Processing", "99.9% Data Accuracy"]
               }
-            ].map((item, i) => (
-              <div key={i} className="bg-card group relative hover-border-snake border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
-                <svg className="snake-svg">
-                  <rect pathLength="100" className="snake-svg-rect snake-variant-thin-xl" />
-                </svg>
-                <div className="mb-4 relative z-10">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="p-2 rounded-lg bg-primary/5 text-primary">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <div className="text-xs font-bold text-primary/70 uppercase tracking-wider">{item.industry}</div>
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2 leading-tight">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.desc}</p>
-                </div>
+            ].map((item, i) => {
+              const isOtherActive = hoveredResult !== null && hoveredResult !== i;
 
-                <div className="mt-auto pt-4 border-t border-border/50 relative z-10">
-                  <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Results</div>
-                  <ul className="space-y-1.5">
-                    {item.results.map((result, r) => (
-                      <li key={r} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0" />
-                        <span className="text-[13px]">{result}</span>
-                      </li>
-                    ))}
-                  </ul>
+              return (
+                <div
+                  key={i}
+                  className={`bg-card group relative hover-border-snake border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-500 flex flex-col h-full overflow-hidden ${isOtherActive ? 'border-primary/5' : ''}`}
+                  onMouseEnter={() => setHoveredResult(i)}
+                  onMouseLeave={() => setHoveredResult(null)}
+                >
+                  <svg className="snake-svg">
+                    <rect pathLength="100" className="snake-svg-rect snake-variant-thin-xl" />
+                  </svg>
+
+                  {/* Normal Content - Fades out but keeps space */}
+                  <div className={`flex flex-col h-full transition-opacity duration-500 ${isOtherActive ? 'opacity-0' : 'opacity-100'}`}>
+                    <div className="mb-4 relative z-10">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 rounded-lg bg-primary/5 text-primary">
+                          <item.icon className="h-5 w-5" />
+                        </div>
+                        <div className="text-xs font-bold text-primary/70 uppercase tracking-wider">{item.industry}</div>
+                      </div>
+                      <h3 className="text-lg font-bold text-foreground mb-2 leading-tight">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.desc}</p>
+                    </div>
+
+                    <div className="mt-auto pt-4 border-t border-border/50 relative z-10">
+                      <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Results</div>
+                      <ul className="space-y-1.5">
+                        {item.results.map((result, r) => (
+                          <li key={r} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0" />
+                            <span className="text-[13px]">{result}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Overlay Content - Fades in absolute on top */}
+                  <div
+                    className={`absolute inset-0 z-20 flex flex-col justify-center items-center p-6 text-center bg-card transition-all duration-500 ${isOtherActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
+                  >
+                    <div className="p-3 rounded-full bg-primary/10 text-primary mb-6 ring-1 ring-primary/20">
+                      <item.icon className="h-8 w-8" />
+                    </div>
+                    <div className="text-sm font-bold text-primary uppercase tracking-wider mb-6">Key Results</div>
+                    <ul className="space-y-4 w-full">
+                      {item.results.map((result, r) => (
+                        <li key={r} className="flex items-center justify-center gap-3 text-foreground font-medium">
+                          <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                          <span>{result}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section >
@@ -408,12 +435,12 @@ const LandingPage = () => {
                     />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-primary">Charles K. Chirongoma</h3>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors">CEO, Implementation & Consulting</p>
+                    <h3 className="text-2xl font-bold text-primary min-h-[4rem] flex items-center sm:items-start justify-center sm:justify-start">Charles K. Chirongoma</h3>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors min-h-[2.5rem]">CEO, Implementation & Consulting</p>
                   </div>
                 </div>
                 <p className="text-muted-foreground leading-relaxed mb-6 flex-grow text-center sm:text-left">
-                  Economist and management consultant turned CEO. Leads digital transformation initiatives and specializes in identifying optimal AI applications, process mapping, and business intelligence optimization that drives measurable outcomes.
+                  Economist turned CEO leading high-stakes digital transformation. He specializes in strategic process mapping and AI implementation to drive measurable operational excellence.
                 </p>
                 <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10 justify-center sm:justify-start">
                   <a href="https://www.linkedin.com/in/charles-k-chirongoma-41327716b/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
@@ -442,12 +469,12 @@ const LandingPage = () => {
                     />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-primary">Caleb Sakala</h3>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors">CTO, Product & Engineering</p>
+                    <h3 className="text-2xl font-bold text-primary min-h-[4rem] flex items-center sm:items-start justify-center sm:justify-start">Caleb Sakala</h3>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors min-h-[2.5rem]">CTO, Product & Engineering</p>
                   </div>
                 </div>
                 <p className="text-muted-foreground leading-relaxed mb-6 flex-grow text-center sm:text-left">
-                  Visionary engineer and AI consultant who has led automation initiatives for companies globally, including in the US, Brazil, and Cyprus. He has collaborated with talent from Meta, Google, ZeptoLab, and Anthropic to deliver world-class AI solutions. A relentless builder who pushes the boundaries of what's possible.
+                  Visionary AI Product Engineer who led global AI & software initiatives across the US, Brazil, and Cyprus before his 21st birthday. He has collaborated with elite talent from Meta, Google, and Anthropic to deliver world-class AI solutions.
                 </p>
                 <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10 justify-center sm:justify-start">
                   <a href="https://www.linkedin.com/in/calebsakala" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
