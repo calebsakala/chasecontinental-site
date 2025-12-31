@@ -66,8 +66,10 @@
 @layer base {
   :root {
     /* Base Colors - Enterprise Navy & Slate */
-    --background: 210 20% 98%; /* Slightly off-white for depth */
-    --foreground: 222 47% 11%; /* Deep Navy mostly black */
+    --background: 210 20% 98%;
+    /* Slightly off-white for depth */
+    --foreground: 222 47% 11%;
+    /* Deep Navy mostly black */
 
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -76,11 +78,11 @@
     --popover-foreground: 222 47% 11%;
 
     /* Brand Navy */
-    --primary: 222 47% 11%; 
+    --primary: 222 47% 11%;
     --primary-foreground: 210 40% 98%;
 
     /* Light Blue/Grey secondary */
-    --secondary: 210 29% 94%; 
+    --secondary: 210 29% 94%;
     --secondary-foreground: 222 47% 11%;
 
     --muted: 210 29% 94%;
@@ -137,7 +139,8 @@
 
   body {
     @apply bg-background text-foreground antialiased font-sans;
-    font-feature-settings: "rlig" 1, "calt" 1, "cv11" 1; /* cv11 for Inter usually sweet */
+    font-feature-settings: "rlig" 1, "calt" 1, "cv11" 1;
+    /* cv11 for Inter usually sweet */
   }
 
   h1,
@@ -171,5 +174,83 @@
 
   small {
     @apply text-xs tracking-wide;
+  }
+}
+
+@layer utilities {
+
+  /* Button Swipe Animation */
+  .hover-border-swipe {
+    @apply relative overflow-hidden transition-colors duration-300;
+    background-color: transparent !important;
+  }
+
+  .hover-border-swipe::before {
+    content: "";
+    @apply absolute inset-0 w-0 h-full transition-all duration-300 ease-out;
+    background-color: hsl(var(--primary));
+    z-index: -1;
+  }
+
+  .hover-border-swipe:hover::before {
+    @apply w-full;
+  }
+
+  .hover-border-swipe:hover {
+    @apply text-primary-foreground border-primary;
+  }
+
+  /* Image Snake Border Animation */
+  .hover-border-snake {
+    @apply relative overflow-hidden;
+  }
+
+  .hover-border-snake span {
+    @apply absolute transition-all duration-300 ease-linear opacity-0 z-20;
+    background-color: hsl(var(--primary));
+  }
+
+  .hover-border-snake:hover span {
+    @apply opacity-100;
+  }
+
+  /* Top */
+  .hover-border-snake span:nth-child(1) {
+    @apply top-0 left-0 w-0 h-[2px];
+    transition-delay: 0s;
+  }
+
+  .hover-border-snake:hover span:nth-child(1) {
+    @apply w-full;
+  }
+
+  /* Right */
+  .hover-border-snake span:nth-child(2) {
+    @apply top-0 right-0 w-[2px] h-0;
+    transition-delay: 0.15s;
+  }
+
+  .hover-border-snake:hover span:nth-child(2) {
+    @apply h-full;
+  }
+
+  /* Bottom */
+  .hover-border-snake span:nth-child(3) {
+    @apply bottom-0 right-0 w-0 h-[2px];
+    transition-delay: 0.3s;
+  }
+
+  .hover-border-snake:hover span:nth-child(3) {
+    @apply w-full;
+  }
+
+  /* Left */
+  .hover-border-snake span:nth-child(4) {
+    @apply bottom-0 left-0 w-[2px] h-0;
+    transition-delay: 0.45s;
+  }
+
+  .hover-border-snake:hover span:nth-child(4) {
+    @apply h-full;
   }
 }

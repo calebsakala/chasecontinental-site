@@ -2,12 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  Brain,
   Zap,
   ShieldCheck,
-  Terminal,
-  Layers,
-  FileCode2,
   Menu,
   Cloud,
   Search,
@@ -72,12 +68,13 @@ const LandingPage = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#platform" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Platform</a>
-            <a href="#fractal-flow" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Principles</a>
-            <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">How It Works</a>
+            <a href="#products" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Products</a>
+            <a href="#services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Services</a>
+            <a href="#results" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Results</a>
             <Button
               onClick={scrollToBooking}
-              className="rounded-full font-semibold px-6 border-2 border-transparent bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:-translate-y-0.5"
+              variant="outline"
+              className="hover-border-swipe rounded-full font-semibold px-6 border-2 border-primary text-primary transition-all cursor-pointer"
             >
               Book a Demo
             </Button>
@@ -95,9 +92,9 @@ const LandingPage = () => {
         {/* Mobile Nav */}
         {mobileMenuOpen && (
           <div className="md:hidden fixed top-20 left-0 w-full z-60 bg-white border-b border-border p-6 flex flex-col gap-4 shadow-xl animate-in slide-in-from-top-5">
-            <a href="#platform" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Platform</a>
-            <a href="#fractal-flow" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Principles</a>
-            <a href="#how-it-works" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
+            <a href="#products" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Products</a>
+            <a href="#services" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Services</a>
+            <a href="#results" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Results</a>
             <Button onClick={scrollToBooking} className="w-full rounded-full border-2 border-transparent bg-primary text-primary-foreground cursor-pointer shadow-md">Book a Demo</Button>
           </div>
         )}
@@ -121,9 +118,7 @@ const LandingPage = () => {
                 Unlocking hidden capacity. Building tomorrow's organisations today with a product-first platform designed for real operations.
               </p>
 
-              <p className="text-base text-foreground/80 leading-relaxed mb-10 max-w-xl border-l-2 border-primary/20 pl-4">
-                <span className="font-bold text-primary">Chase Agents</span> is our flagship product for intelligent automation. Built on <span className="font-bold text-primary">Fractal Flow</span>, our operating principle that turns repeatable work into composable, scalable flows.
-              </p>
+
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Button
@@ -133,13 +128,6 @@ const LandingPage = () => {
                 >
                   Book a Demo
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button
-                  size="sm"
-                  asChild
-                  className="text-sm px-4 h-10 rounded-full bg-white border border-border text-foreground hover:bg-secondary/50 transition-all shadow-sm"
-                >
-                  <a href="#fractal-flow">Learn More</a>
                 </Button>
               </div>
 
@@ -203,6 +191,88 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Our Products */}
+      <section id="products" className="py-32 px-6 bg-secondary/30 border-y border-border/50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">Our Products</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Powerful, product-first platforms designed to automate specific domains of your business with precision and scale.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-24">
+            {/* Chase Agents */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="order-2 lg:order-1 relative group hover-border-snake rounded-2xl">
+                <span></span><span></span><span></span><span></span>
+                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 bg-black/5">
+                  <img
+                    src="/static/images/product-chase-agents.png"
+                    alt="Chase Agents Dashboard"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+              <div className="order-1 lg:order-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                  Flagship Platform
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-primary mb-6">Chase Agents</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  The Enterprise Standard for Agentic AI. Combine the creativity of LLMs with the precision of verified code. Deploy autonomous agents that execute complex enterprise workflows with zero hallucinations and full observability.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    size="lg"
+                    className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                    asChild
+                  >
+                    <a href="https://chaseagents.com" target="_blank" rel="noopener noreferrer">
+                      Deploy Agents <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Keyword Autopilot */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="lg:pr-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 text-violet-600 text-xs font-bold uppercase tracking-wider mb-6">
+                  SEO Automation
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-primary mb-6">Keyword Autopilot</h3>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  Dominate search results with automated keyword strategies that outperform competitors. Our agents analyze search intent, cluster keywords, and generate optimzed content strategies on autopilot.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    size="lg"
+                    className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                    asChild
+                  >
+                    <a href="https://keywordautopilot.com" target="_blank" rel="noopener noreferrer">
+                      Start Ranking <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+              <div className="relative group hover-border-snake rounded-2xl">
+                <span></span><span></span><span></span><span></span>
+                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-violet-500/20 transition-all duration-500 bg-black/5">
+                  <img
+                    src="/static/images/product-keyword-autopilot.png"
+                    alt="Keyword Autopilot Interface"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* What We Offer */}
       <section id="services" className="py-32 px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
@@ -232,83 +302,10 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* Fractal Flow */}
-      <section id="fractal-flow" className="py-32 px-6 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">Fractal Flow</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Our core operating principle: repeatable building blocks that scale from a single team to an entire enterprise. Powers Chase Agents and all our automation systems.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Layers,
-                title: 'Composable blocks',
-                desc: 'Design work as small, reusable units that can be assembled into larger flows without rewriting everything.'
-              },
-              {
-                icon: Zap,
-                title: 'Hidden capacity',
-                desc: 'Reduce handoffs, rework, and waiting freeing teams to focus on high-leverage outcomes.'
-              },
-              {
-                icon: ShieldCheck,
-                title: 'Enterprise control',
-                desc: 'Run work with governance: traceability, oversight, and a clear operational record.'
-              }
-            ].map((item, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                  <item.icon className="h-7 w-7" />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it Works */}
-      <section id="how-it-works" className="py-32 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-24">
-            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">How Chase Agents Works</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Built on the Fractal Flow principle, Chase Agents turns scattered knowledge into a shared operating system so teams can run the same work the same way, and improve it over time.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-10 relative">
-            {/* Connecting Line */}
-            <div className="hidden md:block absolute top-[3.5rem] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-border to-transparent z-0"></div>
-
-            {[
-              { icon: Brain, title: "1. Map the work", desc: "Capture intent, constraints, and context so the organisation shares one understanding of what “done” means." },
-              { icon: FileCode2, title: "2. Compose flows", desc: "Build repeatable flows from small components so improvements propagate everywhere the work appears." },
-              { icon: Terminal, title: "3. Run with governance", desc: "Operate with oversight and a clear record: what was decided, what changed, and why." }
-            ].map((item, i) => (
-              <div key={i} className="relative z-10 bg-card border border-border p-8 rounded-2xl hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all group">
-                <div className="w-14 h-14 bg-background border-2 border-border rounded-xl flex items-center justify-center mb-6 group-hover:border-primary group-hover:text-primary transition-colors mx-auto md:mx-0 shadow-sm">
-                  <item.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </section >
 
       {/* Proven Results */}
-      <section className="py-24 px-6 bg-secondary/30">
+      <section id="results" className="py-24 px-6 bg-secondary/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">Proven Results in Production</h2>
@@ -393,10 +390,10 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Our Values */}
-      <section className="py-32 px-6 bg-secondary/30 border-t border-border">
+      < section className="py-32 px-6 bg-secondary/30 border-t border-border" >
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-primary mb-6">Our Values</h2>
@@ -440,10 +437,10 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Leadership Team */}
-      <section className="py-32 px-6 bg-background border-t border-border">
+      < section className="py-32 px-6 bg-background border-t border-border" >
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-semibold mb-8">
@@ -519,7 +516,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* CTA Section */}
       <section className="py-32 px-6 relative overflow-hidden">
@@ -534,7 +531,8 @@ const LandingPage = () => {
           <Button
             onClick={scrollToBooking}
             size="lg"
-            className="text-lg px-12 h-16 rounded-full font-bold bg-primary text-primary-foreground border-2 border-transparent shadow-2xl shadow-primary/30 hover:shadow-primary/40 transition-all cursor-pointer hover:-translate-y-1 group"
+            variant="outline"
+            className="hover-border-swipe text-lg px-12 h-16 rounded-full font-bold border-2 border-primary text-primary transition-all cursor-pointer group shadow-lg shadow-primary/10"
           >
             Book a Demo
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
