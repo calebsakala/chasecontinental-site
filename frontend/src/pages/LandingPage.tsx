@@ -498,7 +498,7 @@ const LandingPage = () => {
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold text-primary mb-8">Ready to unlock capacity?</h2>
           <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-            See how Chase Agents can standardise core work, speed up delivery, and improve operational control.
+            See how Chase Continental can standardise core work, speed up delivery, and improve operational control.
           </p>
           <Button
             onClick={scrollToBooking}
