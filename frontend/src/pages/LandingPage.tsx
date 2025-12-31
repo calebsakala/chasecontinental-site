@@ -76,7 +76,7 @@ const LandingPage = () => {
               variant="outline"
               className="hover-border-swipe rounded-full font-semibold px-6 border-2 border-primary text-primary transition-all cursor-pointer"
             >
-              Book a Demo
+              Book a Call
             </Button>
           </div>
 
@@ -95,7 +95,7 @@ const LandingPage = () => {
             <a href="#products" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Products</a>
             <a href="#services" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Services</a>
             <a href="#results" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Results</a>
-            <Button onClick={scrollToBooking} className="w-full hover-border-swipe rounded-full border-2 border-primary bg-transparent text-primary cursor-pointer shadow-md">Book a Demo</Button>
+            <Button onClick={scrollToBooking} className="w-full hover-border-swipe rounded-full border-2 border-primary bg-transparent text-primary cursor-pointer shadow-md">Book a Call</Button>
           </div>
         )}
       </nav>
@@ -115,7 +115,7 @@ const LandingPage = () => {
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                Unlocking hidden capacity. Building tomorrow's organisations today with a product-first platform designed for real operations.
+                Unlocking hidden capacity. Building tomorrow's organisations today with product-first platforms designed for real operations.
               </p>
 
 
@@ -126,7 +126,7 @@ const LandingPage = () => {
                   size="lg"
                   className="hover-border-swipe text-lg px-8 h-14 rounded-full font-semibold bg-transparent text-primary border-2 border-primary shadow-lg shadow-primary/20 transition-all cursor-pointer hover:-translate-y-0.5"
                 >
-                  Book a Demo
+                  Book a Free Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -205,7 +205,9 @@ const LandingPage = () => {
             {/* Chase Agents */}
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1 relative group hover-border-snake rounded-2xl">
-                <span></span><span></span><span></span><span></span>
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thick" />
+                </svg>
                 <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 bg-black/5">
                   <img
                     src="/static/images/product-chase-agents.png"
@@ -259,7 +261,9 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className="relative group hover-border-snake rounded-2xl">
-                <span></span><span></span><span></span><span></span>
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thick" />
+                </svg>
                 <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-violet-500/20 transition-all duration-500 bg-black/5">
                   <img
                     src="/static/images/product-keyword-autopilot.png"
@@ -292,12 +296,15 @@ const LandingPage = () => {
               { icon: BarChart3, title: "Performance Monitoring", desc: "Comprehensive monitoring and analytics to track performance, identify issues, and optimize results continuously." },
               { icon: Rocket, title: "Deployment & Support", desc: "End-to-end deployment with ongoing support and maintenance to ensure your systems run smoothly in production." }
             ].map((item, i) => (
-              <div key={i} className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+              <div key={i} className="group relative hover-border-snake p-8 rounded-2xl bg-card border border-border hover:shadow-lg transition-all duration-300">
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
+                </svg>
+                <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 relative z-10">
                   <item.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-[15px]">{item.desc}</p>
+                <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors relative z-10">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-[15px] relative z-10">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -363,8 +370,11 @@ const LandingPage = () => {
                 results: ["95% accuracy", "Instant processing", "Compliance assured"]
               }
             ].map((item, i) => (
-              <div key={i} className="bg-card border border-border rounded-xl p-6 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                <div className="mb-4">
+              <div key={i} className="bg-card group relative hover-border-snake border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thin-xl" />
+                </svg>
+                <div className="mb-4 relative z-10">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="p-2 rounded-lg bg-primary/5 text-primary">
                       <item.icon className="h-5 w-5" />
@@ -375,7 +385,7 @@ const LandingPage = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.desc}</p>
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-border/50">
+                <div className="mt-auto pt-4 border-t border-border/50 relative z-10">
                   <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Results</div>
                   <ul className="space-y-1.5">
                     {item.results.map((result, r) => (
@@ -425,11 +435,14 @@ const LandingPage = () => {
                 desc: "We strive for the highest quality in everything we do, from the code we write to the operational outcomes we deliver for our clients."
               }
             ].map((item, i) => (
-              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
-                <div className="p-4 rounded-full bg-primary/5 text-primary shrink-0 ring-1 ring-primary/10">
+              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl bg-card border border-border relative group hover-border-snake hover:shadow-lg transition-all duration-300">
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
+                </svg>
+                <div className="p-4 rounded-full bg-primary/5 text-primary shrink-0 ring-1 ring-primary/10 relative z-10">
                   <item.icon className="h-6 w-6" />
                 </div>
-                <div>
+                <div className="relative z-10">
                   <h3 className="text-xl font-bold text-primary mb-2">{item.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                 </div>
@@ -456,7 +469,10 @@ const LandingPage = () => {
             {/* Charles */}
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-card border border-border rounded-2xl p-8 h-full flex flex-col">
+              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-8 h-full flex flex-col">
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
+                </svg>
                 <div className="flex items-center gap-6 mb-6">
                   <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
                     <img
@@ -467,18 +483,18 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-primary">Charles K. Chirongoma</h3>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">CEO, Implementation & Consulting</p>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors">CEO, Implementation & Consulting</p>
                   </div>
                 </div>
                 <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
                   Economist and management consultant turned CEO. Leads digital transformation initiatives and specializes in identifying optimal AI applications, process mapping, and business intelligence optimization that drives measurable outcomes.
                 </p>
-                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50">
-                  <a href="https://www.linkedin.com/in/charles-k-chirongoma-41327716b/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Linkedin className="h-5 w-5" />
+                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10">
+                  <a href="https://www.linkedin.com/in/charles-k-chirongoma-41327716b/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
+                    <Linkedin className="h-5 w-5 fill-transparent group-hover:fill-current transition-all duration-500" />
                   </a>
-                  <a href="https://x.com/tue_sday" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Twitter className="h-5 w-5" />
+                  <a href="https://x.com/tue_sday" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
+                    <Twitter className="h-5 w-5 fill-transparent group-hover:fill-current transition-all duration-500" />
                   </a>
                 </div>
               </div>
@@ -487,7 +503,10 @@ const LandingPage = () => {
             {/* Caleb */}
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-card border border-border rounded-2xl p-8 h-full flex flex-col">
+              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-8 h-full flex flex-col">
+                <svg className="snake-svg">
+                  <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
+                </svg>
                 <div className="flex items-center gap-6 mb-6">
                   <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
                     <img
@@ -498,18 +517,18 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-primary">Caleb Sakala</h3>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">CTO, Product & Engineering</p>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide group-hover:text-[#D4AF37] transition-colors">CTO, Product & Engineering</p>
                   </div>
                 </div>
                 <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
                   Full-stack engineer and early AI mover who heads up product and engineering. Led multiple engineering teams, shipped multiple SaaS products, and built platforms competing against Lovable.
                 </p>
-                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50">
-                  <a href="https://www.linkedin.com/in/calebsakala" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Linkedin className="h-5 w-5" />
+                <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10">
+                  <a href="https://www.linkedin.com/in/calebsakala" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
+                    <Linkedin className="h-5 w-5 fill-transparent group-hover:fill-current transition-all duration-500" />
                   </a>
-                  <a href="https://x.com/bytecaleb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Twitter className="h-5 w-5" />
+                  <a href="https://x.com/bytecaleb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
+                    <Twitter className="h-5 w-5 fill-transparent group-hover:fill-current transition-all duration-500" />
                   </a>
                 </div>
               </div>
@@ -534,7 +553,7 @@ const LandingPage = () => {
             variant="outline"
             className="hover-border-swipe text-lg px-12 h-16 rounded-full font-bold border-2 border-primary text-primary transition-all cursor-pointer group shadow-lg shadow-primary/10"
           >
-            Book a Demo
+            Book a Free Consultation
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>

@@ -202,57 +202,50 @@
     color: hsl(var(--primary));
   }
 
-  /* Image Snake Border Animation */
+  /* Image Snake Border Animation - SVG Version */
   .hover-border-snake {
     @apply relative overflow-hidden;
   }
 
-  .hover-border-snake span {
-    @apply absolute transition-all duration-300 ease-linear opacity-0 z-20;
-    background-color: #D4AF37;
+  .snake-svg {
+    @apply absolute inset-0 w-full h-full pointer-events-none z-20;
   }
 
-  .hover-border-snake:hover span {
-    opacity: 1;
-  }
-
-  /* Top */
-  .hover-border-snake span:nth-child(1) {
-    @apply top-0 left-0 w-0 h-[4px];
-    transition-delay: 0s;
-  }
-
-  .hover-border-snake:hover span:nth-child(1) {
+  .snake-svg-rect {
+    fill: transparent;
+    stroke: #D4AF37;
     width: 100%;
-  }
-
-  /* Right */
-  .hover-border-snake span:nth-child(2) {
-    @apply top-0 right-0 w-[4px] h-0;
-    transition-delay: 0.15s;
-  }
-
-  .hover-border-snake:hover span:nth-child(2) {
     height: 100%;
+    stroke-dasharray: 100 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 0.6s ease-out;
+    vector-effect: non-scaling-stroke;
   }
 
-  /* Bottom */
-  .hover-border-snake span:nth-child(3) {
-    @apply bottom-0 right-0 w-0 h-[4px];
-    transition-delay: 0.3s;
+  /* Variant: Thick Product (24px radius, 6px stroke) */
+  .snake-variant-thick {
+    stroke-width: 6px;
+    rx: 24px;
   }
 
-  .hover-border-snake:hover span:nth-child(3) {
-    width: 100%;
+  /* Variant: Thin Card 2XL (16px radius, 2px stroke) */
+  .snake-variant-thin-2xl {
+    stroke-width: 2px;
+    rx: 16px;
   }
 
-  /* Left */
-  .hover-border-snake span:nth-child(4) {
-    @apply bottom-0 left-0 w-[4px] h-0;
-    transition-delay: 0.45s;
+  /* Variant: Thin Card XL (12px radius, 2px stroke) */
+  .snake-variant-thin-xl {
+    stroke-width: 2px;
+    rx: 12px;
   }
 
-  .hover-border-snake:hover span:nth-child(4) {
-    height: 100%;
+  /* We might need to adjust rx if standard rounded-2xl is different. 
+     Tailwind v4 theme says --radius-2xl: 24px. So let's use 24px. 
+     Wait, I saw 24px in the file view. */
+
+
+  .hover-border-snake:hover .snake-svg-rect {
+    stroke-dashoffset: 0;
   }
 }

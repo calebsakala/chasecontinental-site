@@ -19,10 +19,10 @@ const PrivacyPolicy = () => {
             <span className="text-sm font-bold tracking-wide text-primary hidden sm:block">CHASE CONTINENTAL</span>
           </a>
           <Button
-            variant="outline"
+            variant="default"
             size="sm"
             onClick={() => navigate('/')}
-            className="gap-2"
+            className="gap-2 cursor-pointer rounded-full"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Home
