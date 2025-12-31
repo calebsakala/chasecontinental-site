@@ -95,7 +95,7 @@ const LandingPage = () => {
             <a href="#products" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Products</a>
             <a href="#services" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Services</a>
             <a href="#results" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Results</a>
-            <Button onClick={scrollToBooking} className="w-full rounded-full border-2 border-transparent bg-primary text-primary-foreground cursor-pointer shadow-md">Book a Demo</Button>
+            <Button onClick={scrollToBooking} className="w-full hover-border-swipe rounded-full border-2 border-primary bg-transparent text-primary cursor-pointer shadow-md">Book a Demo</Button>
           </div>
         )}
       </nav>
@@ -124,7 +124,7 @@ const LandingPage = () => {
                 <Button
                   onClick={scrollToBooking}
                   size="lg"
-                  className="text-lg px-8 h-14 rounded-full font-semibold bg-primary text-primary-foreground border-2 border-transparent shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:-translate-y-0.5"
+                  className="hover-border-swipe text-lg px-8 h-14 rounded-full font-semibold bg-transparent text-primary border-2 border-primary shadow-lg shadow-primary/20 transition-all cursor-pointer hover:-translate-y-0.5"
                 >
                   Book a Demo
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -225,7 +225,7 @@ const LandingPage = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                    className="hover-border-swipe rounded-full bg-transparent text-primary border-2 border-primary shadow-lg shadow-primary/20"
                     asChild
                   >
                     <a href="https://chaseagents.com" target="_blank" rel="noopener noreferrer">
@@ -249,7 +249,7 @@ const LandingPage = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                    className="hover-border-swipe rounded-full bg-transparent text-primary border-2 border-primary shadow-lg shadow-primary/20"
                     asChild
                   >
                     <a href="https://keywordautopilot.com" target="_blank" rel="noopener noreferrer">

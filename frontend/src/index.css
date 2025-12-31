@@ -188,7 +188,7 @@
   .hover-border-swipe::before {
     content: "";
     @apply absolute inset-0 w-0 h-full transition-all duration-300 ease-out;
-    background-color: hsl(var(--primary));
+    background-color: #D4AF37;
     z-index: -1;
   }
 
@@ -197,7 +197,9 @@
   }
 
   .hover-border-swipe:hover {
-    @apply text-primary-foreground border-primary;
+    @apply text-primary border-primary;
+    border-color: #D4AF37;
+    color: hsl(var(--primary));
   }
 
   /* Image Snake Border Animation */
@@ -207,50 +209,50 @@
 
   .hover-border-snake span {
     @apply absolute transition-all duration-300 ease-linear opacity-0 z-20;
-    background-color: hsl(var(--primary));
+    background-color: #D4AF37;
   }
 
   .hover-border-snake:hover span {
-    @apply opacity-100;
+    opacity: 1;
   }
 
   /* Top */
   .hover-border-snake span:nth-child(1) {
-    @apply top-0 left-0 w-0 h-[2px];
+    @apply top-0 left-0 w-0 h-[4px];
     transition-delay: 0s;
   }
 
   .hover-border-snake:hover span:nth-child(1) {
-    @apply w-full;
+    width: 100%;
   }
 
   /* Right */
   .hover-border-snake span:nth-child(2) {
-    @apply top-0 right-0 w-[2px] h-0;
+    @apply top-0 right-0 w-[4px] h-0;
     transition-delay: 0.15s;
   }
 
   .hover-border-snake:hover span:nth-child(2) {
-    @apply h-full;
+    height: 100%;
   }
 
   /* Bottom */
   .hover-border-snake span:nth-child(3) {
-    @apply bottom-0 right-0 w-0 h-[2px];
+    @apply bottom-0 right-0 w-0 h-[4px];
     transition-delay: 0.3s;
   }
 
   .hover-border-snake:hover span:nth-child(3) {
-    @apply w-full;
+    width: 100%;
   }
 
   /* Left */
   .hover-border-snake span:nth-child(4) {
-    @apply bottom-0 left-0 w-[2px] h-0;
+    @apply bottom-0 left-0 w-[4px] h-0;
     transition-delay: 0.45s;
   }
 
   .hover-border-snake:hover span:nth-child(4) {
-    @apply h-full;
+    height: 100%;
   }
 }
