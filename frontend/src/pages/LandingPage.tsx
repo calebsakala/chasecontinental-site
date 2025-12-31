@@ -52,7 +52,8 @@ const LandingPage = () => {
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/20" />
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px] animate-pulse duration-[10000ms]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/10 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/20 blur-[120px]" />
+        <div className="absolute top-[40%] left-[20%] w-[20%] h-[20%] rounded-full bg-primary/5 blur-[100px]" />
       </div>
 
       {/* Navigation */}
@@ -77,7 +78,7 @@ const LandingPage = () => {
             <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">How It Works</a>
             <Button
               onClick={scrollToBooking}
-              className="rounded-full font-semibold px-6 border-2 border-black shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:bg-black hover:text-white"
+              className="rounded-full font-semibold px-6 border-2 border-transparent bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:-translate-y-0.5"
             >
               Book a Demo
             </Button>
@@ -98,7 +99,7 @@ const LandingPage = () => {
             <a href="#platform" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Platform</a>
             <a href="#fractal-flow" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>Principles</a>
             <a href="#how-it-works" className="text-base font-medium text-foreground py-2" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
-            <Button onClick={scrollToBooking} className="w-full rounded-full border-2 border-black cursor-pointer hover:bg-black hover:text-white">Book a Demo</Button>
+            <Button onClick={scrollToBooking} className="w-full rounded-full border-2 border-transparent bg-primary text-primary-foreground cursor-pointer shadow-md">Book a Demo</Button>
           </div>
         )}
       </nav>
@@ -125,11 +126,11 @@ const LandingPage = () => {
                 <span className="font-bold text-primary">Chase Agents</span> is our flagship product for intelligent automation. Built on <span className="font-bold text-primary">Fractal Flow</span>, our operating principle that turns repeatable work into composable, scalable flows.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Button
                   onClick={scrollToBooking}
                   size="lg"
-                  className="text-lg px-8 h-14 rounded-full font-semibold border-2 border-black shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:bg-black hover:text-white"
+                  className="text-lg px-8 h-14 rounded-full font-semibold bg-primary text-primary-foreground border-2 border-transparent shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer hover:-translate-y-0.5"
                 >
                   Book a Demo
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -137,23 +138,39 @@ const LandingPage = () => {
                 <Button
                   size="sm"
                   asChild
-                  className="text-sm px-4 h-10 rounded-full bg-background hover:bg-secondary/50 transition-all"
+                  className="text-sm px-4 h-10 rounded-full bg-white border border-border text-foreground hover:bg-secondary/50 transition-all shadow-sm"
                 >
                   <a href="#fractal-flow">Learn More</a>
                 </Button>
               </div>
+
+              {/* Trusted By Strip */}
+              <div className="border-t border-border/60 pt-8">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Trusted by industry leaders</p>
+                <div className="flex flex-wrap gap-x-8 gap-y-4 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                  <div className="flex items-center gap-2 font-bold text-lg text-foreground/80">
+                    <Building2 className="h-5 w-5" /> CCID
+                  </div>
+                  <div className="flex items-center gap-2 font-bold text-lg text-foreground/80">
+                    <Leaf className="h-5 w-5" /> Heineken
+                  </div>
+                  <div className="flex items-center gap-2 font-bold text-lg text-foreground/80">
+                    <Building className="h-5 w-5" /> MRI
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/20 blur-3xl rounded-full" />
-              <div className="relative rounded-2xl bg-white p-8 shadow-2xl">
+            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center">
+              {/* Subtle background glow only */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/10 blur-3xl rounded-full opacity-60" />
+
+              <div className="relative transform hover:-translate-y-2 transition-transform duration-700 ease-out scale-125">
                 <img
-                  src="/static/images/chasecontinental-logo.png"
-                  alt="Chase Continental logo"
-                  className="w-full h-auto object-contain max-h-[420px]"
+                  src="/static/images/hero-dashboard.png"
+                  alt="Chase Agents Dashboard Interface"
+                  className="w-full h-auto object-contain max-h-[600px]"
                 />
-
-
               </div>
             </div>
           </div>
@@ -204,15 +221,14 @@ const LandingPage = () => {
               { icon: Bot, title: "AI Agent Development", desc: "Custom AI agents tailored to your specific business needs, from document processing to customer service automation." },
               { icon: Settings, title: "System Integration", desc: "Seamless integration with your existing tools and platforms, ensuring minimal disruption to current operations." },
               { icon: BarChart3, title: "Performance Monitoring", desc: "Comprehensive monitoring and analytics to track performance, identify issues, and optimize results continuously." },
-              { icon: Rocket, title: "Deployment & Support", desc: "End-to-end deployment with ongoing support and maintenance to ensure your systems run smoothly in production." },
-              { icon: TrendingUp, title: "Scaling & Optimization", desc: "As your business grows, we help scale your automation systems and optimize them for maximum efficiency." }
+              { icon: Rocket, title: "Deployment & Support", desc: "End-to-end deployment with ongoing support and maintenance to ensure your systems run smoothly in production." }
             ].map((item, i) => (
-              <div key={i} className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300">
-                <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <item.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
+              <div key={i} className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
+                <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                  <item.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-[15px]">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -247,7 +263,7 @@ const LandingPage = () => {
                 desc: 'Run work with governance: traceability, oversight, and a clear operational record.'
               }
             ].map((item, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group">
+              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
                   <item.icon className="h-7 w-7" />
                 </div>
@@ -278,7 +294,7 @@ const LandingPage = () => {
               { icon: FileCode2, title: "2. Compose flows", desc: "Build repeatable flows from small components so improvements propagate everywhere the work appears." },
               { icon: Terminal, title: "3. Run with governance", desc: "Operate with oversight and a clear record: what was decided, what changed, and why." }
             ].map((item, i) => (
-              <div key={i} className="relative z-10 bg-card border border-border p-8 rounded-2xl hover:border-primary/30 transition-all group">
+              <div key={i} className="relative z-10 bg-card border border-border p-8 rounded-2xl hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all group">
                 <div className="w-14 h-14 bg-background border-2 border-border rounded-xl flex items-center justify-center mb-6 group-hover:border-primary group-hover:text-primary transition-colors mx-auto md:mx-0 shadow-sm">
                   <item.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
@@ -347,7 +363,7 @@ const LandingPage = () => {
                 results: ["95% accuracy", "Instant processing", "Compliance assured"]
               }
             ].map((item, i) => (
-              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 flex flex-col">
+              <div key={i} className="bg-card border border-border rounded-2xl p-8 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 flex flex-col">
                 <div className="mb-6">
                   <item.icon className="h-8 w-8 text-primary mb-4" />
                   <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
@@ -411,7 +427,7 @@ const LandingPage = () => {
                 desc: "We strive for the highest quality in everything we do, from the code we write to the operational outcomes we deliver for our clients."
               }
             ].map((item, i) => (
-              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300">
+              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
                 <div className="p-4 rounded-full bg-primary/5 text-primary shrink-0 ring-1 ring-primary/10">
                   <item.icon className="h-6 w-6" />
                 </div>
@@ -517,7 +533,7 @@ const LandingPage = () => {
           <Button
             onClick={scrollToBooking}
             size="lg"
-            className="text-lg px-12 h-16 rounded-full font-bold border-2 border-black shadow-2xl shadow-primary/30 hover:shadow-primary/40 transition-all cursor-pointer hover:bg-black hover:text-white"
+            className="text-lg px-12 h-16 rounded-full font-bold bg-primary text-primary-foreground border-2 border-transparent shadow-2xl shadow-primary/30 hover:shadow-primary/40 transition-all cursor-pointer hover:-translate-y-1"
           >
             Book a Demo
           </Button>
