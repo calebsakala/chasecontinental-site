@@ -155,47 +155,7 @@ const BlogPostPage = () => {
         </article>
       </main>
 
-      <main className="pt-32 pb-24 px-6 md:px-0">
-        <article className="container mx-auto max-w-3xl">
-          {/* Header */}
-          <header className="text-center mb-12">
-            <div className="inline-flex items-center gap-4 text-sm text-muted-foreground mb-6 justify-center">
-              <span className="flex items-center gap-2 bg-secondary/30 px-3 py-1 rounded-full">
-                <Calendar className="h-4 w-4" />
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </span>
-              {post.authorName && (
-                <span className="flex items-center gap-2 bg-secondary/30 px-3 py-1 rounded-full">
-                  <User className="h-4 w-4" />
-                  {post.authorName}
-                </span>
-              )}
-            </div>
 
-            <h1 className="text-3xl md:text-5xl font-bold text-primary mb-8 leading-tight">
-              {post.title}
-            </h1>
-
-            {post.mainImage && (
-              <div className="rounded-2xl overflow-hidden shadow-2xl border border-border mb-12">
-                <img
-                  src={urlFor(post.mainImage).width(1200).height(675).url()}
-                  alt={post.title}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            )}
-          </header>
-
-          {/* Content */}
-          <div className="prose prose-lg prose-slate max-w-none dark:prose-invert">
-            <PortableText
-              value={post.body}
-              components={portableTextComponents}
-            />
-          </div>
-        </article>
-      </main>
 
       {/* CTA Section */}
       <section className="py-24 px-6 relative overflow-hidden bg-secondary/30 border-y border-border/50">
