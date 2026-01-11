@@ -18,6 +18,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
@@ -271,7 +272,8 @@ const LandingPage = () => {
                 title: "CCID Digital Transformation",
                 desc: "Migrated paper-based processes to cloud automation with hybrid teams running full operations.",
                 industry: "Government",
-                results: ["100% Paperless Transition", "350% Efficiency Increase", "Real-time City Insights"]
+                results: ["100% Paperless Transition", "350% Efficiency Increase", "Real-time City Insights"],
+                url: "/blog/modernizing-urban-intelligence"
               },
               {
                 icon: Leaf,
@@ -283,10 +285,9 @@ const LandingPage = () => {
             ].map((item, i) => {
               const isOtherActive = hoveredResult !== null && hoveredResult !== i;
 
-              return (
+              const cardContent = (
                 <div
-                  key={i}
-                  className={`bg-card group relative hover-border-snake border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-500 flex flex-col h-full overflow-hidden ${isOtherActive ? 'border-primary/5' : ''}`}
+                  className={`bg-card group relative hover-border-snake border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-500 flex flex-col h-full overflow-hidden ${isOtherActive ? 'border-primary/5' : ''} ${item.url ? 'cursor-pointer' : ''}`}
                   onMouseEnter={() => setHoveredResult(i)}
                   onMouseLeave={() => setHoveredResult(null)}
                 >
@@ -337,6 +338,16 @@ const LandingPage = () => {
                       ))}
                     </ul>
                   </div>
+                </div>
+              );
+
+              return item.url ? (
+                <Link key={i} to={item.url} className="block h-full">
+                  {cardContent}
+                </Link>
+              ) : (
+                <div key={i} className="h-full">
+                  {cardContent}
                 </div>
               );
             })}
