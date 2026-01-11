@@ -41,7 +41,7 @@ export const Header = ({ variant = 'default' }: HeaderProps) => {
             <img
               src="/static/images/chase-continental-header-logo.png"
               alt="Chase Continental"
-              className="h-9 w-auto relative z-10"
+              className="h-14 w-auto relative z-10"
             />
           </div>
           <span className="text-sm font-bold tracking-wide text-primary hidden sm:block">CHASE CONTINENTAL</span>

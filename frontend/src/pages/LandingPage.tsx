@@ -273,7 +273,7 @@ const LandingPage = () => {
                 desc: "Migrated paper-based processes to cloud automation with hybrid teams running full operations.",
                 industry: "Government",
                 results: ["100% Paperless Transition", "350% Efficiency Increase", "Real-time City Insights"],
-                url: "/blog/modernizing-urban-intelligence"
+                url: "/blog/case-study-building-practical-ai-capacity-with-the-ccid"
               },
               {
                 icon: Leaf,
