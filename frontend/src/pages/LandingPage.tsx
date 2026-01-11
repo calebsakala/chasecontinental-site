@@ -429,7 +429,7 @@ const LandingPage = () => {
                   </div>
                 </div>
                 <p className="text-muted-foreground leading-relaxed mb-6 flex-grow text-center sm:text-left">
-                  He builds systems that make complex organisations work. His background spans economics, data, and industrial development, with experience designing benchmarking and optimisation frameworks in manufacturing, sustainability, and urban systems. He has led large-scale digital and process transformations across multi-regional environments — aligning incentives, data, and workflows from strategy through execution. More recently, he has focused on integrating AI into real operating models, redesigning teams and workflows so humans supervise systems rather than execute tasks. Today, he works at the intersection of product, implementation, and organisational transformation.
+                  He builds systems that make complex organisations work. With a background spanning economics, data, and industrial development, he has led large-scale digital transformations across multi-regional environments. He focuses on integrating AI into real operating models, redesigning teams so humans supervise systems rather than execute tasks.
                 </p>
                 <div className="flex gap-4 mt-auto pt-6 border-t border-border/50 bg-card relative z-10 justify-center sm:justify-start">
                   <a href="https://www.linkedin.com/in/charles-k-chirongoma-41327716b/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[#D4AF37] group-hover:text-[#D4AF37] transition-colors duration-500">
