@@ -44,7 +44,7 @@ const LandingPage = () => {
       <Header variant="transparent" />
 
       {/* Hero Section */}
-      <header id="top" className="relative pt-40 pb-24 px-6 z-10 overflow-hidden">
+      <header id="top" className="relative pt-40 pb-24 px-6 z-10">
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -88,16 +88,15 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center overflow-visible">
+            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center">
               {/* Subtle background glow only */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/10 blur-3xl rounded-full opacity-60 -z-10" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/10 blur-3xl rounded-full opacity-60" />
 
-              <div className="relative transform hover:-translate-y-2 transition-transform duration-700 ease-out w-full max-w-lg">
+              <div className="relative transform hover:-translate-y-2 transition-transform duration-700 ease-out scale-125">
                 <img
                   src="/static/images/hero-dashboard.png"
                   alt="Chase Agents Dashboard Interface"
-                  className="w-full h-auto object-contain max-h-[500px] drop-shadow-2xl"
-                  style={{ filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15))' }}
+                  className="w-full h-auto object-contain max-h-[600px]"
                 />
               </div>
             </div>
@@ -106,7 +105,7 @@ const LandingPage = () => {
       </header>
 
       {/* Stats / Intro Section */}
-      <section className="py-24 px-6 bg-primary text-primary-foreground relative z-30 -mt-1">
+      <section className="py-24 px-6 bg-primary text-primary-foreground">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-8">
             Unlocking Hidden Capacity Through Digital Transformation
