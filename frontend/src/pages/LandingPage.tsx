@@ -12,7 +12,6 @@ import {
   Rocket,
   Building2,
   Leaf,
-  Building,
   Users,
   Star,
   Linkedin,
@@ -83,9 +82,6 @@ const LandingPage = () => {
                   </div>
                   <div className="flex items-center gap-2 font-bold text-lg text-foreground/80">
                     <Leaf className="h-5 w-5" /> Heineken
-                  </div>
-                  <div className="flex items-center gap-2 font-bold text-lg text-foreground/80">
-                    <Building className="h-5 w-5" /> MRI
                   </div>
                 </div>
               </div>
@@ -280,16 +276,9 @@ const LandingPage = () => {
               {
                 icon: Leaf,
                 title: "Heineken Sustainability",
-                desc: "Real-time environmental impact monitoring across global manufacturing operations.",
+                desc: "Real-time environmental impact monitoring across multi-regional operations.",
                 industry: "Manufacturing",
-                results: ["Global Real-time Monitoring", "100% Automated Compliance", "15% Supply Chain Optimization"]
-              },
-              {
-                icon: Building,
-                title: "MRI Property Tech",
-                desc: "Streamlined property management workflows with intelligent automation systems.",
-                industry: "Property Tech",
-                results: ["40% Reduction in Manual Work", "2x Faster Lease Processing", "99.9% Data Accuracy"]
+                results: ["Multi-regional real-time monitoring", "100% automated reporting", "100% achievement of KPIs due to AI recommendations and business intelligence steering, next steps, and ensuring alignment"]
               }
             ].map((item, i) => {
               const isOtherActive = hoveredResult !== null && hoveredResult !== i;
