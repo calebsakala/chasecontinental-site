@@ -48,9 +48,9 @@ const LandingPage = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-bold tracking-wide mb-8 hover:bg-primary/10 transition-colors cursor-default">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wide mb-8 hover:bg-primary/15 transition-colors cursor-default">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                WE ARE AN AFRICAN ENTERPRISE AI STUDIO
+                WE ARE AN ENTERPRISE AI STUDIO
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary mb-6 leading-tight">
@@ -88,11 +88,11 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center">
+            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center z-0">
               {/* Subtle background glow only */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/10 blur-3xl rounded-full opacity-60" />
 
-              <div className="relative transform hover:-translate-y-2 transition-transform duration-700 ease-out scale-125">
+              <div className="relative transform hover:-translate-y-2 transition-transform duration-700 ease-out scale-125" style={{ zIndex: 1 }}>
                 <img
                   src="/static/images/hero-dashboard.png"
                   alt="Chase Agents Dashboard Interface"
@@ -105,7 +105,7 @@ const LandingPage = () => {
       </header>
 
       {/* Stats / Intro Section */}
-      <section className="py-24 px-6 bg-primary text-primary-foreground">
+      <section className="py-24 px-6 bg-primary text-primary-foreground relative z-20">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-8">
             Unlocking Hidden Capacity Through Digital Transformation
@@ -132,7 +132,7 @@ const LandingPage = () => {
       </section>
 
       {/* Our Products */}
-      <section id="products" className="py-32 px-6 bg-secondary/30 border-y border-border/50">
+      <section id="products" className="py-32 px-6 bg-secondary/30 border-y border-border/50 relative">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-20">
             <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">Our Products</h2>
@@ -148,7 +148,7 @@ const LandingPage = () => {
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thick" />
                 </svg>
-                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 bg-black/5">
+                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 backdrop-blur-sm bg-black/10 bg-gradient-to-br from-[#1e3a5f]/5 to-transparent">
                   <img
                     src="/static/images/product-chase-agents.png"
                     alt="Chase Agents Dashboard"
@@ -204,7 +204,7 @@ const LandingPage = () => {
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thick" />
                 </svg>
-                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-violet-500/20 transition-all duration-500 bg-black/5">
+                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-violet-500/20 transition-all duration-500 backdrop-blur-sm bg-black/10 bg-gradient-to-br from-[#1e3a5f]/5 to-transparent">
                   <img
                     src="/static/images/product-keyword-autopilot.png"
                     alt="Keyword Autopilot Interface"
@@ -236,11 +236,11 @@ const LandingPage = () => {
               { icon: BarChart3, title: "Performance Monitoring", desc: "Comprehensive monitoring and analytics to track performance, identify issues, and optimize results continuously." },
               { icon: Rocket, title: "Deployment & Support", desc: "End-to-end deployment with ongoing support and maintenance to ensure your systems run smoothly in production." }
             ].map((item, i) => (
-              <div key={i} className="group relative hover-border-snake p-8 rounded-2xl bg-card border border-border hover:shadow-lg transition-all duration-300">
+              <div key={i} className="group relative hover-border-snake p-8 rounded-2xl backdrop-blur-sm bg-card/80 border border-border/50 hover:border-[#1e3a5f]/30 hover:shadow-lg transition-all duration-300">
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
                 </svg>
-                <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 relative z-10">
+                <div className="w-12 h-12 backdrop-blur-sm bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 relative z-10">
                   <item.icon className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors relative z-10">{item.title}</h3>
@@ -299,7 +299,7 @@ const LandingPage = () => {
                   <div className={`flex flex-col h-full transition-opacity duration-500 ${isOtherActive ? 'opacity-0' : 'opacity-100'}`}>
                     <div className="mb-4 relative z-10">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 rounded-lg bg-primary/5 text-primary">
+                        <div className="p-2 rounded-lg backdrop-blur-sm bg-primary/10 border border-primary/20 text-primary">
                           <item.icon className="h-5 w-5" />
                         </div>
                         <div className="text-xs font-bold text-primary/70 uppercase tracking-wider">{item.industry}</div>
@@ -323,7 +323,7 @@ const LandingPage = () => {
 
                   {/* Overlay Content - Fades in absolute on top */}
                   <div
-                    className={`absolute inset-0 z-20 flex flex-col justify-center items-center p-6 text-center bg-card transition-all duration-500 ${isOtherActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
+                    className={`absolute inset-0 z-20 flex flex-col justify-center items-center p-6 text-center backdrop-blur-md bg-card/95 border border-[#1e3a5f]/20 rounded-xl transition-all duration-500 ${isOtherActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
                   >
                     <div className="p-3 rounded-full bg-primary/10 text-primary mb-6 ring-1 ring-primary/20">
                       <item.icon className="h-8 w-8" />
@@ -388,11 +388,11 @@ const LandingPage = () => {
                 desc: "We strive for the highest quality in everything we do, from the code we write to the operational outcomes we deliver for our clients."
               }
             ].map((item, i) => (
-              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl bg-card border border-border relative group hover-border-snake hover:shadow-lg transition-all duration-300">
+              <div key={i} className="flex flex-col md:flex-row items-start gap-6 p-8 rounded-2xl backdrop-blur-sm bg-card/80 border border-border/50 hover:border-[#1e3a5f]/30 relative group hover-border-snake hover:shadow-lg transition-all duration-300">
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
                 </svg>
-                <div className="p-4 rounded-full bg-primary/5 text-primary shrink-0 ring-1 ring-primary/10 relative z-10">
+                <div className="p-4 rounded-full backdrop-blur-sm bg-primary/10 border border-primary/20 text-primary shrink-0 ring-1 ring-primary/10 relative z-10">
                   <item.icon className="h-6 w-6" />
                 </div>
                 <div className="relative z-10">
@@ -422,12 +422,12 @@ const LandingPage = () => {
             {/* Charles */}
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-6 sm:p-8 h-full flex flex-col">
+              <div className="relative backdrop-blur-sm bg-card/80 border border-border/50 hover:border-[#1e3a5f]/30 hover-border-snake rounded-2xl p-6 sm:p-8 h-full flex flex-col">
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
                 </svg>
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 text-center sm:text-left">
-                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
+                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/20 backdrop-blur-sm bg-[#1e3a5f]/5 shrink-0">
                     <img
                       src="/static/images/team/charles.png"
                       alt="Charles K. Chirongoma"
@@ -456,12 +456,12 @@ const LandingPage = () => {
             {/* Caleb */}
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-              <div className="relative bg-card border border-border hover-border-snake rounded-2xl p-6 sm:p-8 h-full flex flex-col">
+              <div className="relative backdrop-blur-sm bg-card/80 border border-border/50 hover:border-[#1e3a5f]/30 hover-border-snake rounded-2xl p-6 sm:p-8 h-full flex flex-col">
                 <svg className="snake-svg">
                   <rect pathLength="100" className="snake-svg-rect snake-variant-thin-2xl" />
                 </svg>
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 text-center sm:text-left">
-                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/10 shrink-0">
+                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-primary/20 backdrop-blur-sm bg-[#1e3a5f]/5 shrink-0">
                     <img
                       src="/static/images/team/caleb.jpg"
                       alt="Caleb Sakala"

@@ -30,7 +30,7 @@ class SmartChatbot {
                 followUp: ["services", "contact", "examples"]
             },
             examples: {
-                text: "Recent transformation projects:\n• CCID Cape Town: Research operation automation (75% error reduction)\n• Heineken: Waste management data pipeline (60% faster tracking)\n• Greenway Africa: Circularity data platform development",
+                text: "Recent transformation projects:\n• CCID Cape Town: Research operation automation (75% error reduction)\n• Heineken: Waste management data pipeline (60% faster tracking)\n• Greenway: Circularity data platform development",
                 followUp: ["services", "contact", "case-studies"]
             },
             roi: {
@@ -46,7 +46,7 @@ class SmartChatbot {
                 followUp: ["book-call"]
             },
             "case-studies": {
-                text: "Explore our detailed case studies showing real transformations for companies like CCID, Heineken, Greenway Africa, and others. Each case study includes the challenge, our solution, and measurable impact.",
+                text: "Explore our detailed case studies showing real transformations for companies like CCID, Heineken, Greenway, and others. Each case study includes the challenge, our solution, and measurable impact.",
                 followUp: ["contact", "services"],
                 action: "redirect",
                 url: "use-cases.html"
