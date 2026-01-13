@@ -105,6 +105,13 @@ const LandingPage = () => {
         </div>
       </header>
 
+      {/* Divider Line */}
+      <div className="relative -mt-12 mb-12">
+        <div className="container mx-auto px-6">
+          <div className="border-t border-border/40 w-full max-w-4xl mx-auto"></div>
+        </div>
+      </div>
+
       {/* Stats / Intro Section */}
       <section className="py-24 px-6 bg-primary text-primary-foreground">
         <div className="container mx-auto max-w-4xl text-center">
