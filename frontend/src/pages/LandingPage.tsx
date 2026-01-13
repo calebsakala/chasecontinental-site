@@ -75,7 +75,8 @@ const LandingPage = () => {
               </div>
 
               {/* Trusted By Strip */}
-              <div className="border-t border-border/60 pt-8">
+              <div className="pt-8">
+                <div className="border-t border-border/60 w-full max-w-md mb-8"></div>
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Trusted by industry leaders</p>
                 <div className="flex flex-wrap gap-x-8 gap-y-4 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
                   <div className="flex items-center gap-2 font-bold text-lg text-foreground/80">
