@@ -88,7 +88,7 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center -mt-[94px]">
+            <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 flex items-center justify-center -mt-[170px]">
               {/* Subtle background glow only */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/10 blur-3xl rounded-full opacity-60" />
 
