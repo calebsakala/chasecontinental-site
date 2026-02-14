@@ -181,41 +181,7 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Keyword Autopilot */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="lg:pr-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 text-violet-600 text-xs font-bold uppercase tracking-wider mb-6">
-                  SEO Automation
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-primary mb-6">Keyword Autopilot</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  Dominate search results with automated keyword strategies that outperform competitors. Our agents analyze search intent, cluster keywords, and generate optimzed content strategies on autopilot.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    size="lg"
-                    className="hover-border-swipe rounded-full bg-transparent text-primary border-2 border-primary shadow-lg shadow-primary/20"
-                    asChild
-                  >
-                    <a href="https://keywordautopilot.com" target="_blank" rel="noopener noreferrer">
-                      Start Ranking <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
-              </div>
-              <div className="relative group hover-border-snake rounded-2xl">
-                <svg className="snake-svg">
-                  <rect pathLength="100" className="snake-svg-rect snake-variant-thick" />
-                </svg>
-                <div className="rounded-2xl border border-white/20 overflow-hidden shadow-2xl hover:shadow-violet-500/20 transition-all duration-500 bg-black/5">
-                  <img
-                    src="/static/images/product-keyword-autopilot.png"
-                    alt="Keyword Autopilot Interface"
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
