@@ -188,7 +188,7 @@
   .hover-border-swipe::before {
     content: "";
     @apply absolute inset-0 w-0 h-full transition-all duration-300 ease-out;
-    background-color: #D4AF37;
+    background-color: #85FBFE;
     z-index: -1;
   }
 
@@ -198,7 +198,7 @@
 
   .hover-border-swipe:hover {
     @apply text-primary border-primary;
-    border-color: #D4AF37;
+    border-color: #85FBFE;
     color: hsl(var(--primary));
   }
 
@@ -247,5 +247,33 @@
 
   .hover-border-snake:hover .snake-svg-rect {
     stroke-dashoffset: 0;
+  }
+
+  /* reusable gradient border */
+  .gradient-border {
+    position: relative;
+    display: inline-block;
+    border-radius: var(--gb-radius, 1.5rem); /* default radius */
+    overflow: hidden;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;               /* cover full element */
+    padding: var(--gb-thickness, 1px); /* border thickness */
+    border-radius: inherit;
+    background: linear-gradient(
+      var(--gb-angle, 45deg),
+      var(--gb-color1, #fff) 0%,
+      var(--gb-color2, #1E1E1E) 20%,
+      var(--gb-color2, #1E1E1E) 80%,
+      var(--gb-color1, #fff) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
   }
 }

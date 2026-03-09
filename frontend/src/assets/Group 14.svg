@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="11.011893499043977 0 212.34034416826003 212.998296" style="max-height: 500px" width="212.34034416826003" height="212.998296">
+<rect fill="black" rx="5" height="213" width="212" x="11"/>
+<rect stroke="url(#paint0_radial_26_322)" rx="4.5" height="52" width="52" y="81.5" x="90.5"/>
+<rect stroke="url(#paint1_radial_26_322)" rx="4.5" height="42" width="42" y="86.5" x="95.5"/>
+<line stroke="#194952" y2="66" x2="116.5" y1="81" x1="116.5"/>
+<path stroke="#194952" d="M100.5 81C100.5 69.5 100.5 69.5 89 69.5"/>
+<path stroke="#194952" d="M154.5 131.5C154.5 120 154.5 120 143 120"/>
+<path stroke="#194952" d="M89 145.5C100.5 145.5 100.5 145.5 100.5 134"/>
+<path stroke="#194952" d="M145 69C134 69 134 69 134 81"/>
+<path stroke="#194952" d="M78 84.25C78 95.25 78 95.25 90 95.25"/>
+<path stroke="#194952" d="M134 134C134 145 134 145 146 145"/>
+<path stroke="#194952" d="M90 120C78 120 78 120 78 131"/>
+<path stroke="#194952" d="M143 95.5C154.5 95.5 154.5 95.5 154.5 84"/>
+<line stroke="#194952" y2="134" x2="116.5" y1="149" x1="116.5"/>
+<line stroke="#194952" y2="107.5" x2="158" y1="107.5" x1="143"/>
+<line stroke="#194952" y2="107.5" x2="90" y1="107.5" x1="75"/>
+<circle stroke="#194952" r="2" cy="107.5" cx="160.5"/>
+<circle stroke="#194952" r="2" cy="151.5" cx="116.5"/>
+<circle stroke="#194952" r="2" cy="107.5" cx="73.5"/>
+<circle stroke="#194952" r="2" cy="64.5" cx="116.5"/>
+<circle stroke="#194952" r="2" cy="69.5" cx="86.5"/>
+<circle stroke="#194952" r="2" cy="145.5" cx="86.5"/>
+<circle stroke="#194952" r="2" cy="69.5" cx="147.5"/>
+<circle stroke="#194952" r="2" cy="144.5" cx="147.5"/>
+<circle stroke="#194952" r="2" cy="81.5" cx="77.5"/>
+<circle stroke="#194952" r="2" cy="133.5" cx="77.5"/>
+<circle stroke="#194952" r="2" cy="81.5" cx="154.5"/>
+<circle stroke="#194952" r="2" cy="133.5" cx="154.5"/>
+<path stroke="white" d="M12.1059 27.8646C15.9671 76.3642 60.1817 70.1625 66 70"/>
+<path stroke="white" d="M61.4774 138.273C12.9696 134.516 12.193 179.157 11.4452 184.929"/>
+<line stroke="white" y2="109.5" x2="53" y1="109.5" x1="11"/>
+<line stroke="white" y2="109.5" x2="222" y1="109.5" x1="180"/>
+<circle stroke-width="21" stroke-opacity="0.51" stroke="#404040" r="74" cy="107.5" cx="116.5"/>
+<path stroke="#404040" d="M116.5 23.5C162.895 23.5 200.5 60.887 200.5 107C200.5 153.113 162.895 190.5 116.5 190.5C70.1053 190.5 32.5 153.113 32.5 107C32.5 60.887 70.1053 23.5 116.5 23.5Z"/>
+<circle stroke="url(#paint2_radial_26_322)" r="63" cy="107.5" cx="116.5"/>
+<defs>
+<radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(-51.7769 -53 2.12 -51.7769 141.777 134)" r="1" cy="0" cx="0" id="paint0_radial_26_322">
+<stop stop-color="#103238"/>
+<stop stop-color="#B0B0B0" offset="0.500021"/>
+<stop stop-color="#103238" offset="1"/>
+</radialGradient>
+<radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(-42.0077 -43 1.72 -42.0077 137.008 129)" r="1" cy="0" cx="0" id="paint1_radial_26_322">
+<stop stop-color="#B0B0B0"/>
+<stop stop-color="#103238" offset="0.500021"/>
+<stop stop-color="#B0B0B0" offset="1"/>
+</radialGradient>
+<radialGradient gradientTransform="translate(168 72) rotate(146.31) scale(124.392 255.232)" gradientUnits="userSpaceOnUse" r="1" cy="0" cx="0" id="paint2_radial_26_322">
+<stop stop-color="#B0B0B0"/>
+<stop stop-color="#103238" offset="0.495213"/>
+<stop stop-color="#B0B0B0" offset="0.9999"/>
+</radialGradient>
+</defs>
+</svg>

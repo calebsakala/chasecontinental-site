@@ -37,18 +37,21 @@ export const Header = ({ variant = 'default' }: HeaderProps) => {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
           <div className="relative">
-            {isTransparent && <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />}
             <img
-              src="/static/images/chase-continental-header-logo.png"
+              src={
+                isTransparent
+                  ? "/static/images/chase-continental-header-logo-white.png"
+                  : "/static/images/chase-continental-header-logo.png"
+              }
               alt="Chase Continental"
               className="h-14 w-auto relative z-10"
             />
           </div>
-          <span className="text-sm font-bold tracking-wide text-primary hidden sm:block">CHASE CONTINENTAL</span>
+          <span className={`text-sm font-bold tracking-wide ${isTransparent ? 'text-white' : 'text-primary'} hidden sm:block`}>CHASE CONTINENTAL</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className={`hidden md:flex items-center gap-8 ${isTransparent ? 'text-white' : ''}`}>
           {isHome ? (
             <>
               <a href="#products" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Products</a>
