@@ -1,0 +1,31 @@
+project_id = "ydjicfgyegmqfusgunko"
+
+[functions.generate-audit-pdf]
+verify_jwt = false
+
+[functions.generate-roi-pdf]
+verify_jwt = false
+
+[functions.generate-playbook-pdf]
+verify_jwt = false
+
+[functions.generate-assessment-pdf]
+verify_jwt = false
+
+[functions.generate-swipefile-pdf]
+verify_jwt = false
+
+[functions.generate-peak-season-pdf]
+verify_jwt = false
+
+[functions.generate-blueprint-pdf]
+verify_jwt = false
+
+[functions.generate-challenge-pdf]
+verify_jwt = false
+
+[functions.send-challenge-email]
+verify_jwt = false
+
+[functions.generate-scorecard-pdf]
+verify_jwt = false
