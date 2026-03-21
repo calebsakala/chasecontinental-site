@@ -450,7 +450,7 @@ const LandingPage = () => {
               <Reveal direction="left">
                 <div className="rounded-2xl overflow-hidden border border-border shadow-sm bg-card">
                   <img
-                    src="/static/images/product-chase-agents.png"
+                    src="/static/images/chase-agents-hero.png"
                     alt="Chase Agents Automation Platform"
                     className="w-full"
                   />
