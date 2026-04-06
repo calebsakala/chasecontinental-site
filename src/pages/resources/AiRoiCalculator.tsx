@@ -71,7 +71,10 @@ import {
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import heroImage from "@/assets/roi-hero-financial.jpg";
+
+const ASSET_KEY = "ai-roi-calculator";
 
 // ============================================================================
 // SECTOR CONFIGURATIONS - 12+ Industries with Research-Backed Benchmarks
@@ -657,15 +660,25 @@ const AiRoiCalculator = () => {
     setIsSubmitting(true);
 
     try {
+      const trimmedName = leadForm.name.trim();
+      const normalizedEmail = leadForm.email.toLowerCase().trim();
+      const company = leadForm.company.trim() || null;
+
+      if (!runId) {
+        throw new Error(
+          "Please calculate your ROI before requesting the report.",
+        );
+      }
+
       // Insert lead
       const { data: leadData, error: leadError } = await supabase
         .from("leads")
         .upsert(
           {
-            name: leadForm.name,
-            email: leadForm.email,
-            company: leadForm.company,
-            role: leadForm.role,
+            name: trimmedName,
+            email: normalizedEmail,
+            company,
+            role: leadForm.role.trim() || null,
           },
           { onConflict: "email" },
         )
@@ -674,27 +687,50 @@ const AiRoiCalculator = () => {
 
       if (leadError) throw leadError;
 
-      // Link run to lead
-      if (runId && leadData) {
-        await supabase
-          .from("lm02_calculator_runs")
-          .update({ lead_id: leadData.id })
-          .eq("id", runId);
+      await supabase
+        .from("lm02_calculator_runs")
+        .update({ lead_id: leadData.id })
+        .eq("id", runId);
 
-        setPdfGenerating(true);
+      setPdfGenerating(true);
 
-        // Call edge function for PDF generation
-        const { data: pdfData, error: pdfError } =
-          await supabase.functions.invoke("generate-roi-pdf", {
-            body: { run_id: runId, lead_id: leadData.id },
-          });
+      const { data: pdfData, error: pdfError } =
+        await supabase.functions.invoke("generate-roi-pdf", {
+          body: { run_id: runId, lead_id: leadData.id },
+        });
 
-        if (pdfError) {
-          console.error("PDF generation error:", pdfError);
-        }
+      if (pdfError) throw pdfError;
 
-        setPdfGenerating(false);
+      const reportUrl = pdfData?.pdf_url ?? pdfData?.report_url;
+      const filePath = pdfData?.file_path;
+
+      if (!reportUrl || !filePath) {
+        throw new Error(
+          "Executive summary generation returned an incomplete response.",
+        );
       }
+
+      await supabase.from("downloads").insert([
+        {
+          lead_id: leadData.id,
+          asset_key: ASSET_KEY,
+          file_path: filePath,
+          downloaded_at: new Date().toISOString(),
+        },
+      ]);
+
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId: leadData.id,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      window.open(reportUrl, "_blank", "noopener,noreferrer");
+
+      setPdfGenerating(false);
 
       // Track event
       await supabase.from("events").insert({
@@ -712,9 +748,9 @@ const AiRoiCalculator = () => {
       setShowEmailModal(false);
 
       toast({
-        title: "Report unlocked!",
+        title: "Executive summary ready!",
         description:
-          "Your executive summary is being prepared and will be emailed shortly.",
+          "Your executive summary is open now, and an email copy is on the way.",
       });
     } catch (err) {
       console.error("Lead submission error:", err);
@@ -724,6 +760,7 @@ const AiRoiCalculator = () => {
         variant: "destructive",
       });
     } finally {
+      setPdfGenerating(false);
       setIsSubmitting(false);
     }
   };
@@ -1244,7 +1281,7 @@ const AiRoiCalculator = () => {
                                 ) : (
                                   <span className="flex items-center gap-2">
                                     <Download className="w-5 h-5" />
-                                    Get Executive Summary (PDF)
+                                    Get Executive Summary
                                   </span>
                                 )}
                               </Button>
@@ -1325,8 +1362,8 @@ const AiRoiCalculator = () => {
                 Get Your Executive Summary
               </DialogTitle>
               <DialogDescription>
-                We'll email you a McKinsey-style PDF report with detailed
-                analysis, implementation recommendations, and industry
+                We'll open your executive summary immediately and send a copy by
+                email with the same analysis, recommendations, and industry
                 benchmarks.
               </DialogDescription>
             </DialogHeader>

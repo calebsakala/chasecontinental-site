@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { jsPDF } from "https://esm.sh/jspdf@2.5.2";
+import { drawBrandHeader } from "../_shared/pdf-branding.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -582,14 +583,18 @@ Deno.serve(async (req) => {
     doc.rect(m, 30, 40, 1.5, "F");
 
     // Branding
-    doc.setTextColor(245, 158, 11);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
-    doc.text("CHASE CONTINENTAL", m, 42);
+    const branding = await drawBrandHeader(doc, {
+      margin: m,
+      top: 22,
+      textColor: [245, 158, 11],
+      fontSize: 12,
+      logoHeight: 10,
+      gap: 4,
+    });
     doc.setTextColor(100, 115, 140);
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
-    doc.text("Enterprise AI Studio", m + 50, 42);
+    doc.text("Enterprise AI Studio", branding.textStartX, branding.bottomY + 6);
 
     // Main title
     doc.setTextColor(255, 255, 255);
@@ -666,7 +671,7 @@ Deno.serve(async (req) => {
     doc.text(BAND_LABELS[band] || "MEDIUM RISK", m + 12, cardY + 43);
 
     // Per-question mini scores on right side
-    let miniY = cardY + 12;
+    const miniY = cardY + 12;
     const miniPerCol = 5;
     for (let i = 0; i < Math.min(answers.length, 10); i++) {
       const col = i < miniPerCol ? 0 : 1;
@@ -1229,23 +1234,25 @@ Deno.serve(async (req) => {
 
     if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
 
-    const { data: urlData } = supabase.storage
-      .from("lead-magnets")
-      .getPublicUrl(filePath);
+    const { data: signedUrlData, error: signedUrlError } =
+      await supabase.storage
+        .from("lead-magnets")
+        .createSignedUrl(filePath, 3600);
 
-    if (lead_id) {
-      await supabase.from("downloads").insert({
-        lead_id,
-        asset_key: "reliability-assessment",
-        file_path: filePath,
-        downloaded_at: new Date().toISOString(),
-      });
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      throw (
+        signedUrlError ??
+        new Error("Could not create a signed URL for the assessment report.")
+      );
     }
 
-    return new Response(JSON.stringify({ pdf_url: urlData.publicUrl }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return new Response(
+      JSON.stringify({ pdf_url: signedUrlData.signedUrl, file_path: filePath }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      },
+    );
   } catch (err) {
     console.error("PDF generation error:", err);
     return new Response(JSON.stringify({ error: err.message }), {

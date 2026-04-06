@@ -27,5 +27,17 @@ verify_jwt = false
 [functions.send-challenge-email]
 verify_jwt = false
 
+[functions.process-challenge-schedule]
+verify_jwt = false
+
+[functions.send-resource-email]
+verify_jwt = false
+
+[functions.resolve-resource-download]
+verify_jwt = false
+
+[functions.unsubscribe-email]
+verify_jwt = false
+
 [functions.generate-scorecard-pdf]
 verify_jwt = false

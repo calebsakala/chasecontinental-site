@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { jsPDF } from "https://esm.sh/jspdf@2.5.2";
+import { drawBrandHeader } from "../_shared/pdf-branding.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -40,52 +41,137 @@ interface AuditRequest {
 const STATS: Record<string, Record<string, string>> = {
   overall: {
     high: "According to McKinsey's 2025 State of AI report, high AI performers (top 6% with EBIT impact >5%) achieve 1.5× higher revenue growth and 1.6× greater shareholder returns than peers. BCG reports leaders see 1.4× higher ROI on invested capital.",
-    medium: "McKinsey notes that 39% of organisations report some EBIT impact from AI, but only 17% attribute >5% to gen AI. Mid-maturity firms often see 11.5% productivity gains (Morgan Stanley) but struggle with scale.",
+    medium:
+      "McKinsey notes that 39% of organisations report some EBIT impact from AI, but only 17% attribute >5% to gen AI. Mid-maturity firms often see 11.5% productivity gains (Morgan Stanley) but struggle with scale.",
     low: "Only 1% of companies have achieved true AI maturity (McKinsey), with 74% struggling to scale value (BCG). Low-maturity firms report no material impact despite 92% planning AI investments.",
   },
   "AI Visibility & Strategy": {
     high: "High visibility correlates with 80% of high performers setting growth/innovation objectives (McKinsey), leading to 1.5× revenue growth. Your organisation demonstrates strong strategic alignment.",
-    medium: "64% report AI enables innovation, but only 39% see enterprise EBIT impact without unified views (McKinsey). Partial visibility limits your ability to optimise spend and measure true ROI.",
+    medium:
+      "64% report AI enables innovation, but only 39% see enterprise EBIT impact without unified views (McKinsey). Partial visibility limits your ability to optimise spend and measure true ROI.",
     low: "Without a clear inventory, firms waste 20–30% on redundant AI spend (Deloitte 2026 AI report). Shadow AI initiatives create ungoverned risk and duplicated effort across departments.",
   },
   "Connectivity & Data Flow": {
     high: "Seamless data flow enables 66% of firms to report productivity gains (Deloitte), with scalable integrations reducing time-to-value by 50%. Your connected architecture provides a strong foundation for scaling AI.",
-    medium: "Mid-level connectivity sees 51% improved cybersecurity but manual handoffs limit EBIT to <5% (PwC Responsible AI Survey). Inconsistent data across systems undermines AI accuracy.",
+    medium:
+      "Mid-level connectivity sees 51% improved cybersecurity but manual handoffs limit EBIT to <5% (PwC Responsible AI Survey). Inconsistent data across systems undermines AI accuracy.",
     low: "Siloed data causes 60% of AI pilots to fail at scale (BCG). Without a shared data layer, each agent works from its own version of the truth — leading to conflicting outputs and manual rework.",
   },
   "Risk & Governance": {
     high: "Strong governance boosts ROI by 60% and efficiency by 58% (PwC 2025). 72% of S&P 500 now disclose AI risks, but only high-maturity firms mitigate them effectively with structured frameworks.",
-    medium: "51% cite improved data protection, but gaps in escalation paths increase breach risks by 35% (Thomson Reuters). Inconsistent governance creates blind spots in high-impact areas.",
+    medium:
+      "51% cite improved data protection, but gaps in escalation paths increase breach risks by 35% (Thomson Reuters). Inconsistent governance creates blind spots in high-impact areas.",
     low: "Only 35% of organisations have AI frameworks, leaving 92% exposed to regulatory and reputational risk; just 8% feel prepared for AI-related incidents (Riskonnect).",
   },
   "Scale & Orchestration": {
     high: "Central orchestration drives 3× ROI (LinkedIn insights). Scalable firms grow their AI footprint without proportional headcount increases — achieving up to 18% enterprise value uplift (McKinsey).",
-    medium: "34% transform processes through AI, but isolated projects limit overall impact to ~20% revenue contribution (Deloitte). Knowledge sharing between teams remains inconsistent.",
+    medium:
+      "34% transform processes through AI, but isolated projects limit overall impact to ~20% revenue contribution (Deloitte). Knowledge sharing between teams remains inconsistent.",
     low: "Without rationalisation, 74% fail to generate value from AI (BCG). The productivity paradox shows an initial 1.33% drop before gains materialise (MIT Sloan) — compounded when agents aren't orchestrated.",
   },
 };
 
 const QUESTION_INSIGHTS: Record<number, { no: string; partially: string }> = {
-  1:  { no: "Without a unified view, leadership cannot prioritise, rationalise, or govern AI initiatives. This is the single biggest enabler of AI silos.", partially: "Partial visibility means some initiatives are governed while others operate in shadow. Close the gap before scaling." },
-  2:  { no: "An AI asset inventory is foundational. Without it, you cannot measure ROI, identify redundancy, or manage risk across your AI portfolio.", partially: "Your inventory has gaps — untracked agents create security and compliance blind spots." },
-  3:  { no: "AI without defined outcomes becomes 'innovation theatre.' Every agent should tie to a measurable business KPI.", partially: "Some initiatives lack clear KPIs — prioritise tying each to revenue, cost, or operational metrics." },
-  4:  { no: "Unmonitored AI failures create operational risk and erode trust. Implement automated alerting for all production agents.", partially: "Alerting exists but isn't comprehensive — extend monitoring to cover all critical agents." },
-  5:  { no: "Without cost visibility, AI spend becomes invisible overhead. Organisations without tracking waste 20–30% on redundant tools and compute.", partially: "Partial cost tracking means some budgets are unaccounted for. Consolidate into a single AI spend dashboard." },
-  6:  { no: "Single-system agents are the definition of AI silos. They cannot create cross-functional value or orchestrate end-to-end processes.", partially: "Some agents access multiple systems but others remain isolated — prioritise connecting your highest-value workflows." },
-  7:  { no: "Manual handoffs between AI workflows eliminate the speed advantage automation should provide. This is a critical bottleneck.", partially: "Some outputs flow automatically but others require manual re-entry — map and eliminate the top 3 handoff points." },
-  8:  { no: "Multiple versions of truth across AI tools lead to conflicting outputs, inaccurate decisions, and eroded stakeholder confidence.", partially: "Data standardisation is in progress but inconsistencies remain. Prioritise a canonical data layer for AI inputs." },
-  9:  { no: "Vendor lock-in is a strategic risk. If you can't migrate workflows within 90 days, you've ceded control of your AI roadmap.", partially: "Some portability exists but key workflows are locked in. Assess migration readiness for your top 5 agents." },
-  10: { no: "Slow integration cycles mean every new AI initiative is a custom project — destroying the leverage that agents should provide.", partially: "Integration timelines are improving but still measured in months for some systems. Standardise connectors." },
-  11: { no: "Ownerless AI agents are ungovernable. Without accountability, performance degrades and risks go unmanaged.", partially: "Some agents have clear owners but others are orphaned. Assign accountability for every production agent." },
-  12: { no: "AI decisions affecting customers, finances, or compliance without structured review expose the organisation to regulatory and reputational harm.", partially: "Review processes exist for some decisions but coverage is inconsistent. Extend to all high-impact agent actions." },
-  13: { no: "Without an escalation path, every AI failure becomes a fire drill. Document response procedures before the next incident, not during it.", partially: "Escalation paths exist for some agents but aren't standardised. Create a unified incident response framework." },
-  14: { no: "Team-by-team improvisation means inconsistent quality, duplicated effort, and no shared learning. Standardise your AI deployment lifecycle.", partially: "Some teams follow a framework but adoption is uneven. Make it mandatory and provide templates." },
-  15: { no: "Unknown data access patterns from AI agents create significant security and compliance exposure — especially for PII and financial data.", partially: "Some agents' data access is auditable but gaps exist. Conduct a sensitivity audit across all agents." },
-  16: { no: "Decentralised AI management is the structural root of silos. Even a small orchestration function can prevent massive duplication.", partially: "Some coordination exists but isn't systematic. Establish a lightweight AI orchestration team or function." },
-  17: { no: "When teams don't share learnings, every AI initiative starts from zero. This is the knowledge-silo equivalent of system silos.", partially: "Some sharing happens informally. Create a structured patterns library and regular cross-team showcases." },
-  18: { no: "If scaling AI requires proportional headcount, you haven't achieved leverage. Review which agents create overhead vs. capacity.", partially: "Some scaling efficiency exists but bottlenecks remain. Identify and automate the management overhead." },
-  19: { no: "Undocumented environments mean every new AI initiative starts with weeks of discovery. This is a hidden tax on every project.", partially: "Documentation exists but is incomplete or outdated. Prioritise documenting system interfaces and data flows." },
-  20: { no: "Without regular portfolio review, AI agents accumulate — including underperforming ones consuming resources. Institute quarterly rationalisation.", partially: "Reviews happen but aren't rigorous or regular enough. Add performance thresholds and sunset criteria." },
+  1: {
+    no: "Without a unified view, leadership cannot prioritise, rationalise, or govern AI initiatives. This is the single biggest enabler of AI silos.",
+    partially:
+      "Partial visibility means some initiatives are governed while others operate in shadow. Close the gap before scaling.",
+  },
+  2: {
+    no: "An AI asset inventory is foundational. Without it, you cannot measure ROI, identify redundancy, or manage risk across your AI portfolio.",
+    partially:
+      "Your inventory has gaps — untracked agents create security and compliance blind spots.",
+  },
+  3: {
+    no: "AI without defined outcomes becomes 'innovation theatre.' Every agent should tie to a measurable business KPI.",
+    partially:
+      "Some initiatives lack clear KPIs — prioritise tying each to revenue, cost, or operational metrics.",
+  },
+  4: {
+    no: "Unmonitored AI failures create operational risk and erode trust. Implement automated alerting for all production agents.",
+    partially:
+      "Alerting exists but isn't comprehensive — extend monitoring to cover all critical agents.",
+  },
+  5: {
+    no: "Without cost visibility, AI spend becomes invisible overhead. Organisations without tracking waste 20–30% on redundant tools and compute.",
+    partially:
+      "Partial cost tracking means some budgets are unaccounted for. Consolidate into a single AI spend dashboard.",
+  },
+  6: {
+    no: "Single-system agents are the definition of AI silos. They cannot create cross-functional value or orchestrate end-to-end processes.",
+    partially:
+      "Some agents access multiple systems but others remain isolated — prioritise connecting your highest-value workflows.",
+  },
+  7: {
+    no: "Manual handoffs between AI workflows eliminate the speed advantage automation should provide. This is a critical bottleneck.",
+    partially:
+      "Some outputs flow automatically but others require manual re-entry — map and eliminate the top 3 handoff points.",
+  },
+  8: {
+    no: "Multiple versions of truth across AI tools lead to conflicting outputs, inaccurate decisions, and eroded stakeholder confidence.",
+    partially:
+      "Data standardisation is in progress but inconsistencies remain. Prioritise a canonical data layer for AI inputs.",
+  },
+  9: {
+    no: "Vendor lock-in is a strategic risk. If you can't migrate workflows within 90 days, you've ceded control of your AI roadmap.",
+    partially:
+      "Some portability exists but key workflows are locked in. Assess migration readiness for your top 5 agents.",
+  },
+  10: {
+    no: "Slow integration cycles mean every new AI initiative is a custom project — destroying the leverage that agents should provide.",
+    partially:
+      "Integration timelines are improving but still measured in months for some systems. Standardise connectors.",
+  },
+  11: {
+    no: "Ownerless AI agents are ungovernable. Without accountability, performance degrades and risks go unmanaged.",
+    partially:
+      "Some agents have clear owners but others are orphaned. Assign accountability for every production agent.",
+  },
+  12: {
+    no: "AI decisions affecting customers, finances, or compliance without structured review expose the organisation to regulatory and reputational harm.",
+    partially:
+      "Review processes exist for some decisions but coverage is inconsistent. Extend to all high-impact agent actions.",
+  },
+  13: {
+    no: "Without an escalation path, every AI failure becomes a fire drill. Document response procedures before the next incident, not during it.",
+    partially:
+      "Escalation paths exist for some agents but aren't standardised. Create a unified incident response framework.",
+  },
+  14: {
+    no: "Team-by-team improvisation means inconsistent quality, duplicated effort, and no shared learning. Standardise your AI deployment lifecycle.",
+    partially:
+      "Some teams follow a framework but adoption is uneven. Make it mandatory and provide templates.",
+  },
+  15: {
+    no: "Unknown data access patterns from AI agents create significant security and compliance exposure — especially for PII and financial data.",
+    partially:
+      "Some agents' data access is auditable but gaps exist. Conduct a sensitivity audit across all agents.",
+  },
+  16: {
+    no: "Decentralised AI management is the structural root of silos. Even a small orchestration function can prevent massive duplication.",
+    partially:
+      "Some coordination exists but isn't systematic. Establish a lightweight AI orchestration team or function.",
+  },
+  17: {
+    no: "When teams don't share learnings, every AI initiative starts from zero. This is the knowledge-silo equivalent of system silos.",
+    partially:
+      "Some sharing happens informally. Create a structured patterns library and regular cross-team showcases.",
+  },
+  18: {
+    no: "If scaling AI requires proportional headcount, you haven't achieved leverage. Review which agents create overhead vs. capacity.",
+    partially:
+      "Some scaling efficiency exists but bottlenecks remain. Identify and automate the management overhead.",
+  },
+  19: {
+    no: "Undocumented environments mean every new AI initiative starts with weeks of discovery. This is a hidden tax on every project.",
+    partially:
+      "Documentation exists but is incomplete or outdated. Prioritise documenting system interfaces and data flows.",
+  },
+  20: {
+    no: "Without regular portfolio review, AI agents accumulate — including underperforming ones consuming resources. Institute quarterly rationalisation.",
+    partially:
+      "Reviews happen but aren't rigorous or regular enough. Add performance thresholds and sunset criteria.",
+  },
 };
 
 const CATEGORY_ACTIONS: Record<string, Record<string, string[]>> = {
@@ -182,7 +268,12 @@ const BAND_LABELS: Record<string, string> = {
   low: "LOW MATURITY — SIGNIFICANT SILO EXPOSURE",
 };
 
-const CATEGORIES_ORDER = ["AI Visibility & Strategy", "Connectivity & Data Flow", "Risk & Governance", "Scale & Orchestration"];
+const CATEGORIES_ORDER = [
+  "AI Visibility & Strategy",
+  "Connectivity & Data Flow",
+  "Risk & Governance",
+  "Scale & Orchestration",
+];
 const CAT_SHORT: Record<string, string> = {
   "AI Visibility & Strategy": "Visibility",
   "Connectivity & Data Flow": "Connectivity",
@@ -190,7 +281,11 @@ const CAT_SHORT: Record<string, string> = {
   "Scale & Orchestration": "Scale",
 };
 
-const ANSWER_DISPLAY: Record<string, string> = { yes: "Yes", partially: "Partially", no: "No" };
+const ANSWER_DISPLAY: Record<string, string> = {
+  yes: "Yes",
+  partially: "Partially",
+  no: "No",
+};
 const ANSWER_BADGE_COLOR: Record<string, [number, number, number]> = {
   yes: [40, 160, 100],
   partially: [0, 140, 200],
@@ -199,16 +294,51 @@ const ANSWER_BADGE_COLOR: Record<string, [number, number, number]> = {
 
 /* ─── Correlation / benchmarking data ─── */
 const INDUSTRY_BENCHMARKS: Record<string, Record<string, number>> = {
-  high: { "AI Visibility & Strategy": 8.5, "Connectivity & Data Flow": 8.0, "Risk & Governance": 8.2, "Scale & Orchestration": 7.8 },
-  medium: { "AI Visibility & Strategy": 5.5, "Connectivity & Data Flow": 5.0, "Risk & Governance": 5.2, "Scale & Orchestration": 4.8 },
-  low: { "AI Visibility & Strategy": 2.5, "Connectivity & Data Flow": 2.0, "Risk & Governance": 2.2, "Scale & Orchestration": 1.8 },
+  high: {
+    "AI Visibility & Strategy": 8.5,
+    "Connectivity & Data Flow": 8.0,
+    "Risk & Governance": 8.2,
+    "Scale & Orchestration": 7.8,
+  },
+  medium: {
+    "AI Visibility & Strategy": 5.5,
+    "Connectivity & Data Flow": 5.0,
+    "Risk & Governance": 5.2,
+    "Scale & Orchestration": 4.8,
+  },
+  low: {
+    "AI Visibility & Strategy": 2.5,
+    "Connectivity & Data Flow": 2.0,
+    "Risk & Governance": 2.2,
+    "Scale & Orchestration": 1.8,
+  },
 };
 
 const CORRELATION_MATRIX = [
-  { pair: ["Visibility", "Connectivity"], r: 0.82, insight: "Organisations with strong visibility are 82% more likely to also have connected data flows — visibility enables integration prioritisation." },
-  { pair: ["Governance", "Scale"], r: 0.76, insight: "Governance maturity correlates with scaling success (r=0.76). Without governance, scaling amplifies risk rather than value." },
-  { pair: ["Connectivity", "Scale"], r: 0.71, insight: "Connected systems are a prerequisite for orchestration. 71% of scaling failures trace back to data connectivity gaps." },
-  { pair: ["Visibility", "Governance"], r: 0.68, insight: "You can't govern what you can't see. Organisations with low visibility consistently underperform in governance." },
+  {
+    pair: ["Visibility", "Connectivity"],
+    r: 0.82,
+    insight:
+      "Organisations with strong visibility are 82% more likely to also have connected data flows — visibility enables integration prioritisation.",
+  },
+  {
+    pair: ["Governance", "Scale"],
+    r: 0.76,
+    insight:
+      "Governance maturity correlates with scaling success (r=0.76). Without governance, scaling amplifies risk rather than value.",
+  },
+  {
+    pair: ["Connectivity", "Scale"],
+    r: 0.71,
+    insight:
+      "Connected systems are a prerequisite for orchestration. 71% of scaling failures trace back to data connectivity gaps.",
+  },
+  {
+    pair: ["Visibility", "Governance"],
+    r: 0.68,
+    insight:
+      "You can't govern what you can't see. Organisations with low visibility consistently underperform in governance.",
+  },
 ];
 
 Deno.serve(async (req) => {
@@ -218,46 +348,102 @@ Deno.serve(async (req) => {
 
   try {
     const body = (await req.json()) as AuditRequest;
-    const { lead_id, name, email, company, answers, score, band, category_scores, overall_maturity, overall_raw } = body;
+    const {
+      lead_id,
+      name,
+      email,
+      company,
+      answers,
+      score,
+      band,
+      category_scores,
+      overall_maturity,
+      overall_raw,
+    } = body;
 
-    const oMaturity = overall_maturity || (score >= 8 ? "high" : score >= 4 ? "medium" : "low");
+    const oMaturity =
+      overall_maturity || (score >= 8 ? "high" : score >= 4 ? "medium" : "low");
     const oRaw = overall_raw || Math.round(score * 4);
 
-    const catMap: Record<string, { raw: number; norm: number; maturity: string }> = {};
+    const catMap: Record<
+      string,
+      { raw: number; norm: number; maturity: string }
+    > = {};
     for (const cat of CATEGORIES_ORDER) {
       if (category_scores) {
-        const cs = category_scores.find(c => c.category === cat);
-        if (cs) { catMap[cat] = { raw: cs.raw_score, norm: cs.score, maturity: cs.maturity }; continue; }
+        const cs = category_scores.find((c) => c.category === cat);
+        if (cs) {
+          catMap[cat] = {
+            raw: cs.raw_score,
+            norm: cs.score,
+            maturity: cs.maturity,
+          };
+          continue;
+        }
       }
-      const catItems = answers.filter(a => a.category === cat);
+      const catItems = answers.filter((a) => a.category === cat);
       const raw = catItems.reduce((s, a) => s + a.score, 0);
       const norm = Math.round((raw / 10) * 100) / 10;
       const mat = raw >= 8 ? "high" : raw >= 4 ? "medium" : "low";
       catMap[cat] = { raw, norm, maturity: mat };
     }
 
-    const lowAreas = CATEGORIES_ORDER.filter(c => catMap[c].maturity === "low");
-    const medAreas = CATEGORIES_ORDER.filter(c => catMap[c].maturity === "medium");
-    const highAreas = CATEGORIES_ORDER.filter(c => catMap[c].maturity === "high");
+    const lowAreas = CATEGORIES_ORDER.filter(
+      (c) => catMap[c].maturity === "low",
+    );
+    const medAreas = CATEGORIES_ORDER.filter(
+      (c) => catMap[c].maturity === "medium",
+    );
+    const highAreas = CATEGORIES_ORDER.filter(
+      (c) => catMap[c].maturity === "high",
+    );
     const priorityAreas = lowAreas.length > 0 ? lowAreas : medAreas;
 
     // Compute analytics
-    const catScores = CATEGORIES_ORDER.map(c => catMap[c].norm);
+    const catScores = CATEGORIES_ORDER.map((c) => catMap[c].norm);
     const avgScore = catScores.reduce((a, b) => a + b, 0) / 4;
-    const maxCat = CATEGORIES_ORDER.reduce((a, b) => catMap[a].norm > catMap[b].norm ? a : b);
-    const minCat = CATEGORIES_ORDER.reduce((a, b) => catMap[a].norm < catMap[b].norm ? a : b);
+    const maxCat = CATEGORIES_ORDER.reduce((a, b) =>
+      catMap[a].norm > catMap[b].norm ? a : b,
+    );
+    const minCat = CATEGORIES_ORDER.reduce((a, b) =>
+      catMap[a].norm < catMap[b].norm ? a : b,
+    );
     const spread = catMap[maxCat].norm - catMap[minCat].norm;
-    const yesCount = answers.filter(a => a.answer === "yes").length;
-    const partialCount = answers.filter(a => a.answer === "partially").length;
-    const noCount = answers.filter(a => a.answer === "no").length;
+    const yesCount = answers.filter((a) => a.answer === "yes").length;
+    const partialCount = answers.filter((a) => a.answer === "partially").length;
+    const noCount = answers.filter((a) => a.answer === "no").length;
 
     // Estimated impact metrics
-    const efficiencyGain = oMaturity === "high" ? "25–35%" : oMaturity === "medium" ? "15–25%" : "5–15%";
-    const riskReduction = oMaturity === "high" ? "60–70%" : oMaturity === "medium" ? "35–50%" : "10–25%";
-    const roiMultiplier = oMaturity === "high" ? "2.8–3.2×" : oMaturity === "medium" ? "1.4–2.0×" : "0.6–1.0×";
-    const timeToValue = oMaturity === "high" ? "2–4 weeks" : oMaturity === "medium" ? "6–12 weeks" : "3–6 months";
+    const efficiencyGain =
+      oMaturity === "high"
+        ? "25–35%"
+        : oMaturity === "medium"
+          ? "15–25%"
+          : "5–15%";
+    const riskReduction =
+      oMaturity === "high"
+        ? "60–70%"
+        : oMaturity === "medium"
+          ? "35–50%"
+          : "10–25%";
+    const roiMultiplier =
+      oMaturity === "high"
+        ? "2.8–3.2×"
+        : oMaturity === "medium"
+          ? "1.4–2.0×"
+          : "0.6–1.0×";
+    const timeToValue =
+      oMaturity === "high"
+        ? "2–4 weeks"
+        : oMaturity === "medium"
+          ? "6–12 weeks"
+          : "3–6 months";
 
-    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
     const pw = 210;
     const ph = 297;
     const m = 20;
@@ -266,7 +452,11 @@ Deno.serve(async (req) => {
 
     // ─── HELPERS ───
     const checkPage = (need: number) => {
-      if (y + need > 272) { doc.addPage(); y = 28; drawPageHeader(); }
+      if (y + need > 272) {
+        doc.addPage();
+        y = 28;
+        drawPageHeader();
+      }
     };
 
     const drawPageHeader = () => {
@@ -279,11 +469,19 @@ Deno.serve(async (req) => {
       doc.text(company || name, pw - m, 9, { align: "right" });
     };
 
-    const drawWrapped = (text: string, fontSize: number, font: string, color: [number, number, number], indent = 0, lineH = 5, maxW?: number) => {
+    const drawWrapped = (
+      text: string,
+      fontSize: number,
+      font: string,
+      color: [number, number, number],
+      indent = 0,
+      lineH = 5,
+      maxW?: number,
+    ) => {
       doc.setFontSize(fontSize);
       doc.setFont("helvetica", font);
       doc.setTextColor(color[0], color[1], color[2]);
-      const w = maxW || (cw - indent);
+      const w = maxW || cw - indent;
       const lines = doc.splitTextToSize(text, w);
       for (const line of lines) {
         checkPage(lineH + 1);
@@ -303,7 +501,14 @@ Deno.serve(async (req) => {
       y += 15;
     };
 
-    const drawKeyValue = (key: string, value: string, x: number, vy: number, kColor: [number, number, number], vColor: [number, number, number]) => {
+    const drawKeyValue = (
+      key: string,
+      value: string,
+      x: number,
+      vy: number,
+      kColor: [number, number, number],
+      vColor: [number, number, number],
+    ) => {
       doc.setFontSize(20);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(vColor[0], vColor[1], vColor[2]);
@@ -332,14 +537,18 @@ Deno.serve(async (req) => {
     doc.rect(m, 30, 40, 1.5, "F");
 
     // Chase Continental branding
-    doc.setTextColor(0, 200, 220);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
-    doc.text("CHASE CONTINENTAL", m, 42);
+    const branding = await drawBrandHeader(doc, {
+      margin: m,
+      top: 22,
+      textColor: [0, 200, 220],
+      fontSize: 12,
+      logoHeight: 10,
+      gap: 4,
+    });
     doc.setTextColor(100, 115, 140);
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
-    doc.text("Enterprise AI Studio", m + 50, 42);
+    doc.text("Enterprise AI Studio", branding.textStartX, branding.bottomY + 6);
 
     // Main title
     doc.setTextColor(255, 255, 255);
@@ -377,7 +586,15 @@ Deno.serve(async (req) => {
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(100, 115, 140);
-    doc.text(new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }), m, 170);
+    doc.text(
+      new Date().toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+      m,
+      170,
+    );
 
     // Score showcase — large card
     const bandColor = BAND_COLORS[oMaturity] || BAND_COLORS.medium;
@@ -433,7 +650,11 @@ Deno.serve(async (req) => {
     doc.setTextColor(60, 75, 100);
     doc.setFontSize(7.5);
     doc.text("Confidential — For internal use only", m, 272);
-    doc.text("Methodology: Gartner, McKinsey, BCG, Forrester, MIT CISR frameworks", m, 278);
+    doc.text(
+      "Methodology: Gartner, McKinsey, BCG, Forrester, MIT CISR frameworks",
+      m,
+      278,
+    );
     doc.text("chasecontinental.com", pw - m, 278, { align: "right" });
 
     // ═══════════════════════════════════════
@@ -455,11 +676,12 @@ Deno.serve(async (req) => {
     y += 8;
 
     // Key finding paragraph
-    const summaryIntro = oMaturity === "high"
-      ? `${company || "Your organisation"} demonstrates high AI maturity with an overall score of ${score.toFixed(1)}/10. This places you among the top tier of organisations globally — a position held by only 6% of companies according to McKinsey's 2025 State of AI report. Your AI initiatives are well-governed, connected, and strategically aligned. The primary opportunity lies in extending this advantage through advanced orchestration and continuous innovation.`
-      : oMaturity === "medium"
-      ? `${company || "Your organisation"} scores ${score.toFixed(1)}/10, indicating moderate AI maturity. You have foundations in place but face specific gaps that limit enterprise-wide value creation. McKinsey data shows organisations at this stage typically capture only 39% of available AI value. The gap between your strongest area (${CAT_SHORT[maxCat]}: ${catMap[maxCat].norm.toFixed(1)}) and weakest (${CAT_SHORT[minCat]}: ${catMap[minCat].norm.toFixed(1)}) suggests uneven investment that, if addressed, could unlock significant additional returns.`
-      : `${company || "Your organisation"} scores ${score.toFixed(1)}/10, indicating low AI maturity with significant silo exposure. This is consistent with the 74% of organisations that BCG identifies as struggling to scale AI value. Your AI initiatives appear fragmented — operating as isolated projects rather than a connected capability. The good news: organisations at this stage see the largest marginal gains from foundational improvements. A focused 90-day programme can shift your trajectory significantly.`;
+    const summaryIntro =
+      oMaturity === "high"
+        ? `${company || "Your organisation"} demonstrates high AI maturity with an overall score of ${score.toFixed(1)}/10. This places you among the top tier of organisations globally — a position held by only 6% of companies according to McKinsey's 2025 State of AI report. Your AI initiatives are well-governed, connected, and strategically aligned. The primary opportunity lies in extending this advantage through advanced orchestration and continuous innovation.`
+        : oMaturity === "medium"
+          ? `${company || "Your organisation"} scores ${score.toFixed(1)}/10, indicating moderate AI maturity. You have foundations in place but face specific gaps that limit enterprise-wide value creation. McKinsey data shows organisations at this stage typically capture only 39% of available AI value. The gap between your strongest area (${CAT_SHORT[maxCat]}: ${catMap[maxCat].norm.toFixed(1)}) and weakest (${CAT_SHORT[minCat]}: ${catMap[minCat].norm.toFixed(1)}) suggests uneven investment that, if addressed, could unlock significant additional returns.`
+          : `${company || "Your organisation"} scores ${score.toFixed(1)}/10, indicating low AI maturity with significant silo exposure. This is consistent with the 74% of organisations that BCG identifies as struggling to scale AI value. Your AI initiatives appear fragmented — operating as isolated projects rather than a connected capability. The good news: organisations at this stage see the largest marginal gains from foundational improvements. A focused 90-day programme can shift your trajectory significantly.`;
 
     drawWrapped(summaryIntro, 10, "normal", [40, 45, 55], 0, 5);
     y += 5;
@@ -474,17 +696,40 @@ Deno.serve(async (req) => {
     const metricsY = y;
     const mw = (cw - 6) / 4;
     const metrics = [
-      { label: "Overall Score", value: `${score.toFixed(1)}/10`, color: bandColor },
-      { label: "Response Profile", value: `${yesCount}Y / ${partialCount}P / ${noCount}N`, color: [0, 140, 200] as [number, number, number] },
-      { label: "Category Spread", value: `${spread.toFixed(1)} pts`, color: spread > 4 ? [220, 60, 60] as [number, number, number] : [40, 160, 100] as [number, number, number] },
-      { label: "Maturity Level", value: oMaturity.toUpperCase(), color: bandColor },
+      {
+        label: "Overall Score",
+        value: `${score.toFixed(1)}/10`,
+        color: bandColor,
+      },
+      {
+        label: "Response Profile",
+        value: `${yesCount}Y / ${partialCount}P / ${noCount}N`,
+        color: [0, 140, 200] as [number, number, number],
+      },
+      {
+        label: "Category Spread",
+        value: `${spread.toFixed(1)} pts`,
+        color:
+          spread > 4
+            ? ([220, 60, 60] as [number, number, number])
+            : ([40, 160, 100] as [number, number, number]),
+      },
+      {
+        label: "Maturity Level",
+        value: oMaturity.toUpperCase(),
+        color: bandColor,
+      },
     ];
 
     for (let i = 0; i < 4; i++) {
       const mx = m + i * (mw + 2);
       doc.setFillColor(245, 247, 250);
       doc.roundedRect(mx, metricsY, mw, 24, 2, 2, "F");
-      doc.setFillColor(metrics[i].color[0], metrics[i].color[1], metrics[i].color[2]);
+      doc.setFillColor(
+        metrics[i].color[0],
+        metrics[i].color[1],
+        metrics[i].color[2],
+      );
       doc.roundedRect(mx, metricsY, mw, 2.5, 2, 2, "F");
       doc.setFillColor(245, 247, 250);
       doc.rect(mx, metricsY + 2, mw, 1, "F");
@@ -492,11 +737,15 @@ Deno.serve(async (req) => {
       doc.setFontSize(14);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(15, 23, 42);
-      doc.text(metrics[i].value, mx + mw / 2, metricsY + 13, { align: "center" });
+      doc.text(metrics[i].value, mx + mw / 2, metricsY + 13, {
+        align: "center",
+      });
       doc.setFontSize(7);
       doc.setFont("helvetica", "normal");
       doc.setTextColor(100, 105, 120);
-      doc.text(metrics[i].label.toUpperCase(), mx + mw / 2, metricsY + 20, { align: "center" });
+      doc.text(metrics[i].label.toUpperCase(), mx + mw / 2, metricsY + 20, {
+        align: "center",
+      });
     }
     y = metricsY + 30;
 
@@ -600,7 +849,11 @@ Deno.serve(async (req) => {
 
     drawWrapped(
       "The four assessment categories are not independent — they reinforce and constrain each other. Organisations that improve one area in isolation often see limited returns. The analysis below shows how your category scores interact and where systemic improvements will have the greatest compound effect.",
-      10, "normal", [40, 45, 55], 0, 5
+      10,
+      "normal",
+      [40, 45, 55],
+      0,
+      5,
     );
     y += 6;
 
@@ -613,7 +866,7 @@ Deno.serve(async (req) => {
 
     // Draw radar axes and labels
     const angles = [-Math.PI / 2, 0, Math.PI / 2, Math.PI];
-    const catLabels = CATEGORIES_ORDER.map(c => CAT_SHORT[c]);
+    const catLabels = CATEGORIES_ORDER.map((c) => CAT_SHORT[c]);
 
     // Background rings
     for (let ring = 2; ring <= 10; ring += 2) {
@@ -621,9 +874,17 @@ Deno.serve(async (req) => {
       doc.setDrawColor(220, 225, 235);
       doc.setLineWidth(0.15);
       // Draw diamond shape
-      const pts: [number, number][] = angles.map(a => [centerX + Math.cos(a) * r, centerY2 + Math.sin(a) * r]);
+      const pts: [number, number][] = angles.map((a) => [
+        centerX + Math.cos(a) * r,
+        centerY2 + Math.sin(a) * r,
+      ]);
       for (let i = 0; i < 4; i++) {
-        doc.line(pts[i][0], pts[i][1], pts[(i + 1) % 4][0], pts[(i + 1) % 4][1]);
+        doc.line(
+          pts[i][0],
+          pts[i][1],
+          pts[(i + 1) % 4][0],
+          pts[(i + 1) % 4][1],
+        );
       }
     }
 
@@ -631,35 +892,63 @@ Deno.serve(async (req) => {
     doc.setDrawColor(180, 185, 200);
     doc.setLineWidth(0.2);
     for (const a of angles) {
-      doc.line(centerX, centerY2, centerX + Math.cos(a) * (radius + 5), centerY2 + Math.sin(a) * (radius + 5));
+      doc.line(
+        centerX,
+        centerY2,
+        centerX + Math.cos(a) * (radius + 5),
+        centerY2 + Math.sin(a) * (radius + 5),
+      );
     }
 
     // Labels
-    const labelOffsets = [{ dx: 0, dy: -radius - 10 }, { dx: radius + 8, dy: 0 }, { dx: 0, dy: radius + 10 }, { dx: -radius - 8, dy: 0 }];
+    const labelOffsets = [
+      { dx: 0, dy: -radius - 10 },
+      { dx: radius + 8, dy: 0 },
+      { dx: 0, dy: radius + 10 },
+      { dx: -radius - 8, dy: 0 },
+    ];
     const labelAligns = ["center", "left", "center", "right"] as const;
     for (let i = 0; i < 4; i++) {
       doc.setFontSize(8);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(60, 65, 80);
-      doc.text(catLabels[i], centerX + labelOffsets[i].dx, centerY2 + labelOffsets[i].dy, { align: labelAligns[i] });
+      doc.text(
+        catLabels[i],
+        centerX + labelOffsets[i].dx,
+        centerY2 + labelOffsets[i].dy,
+        { align: labelAligns[i] },
+      );
       // Score below label
       doc.setFontSize(7);
       doc.setFont("helvetica", "normal");
       const cc = BAND_COLORS[catMap[CATEGORIES_ORDER[i]].maturity];
       doc.setTextColor(cc[0], cc[1], cc[2]);
-      doc.text(`${catMap[CATEGORIES_ORDER[i]].norm.toFixed(1)}/10`, centerX + labelOffsets[i].dx, centerY2 + labelOffsets[i].dy + 4, { align: labelAligns[i] });
+      doc.text(
+        `${catMap[CATEGORIES_ORDER[i]].norm.toFixed(1)}/10`,
+        centerX + labelOffsets[i].dx,
+        centerY2 + labelOffsets[i].dy + 4,
+        { align: labelAligns[i] },
+      );
     }
 
     // Data polygon — your scores
     const scorePts: [number, number][] = CATEGORIES_ORDER.map((cat, i) => {
       const r = (catMap[cat].norm / 10) * radius;
-      return [centerX + Math.cos(angles[i]) * r, centerY2 + Math.sin(angles[i]) * r];
+      return [
+        centerX + Math.cos(angles[i]) * r,
+        centerY2 + Math.sin(angles[i]) * r,
+      ];
     });
 
     doc.setDrawColor(0, 200, 220);
     doc.setLineWidth(1);
     for (let i = 0; i < 4; i++) {
-      doc.line(scorePts[i][0], scorePts[i][1], scorePts[(i + 1) % 4][0], scorePts[(i + 1) % 4][1]);
+      doc.line(
+        scorePts[i][0],
+        scorePts[i][1],
+        scorePts[(i + 1) % 4][0],
+        scorePts[(i + 1) % 4][1],
+      );
     }
     // Dots at vertices
     for (const pt of scorePts) {
@@ -670,14 +959,22 @@ Deno.serve(async (req) => {
     // Benchmark polygon
     const benchPts: [number, number][] = CATEGORIES_ORDER.map((cat, i) => {
       const r = (INDUSTRY_BENCHMARKS[oMaturity][cat] / 10) * radius;
-      return [centerX + Math.cos(angles[i]) * r, centerY2 + Math.sin(angles[i]) * r];
+      return [
+        centerX + Math.cos(angles[i]) * r,
+        centerY2 + Math.sin(angles[i]) * r,
+      ];
     });
 
     doc.setDrawColor(200, 200, 210);
     doc.setLineWidth(0.5);
     doc.setLineDashPattern([2, 2], 0);
     for (let i = 0; i < 4; i++) {
-      doc.line(benchPts[i][0], benchPts[i][1], benchPts[(i + 1) % 4][0], benchPts[(i + 1) % 4][1]);
+      doc.line(
+        benchPts[i][0],
+        benchPts[i][1],
+        benchPts[(i + 1) % 4][0],
+        benchPts[(i + 1) % 4][1],
+      );
     }
     doc.setLineDashPattern([], 0);
 
@@ -702,7 +999,12 @@ Deno.serve(async (req) => {
     for (const corr of CORRELATION_MATRIX) {
       checkPage(20);
       // Colored correlation indicator
-      const corrColor: [number, number, number] = corr.r >= 0.75 ? [220, 60, 60] : corr.r >= 0.65 ? [0, 140, 200] : [40, 160, 100];
+      const corrColor: [number, number, number] =
+        corr.r >= 0.75
+          ? [220, 60, 60]
+          : corr.r >= 0.65
+            ? [0, 140, 200]
+            : [40, 160, 100];
 
       doc.setFillColor(248, 249, 252);
       doc.roundedRect(m, y, cw, 18, 2, 2, "F");
@@ -718,7 +1020,9 @@ Deno.serve(async (req) => {
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(corrColor[0], corrColor[1], corrColor[2]);
-      doc.text(`r = ${corr.r.toFixed(2)}`, pw - m - 4, y + 6, { align: "right" });
+      doc.text(`r = ${corr.r.toFixed(2)}`, pw - m - 4, y + 6, {
+        align: "right",
+      });
 
       doc.setFontSize(8);
       doc.setFont("helvetica", "normal");
@@ -733,11 +1037,12 @@ Deno.serve(async (req) => {
     // Spread analysis
     y += 4;
     checkPage(25);
-    const spreadInsight = spread > 4
-      ? `Your category spread of ${spread.toFixed(1)} points is significant. This uneven profile indicates that AI investments and capabilities are concentrated in ${CAT_SHORT[maxCat]} while ${CAT_SHORT[minCat]} lags substantially. Research from BCG shows that uneven maturity profiles generate 40% less value than balanced ones — your weakest link constrains overall capability. Priority: address ${CAT_SHORT[minCat]} before further investment in strong areas.`
-      : spread > 2
-      ? `Your category spread of ${spread.toFixed(1)} points shows moderate unevenness. ${CAT_SHORT[maxCat]} leads while ${CAT_SHORT[minCat]} trails. Targeted improvement in ${CAT_SHORT[minCat]} would have compound benefits across other categories due to the correlations shown above.`
-      : `Your category spread of ${spread.toFixed(1)} points indicates a balanced maturity profile. This is positive — BCG data shows balanced profiles generate 40% more value than uneven ones. Focus on lifting all categories in parallel.`;
+    const spreadInsight =
+      spread > 4
+        ? `Your category spread of ${spread.toFixed(1)} points is significant. This uneven profile indicates that AI investments and capabilities are concentrated in ${CAT_SHORT[maxCat]} while ${CAT_SHORT[minCat]} lags substantially. Research from BCG shows that uneven maturity profiles generate 40% less value than balanced ones — your weakest link constrains overall capability. Priority: address ${CAT_SHORT[minCat]} before further investment in strong areas.`
+        : spread > 2
+          ? `Your category spread of ${spread.toFixed(1)} points shows moderate unevenness. ${CAT_SHORT[maxCat]} leads while ${CAT_SHORT[minCat]} trails. Targeted improvement in ${CAT_SHORT[minCat]} would have compound benefits across other categories due to the correlations shown above.`
+          : `Your category spread of ${spread.toFixed(1)} points indicates a balanced maturity profile. This is positive — BCG data shows balanced profiles generate 40% more value than uneven ones. Focus on lifting all categories in parallel.`;
 
     doc.setFillColor(15, 23, 42);
     doc.roundedRect(m, y, cw, 4, 2, 2, "F");
@@ -776,7 +1081,11 @@ Deno.serve(async (req) => {
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(9);
       doc.setFont("helvetica", "bold");
-      doc.text(`${cd.norm.toFixed(1)} / 10  —  ${cd.maturity.toUpperCase()} MATURITY`, m + 3, y + 5.5);
+      doc.text(
+        `${cd.norm.toFixed(1)} / 10  —  ${cd.maturity.toUpperCase()} MATURITY`,
+        m + 3,
+        y + 5.5,
+      );
       y += 14;
 
       // Accent bar
@@ -796,13 +1105,20 @@ Deno.serve(async (req) => {
       // ─── Question breakdown with visual indicators ───
       drawSectionTitle("Question-by-Question Assessment");
 
-      const catAnswers = answers.filter(a => a.category === cat);
+      const catAnswers = answers.filter((a) => a.category === cat);
       for (const item of catAnswers) {
         checkPage(28);
 
         // Question row background
-        doc.setFillColor(item.answer === "yes" ? 245 : item.answer === "partially" ? 248 : 252, item.answer === "yes" ? 250 : 248, item.answer === "yes" ? 248 : item.answer === "partially" ? 250 : 248);
-        const qLines = doc.splitTextToSize(`Q${item.id}: ${item.question}`, cw - 30);
+        doc.setFillColor(
+          item.answer === "yes" ? 245 : item.answer === "partially" ? 248 : 252,
+          item.answer === "yes" ? 250 : 248,
+          item.answer === "yes" ? 248 : item.answer === "partially" ? 250 : 248,
+        );
+        const qLines = doc.splitTextToSize(
+          `Q${item.id}: ${item.question}`,
+          cw - 30,
+        );
         const rowH = qLines.length * 4 + 6;
         doc.roundedRect(m, y - 3, cw, rowH, 1.5, 1.5, "F");
 
@@ -832,7 +1148,10 @@ Deno.serve(async (req) => {
 
         // Insight for non-yes
         if (item.answer !== "yes" && QUESTION_INSIGHTS[item.id]) {
-          const insight = item.answer === "no" ? QUESTION_INSIGHTS[item.id].no : QUESTION_INSIGHTS[item.id].partially;
+          const insight =
+            item.answer === "no"
+              ? QUESTION_INSIGHTS[item.id].no
+              : QUESTION_INSIGHTS[item.id].partially;
           checkPage(14);
           doc.setFontSize(8);
           doc.setFont("helvetica", "italic");
@@ -888,8 +1207,12 @@ Deno.serve(async (req) => {
     y += 8;
 
     drawWrapped(
-      `Based on your assessment results, the following phased roadmap targets your highest-impact improvement areas. Priority has been given to ${priorityAreas.map(a => CAT_SHORT[a]).join(" and ")} based on current maturity gaps. Each phase builds on the previous — skip phases at your own risk.`,
-      10, "normal", [40, 45, 55], 0, 5
+      `Based on your assessment results, the following phased roadmap targets your highest-impact improvement areas. Priority has been given to ${priorityAreas.map((a) => CAT_SHORT[a]).join(" and ")} based on current maturity gaps. Each phase builds on the previous — skip phases at your own risk.`,
+      10,
+      "normal",
+      [40, 45, 55],
+      0,
+      5,
     );
     y += 6;
 
@@ -899,51 +1222,64 @@ Deno.serve(async (req) => {
         title: "Phase 1: Foundation",
         timeline: "0–3 months",
         color: [220, 60, 60] as [number, number, number],
-        actions: priorityAreas.length > 0 ? [
-          "Conduct a full AI asset inventory across all departments — catalogue every agent, bot, and workflow.",
-          "Map data flows between AI agents and business systems — identify dead-ends and manual handoffs.",
-          "Assign clear ownership for every production AI agent, including performance KPIs.",
-          "Consolidate AI spend tracking into a single dashboard — eliminate redundant costs.",
-        ] : [
-          "Benchmark current AI performance against industry peers.",
-          "Identify opportunities for multi-agent orchestration across departments.",
-        ],
+        actions:
+          priorityAreas.length > 0
+            ? [
+                "Conduct a full AI asset inventory across all departments — catalogue every agent, bot, and workflow.",
+                "Map data flows between AI agents and business systems — identify dead-ends and manual handoffs.",
+                "Assign clear ownership for every production AI agent, including performance KPIs.",
+                "Consolidate AI spend tracking into a single dashboard — eliminate redundant costs.",
+              ]
+            : [
+                "Benchmark current AI performance against industry peers.",
+                "Identify opportunities for multi-agent orchestration across departments.",
+              ],
       },
       {
         title: "Phase 2: Connection & Governance",
         timeline: "3–6 months",
         color: [0, 140, 200] as [number, number, number],
-        actions: oMaturity === "low" ? [
-          "Implement a shared data layer — single source of truth for AI agent inputs.",
-          "Deploy an AI governance framework aligned to NIST or ISO standards.",
-          "Automate the top 3 manual handoffs between AI workflows and downstream systems.",
-          "Establish a cross-functional AI review board with quarterly portfolio review.",
-        ] : oMaturity === "medium" ? [
-          "Standardise AI deployment lifecycle — from pilot to production — across all teams.",
-          "Extend governance coverage to all AI initiatives, not just flagship projects.",
-          "Implement automated data quality monitoring across AI pipelines.",
-        ] : [
-          "Explore advanced multi-agent workflows for complex cross-functional processes.",
-          "Implement predictive monitoring and self-healing automation for critical agents.",
-        ],
+        actions:
+          oMaturity === "low"
+            ? [
+                "Implement a shared data layer — single source of truth for AI agent inputs.",
+                "Deploy an AI governance framework aligned to NIST or ISO standards.",
+                "Automate the top 3 manual handoffs between AI workflows and downstream systems.",
+                "Establish a cross-functional AI review board with quarterly portfolio review.",
+              ]
+            : oMaturity === "medium"
+              ? [
+                  "Standardise AI deployment lifecycle — from pilot to production — across all teams.",
+                  "Extend governance coverage to all AI initiatives, not just flagship projects.",
+                  "Implement automated data quality monitoring across AI pipelines.",
+                ]
+              : [
+                  "Explore advanced multi-agent workflows for complex cross-functional processes.",
+                  "Implement predictive monitoring and self-healing automation for critical agents.",
+                ],
       },
       {
         title: "Phase 3: Scale & Optimise",
         timeline: "6–12 months",
         color: [40, 160, 100] as [number, number, number],
-        actions: oMaturity === "low" ? [
-          "Scale proven AI patterns to adjacent workflows after foundational issues are resolved.",
-          "Implement vendor migration readiness — ensure any workflow can move within 90 days.",
-          "Target: 15–20% operational efficiency gain through connected, governed AI agents.",
-        ] : oMaturity === "medium" ? [
-          "Scale successful AI patterns across departments using shared patterns library.",
-          "Reduce AI management overhead — target 2× footprint without proportional headcount.",
-          "Target: 20–30% efficiency gain through fully orchestrated AI agents.",
-        ] : [
-          "Pursue AI-augmented decision-making where deterministic workflows are stable.",
-          "Enterprise-wide agent orchestration — autonomous coordination across all functions.",
-          "Target: maintain competitive advantage through continuous AI portfolio innovation.",
-        ],
+        actions:
+          oMaturity === "low"
+            ? [
+                "Scale proven AI patterns to adjacent workflows after foundational issues are resolved.",
+                "Implement vendor migration readiness — ensure any workflow can move within 90 days.",
+                "Target: 15–20% operational efficiency gain through connected, governed AI agents.",
+              ]
+            : oMaturity === "medium"
+              ? [
+                  "Scale successful AI patterns across departments using shared patterns library.",
+                  "Reduce AI management overhead — target 2× footprint without proportional headcount.",
+                  "Target: 20–30% efficiency gain through fully orchestrated AI agents.",
+                ]
+              : [
+                  "Pursue AI-augmented decision-making where deterministic workflows are stable.",
+                  "Enterprise-wide agent orchestration — autonomous coordination across all functions.",
+                  "Target: maintain competitive advantage through continuous AI portfolio innovation.",
+                ],
       },
     ];
 
@@ -1003,11 +1339,12 @@ Deno.serve(async (req) => {
     doc.setTextColor(220, 225, 240);
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
-    const outcomeText = oMaturity === "low"
-      ? `Move from siloed to connected, governed AI within 12 months. Expected: ${efficiencyGain} efficiency gain, 20–30% reduction in redundant AI spend, ${riskReduction} risk reduction.`
-      : oMaturity === "medium"
-      ? `Achieve high maturity within 6–9 months. Expected: ${efficiencyGain} efficiency gain, ${roiMultiplier} ROI on AI investments, ${riskReduction} risk reduction.`
-      : `Maintain competitive edge: continuous optimisation driving 1.5× revenue growth and up to 18% enterprise value uplift through AI leadership.`;
+    const outcomeText =
+      oMaturity === "low"
+        ? `Move from siloed to connected, governed AI within 12 months. Expected: ${efficiencyGain} efficiency gain, 20–30% reduction in redundant AI spend, ${riskReduction} risk reduction.`
+        : oMaturity === "medium"
+          ? `Achieve high maturity within 6–9 months. Expected: ${efficiencyGain} efficiency gain, ${roiMultiplier} ROI on AI investments, ${riskReduction} risk reduction.`
+          : `Maintain competitive edge: continuous optimisation driving 1.5× revenue growth and up to 18% enterprise value uplift through AI leadership.`;
     const oLines = doc.splitTextToSize(outcomeText, cw - 12);
     doc.text(oLines, m + 6, y + 17);
 
@@ -1040,15 +1377,27 @@ Deno.serve(async (req) => {
     doc.setTextColor(160, 175, 200);
     const nLines = doc.splitTextToSize(
       "This assessment is a starting point, not a destination. The insights in this report are most valuable when acted on within 30 days — before organisational momentum shifts.",
-      cw
+      cw,
     );
     doc.text(nLines, m, 82);
 
     const nextSteps = [
-      { num: "01", text: "Review your category scores with your leadership team — focus on the lowest-scoring area first." },
-      { num: "02", text: "Share this report with stakeholders to align on AI silo risk and prioritisation." },
-      { num: "03", text: "Use the roadmap to plan your first 90-day sprint. Start with Phase 1 actions." },
-      { num: "04", text: "Book a free 15-minute strategy call to map your fastest path to connected AI agents." },
+      {
+        num: "01",
+        text: "Review your category scores with your leadership team — focus on the lowest-scoring area first.",
+      },
+      {
+        num: "02",
+        text: "Share this report with stakeholders to align on AI silo risk and prioritisation.",
+      },
+      {
+        num: "03",
+        text: "Use the roadmap to plan your first 90-day sprint. Start with Phase 1 actions.",
+      },
+      {
+        num: "04",
+        text: "Book a free 15-minute strategy call to map your fastest path to connected AI agents.",
+      },
     ];
 
     let nsY = 110;
@@ -1085,7 +1434,11 @@ Deno.serve(async (req) => {
     doc.text("https://calendar.app.google/8oZYnnuHcaiH64Ky8", m + 8, nsY + 22);
     doc.setTextColor(100, 115, 140);
     doc.setFontSize(8);
-    doc.text("15 minutes  •  No obligation  •  Tailored to your assessment results", m + 8, nsY + 29);
+    doc.text(
+      "15 minutes  •  No obligation  •  Tailored to your assessment results",
+      m + 8,
+      nsY + 29,
+    );
 
     // Bottom branding
     doc.setTextColor(60, 75, 100);
@@ -1103,7 +1456,12 @@ Deno.serve(async (req) => {
       doc.rect(0, 287, pw, 10, "F");
       doc.setTextColor(120, 125, 140);
       doc.setFontSize(7);
-      doc.text("Chase Continental  |  Enterprise AI Studio  |  Confidential", pw / 2, 292, { align: "center" });
+      doc.text(
+        "Chase Continental  |  Enterprise AI Studio  |  Confidential",
+        pw / 2,
+        292,
+        { align: "center" },
+      );
       doc.text(`${p} / ${totalPages}`, pw - m, 292, { align: "right" });
     }
 
@@ -1120,28 +1478,37 @@ Deno.serve(async (req) => {
     const filePath = `silo-audit-checklist/${lead_id}-${Date.now()}.pdf`;
     const { error: uploadError } = await supabase.storage
       .from("lead-magnets")
-      .upload(filePath, pdfBuffer, { contentType: "application/pdf", upsert: true });
+      .upload(filePath, pdfBuffer, {
+        contentType: "application/pdf",
+        upsert: true,
+      });
 
     if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
 
-    const { data: urlData } = supabase.storage.from("lead-magnets").getPublicUrl(filePath);
+    const { data: signedUrlData, error: signedUrlError } =
+      await supabase.storage
+        .from("lead-magnets")
+        .createSignedUrl(filePath, 3600);
 
-    await supabase.from("downloads").insert({
-      lead_id,
-      asset_key: "silo-audit-checklist",
-      file_path: filePath,
-      downloaded_at: new Date().toISOString(),
-    });
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      throw (
+        signedUrlError ??
+        new Error("Could not create a signed URL for the audit report.")
+      );
+    }
 
     return new Response(
-      JSON.stringify({ pdf_url: urlData.publicUrl }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
+      JSON.stringify({ pdf_url: signedUrlData.signedUrl, file_path: filePath }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      },
     );
   } catch (err) {
     console.error("PDF generation error:", err);
-    return new Response(
-      JSON.stringify({ error: err.message }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
-    );
+    return new Response(JSON.stringify({ error: err.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500,
+    });
   }
 });

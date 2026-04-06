@@ -1,27 +1,54 @@
-import "https://esm.sh/jspdf@2.5.1";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { jsPDF } from "https://esm.sh/jspdf@2.5.2";
+import { drawBrandHeader } from "../_shared/pdf-branding.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
+
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SUPABASE_SERVICE_ROLE_KEY =
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const STORAGE_BUCKET = "lead-magnets";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    return new Response(
+      JSON.stringify({ error: "Supabase environment variables are missing." }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  }
+
   try {
-    const { name, email } = await req.json();
-    const { jsPDF } = (globalThis as any).jspdf;
-    const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
+    const { signupId, name, email } = await req.json();
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "pt",
+      format: "a4",
+    });
     const w = doc.internal.pageSize.getWidth();
     const margin = 50;
     const contentW = w - margin * 2;
     let y = 0;
 
-    const addPage = () => { doc.addPage(); y = margin; };
-    const checkPage = (need: number) => { if (y + need > 760) addPage(); };
+    const addPage = () => {
+      doc.addPage();
+      y = margin;
+    };
+    const checkPage = (need: number) => {
+      if (y + need > 760) addPage();
+    };
 
     // ── Cover ──
     doc.setFillColor(15, 30, 55);
@@ -30,10 +57,14 @@ serve(async (req) => {
     doc.setFillColor(0, 180, 190);
     doc.rect(margin, 120, 80, 4, "F");
 
-    doc.setTextColor(0, 180, 190);
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("CHASE CONTINENTAL", margin, 100);
+    await drawBrandHeader(doc, {
+      margin,
+      top: 82,
+      textColor: [0, 180, 190],
+      fontSize: 12,
+      logoHeight: 18,
+      gap: 10,
+    });
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(38);
@@ -51,7 +82,11 @@ serve(async (req) => {
     doc.setTextColor(140, 160, 180);
     doc.text(`Prepared for: ${name || "Operations Leader"}`, margin, 400);
     doc.text(`Email: ${email || ""}`, margin, 420);
-    doc.text(`Date: ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`, margin, 440);
+    doc.text(
+      `Date: ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`,
+      margin,
+      440,
+    );
 
     doc.setFillColor(212, 175, 55);
     doc.rect(margin, 740, contentW, 3, "F");
@@ -89,7 +124,10 @@ serve(async (req) => {
       "• 80% of finance tasks can be automated with proper planning",
       "• 60% of companies are already implementing automation",
     ];
-    summary.forEach((line) => { doc.text(line, margin, y); y += 16; });
+    summary.forEach((line) => {
+      doc.text(line, margin, y);
+      y += 16;
+    });
 
     // ── Automation Benefits Breakdown ──
     y += 20;
@@ -115,14 +153,23 @@ serve(async (req) => {
       doc.setFillColor(235, 235, 235);
       doc.roundedRect(margin + 200, y, 250, 16, 4, 4, "F");
       doc.setFillColor(b.color[0], b.color[1], b.color[2]);
-      doc.roundedRect(margin + 200, y, 250 * (b.pct / 100) * 2.5, 16, 4, 4, "F");
+      doc.roundedRect(
+        margin + 200,
+        y,
+        250 * (b.pct / 100) * 2.5,
+        16,
+        4,
+        4,
+        "F",
+      );
       y += 28;
     });
 
     // ── Day pages ──
     const days = [
       {
-        day: 1, title: "Pick the Workflow",
+        day: 1,
+        title: "Pick the Workflow",
         content: [
           "Objective: Identify repetitive, high-volume, rule-based tasks.",
           "",
@@ -146,7 +193,8 @@ serve(async (req) => {
         ],
       },
       {
-        day: 2, title: "Map the Real Steps",
+        day: 2,
+        title: "Map the Real Steps",
         content: [
           "Objective: Document the current process step by step.",
           "",
@@ -169,7 +217,8 @@ serve(async (req) => {
         ],
       },
       {
-        day: 3, title: "Define Exceptions + Approvals",
+        day: 3,
+        title: "Define Exceptions + Approvals",
         content: [
           "Objective: Handle the edge cases that break automation.",
           "",
@@ -195,7 +244,8 @@ serve(async (req) => {
         ],
       },
       {
-        day: 4, title: "Define Success Metrics",
+        day: 4,
+        title: "Define Success Metrics",
         content: [
           "Objective: Set measurable KPIs using SMART goals.",
           "",
@@ -225,7 +275,8 @@ serve(async (req) => {
         ],
       },
       {
-        day: 5, title: "Rollout Plan + Next Steps",
+        day: 5,
+        title: "Rollout Plan + Next Steps",
         content: [
           "Objective: Create a phased implementation plan.",
           "",
@@ -261,7 +312,11 @@ serve(async (req) => {
       doc.setFont("helvetica", "bold");
       doc.text(`Day ${d.day}: ${d.title}`, margin, y);
       y += 10;
-      doc.setFillColor(d.day <= 2 ? 0 : d.day <= 4 ? 212 : 80, d.day <= 2 ? 180 : d.day <= 4 ? 175 : 45, d.day <= 2 ? 190 : d.day <= 4 ? 55 : 168);
+      doc.setFillColor(
+        d.day <= 2 ? 0 : d.day <= 4 ? 212 : 80,
+        d.day <= 2 ? 180 : d.day <= 4 ? 175 : 45,
+        d.day <= 2 ? 190 : d.day <= 4 ? 55 : 168,
+      );
       doc.rect(margin, y, 60, 3, "F");
       y += 25;
 
@@ -297,7 +352,10 @@ serve(async (req) => {
       "• Gartner — Hyperautomation Strategic Technology Trend",
       "• Harvard Business Review — Process Mapping and Automation",
     ];
-    sources.forEach((s) => { doc.text(s, margin, y); y += 14; });
+    sources.forEach((s) => {
+      doc.text(s, margin, y);
+      y += 14;
+    });
 
     y += 20;
     doc.setFillColor(212, 175, 55);
@@ -308,13 +366,42 @@ serve(async (req) => {
     doc.text("© 2026 Chase Continental. All rights reserved.", margin, y);
 
     const pdfBytes = doc.output("arraybuffer");
-    return new Response(pdfBytes, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/pdf",
-        "Content-Disposition": 'attachment; filename="5-Day-Automation-Pilot-Challenge.pdf"',
+    const resolvedSignupId = signupId?.trim() || crypto.randomUUID();
+    const filePath = `5-day-pilot-challenge/${resolvedSignupId}-${Date.now()}.pdf`;
+
+    const { error: uploadError } = await supabase.storage
+      .from(STORAGE_BUCKET)
+      .upload(filePath, new Uint8Array(pdfBytes), {
+        contentType: "application/pdf",
+        upsert: false,
+      });
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data: signedUrlData, error: signedUrlError } =
+      await supabase.storage
+        .from(STORAGE_BUCKET)
+        .createSignedUrl(filePath, 3600);
+
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      throw signedUrlError ?? new Error("Could not create signed URL.");
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        pdf_url: signedUrlData.signedUrl,
+        file_path: filePath,
+      }),
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,

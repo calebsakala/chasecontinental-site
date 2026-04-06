@@ -21,6 +21,7 @@ import CcidCaseStudy from "./pages/resources/CcidCaseStudy";
 import NeutralVsProprietaryScorecard from "./pages/resources/NeutralVsProprietaryScorecard";
 import ShopifyOpsAutomation from "./pages/resources/ShopifyOpsAutomation";
 import AiRoiCalculator from "./pages/resources/AiRoiCalculator";
+import ResourceDownloadRedirect from "./pages/resources/ResourceDownloadRedirect";
 import ProductsPage from "./pages/ProductsPage";
 import CharlesPage from "./pages/CharlesPage";
 import NotFound from "./pages/NotFound";
@@ -44,21 +45,58 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/resources" element={<ResourcesPage />} />
-          <Route path="/resources/silo-audit-checklist" element={<SiloAuditChecklist />} />
+          <Route
+            path="/resources/silo-audit-checklist"
+            element={<SiloAuditChecklist />}
+          />
           <Route
             path="/resources/automation-roi-calculator"
             element={<AutomationRoiCalculator />}
           />
-          <Route path="/resources/transformation-playbook" element={<TransformationPlaybook />} />
-          <Route path="/resources/reliability-assessment" element={<ReliabilityAssessment />} />
-          <Route path="/resources/orchestration-swipe-file" element={<OrchestrationSwipeFile />} />
-          <Route path="/resources/peak-season-survival-guide" element={<PeakSeasonSurvivalGuide />} />
-          <Route path="/resources/deterministic-blueprint" element={<DeterministicBlueprint />} />
-          <Route path="/resources/5-day-pilot-challenge" element={<FiveDayPilotChallenge />} />
-          <Route path="/resources/ccid-case-study" element={<CcidCaseStudy />} />
-          <Route path="/resources/neutral-vs-proprietary-scorecard" element={<NeutralVsProprietaryScorecard />} />
-          <Route path="/resources/shopify-ops-automation" element={<ShopifyOpsAutomation />} />
-          <Route path="/resources/ai-roi-calculator" element={<AiRoiCalculator />} />
+          <Route
+            path="/resources/transformation-playbook"
+            element={<TransformationPlaybook />}
+          />
+          <Route
+            path="/resources/reliability-assessment"
+            element={<ReliabilityAssessment />}
+          />
+          <Route
+            path="/resources/orchestration-swipe-file"
+            element={<OrchestrationSwipeFile />}
+          />
+          <Route
+            path="/resources/peak-season-survival-guide"
+            element={<PeakSeasonSurvivalGuide />}
+          />
+          <Route
+            path="/resources/deterministic-blueprint"
+            element={<DeterministicBlueprint />}
+          />
+          <Route
+            path="/resources/5-day-pilot-challenge"
+            element={<FiveDayPilotChallenge />}
+          />
+          <Route
+            path="/resources/ccid-case-study"
+            element={<CcidCaseStudy />}
+          />
+          <Route
+            path="/resources/neutral-vs-proprietary-scorecard"
+            element={<NeutralVsProprietaryScorecard />}
+          />
+          <Route
+            path="/resources/shopify-ops-automation"
+            element={<ShopifyOpsAutomation />}
+          />
+          <Route
+            path="/resources/ai-roi-calculator"
+            element={<AiRoiCalculator />}
+          />
+          <Route
+            path="/download/:assetKey"
+            element={<ResourceDownloadRedirect />}
+          />
           <Route path="/resources/charles" element={<CharlesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

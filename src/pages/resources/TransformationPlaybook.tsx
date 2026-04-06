@@ -31,6 +31,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 
 import playbookCover from "@/assets/playbook/playbook-cover.jpg";
 import playbookPages from "@/assets/playbook/playbook-pages.jpg";
@@ -42,6 +43,8 @@ const META_DESC =
   "A practical guide to ship reliable AI automation—without failed pilots, wasted budget, or chaos.";
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const ASSET_KEY = "transformation-playbook";
+const PLAYBOOK_FILE_PATH =
+  "transformation-playbook/AI-Transformation-Playbook.pdf";
 
 const getSessionId = () => {
   let sid = sessionStorage.getItem("cc_session_id");
@@ -152,7 +155,7 @@ const trackEvent = async (
       session_id: getSessionId(),
       lead_id: leadId || null,
       event_payload: { ...payload, asset_key: ASSET_KEY },
-    } as any);
+    });
   } catch (e) {
     console.error("Event tracking error:", e);
   }
@@ -200,11 +203,16 @@ const TransformationPlaybook = () => {
 
     setSubmitting(true);
     try {
+      const trimmedName = leadForm.name.trim();
+      const normalizedEmail = leadForm.email.toLowerCase().trim();
+      const company = leadForm.company.trim() || null;
+      let browserDownloadStarted = false;
+
       // Check existing lead
       const { data: existing } = await supabase
         .from("leads")
         .select("id")
-        .eq("email", leadForm.email.toLowerCase().trim())
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       let finalLeadId = existing?.id;
@@ -213,9 +221,9 @@ const TransformationPlaybook = () => {
         const { data: newLead, error: leadErr } = await supabase
           .from("leads")
           .insert({
-            name: leadForm.name.trim(),
-            email: leadForm.email.toLowerCase().trim(),
-            company: leadForm.company.trim() || null,
+            name: trimmedName,
+            email: normalizedEmail,
+            company,
             role: leadForm.role || null,
             vertical: leadForm.vertical || null,
           })
@@ -233,53 +241,62 @@ const TransformationPlaybook = () => {
       await trackEvent("download_start", {}, finalLeadId);
       const { data: signedData, error: signErr } = await supabase.storage
         .from("lead-magnets")
-        .createSignedUrl(
-          "transformation-playbook/AI-Transformation-Playbook.pdf",
-          3600,
-        );
+        .createSignedUrl(PLAYBOOK_FILE_PATH, 3600);
 
       if (signErr || !signedData?.signedUrl) {
-        // Fallback - still show success but note PDF issue
         console.error("Signed URL error:", signErr);
-        toast({
-          title: "Download ready!",
-          description: "Check your email for the playbook link.",
-        });
       } else {
         setPdfUrl(signedData.signedUrl);
-        const pdfResponse = await fetch(signedData.signedUrl);
-        if (!pdfResponse.ok) throw new Error("PDF download failed");
-        const pdfBlob = await pdfResponse.blob();
-        const downloadUrl = URL.createObjectURL(pdfBlob);
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.download = "AI-Transformation-Playbook.pdf";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(downloadUrl);
+        try {
+          const pdfResponse = await fetch(signedData.signedUrl);
+          if (!pdfResponse.ok) throw new Error("PDF download failed");
+          const pdfBlob = await pdfResponse.blob();
+          const downloadUrl = URL.createObjectURL(pdfBlob);
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.download = "AI-Transformation-Playbook.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(downloadUrl);
+          browserDownloadStarted = true;
+        } catch (downloadError) {
+          console.error("Browser download fallback triggered:", downloadError);
+        }
       }
 
       // Record download
       await supabase.from("downloads").insert({
         lead_id: finalLeadId,
         asset_key: ASSET_KEY,
-        file_path: "transformation-playbook/AI-Transformation-Playbook.pdf",
+        file_path: PLAYBOOK_FILE_PATH,
         downloaded_at: new Date().toISOString(),
-      } as any);
+      });
 
       await trackEvent("download_complete", {}, finalLeadId);
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId: finalLeadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+      });
       setPhase("complete");
 
       toast({
         title: "Success!",
-        description: "Your playbook is ready to download.",
+        description: browserDownloadStarted
+          ? "Your playbook is ready. Your browser download should start automatically."
+          : "Your playbook is ready. If the download did not start, use the private link we send by email.",
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Please try again.";
+
       console.error("Submit error:", err);
       toast({
         title: "Something went wrong",
-        description: err.message,
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -682,8 +699,9 @@ const TransformationPlaybook = () => {
                       Your playbook is ready!
                     </h2>
                     <p className="text-muted-foreground mb-8">
-                      Click below to download your copy of the AI Transformation
-                      Playbook.
+                      Your browser download should start automatically. We are
+                      also sending a private access link to your inbox so you
+                      can reopen the playbook later.
                     </p>
 
                     {pdfUrl && (
@@ -702,6 +720,14 @@ const TransformationPlaybook = () => {
                           Download PDF
                         </a>
                       </Button>
+                    )}
+
+                    {!pdfUrl && (
+                      <p className="mb-8 text-sm text-muted-foreground">
+                        The browser download did not start automatically. Use
+                        the emailed link once it arrives, or submit the form
+                        again from this page if you need a fresh attempt.
+                      </p>
                     )}
 
                     {/* 3-Step Start Here */}

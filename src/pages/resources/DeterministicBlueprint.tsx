@@ -50,9 +50,20 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database, Json } from "@/integrations/supabase/types";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import { toast } from "sonner";
 
 import heroImage from "@/assets/blueprint-hero.jpg";
+
+const ASSET_KEY = "deterministic-blueprint";
+
+type Lm07EventInsert = Database["public"]["Tables"]["lm07_events"]["Insert"];
+type Lm07LeadInsert = Database["public"]["Tables"]["lm07_leads"]["Insert"];
+type Lm07DownloadInsert =
+  Database["public"]["Tables"]["lm07_downloads"]["Insert"];
+type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
+type DownloadInsert = Database["public"]["Tables"]["downloads"]["Insert"];
 
 /* ── types ── */
 interface WorkflowStep {
@@ -163,14 +174,18 @@ const faqItems = [
 const trackEvent = async (
   eventType: string,
   leadId?: string,
-  payload?: Record<string, unknown>,
+  payload?: Json,
 ) => {
   try {
-    await (supabase as any).from("lm07_events").insert([
+    const eventRecord: Lm07EventInsert = {
+      event_type: eventType,
+      lead_id: leadId || null,
+      event_payload: payload || {},
+    };
+
+    await supabase.from("lm07_events").insert([
       {
-        event_type: eventType,
-        lead_id: leadId || null,
-        event_payload: payload || {},
+        ...eventRecord,
       },
     ]);
   } catch (_) {
@@ -305,27 +320,31 @@ const DeterministicBlueprint = () => {
 
     setLoading(true);
     try {
+      const trimmedName = leadForm.name.trim();
+      const normalizedEmail = leadForm.email.toLowerCase().trim();
+      const company = leadForm.company.trim() || null;
+
       // Check for existing lead
-      const { data: existingLead } = await (supabase as any)
+      const { data: existingLead } = await supabase
         .from("lm07_leads")
         .select("id")
-        .eq("email", leadForm.email.trim())
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       let leadId = existingLead?.id;
 
       if (!leadId) {
-        const { data: newLead, error: leadError } = await (supabase as any)
+        const lm07Lead: Lm07LeadInsert = {
+          name: trimmedName,
+          email: normalizedEmail,
+          company,
+          role: leadForm.role,
+          vertical: leadForm.industry,
+        };
+
+        const { data: newLead, error: leadError } = await supabase
           .from("lm07_leads")
-          .insert([
-            {
-              name: leadForm.name.trim(),
-              email: leadForm.email.trim(),
-              company: leadForm.company.trim() || null,
-              role: leadForm.role,
-              vertical: leadForm.industry,
-            },
-          ])
+          .insert([lm07Lead])
           .select("id")
           .single();
         if (leadError) throw leadError;
@@ -333,24 +352,42 @@ const DeterministicBlueprint = () => {
       }
 
       // Also upsert into main leads table
-      const { error: mainLeadError } = await supabase.from("leads").upsert(
-        [
-          {
-            name: leadForm.name.trim(),
-            email: leadForm.email.trim(),
-            company: leadForm.company.trim() || null,
-            role: leadForm.role,
-            vertical: leadForm.industry,
-          },
-        ],
-        { onConflict: "email" },
-      );
+      const { data: mainLead, error: mainLeadError } = await supabase
+        .from("leads")
+        .upsert(
+          [
+            {
+              name: trimmedName,
+              email: normalizedEmail,
+              company,
+              role: leadForm.role,
+              vertical: leadForm.industry,
+            },
+          ],
+          { onConflict: "email" },
+        )
+        .select("id")
+        .single();
       if (mainLeadError) throw mainLeadError;
+      const mainLeadId = mainLead.id;
 
       // Track events
       await trackEvent("lead_submit", leadId, {
         source: "deterministic-blueprint",
       });
+      const leadSubmitEvent: EventInsert = {
+        event_name: "lead_submit",
+        event_payload: {
+          asset: ASSET_KEY,
+          lead_id: mainLeadId,
+          has_workflow_data: hasBuilderData(),
+        },
+        lead_id: mainLeadId,
+      };
+
+      await supabase
+        .from("events")
+        .insert([leadSubmitEvent], { ignoreDuplicates: true });
 
       // Prepare workflow data for the edge function
       const workflowData = {
@@ -365,42 +402,73 @@ const DeterministicBlueprint = () => {
       // Generate PDF
       const res = await supabase.functions.invoke("generate-blueprint-pdf", {
         body: {
-          leadId,
-          name: leadForm.name.trim(),
-          email: leadForm.email.trim(),
+          leadId: mainLeadId,
+          name: trimmedName,
+          email: normalizedEmail,
           workflowData: hasBuilderData() ? workflowData : null,
         },
       });
 
       if (res.error) throw res.error;
 
+      const pdfUrl = res.data?.pdf_url;
+      const filePath = res.data?.file_path;
+
+      if (!pdfUrl || !filePath) {
+        throw new Error(
+          "Blueprint generation returned an incomplete response.",
+        );
+      }
+
       // Track download
-      await (supabase as any).from("lm07_downloads").insert([
-        {
-          lead_id: leadId,
-          template_version: "2.0",
-        },
-      ]);
+      const lm07Download: Lm07DownloadInsert = {
+        lead_id: leadId,
+        template_version: "2.0",
+      };
+
+      await supabase.from("lm07_downloads").insert([lm07Download]);
       await trackEvent("pdf_download", leadId, {
         hasWorkflowData: !!hasBuilderData(),
       });
+      const downloadRecord: DownloadInsert = {
+        asset_key: ASSET_KEY,
+        lead_id: mainLeadId,
+        file_path: filePath,
+        downloaded_at: new Date().toISOString(),
+      };
+      const downloadEvent: EventInsert = {
+        event_name: "download_start",
+        event_payload: {
+          asset: ASSET_KEY,
+          file_path: filePath,
+          has_workflow_data: hasBuilderData(),
+        },
+        lead_id: mainLeadId,
+      };
+
+      await supabase.from("downloads").insert([downloadRecord]);
+      await supabase.from("events").insert([downloadEvent]);
 
       // Download
-      const blob = new Blob([res.data], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
+      a.href = pdfUrl;
       a.download = "Deterministic-Automation-Blueprint.pdf";
-      document.body.appendChild(a);
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
 
-      toast.success(
-        "Blueprint downloaded! You'll get both a blank template and your populated version.",
-      );
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId: mainLeadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      toast.success("Blueprint downloaded! Your email copy is on the way.");
       setShowModal(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       toast.error("Something went wrong. Please try again.");
     } finally {
@@ -487,7 +555,7 @@ const DeterministicBlueprint = () => {
               size="lg"
               variant="outline"
               onClick={scrollToOptIn}
-              className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl"
+              className="bg-white/95 text-[hsl(270,35%,18%)] border-white/80 hover:bg-white hover:text-[hsl(270,35%,18%)] hover:border-white backdrop-blur-sm px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-black/15"
             >
               Get blank template <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -918,8 +986,8 @@ const DeterministicBlueprint = () => {
                 </DialogTitle>
                 <DialogDescription className="text-muted-foreground">
                   {hasBuilderData()
-                    ? "Fill in your details to download your populated blueprint + blank template."
-                    : "Fill in your details to download the Deterministic Automation Blueprint."}
+                    ? "Fill in your details to download your populated blueprint + blank template, and we will email a copy as well."
+                    : "Fill in your details to download the Deterministic Automation Blueprint, and we will email a copy as well."}
                 </DialogDescription>
               </DialogHeader>
 

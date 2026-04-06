@@ -47,10 +47,13 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import { toast } from "sonner";
 
 // Hero background image
 import heroImage from "@/assets/ai-network.jpg";
+
+const ASSET_KEY = "reliability-assessment";
 
 // Session ID for tracking
 const getSessionId = () => {
@@ -459,11 +462,15 @@ const ReliabilityAssessment = () => {
       return;
     }
 
+    const trimmedName = leadForm.name.trim();
+    const normalizedEmail = leadForm.email.toLowerCase().trim();
+    const company = leadForm.company.trim() || null;
+
     setIsGeneratingPdf(true);
     trackEvent("lead_submit", {
-      name: leadForm.name,
-      email: leadForm.email,
-      company: leadForm.company,
+      name: trimmedName,
+      email: normalizedEmail,
+      company,
       role: leadForm.role,
       industry: leadForm.industry,
       score: totalScore,
@@ -475,7 +482,7 @@ const ReliabilityAssessment = () => {
       const { data: existingLead } = await supabase
         .from("leads")
         .select("id")
-        .eq("email", leadForm.email)
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       let leadId = existingLead?.id;
@@ -485,9 +492,9 @@ const ReliabilityAssessment = () => {
           .from("leads")
           .insert([
             {
-              name: leadForm.name,
-              email: leadForm.email,
-              company: leadForm.company || null,
+              name: trimmedName,
+              email: normalizedEmail,
+              company,
               role: leadForm.role || null,
               vertical: leadForm.industry || null,
             },
@@ -507,6 +514,10 @@ const ReliabilityAssessment = () => {
           .eq("id", assessmentRunId);
       }
 
+      if (!leadId) {
+        throw new Error("Could not create a lead for this report.");
+      }
+
       // Sort answer details by question ID
       const sortedAnswers = [...answerDetails].sort(
         (a, b) => a.question_id - b.question_id,
@@ -518,9 +529,9 @@ const ReliabilityAssessment = () => {
         {
           body: {
             lead_id: leadId,
-            name: leadForm.name,
-            email: leadForm.email,
-            company: leadForm.company,
+            name: trimmedName,
+            email: normalizedEmail,
+            company,
             answers: sortedAnswers,
             score: totalScore,
             band: band,
@@ -531,12 +542,43 @@ const ReliabilityAssessment = () => {
       if (response.error) throw new Error(response.error.message);
 
       const pdfUrl = response.data?.pdf_url;
-      if (pdfUrl) {
-        setPdfUrl(pdfUrl);
-        setShowLeadForm(false);
-        toast.success("Report generated! Click to download.");
-        window.open(pdfUrl, "_blank");
+      const filePath = response.data?.file_path;
+
+      if (!pdfUrl || !filePath) {
+        throw new Error(
+          "Assessment report generation returned an incomplete response.",
+        );
       }
+
+      await supabase.from("downloads").insert([
+        {
+          lead_id: leadId,
+          asset_key: ASSET_KEY,
+          file_path: filePath,
+          downloaded_at: new Date().toISOString(),
+        },
+      ]);
+
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      trackEvent("download_start", {
+        asset_key: ASSET_KEY,
+        file_path: filePath,
+        score: totalScore,
+        band,
+      });
+
+      setPdfUrl(pdfUrl);
+      setShowLeadForm(false);
+      toast.success("Report generated. Your email copy is on the way.");
+      window.open(pdfUrl, "_blank");
     } catch (error) {
       console.error("Failed to generate PDF:", error);
       toast.error("Failed to generate report. Please try again.");

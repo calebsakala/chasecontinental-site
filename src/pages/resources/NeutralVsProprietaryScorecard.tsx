@@ -50,11 +50,22 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database, Json } from "@/integrations/supabase/types";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import { toast } from "sonner";
 
 import heroImage from "@/assets/scorecard-hero.jpg";
 
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const ASSET_KEY = "neutral-vs-proprietary-scorecard";
+
+type CcEventInsert = Database["public"]["Tables"]["cc_events"]["Insert"];
+type CcLeadInsert = Database["public"]["Tables"]["cc_leads"]["Insert"];
+type CcScorecardRunInsert =
+  Database["public"]["Tables"]["cc_scorecard_runs"]["Insert"];
+type AuditRunInsert = Database["public"]["Tables"]["audit_runs"]["Insert"];
+type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
+type DownloadInsert = Database["public"]["Tables"]["downloads"]["Insert"];
 
 /* ── Types ── */
 type Phase = "hero" | "scorecard" | "lead-gate" | "results";
@@ -280,15 +291,19 @@ const trackEvent = async (
   eventType: string,
   runId?: string,
   leadId?: string,
-  payload?: Record<string, unknown>,
+  payload?: Json,
 ) => {
   try {
-    await (supabase as any).from("cc_events").insert([
+    const eventRecord: CcEventInsert = {
+      event_type: eventType,
+      run_id: runId || null,
+      lead_id: leadId || null,
+      event_payload: payload || {},
+    };
+
+    await supabase.from("cc_events").insert([
       {
-        event_type: eventType,
-        run_id: runId || null,
-        lead_id: leadId || null,
-        event_payload: payload || {},
+        ...eventRecord,
       },
     ]);
   } catch (_) {
@@ -312,6 +327,7 @@ const NeutralVsProprietaryScorecard = () => {
   });
   const [runId, setRunId] = useState<string | null>(null);
   const [leadId, setLeadId] = useState<string | null>(null);
+  const [sharedLeadId, setSharedLeadId] = useState<string | null>(null);
 
   const score = Object.values(answers).reduce((a, b) => a + b, 0);
   const band = score <= 15 ? "low" : score <= 22 ? "medium" : "high";
@@ -352,26 +368,30 @@ const NeutralVsProprietaryScorecard = () => {
 
     setLoading(true);
     try {
+      const trimmedName = leadForm.name.trim();
+      const normalizedEmail = leadForm.email.toLowerCase().trim();
+      const company = leadForm.company.trim() || null;
+
       // Insert lead
-      const { data: existingLead } = await (supabase as any)
+      const { data: existingLead } = await supabase
         .from("cc_leads")
         .select("id")
-        .eq("email", leadForm.email.trim())
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       let lid = existingLead?.id;
       if (!lid) {
-        const { data: newLead, error: le } = await (supabase as any)
+        const ccLead: CcLeadInsert = {
+          name: trimmedName,
+          email: normalizedEmail,
+          company,
+          role: leadForm.role,
+          stack_desc: leadForm.stackDesc.trim() || null,
+        };
+
+        const { data: newLead, error: le } = await supabase
           .from("cc_leads")
-          .insert([
-            {
-              name: leadForm.name.trim(),
-              email: leadForm.email.trim(),
-              company: leadForm.company.trim() || null,
-              role: leadForm.role,
-              stack_desc: leadForm.stackDesc.trim() || null,
-            },
-          ])
+          .insert([ccLead])
           .select("id")
           .single();
         if (le) throw le;
@@ -380,42 +400,71 @@ const NeutralVsProprietaryScorecard = () => {
       setLeadId(lid);
 
       // Also global leads
-      const { error: mainLeadError } = await supabase.from("leads").upsert(
-        [
-          {
-            name: leadForm.name.trim(),
-            email: leadForm.email.trim(),
-            company: leadForm.company.trim() || null,
-            role: leadForm.role,
-          },
-        ],
-        { onConflict: "email" },
-      );
+      const { data: mainLead, error: mainLeadError } = await supabase
+        .from("leads")
+        .upsert(
+          [
+            {
+              name: trimmedName,
+              email: normalizedEmail,
+              company,
+              role: leadForm.role,
+            },
+          ],
+          { onConflict: "email" },
+        )
+        .select("id")
+        .single();
       if (mainLeadError) throw mainLeadError;
+      setSharedLeadId(mainLead.id);
 
       // Insert scorecard run
       const answersArr = questions.map((q) => answers[q.id] || 2);
-      const { data: run, error: re } = await (supabase as any)
+      const ccRun: CcScorecardRunInsert = {
+        lead_id: lid,
+        answers_json: answersArr,
+        score,
+        band,
+      };
+
+      const { data: run, error: re } = await supabase
         .from("cc_scorecard_runs")
-        .insert([
-          {
-            lead_id: lid,
-            answers_json: answersArr,
-            score,
-            band,
-          },
-        ])
+        .insert([ccRun])
         .select("id")
         .single();
       if (re) throw re;
       setRunId(run.id);
+
+      const auditRun: AuditRunInsert = {
+        lead_id: mainLead.id,
+        asset_key: ASSET_KEY,
+        answers_json: answersArr,
+        score,
+        band,
+      };
+
+      await supabase.from("audit_runs").insert(auditRun);
+
+      const leadSubmitEvent: EventInsert = {
+        event_name: "lead_submit",
+        lead_id: mainLead.id,
+        event_payload: {
+          asset: ASSET_KEY,
+          score,
+          band,
+        },
+      };
+
+      await supabase
+        .from("events")
+        .insert([leadSubmitEvent], { ignoreDuplicates: true });
 
       await trackEvent("scorecard_complete", run.id, lid, { score, band });
 
       setShowLeadModal(false);
       setPhase("results");
       toast.success("Your results are ready!");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       toast.error("Something went wrong. Please try again.");
     } finally {
@@ -426,12 +475,22 @@ const NeutralVsProprietaryScorecard = () => {
   const handleDownloadPdf = async () => {
     setPdfLoading(true);
     try {
+      if (!sharedLeadId) {
+        throw new Error(
+          "Please complete the scorecard before downloading the report.",
+        );
+      }
+
+      const trimmedName = leadForm.name.trim();
+      const normalizedEmail = leadForm.email.toLowerCase().trim();
+      const company = leadForm.company.trim() || null;
       const answersArr = questions.map((q) => answers[q.id] || 2);
       const res = await supabase.functions.invoke("generate-scorecard-pdf", {
         body: {
-          name: leadForm.name,
-          email: leadForm.email,
-          company: leadForm.company,
+          lead_id: sharedLeadId,
+          name: trimmedName,
+          email: normalizedEmail,
+          company,
           score,
           band,
           answers: answersArr,
@@ -439,20 +498,54 @@ const NeutralVsProprietaryScorecard = () => {
       });
       if (res.error) throw res.error;
 
+      const pdfUrl = res.data?.pdf_url;
+      const filePath = res.data?.file_path;
+
+      if (!pdfUrl || !filePath) {
+        throw new Error(
+          "Scorecard generation returned an incomplete response.",
+        );
+      }
+
       await trackEvent("pdf_download", runId || undefined, leadId || undefined);
+      const downloadRecord: DownloadInsert = {
+        lead_id: sharedLeadId,
+        asset_key: ASSET_KEY,
+        file_path: filePath,
+        downloaded_at: new Date().toISOString(),
+      };
+      const downloadEvent: EventInsert = {
+        event_name: "download_start",
+        lead_id: sharedLeadId,
+        event_payload: {
+          asset: ASSET_KEY,
+          score,
+          band,
+          file_path: filePath,
+        },
+      };
 
-      const blob = new Blob([res.data], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
+      await supabase.from("downloads").insert([downloadRecord]);
+      await supabase.from("events").insert([downloadEvent]);
+
       const a = document.createElement("a");
-      a.href = url;
+      a.href = pdfUrl;
       a.download = "Stack-Lock-In-Audit-Report.pdf";
-      document.body.appendChild(a);
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
 
-      toast.success("Report downloaded!");
-    } catch (err: any) {
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId: sharedLeadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      toast.success("Report downloaded! Your email copy is on the way.");
+    } catch (err: unknown) {
       console.error(err);
       toast.error("Failed to generate PDF. Please try again.");
     } finally {
@@ -1015,7 +1108,8 @@ const NeutralVsProprietaryScorecard = () => {
               See Your Results
             </DialogTitle>
             <DialogDescription>
-              Fill in your details to unlock your score and recommendations.
+              Fill in your details to unlock your score and recommendations. If
+              you download the audit report, we will email a copy as well.
             </DialogDescription>
           </DialogHeader>
 

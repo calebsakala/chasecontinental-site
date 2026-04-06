@@ -1,4 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { drawBrandHeader } from "../_shared/pdf-branding.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -6,9 +8,24 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SUPABASE_SERVICE_ROLE_KEY =
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const STORAGE_BUCKET = "lead-magnets";
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    return new Response(
+      JSON.stringify({ error: "Supabase environment variables are missing." }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
   }
 
   try {
@@ -25,14 +42,18 @@ serve(async (req) => {
       }
     }
 
-    const { name, email, company, score, band, answers } = parsedBody as {
-      name?: string;
-      email?: string;
-      company?: string | null;
-      score?: number;
-      band?: string;
-      answers?: number[];
-    };
+    const { name, email, company, score, band, answers, lead_id } =
+      parsedBody as {
+        name?: string;
+        email?: string;
+        company?: string | null;
+        score?: number;
+        band?: string;
+        answers?: number[];
+        lead_id?: string;
+      };
+    const resolvedLeadId = lead_id ?? crypto.randomUUID();
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
     const { jsPDF } = await import("https://esm.sh/jspdf@2.5.1");
     const doc = new jsPDF({
@@ -80,10 +101,14 @@ serve(async (req) => {
     doc.setFillColor(255, 215, 0);
     doc.rect(margin, 120, 80, 4, "F");
 
-    doc.setTextColor(255, 215, 0);
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("CHASE CONTINENTAL", margin, 100);
+    await drawBrandHeader(doc, {
+      margin,
+      top: 82,
+      textColor: [255, 215, 0],
+      fontSize: 12,
+      logoHeight: 18,
+      gap: 10,
+    });
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(34);
@@ -355,14 +380,41 @@ serve(async (req) => {
     );
 
     const pdfBytes = doc.output("arraybuffer");
-    return new Response(pdfBytes, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/pdf",
-        "Content-Disposition":
-          'attachment; filename="Stack-Lock-In-Audit-Report.pdf"',
+    const filePath = `neutral-vs-proprietary-scorecard/${resolvedLeadId}-${Date.now()}.pdf`;
+
+    const { error: uploadError } = await supabase.storage
+      .from(STORAGE_BUCKET)
+      .upload(filePath, new Uint8Array(pdfBytes), {
+        contentType: "application/pdf",
+        upsert: false,
+      });
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data: signedUrlData, error: signedUrlError } =
+      await supabase.storage
+        .from(STORAGE_BUCKET)
+        .createSignedUrl(filePath, 3600);
+
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      throw signedUrlError ?? new Error("Could not create a signed URL.");
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        pdf_url: signedUrlData.signedUrl,
+        file_path: filePath,
+      }),
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,

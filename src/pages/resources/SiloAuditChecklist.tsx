@@ -28,7 +28,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database, Json } from "@/integrations/supabase/types";
 import { useToast } from "@/hooks/use-toast";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import siloHero from "@/assets/silo-audit-hero.jpg";
 
 /* ─── Constants ─── */
@@ -37,6 +39,12 @@ const META_TITLE =
 const META_DESC =
   "Uncover whether your AI agent initiatives are creating new silos. 20-point assessment based on Gartner, McKinsey, and Forrester frameworks.";
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const ASSET_KEY = "silo-audit-checklist";
+
+type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
+type LeadInsert = Database["public"]["Tables"]["leads"]["Insert"];
+type AuditRunInsert = Database["public"]["Tables"]["audit_runs"]["Insert"];
+type DownloadInsert = Database["public"]["Tables"]["downloads"]["Insert"];
 
 const getSessionId = () => {
   let sid = sessionStorage.getItem("cc_session_id");
@@ -257,16 +265,18 @@ const FAQ_ITEMS = [
 
 const trackEvent = async (
   eventName: string,
-  payload: Record<string, unknown> = {},
+  payload: Json = {},
   leadId?: string,
 ) => {
   try {
-    await supabase.from("events").insert({
+    const eventRecord: EventInsert = {
       event_name: eventName,
       session_id: getSessionId(),
       lead_id: leadId || null,
       event_payload: payload,
-    } as any);
+    };
+
+    await supabase.from("events").insert(eventRecord);
   } catch (e) {
     console.error("Event tracking error:", e);
   }
@@ -387,6 +397,10 @@ const SiloAuditChecklist = () => {
       return;
     }
 
+    const trimmedName = leadForm.name.trim();
+    const normalizedEmail = leadForm.email.toLowerCase().trim();
+    const company = leadForm.company.trim() || null;
+
     setSubmitting(true);
     try {
       const verticalValue =
@@ -396,18 +410,17 @@ const SiloAuditChecklist = () => {
       const roleValue =
         leadForm.role === "Other" ? leadForm.customRole : leadForm.role;
 
+      const leadRecord: LeadInsert = {
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        role: roleValue,
+        vertical: verticalValue,
+      };
+
       const { data: leadData, error: leadError } = await supabase
         .from("leads")
-        .upsert(
-          {
-            name: leadForm.name,
-            email: leadForm.email,
-            company: leadForm.company,
-            role: roleValue,
-            vertical: verticalValue,
-          } as any,
-          { onConflict: "email" },
-        )
+        .upsert(leadRecord, { onConflict: "email" })
         .select("id")
         .single();
 
@@ -442,52 +455,76 @@ const SiloAuditChecklist = () => {
       }, 0);
       const overallMaturity = getMaturityLevel(overallRaw, 40);
 
-      await supabase.from("audit_runs").insert({
+      const auditRun: AuditRunInsert = {
         lead_id: leadId,
-        asset_key: "silo-audit-checklist",
+        asset_key: ASSET_KEY,
         answers_json: answersArray,
         score,
         band,
-      } as any);
+      };
+
+      await supabase.from("audit_runs").insert(auditRun);
 
       await trackEvent(
         "lead_submit",
-        { asset_key: "silo-audit-checklist", score, band },
+        { asset_key: ASSET_KEY, score, band },
         leadId,
       );
 
-      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-      const res = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/generate-audit-pdf`,
+      const { data, error } = await supabase.functions.invoke(
+        "generate-audit-pdf",
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+          body: {
             lead_id: leadId,
-            name: leadForm.name,
-            email: leadForm.email,
-            company: leadForm.company,
+            name: trimmedName,
+            email: normalizedEmail,
+            company,
             answers: answersArray,
             score,
             band,
             category_scores: categoryScores,
             overall_maturity: overallMaturity,
             overall_raw: overallRaw,
-          }),
+          },
         },
       );
 
-      if (!res.ok) throw new Error("PDF generation failed");
-      const { pdf_url } = await res.json();
-      setPdfUrl(pdf_url);
+      if (error) throw new Error(error.message);
+
+      const pdfUrl = data?.pdf_url;
+      const filePath = data?.file_path;
+
+      if (!pdfUrl || !filePath) {
+        throw new Error("PDF generation returned an incomplete response");
+      }
+
+      const downloadRecord: DownloadInsert = {
+        lead_id: leadId,
+        asset_key: ASSET_KEY,
+        file_path: filePath,
+        downloaded_at: new Date().toISOString(),
+      };
+
+      await supabase.from("downloads").insert(downloadRecord);
+
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      setPdfUrl(pdfUrl);
       setPhase("complete");
       await trackEvent(
         "download_start",
-        { asset_key: "silo-audit-checklist", pdf_url },
+        { asset_key: ASSET_KEY, file_path: filePath },
         leadId,
       );
 
-      const pdfResponse = await fetch(pdf_url);
+      const pdfResponse = await fetch(pdfUrl);
       if (!pdfResponse.ok) throw new Error("PDF download failed");
       const pdfBlob = await pdfResponse.blob();
       const downloadUrl = URL.createObjectURL(pdfBlob);
@@ -503,11 +540,11 @@ const SiloAuditChecklist = () => {
         title: "Your audit report is ready!",
         description: "Your PDF download should start automatically.",
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       toast({
         title: "Something went wrong",
-        description: err.message || "Please try again.",
+        description: err instanceof Error ? err.message : "Please try again.",
         variant: "destructive",
       });
     } finally {

@@ -46,9 +46,12 @@ import {
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import { toast } from "sonner";
 
 import heroImage from "@/assets/swipefile-hero.jpg";
+
+const ASSET_KEY = "orchestration-swipe-file";
 
 // Session tracking
 const getSessionId = () => {
@@ -93,120 +96,150 @@ const workflows = [
     id: 1,
     title: "Automated Order Fulfillment",
     category: "E-commerce",
-    description: "End-to-end order processing from receipt to delivery—stock checks, payment, labels, tracking.",
-    breaksAt: "Inventory discrepancies or ERP/CRM integration lag cause over-promising.",
+    description:
+      "End-to-end order processing from receipt to delivery—stock checks, payment, labels, tracking.",
+    breaksAt:
+      "Inventory discrepancies or ERP/CRM integration lag cause over-promising.",
     tip: "Start with 20% of orders automated; use API contracts for all handoffs.",
   },
   {
     id: 2,
     title: "Predictive Inventory Replenishment",
     category: "Supply Chain",
-    description: "AI forecasts demand and auto-triggers replenishment based on sales trends and external data.",
-    breaksAt: "Unaccounted seasonal spikes cause overstocking; black-swan events bypass rules.",
+    description:
+      "AI forecasts demand and auto-triggers replenishment based on sales trends and external data.",
+    breaksAt:
+      "Unaccounted seasonal spikes cause overstocking; black-swan events bypass rules.",
     tip: "Combine ML models with IoT sensors; set manual overrides for anomaly thresholds.",
   },
   {
     id: 3,
     title: "AI-Optimized Delivery Routing",
     category: "Logistics",
-    description: "Dynamic route planning using traffic, weather, load, and deadline constraints.",
-    breaksAt: "Poor connectivity in rural areas; unexpected road closures break real-time data feeds.",
+    description:
+      "Dynamic route planning using traffic, weather, load, and deadline constraints.",
+    breaksAt:
+      "Poor connectivity in rural areas; unexpected road closures break real-time data feeds.",
     tip: "Pilot in one region; cache last-known-good routes as fallback.",
   },
   {
     id: 4,
     title: "Robotic Warehouse Picking",
     category: "Logistics",
-    description: "ML-guided robots for picking, sorting, and packing with optimized travel paths.",
-    breaksAt: "Hardware failures or mismatched item sizes disrupt flow; high initial costs.",
+    description:
+      "ML-guided robots for picking, sorting, and packing with optimized travel paths.",
+    breaksAt:
+      "Hardware failures or mismatched item sizes disrupt flow; high initial costs.",
     tip: "Start hybrid human-robot; use barcode integration for 99.5%+ accuracy.",
   },
   {
     id: 5,
     title: "RPA Invoice Processing",
     category: "BPO",
-    description: "Automated data entry, validation, and reconciliation of invoices across formats.",
-    breaksAt: "Non-standard formats cause OCR errors; security risks without encryption.",
+    description:
+      "Automated data entry, validation, and reconciliation of invoices across formats.",
+    breaksAt:
+      "Non-standard formats cause OCR errors; security risks without encryption.",
     tip: "Deploy rule-based bots first, then layer in AI OCR; audit logs for compliance.",
   },
   {
     id: 6,
     title: "Real-Time Supply Chain Visibility",
     category: "Supply Chain",
-    description: "End-to-end tracking via IoT and analytics with proactive delay alerts.",
-    breaksAt: "Data silos between partners fragment visibility; IoT latency during peaks.",
+    description:
+      "End-to-end tracking via IoT and analytics with proactive delay alerts.",
+    breaksAt:
+      "Data silos between partners fragment visibility; IoT latency during peaks.",
     tip: "Use streaming data platforms; ensure API compatibility across all partners.",
   },
   {
     id: 7,
     title: "ML Demand Forecasting",
     category: "Big Data",
-    description: "Analyzes historical and market data to predict sales incorporating promotions.",
-    breaksAt: "Biased historical data leads to flawed predictions; ignores qualitative signals.",
+    description:
+      "Analyzes historical and market data to predict sales incorporating promotions.",
+    breaksAt:
+      "Biased historical data leads to flawed predictions; ignores qualitative signals.",
     tip: "Train on diverse datasets; validate forecasts with A/B testing before scaling.",
   },
   {
     id: 8,
     title: "Automated Exception Management",
     category: "Operations",
-    description: "Detects delays, quality failures, and anomalies then auto-reroutes or escalates.",
-    breaksAt: "Over-reliance on static rules misses nuanced cases; escalation loops overwhelm teams.",
+    description:
+      "Detects delays, quality failures, and anomalies then auto-reroutes or escalates.",
+    breaksAt:
+      "Over-reliance on static rules misses nuanced cases; escalation loops overwhelm teams.",
     tip: "Define clear thresholds; log all resolutions to train smarter ML models.",
   },
   {
     id: 9,
     title: "Streamlined Returns Processing",
     category: "E-commerce",
-    description: "Automated return requests, inspections, refunds, and restocking workflows.",
-    breaksAt: "High volume overwhelms systems; poor inventory sync causes double-counting.",
+    description:
+      "Automated return requests, inspections, refunds, and restocking workflows.",
+    breaksAt:
+      "High volume overwhelms systems; poor inventory sync causes double-counting.",
     tip: "Add photo verification via AI; track metrics to identify root-cause patterns.",
   },
   {
     id: 10,
     title: "Vendor Managed Inventory",
     category: "Supply Chain",
-    description: "Suppliers auto-monitor and replenish stock based on shared real-time data.",
-    breaksAt: "Trust issues in data sharing; delays if supplier systems are incompatible.",
+    description:
+      "Suppliers auto-monitor and replenish stock based on shared real-time data.",
+    breaksAt:
+      "Trust issues in data sharing; delays if supplier systems are incompatible.",
     tip: "Establish SLAs with penalties; use secure API gateways; start with top 3 vendors.",
   },
   {
     id: 11,
     title: "Dynamic Pricing Engine",
     category: "E-commerce",
-    description: "Real-time price adjustments based on demand, competition, and inventory levels.",
-    breaksAt: "Rapid fluctuations alienate customers; regulatory hurdles in some markets.",
+    description:
+      "Real-time price adjustments based on demand, competition, and inventory levels.",
+    breaksAt:
+      "Rapid fluctuations alienate customers; regulatory hurdles in some markets.",
     tip: "Set min/max guardrails; test in low-stakes segments before rolling out.",
   },
   {
     id: 12,
     title: "Dead Stock Liquidation",
     category: "Supply Chain",
-    description: "Identifies slow-movers and auto-triggers sales, bundling, or auction workflows.",
-    breaksAt: "Misidentification of seasonal items; over-discounting erodes margins.",
+    description:
+      "Identifies slow-movers and auto-triggers sales, bundling, or auction workflows.",
+    breaksAt:
+      "Misidentification of seasonal items; over-discounting erodes margins.",
     tip: "Use time-based thresholds with seasonal exclusion rules; analyze post-sale ROI.",
   },
   {
     id: 13,
     title: "Automated Customer Service",
     category: "BPO",
-    description: "Routes queries to bots or specialist teams, automating common issue responses.",
-    breaksAt: "Complex queries escalate poorly; AI hallucinations in unstructured responses.",
+    description:
+      "Routes queries to bots or specialist teams, automating common issue responses.",
+    breaksAt:
+      "Complex queries escalate poorly; AI hallucinations in unstructured responses.",
     tip: "Train on historical tickets; use sentiment analysis for smart escalation.",
   },
   {
     id: 14,
     title: "Compliance Auditing Workflow",
     category: "Operations",
-    description: "Automated regulatory checks with report generation and flag escalation.",
-    breaksAt: "Evolving laws outpace rules; incomplete data leads to false positives.",
+    description:
+      "Automated regulatory checks with report generation and flag escalation.",
+    breaksAt:
+      "Evolving laws outpace rules; incomplete data leads to false positives.",
     tip: "Update rule engines quarterly; integrate with legal databases for live feeds.",
   },
   {
     id: 15,
     title: "End-to-End Supply Chain Orchestration",
     category: "Supply Chain",
-    description: "Agentic AI coordinates planning, execution, and optimization across all stages.",
-    breaksAt: "Over-complexity in multi-agent systems; dependency on high-quality data.",
+    description:
+      "Agentic AI coordinates planning, execution, and optimization across all stages.",
+    breaksAt:
+      "Over-complexity in multi-agent systems; dependency on high-quality data.",
     tip: "Build modular agents; iterate based on feedback; natural language interfaces for ops.",
   },
 ];
@@ -220,19 +253,23 @@ const whatsInside = [
 const faqs = [
   {
     question: "Is this really free?",
-    answer: "Yes. We provide this swipe file to help teams build better automations. There's no catch—just useful patterns you can steal and adapt.",
+    answer:
+      "Yes. We provide this swipe file to help teams build better automations. There's no catch—just useful patterns you can steal and adapt.",
   },
   {
     question: "Do I need technical skills to use these patterns?",
-    answer: "No. Each pattern includes a high-level overview that operations leaders can use, plus implementation tips for engineering teams. It works for both audiences.",
+    answer:
+      "No. Each pattern includes a high-level overview that operations leaders can use, plus implementation tips for engineering teams. It works for both audiences.",
   },
   {
     question: "What industries do these patterns cover?",
-    answer: "Logistics, supply chain, BPO, e-commerce, and big data/analytics. Most patterns can be adapted across industries with minor modifications.",
+    answer:
+      "Logistics, supply chain, BPO, e-commerce, and big data/analytics. Most patterns can be adapted across industries with minor modifications.",
   },
   {
     question: "How is this different from generic automation advice?",
-    answer: "Every pattern includes real 'where it breaks' analysis from production deployments. We don't just tell you what to build—we tell you where it fails and how to prevent it.",
+    answer:
+      "Every pattern includes real 'where it breaks' analysis from production deployments. We don't just tell you what to build—we tell you where it fails and how to prevent it.",
   },
 ];
 
@@ -251,13 +288,18 @@ const OrchestrationSwipeFile = () => {
 
   const sessionId = getSessionId();
 
-  const trackEvent = async (eventName: string, payload: Record<string, unknown> = {}) => {
+  const trackEvent = async (
+    eventName: string,
+    payload: Record<string, unknown> = {},
+  ) => {
     try {
-      await supabase.from("events").insert([{
-        session_id: sessionId,
-        event_name: eventName,
-        event_payload: payload as Json,
-      }]);
+      await supabase.from("events").insert([
+        {
+          session_id: sessionId,
+          event_name: eventName,
+          event_payload: payload as Json,
+        },
+      ]);
     } catch (e) {
       console.error("Event tracking failed:", e);
     }
@@ -274,11 +316,15 @@ const OrchestrationSwipeFile = () => {
       return;
     }
 
+    const trimmedName = leadForm.name.trim();
+    const normalizedEmail = leadForm.email.toLowerCase().trim();
+    const company = leadForm.company.trim() || null;
+
     setIsGeneratingPdf(true);
     trackEvent("swipefile_lead_submit", {
-      name: leadForm.name,
-      email: leadForm.email,
-      company: leadForm.company,
+      name: trimmedName,
+      email: normalizedEmail,
+      company,
       role: leadForm.role,
       industry: leadForm.industry,
     });
@@ -288,7 +334,7 @@ const OrchestrationSwipeFile = () => {
       const { data: existingLead } = await supabase
         .from("leads")
         .select("id")
-        .eq("email", leadForm.email)
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       let leadId = existingLead?.id;
@@ -296,45 +342,73 @@ const OrchestrationSwipeFile = () => {
       if (!leadId) {
         const { data: newLead, error: leadError } = await supabase
           .from("leads")
-          .insert([{
-            name: leadForm.name,
-            email: leadForm.email,
-            company: leadForm.company || null,
-            role: leadForm.role || null,
-            vertical: leadForm.industry || null,
-          }])
+          .insert([
+            {
+              name: trimmedName,
+              email: normalizedEmail,
+              company,
+              role: leadForm.role || null,
+              vertical: leadForm.industry || null,
+            },
+          ])
           .select("id")
           .single();
         if (leadError) throw leadError;
         leadId = newLead?.id;
       }
 
-      // Log download
-      await supabase.from("downloads").insert([{
-        lead_id: leadId || null,
-        asset_key: "orchestration-swipe-file",
-      }]);
+      if (!leadId) {
+        throw new Error("Could not create a lead for this download.");
+      }
 
       // Generate PDF via edge function
-      const response = await supabase.functions.invoke("generate-swipefile-pdf", {
-        body: {
-          lead_id: leadId,
-          name: leadForm.name,
-          email: leadForm.email,
-          company: leadForm.company,
+      const response = await supabase.functions.invoke(
+        "generate-swipefile-pdf",
+        {
+          body: {
+            lead_id: leadId,
+            name: trimmedName,
+            email: normalizedEmail,
+            company,
+          },
         },
-      });
+      );
 
       if (response.error) throw new Error(response.error.message);
 
       const url = response.data?.pdf_url;
-      if (url) {
-        setPdfUrl(url);
-        setUnlocked(true);
-        setShowLeadForm(false);
-        toast.success("Swipe file unlocked! Downloading now…");
-        window.open(url, "_blank");
+      const filePath = response.data?.file_path;
+
+      if (!url || !filePath) {
+        throw new Error(
+          "Swipe file generation returned an incomplete response.",
+        );
       }
+
+      await supabase.from("downloads").insert([
+        {
+          lead_id: leadId,
+          asset_key: ASSET_KEY,
+          file_path: filePath,
+          downloaded_at: new Date().toISOString(),
+        },
+      ]);
+
+      trackEvent("swipefile_download_complete", { file_path: filePath });
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      setPdfUrl(url);
+      setUnlocked(true);
+      setShowLeadForm(false);
+      toast.success("Swipe file unlocked! Downloading now…");
+      window.open(url, "_blank");
     } catch (error) {
       console.error("Failed to generate swipe file:", error);
       toast.error("Something went wrong. Please try again.");
@@ -345,7 +419,8 @@ const OrchestrationSwipeFile = () => {
 
   const categoryColor = (cat: string) => {
     const map: Record<string, string> = {
-      "E-commerce": "text-[hsl(160,84%,39%)] border-[hsl(160,84%,39%)]/30 bg-[hsl(160,84%,39%)]/10",
+      "E-commerce":
+        "text-[hsl(160,84%,39%)] border-[hsl(160,84%,39%)]/30 bg-[hsl(160,84%,39%)]/10",
       "Supply Chain": "text-blue-400 border-blue-400/30 bg-blue-400/10",
       Logistics: "text-amber-400 border-amber-400/30 bg-amber-400/10",
       "Big Data": "text-purple-400 border-purple-400/30 bg-purple-400/10",
@@ -359,7 +434,10 @@ const OrchestrationSwipeFile = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
         <title>Automation Workflow Swipe File (Free) | Chase Continental</title>
-        <meta name="description" content="15 real workflow patterns you can adapt across logistics, supply chain, big data, BPO, and e-commerce." />
+        <meta
+          name="description"
+          content="15 real workflow patterns you can adapt across logistics, supply chain, big data, BPO, and e-commerce."
+        />
       </Helmet>
 
       <Header />
@@ -367,7 +445,11 @@ const OrchestrationSwipeFile = () => {
       {/* ───── HERO ───── */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={heroImage} alt="Workflow automation grid" className="w-full h-full object-cover" />
+          <img
+            src={heroImage}
+            alt="Workflow automation grid"
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/15 via-transparent to-[hsl(75,100%,50%)]/10" />
         </div>
@@ -403,7 +485,8 @@ const OrchestrationSwipeFile = () => {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 drop-shadow-sm"
           >
-            Real patterns for connecting tools, handling exceptions, and keeping work moving.
+            Real patterns for connecting tools, handling exceptions, and keeping
+            work moving.
           </motion.p>
 
           <motion.div
@@ -420,7 +503,9 @@ const OrchestrationSwipeFile = () => {
               Get the swipe file
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <span className="text-sm text-muted-foreground">Instant access · No spam</span>
+            <span className="text-sm text-muted-foreground">
+              Instant access · No spam
+            </span>
           </motion.div>
         </div>
 
@@ -450,7 +535,9 @@ const OrchestrationSwipeFile = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">Preview the Patterns</h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+              Preview the Patterns
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Here's a taste of the 15 battle-tested workflow patterns inside.
             </p>
@@ -473,23 +560,41 @@ const OrchestrationSwipeFile = () => {
                       isLocked ? "select-none" : ""
                     }`}
                   >
-                    <CardContent className={`p-6 ${isLocked ? "filter blur-[6px]" : ""}`}>
+                    <CardContent
+                      className={`p-6 ${isLocked ? "filter blur-[6px]" : ""}`}
+                    >
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-bold text-muted-foreground">#{wf.id}</span>
-                        <span className={`text-xs font-semibold rounded-full border px-2.5 py-0.5 ${categoryColor(wf.category)}`}>
+                        <span className="text-xs font-bold text-muted-foreground">
+                          #{wf.id}
+                        </span>
+                        <span
+                          className={`text-xs font-semibold rounded-full border px-2.5 py-0.5 ${categoryColor(wf.category)}`}
+                        >
                           {wf.category}
                         </span>
                       </div>
                       <h3 className="text-lg font-semibold mb-3">{wf.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{wf.description}</p>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        {wf.description}
+                      </p>
                       <div className="space-y-2">
                         <div className="flex items-start gap-2 text-sm">
                           <AlertTriangle className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground"><span className="font-medium text-foreground">Breaks at:</span> {wf.breaksAt}</span>
+                          <span className="text-muted-foreground">
+                            <span className="font-medium text-foreground">
+                              Breaks at:
+                            </span>{" "}
+                            {wf.breaksAt}
+                          </span>
                         </div>
                         <div className="flex items-start gap-2 text-sm">
                           <Lightbulb className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground"><span className="font-medium text-foreground">Tip:</span> {wf.tip}</span>
+                          <span className="text-muted-foreground">
+                            <span className="font-medium text-foreground">
+                              Tip:
+                            </span>{" "}
+                            {wf.tip}
+                          </span>
                         </div>
                       </div>
                     </CardContent>
@@ -499,7 +604,9 @@ const OrchestrationSwipeFile = () => {
                   {isLocked && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/60 backdrop-blur-sm rounded-lg border border-blue-500/10">
                       <Lock className="h-8 w-8 text-amber-400 mb-2" />
-                      <span className="text-sm font-semibold text-foreground">Unlock All 15</span>
+                      <span className="text-sm font-semibold text-foreground">
+                        Unlock All 15
+                      </span>
                     </div>
                   )}
                 </motion.div>
@@ -536,9 +643,12 @@ const OrchestrationSwipeFile = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">What's Inside</h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+              What's Inside
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to build resilient automation—stolen from real deployments.
+              Everything you need to build resilient automation—stolen from real
+              deployments.
             </p>
           </motion.div>
 
@@ -573,11 +683,17 @@ const OrchestrationSwipeFile = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">Why This Matters</h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
+              Why This Matters
+            </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Most teams build one-off automations that fail at handoffs and exceptions. 
-              These patterns emphasize integration, resilience, and scalability—drawing from 
-              real deployments to deliver <span className="font-semibold text-foreground">20–50% efficiency gains</span>.
+              Most teams build one-off automations that fail at handoffs and
+              exceptions. These patterns emphasize integration, resilience, and
+              scalability—drawing from real deployments to deliver{" "}
+              <span className="font-semibold text-foreground">
+                20–50% efficiency gains
+              </span>
+              .
             </p>
             <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
               <CardContent className="p-8">
@@ -588,8 +704,12 @@ const OrchestrationSwipeFile = () => {
                     { stat: "15+", label: "Proven patterns" },
                   ].map((s, i) => (
                     <div key={i}>
-                      <div className="text-2xl md:text-3xl font-bold text-blue-400">{s.stat}</div>
-                      <div className="text-sm text-muted-foreground mt-1">{s.label}</div>
+                      <div className="text-2xl md:text-3xl font-bold text-blue-400">
+                        {s.stat}
+                      </div>
+                      <div className="text-sm text-muted-foreground mt-1">
+                        {s.label}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -611,7 +731,8 @@ const OrchestrationSwipeFile = () => {
               Ready to steal these workflows?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Get the full swipe file with all 15 patterns, failure analysis, and implementation tips.
+              Get the full swipe file with all 15 patterns, failure analysis,
+              and implementation tips.
             </p>
             {pdfUrl ? (
               <Button
@@ -632,7 +753,9 @@ const OrchestrationSwipeFile = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             )}
-            <p className="mt-4 text-sm text-muted-foreground">Instant access · No spam</p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Instant access · No spam
+            </p>
           </motion.div>
         </div>
       </section>
@@ -646,11 +769,17 @@ const OrchestrationSwipeFile = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold font-heading mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold font-heading mb-4">
+              Frequently Asked Questions
+            </h2>
           </motion.div>
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="border-blue-500/10">
+              <AccordionItem
+                key={i}
+                value={`faq-${i}`}
+                className="border-blue-500/10"
+              >
                 <AccordionTrigger className="text-left hover:text-blue-400 text-lg">
                   {faq.question}
                 </AccordionTrigger>
@@ -669,7 +798,8 @@ const OrchestrationSwipeFile = () => {
           <DialogHeader>
             <DialogTitle>Get the Swipe File</DialogTitle>
             <DialogDescription>
-              Enter your details to unlock all 15 workflow patterns and download the full PDF.
+              Enter your details to unlock all 15 workflow patterns and download
+              the full PDF.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -680,7 +810,9 @@ const OrchestrationSwipeFile = () => {
                   id="sf-name"
                   placeholder="Your name"
                   value={leadForm.name}
-                  onChange={(e) => setLeadForm((p) => ({ ...p, name: e.target.value }))}
+                  onChange={(e) =>
+                    setLeadForm((p) => ({ ...p, name: e.target.value }))
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -690,7 +822,9 @@ const OrchestrationSwipeFile = () => {
                   type="email"
                   placeholder="you@company.com"
                   value={leadForm.email}
-                  onChange={(e) => setLeadForm((p) => ({ ...p, email: e.target.value }))}
+                  onChange={(e) =>
+                    setLeadForm((p) => ({ ...p, email: e.target.value }))
+                  }
                 />
               </div>
             </div>
@@ -700,32 +834,46 @@ const OrchestrationSwipeFile = () => {
                 id="sf-company"
                 placeholder="Your company"
                 value={leadForm.company}
-                onChange={(e) => setLeadForm((p) => ({ ...p, company: e.target.value }))}
+                onChange={(e) =>
+                  setLeadForm((p) => ({ ...p, company: e.target.value }))
+                }
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="sf-role">Your Role</Label>
-                <Select value={leadForm.role} onValueChange={(v) => setLeadForm((p) => ({ ...p, role: v }))}>
+                <Select
+                  value={leadForm.role}
+                  onValueChange={(v) => setLeadForm((p) => ({ ...p, role: v }))}
+                >
                   <SelectTrigger id="sf-role">
                     <SelectValue placeholder="Select role" />
                   </SelectTrigger>
                   <SelectContent>
                     {roleOptions.map((r) => (
-                      <SelectItem key={r} value={r}>{r}</SelectItem>
+                      <SelectItem key={r} value={r}>
+                        {r}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="sf-industry">Industry</Label>
-                <Select value={leadForm.industry} onValueChange={(v) => setLeadForm((p) => ({ ...p, industry: v }))}>
+                <Select
+                  value={leadForm.industry}
+                  onValueChange={(v) =>
+                    setLeadForm((p) => ({ ...p, industry: v }))
+                  }
+                >
                   <SelectTrigger id="sf-industry">
                     <SelectValue placeholder="Select industry" />
                   </SelectTrigger>
                   <SelectContent>
                     {industryOptions.map((ind) => (
-                      <SelectItem key={ind} value={ind}>{ind}</SelectItem>
+                      <SelectItem key={ind} value={ind}>
+                        {ind}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -734,7 +882,11 @@ const OrchestrationSwipeFile = () => {
             <Button
               className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold"
               onClick={handleSubmit}
-              disabled={isGeneratingPdf || !leadForm.name.trim() || !leadForm.email.trim()}
+              disabled={
+                isGeneratingPdf ||
+                !leadForm.name.trim() ||
+                !leadForm.email.trim()
+              }
             >
               {isGeneratingPdf ? (
                 <>

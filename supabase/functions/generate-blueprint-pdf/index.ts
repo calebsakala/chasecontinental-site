@@ -1,4 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { drawBrandHeader } from "../_shared/pdf-branding.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -6,9 +8,51 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SUPABASE_SERVICE_ROLE_KEY =
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const STORAGE_BUCKET = "lead-magnets";
+
+type WorkflowStep = {
+  description?: string;
+  owner?: string;
+  tool?: string;
+};
+
+type WorkflowException = {
+  exception?: string;
+  trigger?: string;
+  action?: string;
+  approval?: string;
+};
+
+type WorkflowMetric = {
+  name?: string;
+  target?: string;
+  baseline?: string;
+  method?: string;
+};
+
+type WorkflowData = {
+  workflowName?: string;
+  steps?: WorkflowStep[];
+  exceptions?: WorkflowException[];
+  metrics?: WorkflowMetric[];
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    return new Response(
+      JSON.stringify({ error: "Supabase environment variables are missing." }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
   }
 
   try {
@@ -24,11 +68,15 @@ serve(async (req) => {
         });
       }
     }
-    const { name, email, workflowData } = parsedBody as {
+    const { name, email, workflowData, leadId, lead_id } = parsedBody as {
       name?: string;
       email?: string;
-      workflowData?: unknown;
+      workflowData?: WorkflowData;
+      leadId?: string;
+      lead_id?: string;
     };
+    const resolvedLeadId = lead_id ?? leadId ?? crypto.randomUUID();
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
     const { jsPDF } = await import("https://esm.sh/jspdf@2.5.1");
     const doc = new jsPDF({
       orientation: "portrait",
@@ -55,7 +103,7 @@ serve(async (req) => {
         (workflowData.metrics && workflowData.metrics.length > 0));
 
     // Helper to build one full blueprint (blank or populated)
-    const buildBlueprint = (populated: boolean, isFirst: boolean) => {
+    const buildBlueprint = async (populated: boolean, isFirst: boolean) => {
       if (!isFirst) addPage();
 
       // ── Cover Page ──
@@ -64,10 +112,14 @@ serve(async (req) => {
       doc.setFillColor(212, 175, 55);
       doc.rect(margin, 120, 80, 4, "F");
 
-      doc.setTextColor(212, 175, 55);
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "bold");
-      doc.text("CHASE CONTINENTAL", margin, 100);
+      await drawBrandHeader(doc, {
+        margin,
+        top: 82,
+        textColor: [212, 175, 55],
+        fontSize: 12,
+        logoHeight: 18,
+        gap: 10,
+      });
 
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(36);
@@ -325,7 +377,7 @@ serve(async (req) => {
 
       doc.setTextColor(80, 80, 80);
       doc.setFont("helvetica", "normal");
-      metricRows.forEach((m: any, i: number) => {
+      metricRows.forEach((m: WorkflowMetric, i: number) => {
         checkPage(22);
         const fill = i % 2 === 0 ? 245 : 255;
         doc.setFillColor(fill, fill, fill);
@@ -375,21 +427,48 @@ serve(async (req) => {
 
     // Build populated version first if we have data, then blank
     if (hasData) {
-      buildBlueprint(true, true);
-      buildBlueprint(false, false);
+      await buildBlueprint(true, true);
+      await buildBlueprint(false, false);
     } else {
-      buildBlueprint(false, true);
+      await buildBlueprint(false, true);
     }
 
     const pdfBytes = doc.output("arraybuffer");
-    return new Response(pdfBytes, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/pdf",
-        "Content-Disposition":
-          'attachment; filename="Deterministic-Automation-Blueprint.pdf"',
+    const filePath = `deterministic-blueprint/${resolvedLeadId}-${Date.now()}.pdf`;
+
+    const { error: uploadError } = await supabase.storage
+      .from(STORAGE_BUCKET)
+      .upload(filePath, new Uint8Array(pdfBytes), {
+        contentType: "application/pdf",
+        upsert: false,
+      });
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data: signedUrlData, error: signedUrlError } =
+      await supabase.storage
+        .from(STORAGE_BUCKET)
+        .createSignedUrl(filePath, 3600);
+
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      throw signedUrlError ?? new Error("Could not create a signed URL.");
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        pdf_url: signedUrlData.signedUrl,
+        file_path: filePath,
+      }),
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,

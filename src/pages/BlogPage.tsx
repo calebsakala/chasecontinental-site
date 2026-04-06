@@ -7,13 +7,14 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/imageUrl";
+import type { SanityImageSource } from "@sanity/image-url";
 import aiNetwork from "@/assets/ai-network.jpg";
 
 interface Post {
   _id: string;
   title: string;
   slug: { current: string };
-  mainImage?: any;
+  mainImage?: SanityImageSource;
   publishedAt: string;
   excerpt?: string;
   authorName?: string;
@@ -49,17 +50,26 @@ const BlogPage = () => {
         {/* Hero */}
         <section className="relative overflow-hidden py-28 px-6">
           <div className="absolute inset-0">
-            <img src={aiNetwork} alt="" className="h-full w-full object-cover" />
+            <img
+              src={aiNetwork}
+              alt=""
+              className="h-full w-full object-cover"
+            />
             <div className="absolute inset-0 bg-foreground/90" />
           </div>
           <div className="relative z-10 mx-auto max-w-4xl text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm px-5 py-2 text-sm font-medium text-gold">
                 Insights & Updates
               </span>
               <h1 className="mt-6 text-primary-foreground">Our Blog</h1>
               <p className="mt-4 text-primary-foreground/60 text-lg max-w-xl mx-auto">
-                Thoughts on AI automation, modern software, and the future of work.
+                Thoughts on AI automation, modern software, and the future of
+                work.
               </p>
             </motion.div>
           </div>
@@ -71,7 +81,10 @@ const BlogPage = () => {
             {loading ? (
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="rounded-2xl border bg-card overflow-hidden animate-pulse">
+                  <div
+                    key={i}
+                    className="rounded-2xl border bg-card overflow-hidden animate-pulse"
+                  >
                     <div className="h-52 bg-muted" />
                     <div className="p-7 space-y-3">
                       <div className="h-3 bg-muted rounded w-2/3" />
@@ -96,7 +109,11 @@ const BlogPage = () => {
                           />
                         ) : (
                           <div className="h-full w-full bg-gradient-to-br from-primary/20 to-gold/10 flex items-center justify-center">
-                            <img src="/static/images/chase-continental-header-logo.png" alt="" className="h-16 w-auto opacity-20" />
+                            <img
+                              src="/static/images/chase-continental-header-logo.png"
+                              alt=""
+                              className="h-16 w-auto opacity-20"
+                            />
                           </div>
                         )}
                       </div>
@@ -105,7 +122,14 @@ const BlogPage = () => {
                           {post.publishedAt && (
                             <span className="inline-flex items-center gap-1.5">
                               <Calendar className="h-3.5 w-3.5" />
-                              {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                              {new Date(post.publishedAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                },
+                              )}
                             </span>
                           )}
                           {post.authorName && (
@@ -128,7 +152,11 @@ const BlogPage = () => {
                           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </div>
                       </div>
-                      <Link to={`/blog/${post.slug.current}`} className="absolute inset-0" aria-label={`Read: ${post.title}`} />
+                      <Link
+                        to={`/blog/${post.slug.current}`}
+                        className="absolute inset-0"
+                        aria-label={`Read: ${post.title}`}
+                      />
                     </article>
                   </Reveal>
                 ))}
@@ -136,7 +164,9 @@ const BlogPage = () => {
             ) : (
               <div className="text-center py-16">
                 <p className="text-muted-foreground text-lg">No posts found</p>
-                <p className="text-sm text-muted-foreground mt-2">Check back later for updates!</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Check back later for updates!
+                </p>
               </div>
             )}
           </div>

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Calendar, User, ArrowRight, ArrowLeft } from "lucide-react";
-import { PortableText } from "@portabletext/react";
+import {
+  PortableText,
+  type PortableTextBlock,
+  type PortableTextComponents,
+} from "@portabletext/react";
+import type { SanityImageSource } from "@sanity/image-url";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -22,51 +27,53 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
 interface SanityPost {
   title: string;
   slug: { current: string };
-  mainImage?: any;
+  mainImage?: SanityImageSource;
   publishedAt?: string;
   authorName?: string;
-  body?: any[];
+  body?: PortableTextBlock[];
 }
 
-const portableTextComponents = {
+const portableTextComponents: PortableTextComponents = {
   block: {
-    normal: ({ children }: any) => (
+    normal: ({ children }) => (
       <p className="text-muted-foreground leading-relaxed my-4">{children}</p>
     ),
-    h1: ({ children }: any) => <h1 className="mt-10 mb-4">{children}</h1>,
-    h2: ({ children }: any) => <h3 className="text-xl mt-10 mb-4">{children}</h3>,
-    h3: ({ children }: any) => <h4 className="text-lg mt-8 mb-3">{children}</h4>,
-    h4: ({ children }: any) => <h4 className="text-base font-semibold mt-6 mb-2">{children}</h4>,
-    blockquote: ({ children }: any) => (
+    h1: ({ children }) => <h1 className="mt-10 mb-4">{children}</h1>,
+    h2: ({ children }) => <h3 className="text-xl mt-10 mb-4">{children}</h3>,
+    h3: ({ children }) => <h4 className="text-lg mt-8 mb-3">{children}</h4>,
+    h4: ({ children }) => (
+      <h4 className="text-base font-semibold mt-6 mb-2">{children}</h4>
+    ),
+    blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-gold pl-5 my-6 italic text-muted-foreground">
         {children}
       </blockquote>
     ),
   },
   list: {
-    bullet: ({ children }: any) => (
+    bullet: ({ children }) => (
       <ul className="list-disc pl-6 space-y-2 my-4">{children}</ul>
     ),
-    number: ({ children }: any) => (
+    number: ({ children }) => (
       <ol className="list-decimal pl-6 space-y-2 my-4">{children}</ol>
     ),
   },
   listItem: {
-    bullet: ({ children }: any) => (
+    bullet: ({ children }) => (
       <li className="text-muted-foreground">{children}</li>
     ),
-    number: ({ children }: any) => (
+    number: ({ children }) => (
       <li className="text-muted-foreground">{children}</li>
     ),
   },
   marks: {
-    strong: ({ children }: any) => (
+    strong: ({ children }) => (
       <strong className="text-foreground font-semibold">{children}</strong>
     ),
-    em: ({ children }: any) => <em>{children}</em>,
-    link: ({ value, children }: any) => (
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => (
       <a
-        href={value?.href}
+        href={typeof value?.href === "string" ? value.href : undefined}
         target="_blank"
         rel="noopener noreferrer"
         className="text-gold hover:underline"
@@ -76,11 +83,15 @@ const portableTextComponents = {
     ),
   },
   types: {
-    image: ({ value }: any) => (
+    image: ({ value }) => (
       <div className="my-8 rounded-2xl overflow-hidden border">
         <img
-          src={urlFor(value).width(800).fit("max").auto("format").url()}
-          alt={value?.alt || ""}
+          src={urlFor(value as SanityImageSource)
+            .width(800)
+            .fit("max")
+            .auto("format")
+            .url()}
+          alt={typeof value?.alt === "string" ? value.alt : ""}
           className="w-full"
         />
       </div>
@@ -175,7 +186,11 @@ const BlogPostPage = () => {
           {post.mainImage && (
             <div className="mb-10 rounded-2xl border overflow-hidden">
               <img
-                src={urlFor(post.mainImage).width(800).fit("max").auto("format").url()}
+                src={urlFor(post.mainImage)
+                  .width(800)
+                  .fit("max")
+                  .auto("format")
+                  .url()}
                 alt={post.title}
                 className="w-full"
               />
@@ -185,7 +200,10 @@ const BlogPostPage = () => {
           {/* Body */}
           {post.body && (
             <div className="prose-like">
-              <PortableText value={post.body} components={portableTextComponents} />
+              <PortableText
+                value={post.body}
+                components={portableTextComponents}
+              />
             </div>
           )}
         </article>
@@ -193,9 +211,12 @@ const BlogPostPage = () => {
         {/* CTA */}
         <section className="bg-gradient-to-b from-primary/5 to-gold/5 py-20 px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-foreground">Want this in your business?</h2>
+            <h2 className="mb-4 text-foreground">
+              Want this in your business?
+            </h2>
             <p className="mb-8 text-muted-foreground">
-              If you want AI automation that actually works day-to-day, let's talk.
+              If you want AI automation that actually works day-to-day, let's
+              talk.
             </p>
             <Button
               size="lg"

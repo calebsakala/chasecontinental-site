@@ -49,9 +49,19 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database, Json } from "@/integrations/supabase/types";
+import { queueResourceEmail } from "@/lib/resourceEmail";
 import { toast } from "sonner";
 
 import heroImage from "@/assets/peak-season-hero.jpg";
+
+const ASSET_KEY = "peak-season-survival-guide";
+
+type Lm06EventInsert = Database["public"]["Tables"]["lm06_events"]["Insert"];
+type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
+type Lm06DownloadInsert =
+  Database["public"]["Tables"]["lm06_downloads"]["Insert"];
+type DownloadInsert = Database["public"]["Tables"]["downloads"]["Insert"];
 
 /* ── session ── */
 const getSessionId = () => {
@@ -179,27 +189,27 @@ const PeakSeasonSurvivalGuide = () => {
 
   /* track page view */
   useEffect(() => {
-    supabase.from("lm06_events").insert([
-      {
-        event_type: "page_view",
-        event_payload: {
-          page: "peak-season-survival-guide",
-          session: getSessionId(),
-        } as any,
+    const pageViewEvent: Lm06EventInsert = {
+      event_type: "page_view",
+      event_payload: {
+        page: "peak-season-survival-guide",
+        session: getSessionId(),
       },
-    ]);
+    };
+
+    supabase.from("lm06_events").insert([pageViewEvent]);
   }, []);
 
-  const trackEvent = async (
-    type: string,
-    payload: Record<string, any> = {},
-  ) => {
-    await supabase.from("lm06_events").insert([
-      {
-        event_type: type,
-        event_payload: { ...payload, session: getSessionId() } as any,
-      },
-    ]);
+  const trackEvent = async (type: string, payload: Json = {}) => {
+    const eventRecord: Lm06EventInsert = {
+      event_type: type,
+      event_payload:
+        payload && typeof payload === "object" && !Array.isArray(payload)
+          ? { ...payload, session: getSessionId() }
+          : { session: getSessionId() },
+    };
+
+    await supabase.from("lm06_events").insert([eventRecord]);
   };
 
   const handleCta = () => {
@@ -219,11 +229,15 @@ const PeakSeasonSurvivalGuide = () => {
     }
     setLoading(true);
     try {
+      const trimmedName = leadForm.name.trim();
+      const normalizedEmail = leadForm.email.toLowerCase().trim();
+      const company = leadForm.company.trim() || null;
+
       /* upsert lead */
       const { data: existingLead } = await supabase
         .from("lm06_leads")
         .select("id")
-        .eq("email", leadForm.email.trim())
+        .eq("email", normalizedEmail)
         .maybeSingle();
 
       let leadId: string;
@@ -234,9 +248,9 @@ const PeakSeasonSurvivalGuide = () => {
           .from("lm06_leads")
           .insert([
             {
-              name: leadForm.name.trim(),
-              email: leadForm.email.trim(),
-              company: leadForm.company.trim() || null,
+              name: trimmedName,
+              email: normalizedEmail,
+              company,
               role: leadForm.role,
               vertical: leadForm.industry,
             },
@@ -253,9 +267,9 @@ const PeakSeasonSurvivalGuide = () => {
         .upsert(
           [
             {
-              name: leadForm.name.trim(),
-              email: leadForm.email.trim(),
-              company: leadForm.company.trim() || null,
+              name: trimmedName,
+              email: normalizedEmail,
+              company,
               role: leadForm.role,
               vertical: leadForm.industry,
             },
@@ -267,57 +281,90 @@ const PeakSeasonSurvivalGuide = () => {
       if (mainLeadError) throw mainLeadError;
       const mainLeadId = mainLead!.id;
 
-      /* log event + download */
+      /* log event */
       await trackEvent("lead_submit", { lead_id: leadId });
+      const leadSubmitEvent: EventInsert = {
+        event_name: "lead_submit",
+        event_payload: {
+          asset: ASSET_KEY,
+          lead_id: mainLeadId,
+        },
+        lead_id: mainLeadId,
+      };
+
       await supabase
-        .from("lm06_downloads")
-        .insert([{ lead_id: leadId, pdf_version: "1.0" }]);
-      await supabase
-        .from("downloads")
-        .insert(
-          [{ asset_key: "peak-season-survival-guide", lead_id: mainLeadId }],
-          { ignoreDuplicates: true },
-        );
-      await supabase.from("events").insert(
-        [
-          {
-            event_name: "lead_submit",
-            event_payload: {
-              asset: "peak-season-survival-guide",
-              lead_id: mainLeadId,
-            } as any,
-            lead_id: mainLeadId,
-          },
-        ],
-        { ignoreDuplicates: true },
-      );
+        .from("events")
+        .insert([leadSubmitEvent], { ignoreDuplicates: true });
 
       /* generate PDF */
       toast.success("Generating your guide…");
-      const res = await fetch(
-        `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/functions/v1/generate-peak-season-pdf`,
+      const { data, error } = await supabase.functions.invoke(
+        "generate-peak-season-pdf",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token || "anon"}`,
+          body: {
+            lead_id: mainLeadId,
+            name: trimmedName,
+            email: normalizedEmail,
+            company,
           },
-          body: JSON.stringify({ leadId, name: leadForm.name }),
         },
       );
 
-      if (!res.ok) throw new Error("PDF generation failed");
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Peak-Season-Survival-Guide.pdf";
-      a.click();
-      URL.revokeObjectURL(url);
+      if (error) throw new Error(error.message);
 
-      toast.success("Your guide is downloading!");
+      const pdfUrl = data?.pdf_url;
+      const filePath = data?.file_path;
+
+      if (!pdfUrl || !filePath) {
+        throw new Error(
+          "Peak season guide generation returned an incomplete response.",
+        );
+      }
+
+      const lm06Download: Lm06DownloadInsert = {
+        lead_id: leadId,
+        pdf_version: "1.0",
+      };
+      const downloadRecord: DownloadInsert = {
+        asset_key: ASSET_KEY,
+        lead_id: mainLeadId,
+        file_path: filePath,
+        downloaded_at: new Date().toISOString(),
+      };
+      const downloadEvent: EventInsert = {
+        event_name: "download_start",
+        event_payload: {
+          asset: ASSET_KEY,
+          file_path: filePath,
+        },
+        lead_id: mainLeadId,
+      };
+
+      await supabase.from("lm06_downloads").insert([lm06Download]);
+      await supabase.from("downloads").insert([downloadRecord]);
+      await supabase.from("events").insert([downloadEvent]);
+
+      const a = document.createElement("a");
+      a.href = pdfUrl;
+      a.download = "Peak-Season-Survival-Guide.pdf";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.click();
+
+      queueResourceEmail({
+        assetKey: ASSET_KEY,
+        leadId: mainLeadId,
+        name: trimmedName,
+        email: normalizedEmail,
+        company,
+        filePath,
+      });
+
+      toast.success(
+        "Your guide is downloading! Your email copy is on the way.",
+      );
       setShowOptIn(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       toast.error("Something went wrong. Please try again.");
     } finally {
