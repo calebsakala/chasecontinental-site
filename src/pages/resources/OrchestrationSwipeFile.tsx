@@ -52,6 +52,8 @@ import { toast } from "sonner";
 import heroImage from "@/assets/swipefile-hero.jpg";
 
 const ASSET_KEY = "orchestration-swipe-file";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 
 // Session tracking
 const getSessionId = () => {
@@ -72,7 +74,7 @@ const roleOptions = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
@@ -81,16 +83,24 @@ const roleOptions = [
 const industryOptions = [
   "E-commerce & Retail",
   "Healthcare & Life Sciences",
-  "Financial Services",
+  "Financial Operations",
   "Manufacturing",
   "Logistics & Supply Chain",
   "BPO & Outsourcing",
   "Technology / SaaS",
-  "Professional Services",
+  "Professional Operations",
   "Other",
 ];
 
-// All 15 workflow patterns
+const workflowInterestOptions = [
+  "Order orchestration",
+  "Inventory and fulfillment",
+  "Support and case routing",
+  "Finance and reconciliation",
+  "Cross-system visibility",
+  "Other",
+];
+
 const workflows = [
   {
     id: 1,
@@ -214,7 +224,7 @@ const workflows = [
   },
   {
     id: 13,
-    title: "Automated Customer Service",
+    title: "Automated Customer Support",
     category: "BPO",
     description:
       "Routes queries to bots or specialist teams, automating common issue responses.",
@@ -281,6 +291,7 @@ const OrchestrationSwipeFile = () => {
     company: "",
     role: "",
     industry: "",
+    workflowInterest: "",
   });
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -327,6 +338,7 @@ const OrchestrationSwipeFile = () => {
       company,
       role: leadForm.role,
       industry: leadForm.industry,
+      workflow_interest: leadForm.workflowInterest || null,
     });
 
     try {
@@ -433,10 +445,10 @@ const OrchestrationSwipeFile = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>Automation Workflow Swipe File (Free) | Chase Continental</title>
+        <title>Automation Workflow Swipe File (Free) | Chase Agents</title>
         <meta
           name="description"
-          content="15 real workflow patterns you can adapt across logistics, supply chain, big data, BPO, and e-commerce."
+          content="15 workflow patterns you can adapt across logistics, supply chain, BPO, and e-commerce with operating-layer execution principles."
         />
       </Helmet>
 
@@ -756,6 +768,21 @@ const OrchestrationSwipeFile = () => {
             <p className="mt-4 text-sm text-muted-foreground">
               Instant access · No spam
             </p>
+
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Button
+                variant="outline"
+                onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+              >
+                Explore Chase Agents
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => window.open(BOOK_SCOPING_CALL_URL, "_blank")}
+              >
+                Book a scoping call
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -878,6 +905,28 @@ const OrchestrationSwipeFile = () => {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="sf-workflow-interest">
+                Primary workflow interest
+              </Label>
+              <Select
+                value={leadForm.workflowInterest}
+                onValueChange={(v) =>
+                  setLeadForm((p) => ({ ...p, workflowInterest: v }))
+                }
+              >
+                <SelectTrigger id="sf-workflow-interest">
+                  <SelectValue placeholder="Select workflow focus" />
+                </SelectTrigger>
+                <SelectContent>
+                  {workflowInterestOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <Button
               className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold"

@@ -20,6 +20,10 @@ const assetConfigs = {
     bucket: "lead-magnets",
     defaultFilePath: "transformation-playbook/AI-Transformation-Playbook.pdf",
   },
+  "ccid-case-study": {
+    bucket: "lead-magnets",
+    defaultFilePath: "ccid-case-study/ccid-case-study.pdf",
+  },
   "orchestration-swipe-file": {
     bucket: "lead-magnets",
   },

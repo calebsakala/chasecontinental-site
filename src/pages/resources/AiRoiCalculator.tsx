@@ -75,6 +75,47 @@ import { queueResourceEmail } from "@/lib/resourceEmail";
 import heroImage from "@/assets/roi-hero-financial.jpg";
 
 const ASSET_KEY = "ai-roi-calculator";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+
+const ROLE_OPTIONS = [
+  "C-Suite (CEO, COO, CTO, CIO)",
+  "SVP / VP Operations",
+  "Director of Operations",
+  "Director of Digital Transformation",
+  "Head of IT / Technology",
+  "Operations Manager",
+  "Programme / Project Manager",
+  "Process Improvement Lead",
+  "Strategy / Operations Lead",
+  "Business Analyst",
+  "Team Lead / Senior Manager",
+  "Other",
+];
+
+const AUTOMATION_MATURITY_OPTIONS = [
+  "Pilot stage",
+  "Team-level automation",
+  "Cross-functional workflows",
+  "Operating-layer execution",
+];
+
+const PRIORITY_AREA_OPTIONS = [
+  "Cycle time reduction",
+  "Error reduction",
+  "Throughput increase",
+  "Visibility and reporting",
+  "Cost efficiency",
+];
+
+const getUtmParams = () => {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source"),
+    utm_medium: params.get("utm_medium"),
+    utm_campaign: params.get("utm_campaign"),
+  };
+};
 
 // ============================================================================
 // SECTOR CONFIGURATIONS - 12+ Industries with Research-Backed Benchmarks
@@ -88,7 +129,7 @@ const SECTORS = [
   },
   {
     id: "financial_services",
-    name: "Financial Services & Banking",
+    name: "Financial Operations & Banking",
     icon: Landmark,
     color: "from-blue-500 to-indigo-500",
   },
@@ -118,13 +159,13 @@ const SECTORS = [
   },
   {
     id: "bpo",
-    name: "BPO & Shared Services",
+    name: "BPO & Shared Operations",
     icon: Headphones,
     color: "from-fuchsia-500 to-pink-500",
   },
   {
     id: "legal",
-    name: "Legal & Professional Services",
+    name: "Legal & Professional Operations",
     icon: Scale,
     color: "from-slate-500 to-gray-600",
   },
@@ -587,6 +628,8 @@ const AiRoiCalculator = () => {
     email: "",
     company: "",
     role: "",
+    automationMaturity: "",
+    priorityArea: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -605,6 +648,7 @@ const AiRoiCalculator = () => {
     setIsCalculating(true);
 
     const calculatedResults = calculateROI({ sector, revenueId, headcountId });
+    const utm = getUtmParams();
 
     // Store run in database
     try {
@@ -619,10 +663,17 @@ const AiRoiCalculator = () => {
             sector,
             session_id: sessionId,
             inputs: JSON.parse(
-              JSON.stringify({ sector, revenueId, headcountId }),
+              JSON.stringify({
+                sector,
+                revenueId,
+                headcountId,
+                utm,
+              }),
             ),
             outputs: JSON.parse(JSON.stringify(calculatedResults)),
             payback: calculatedResults.paybackMonths,
+            automation_maturity: null,
+            priority_area: null,
           },
         ])
         .select()
@@ -663,6 +714,7 @@ const AiRoiCalculator = () => {
       const trimmedName = leadForm.name.trim();
       const normalizedEmail = leadForm.email.toLowerCase().trim();
       const company = leadForm.company.trim() || null;
+      const utm = getUtmParams();
 
       if (!runId) {
         throw new Error(
@@ -679,6 +731,9 @@ const AiRoiCalculator = () => {
             email: normalizedEmail,
             company,
             role: leadForm.role.trim() || null,
+            utm_source: utm.utm_source,
+            utm_medium: utm.utm_medium,
+            utm_campaign: utm.utm_campaign,
           },
           { onConflict: "email" },
         )
@@ -689,7 +744,11 @@ const AiRoiCalculator = () => {
 
       await supabase
         .from("lm02_calculator_runs")
-        .update({ lead_id: leadData.id })
+        .update({
+          lead_id: leadData.id,
+          automation_maturity: leadForm.automationMaturity || null,
+          priority_area: leadForm.priorityArea || null,
+        })
         .eq("id", runId);
 
       setPdfGenerating(true);
@@ -741,6 +800,11 @@ const AiRoiCalculator = () => {
           sector,
           revenueId,
           headcountId,
+          automation_maturity: leadForm.automationMaturity || null,
+          priority_area: leadForm.priorityArea || null,
+          utm_source: utm.utm_source,
+          utm_medium: utm.utm_medium,
+          utm_campaign: utm.utm_campaign,
         },
       });
 
@@ -795,7 +859,7 @@ const AiRoiCalculator = () => {
       <Helmet>
         <title>
           AI Automation ROI Calculator | Enterprise Benchmarks 2025-2026 | Chase
-          Continental
+          Agents
         </title>
         <meta
           name="description"
@@ -861,7 +925,7 @@ const AiRoiCalculator = () => {
               >
                 Get enterprise-grade projections based on your sector, revenue,
                 and team size. Powered by research from the world's leading
-                consulting firms.
+                research firms.
               </motion.p>
 
               {/* Quick Stats */}
@@ -1409,14 +1473,85 @@ const AiRoiCalculator = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="role">Role</Label>
-                <Input
-                  id="role"
+                <Select
                   value={leadForm.role}
-                  onChange={(e) =>
-                    setLeadForm({ ...leadForm, role: e.target.value })
+                  onValueChange={(value) =>
+                    setLeadForm({ ...leadForm, role: value })
                   }
-                  placeholder="VP of Operations"
-                />
+                >
+                  <SelectTrigger id="role">
+                    <SelectValue placeholder="Select role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ROLE_OPTIONS.map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="automationMaturity">
+                    Automation maturity
+                  </Label>
+                  <Select
+                    value={leadForm.automationMaturity}
+                    onValueChange={(value) =>
+                      setLeadForm({ ...leadForm, automationMaturity: value })
+                    }
+                  >
+                    <SelectTrigger id="automationMaturity">
+                      <SelectValue placeholder="Select maturity" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {AUTOMATION_MATURITY_OPTIONS.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="priorityArea">Priority area</Label>
+                  <Select
+                    value={leadForm.priorityArea}
+                    onValueChange={(value) =>
+                      setLeadForm({ ...leadForm, priorityArea: value })
+                    }
+                  >
+                    <SelectTrigger id="priorityArea">
+                      <SelectValue placeholder="Select priority" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {PRIORITY_AREA_OPTIONS.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+                >
+                  Explore Chase Agents
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => window.open(BOOK_SCOPING_CALL_URL, "_blank")}
+                >
+                  Book a scoping call
+                </Button>
               </div>
               <Button type="submit" disabled={isSubmitting} className="w-full">
                 {isSubmitting ? (

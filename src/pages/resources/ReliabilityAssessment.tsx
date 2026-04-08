@@ -54,6 +54,8 @@ import { toast } from "sonner";
 import heroImage from "@/assets/ai-network.jpg";
 
 const ASSET_KEY = "reliability-assessment";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 
 // Session ID for tracking
 const getSessionId = () => {
@@ -75,7 +77,7 @@ const roleOptions = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
@@ -84,12 +86,12 @@ const roleOptions = [
 const industryOptions = [
   "E-commerce & Retail",
   "Healthcare & Life Sciences",
-  "Financial Services",
+  "Financial Operations",
   "Manufacturing",
   "Logistics & Supply Chain",
   "BPO & Outsourcing",
   "Technology / SaaS",
-  "Professional Services",
+  "Professional Operations",
   "Other",
 ];
 
@@ -286,9 +288,18 @@ const faqs = [
   {
     question: "What happens after I complete this?",
     answer:
-      "You'll see your score, risk band, and three prioritized recommendations. You can download a detailed PDF report and optionally book a free reliability review call where we'll dive deeper into your specific situation.",
+      "You'll see your score, risk band, and three prioritized recommendations. You can download a detailed PDF report, explore Chase Agents, and book a scoping call if you want workflow-level guidance.",
   },
 ];
+
+const getUtmParams = () => {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source"),
+    utm_medium: params.get("utm_medium"),
+    utm_campaign: params.get("utm_campaign"),
+  };
+};
 
 type Phase = "hero" | "assessment" | "results";
 
@@ -316,6 +327,8 @@ const ReliabilityAssessment = () => {
     company: "",
     role: "",
     industry: "",
+    workflowCount: "",
+    productionLive: "",
   });
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -347,6 +360,7 @@ const ReliabilityAssessment = () => {
 
     // Create assessment run
     try {
+      const utm = getUtmParams();
       const { data, error } = await supabase
         .from("assessment_runs")
         .insert([
@@ -356,6 +370,9 @@ const ReliabilityAssessment = () => {
             answers_json: {} as Json,
             score: 0,
             band: "pending",
+            utm_source: utm.utm_source,
+            utm_medium: utm.utm_medium,
+            utm_campaign: utm.utm_campaign,
           },
         ])
         .select("id")
@@ -423,6 +440,14 @@ const ReliabilityAssessment = () => {
               answers_json: answers as unknown as Json,
               score: totalScore,
               band: band,
+              workflow_count:
+                leadForm.workflowCount.trim() === ""
+                  ? null
+                  : Number.parseInt(leadForm.workflowCount, 10),
+              production_live:
+                leadForm.productionLive === ""
+                  ? null
+                  : leadForm.productionLive === "yes",
             })
             .eq("id", assessmentRunId);
         } catch (error) {
@@ -452,7 +477,12 @@ const ReliabilityAssessment = () => {
   // Book call click
   const handleBookCall = () => {
     trackEvent("book_call_click", { score: totalScore, band });
-    window.open("https://calendar.app.google/8oZYnnuHcaiH64Ky8", "_blank");
+    window.open(BOOK_SCOPING_CALL_URL, "_blank");
+  };
+
+  const handleExploreChaseAgents = () => {
+    trackEvent("explore_chase_agents_click", { score: totalScore, band });
+    window.open(CHASE_AGENTS_URL, "_blank");
   };
 
   // Generate PDF
@@ -473,6 +503,12 @@ const ReliabilityAssessment = () => {
       company,
       role: leadForm.role,
       industry: leadForm.industry,
+      workflow_count:
+        leadForm.workflowCount.trim() === ""
+          ? null
+          : Number.parseInt(leadForm.workflowCount, 10),
+      production_live:
+        leadForm.productionLive === "" ? null : leadForm.productionLive,
       score: totalScore,
       band,
     });
@@ -510,7 +546,17 @@ const ReliabilityAssessment = () => {
       if (assessmentRunId && leadId) {
         await supabase
           .from("assessment_runs")
-          .update({ lead_id: leadId })
+          .update({
+            lead_id: leadId,
+            workflow_count:
+              leadForm.workflowCount.trim() === ""
+                ? null
+                : Number.parseInt(leadForm.workflowCount, 10),
+            production_live:
+              leadForm.productionLive === ""
+                ? null
+                : leadForm.productionLive === "yes",
+          })
           .eq("id", assessmentRunId);
       }
 
@@ -590,12 +636,10 @@ const ReliabilityAssessment = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>
-          Production Reliability Assessment (Free) | Chase Continental
-        </title>
+        <title>Production Reliability Assessment (Free) | Chase Agents</title>
         <meta
           name="description"
-          content="Take a 5-minute assessment to see if your AI automation will hold up in production."
+          content="Take a 5-minute assessment to see if your automation can hold up in production, then map your operating-layer next steps."
         />
       </Helmet>
 
@@ -1051,22 +1095,31 @@ const ReliabilityAssessment = () => {
                   <Card className="bg-card/50 backdrop-blur border-amber-500/10">
                     <CardContent className="p-8">
                       <h3 className="text-xl font-bold mb-3">
-                        Want a deeper analysis?
+                        Ready to harden this workflow in production?
                       </h3>
                       <p className="text-muted-foreground mb-6">
-                        Book a free 30-minute reliability review. We'll walk
-                        through your specific workflows and identify the
-                        highest-impact fixes.
+                        Explore Chase Agents first, then book a scoping call if
+                        you want workflow-specific implementation support.
                       </p>
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        onClick={handleBookCall}
-                        className="border-amber-500/30 hover:bg-amber-500/10"
-                      >
-                        Book a reliability review
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <Button
+                          size="lg"
+                          onClick={handleExploreChaseAgents}
+                          className="bg-amber-500 hover:bg-amber-600 text-black font-semibold"
+                        >
+                          Explore Chase Agents
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          onClick={handleBookCall}
+                          className="border-amber-500/30 hover:bg-amber-500/10"
+                        >
+                          Book a scoping call
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -1134,6 +1187,41 @@ const ReliabilityAssessment = () => {
                     setLeadForm((prev) => ({ ...prev, email: e.target.value }))
                   }
                 />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="workflowCount">Workflows in scope</Label>
+                <Input
+                  id="workflowCount"
+                  type="number"
+                  min={0}
+                  placeholder="e.g. 4"
+                  value={leadForm.workflowCount}
+                  onChange={(e) =>
+                    setLeadForm((prev) => ({
+                      ...prev,
+                      workflowCount: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="productionLive">In production now?</Label>
+                <Select
+                  value={leadForm.productionLive}
+                  onValueChange={(value) =>
+                    setLeadForm((prev) => ({ ...prev, productionLive: value }))
+                  }
+                >
+                  <SelectTrigger id="productionLive">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="space-y-2">

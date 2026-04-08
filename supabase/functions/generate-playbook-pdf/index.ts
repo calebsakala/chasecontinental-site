@@ -46,7 +46,7 @@ Deno.serve(async (req) => {
         align: "center",
       });
       doc.text("Confidential – For Internal Use Only", margin, pageHeight - 10);
-      doc.text("Chase Continental", pageWidth - margin, pageHeight - 10, {
+      doc.text("Chase Agents", pageWidth - margin, pageHeight - 10, {
         align: "right",
       });
     };
@@ -161,7 +161,7 @@ Deno.serve(async (req) => {
     y = 220;
     doc.setFontSize(10);
     doc.setTextColor(...GRAY);
-    doc.text("Author: Chase Continental", margin, y);
+    doc.text("Author: Chase Agents", margin, y);
     doc.text("Version: 1.0  |  March 2026", margin, y + 6);
 
     // Bottom bar
@@ -269,7 +269,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...DARK);
     doc.text(
-      "Book a call with Chase Continental to implement this playbook.",
+      "Explore Chase Agents, then book a scoping call to implement this playbook.",
       margin + 5,
       y + 14,
     );
@@ -958,7 +958,7 @@ Deno.serve(async (req) => {
       {
         num: "3",
         title: "Scale",
-        desc: "Measure outcomes and book a call for expansion.",
+        desc: "Measure outcomes, explore Chase Agents, and book a scoping call for expansion.",
       },
     ];
 
@@ -998,7 +998,7 @@ Deno.serve(async (req) => {
     doc.text("• IDC DX Spending Guide: idc.com/dx-spending", margin, y);
     y += 6;
     doc.text(
-      "• Chase Continental Resources: chasecontinental.com/resources",
+      "• Chase Agents Resources: chaseagents.com/resources",
       margin,
       y,
     );
@@ -1018,7 +1018,7 @@ Deno.serve(async (req) => {
     );
     doc.setFont("helvetica", "normal");
     doc.text(
-      "Contact: info@chasecontinental.com",
+      "Contact: hello@chaseagents.com",
       margin + contentWidth / 2,
       y + 18,
       { align: "center" },
@@ -1066,7 +1066,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.text(
-      "Download more at chasecontinental.com/resources",
+      "Explore more at chaseagents.com/resources",
       pageWidth / 2,
       y + 9,
       { align: "center" },
@@ -1077,7 +1077,7 @@ Deno.serve(async (req) => {
     doc.setFontSize(14);
     doc.setTextColor(...DARK);
     doc.setFont("helvetica", "bold");
-    doc.text("CHASE CONTINENTAL", pageWidth / 2, y, { align: "center" });
+    doc.text("CHASE AGENTS", pageWidth / 2, y, { align: "center" });
 
     // Bottom bar
     doc.setFillColor(...TEAL);

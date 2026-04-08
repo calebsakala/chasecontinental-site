@@ -92,7 +92,7 @@ serve(async (req) => {
     doc.rect(margin, 740, contentW, 3, "F");
     doc.setFontSize(9);
     doc.setTextColor(120, 140, 160);
-    doc.text("© 2026 Chase Continental. All rights reserved.", margin, 770);
+    doc.text("© 2026 Chase Agents. All rights reserved.", margin, 770);
 
     // ── Exec Summary ──
     addPage();
@@ -300,7 +300,7 @@ serve(async (req) => {
           "• Provide hands-on training sessions",
           "• Designate automation champions in each team",
           "",
-          "Next step: Book a strategy call for expert rollout support.",
+          "Next step: Explore Chase Agents, then book a scoping call if you need rollout support.",
         ],
       },
     ];
@@ -363,7 +363,7 @@ serve(async (req) => {
     y += 20;
     doc.setFontSize(9);
     doc.setTextColor(140, 140, 140);
-    doc.text("© 2026 Chase Continental. All rights reserved.", margin, y);
+    doc.text("© 2026 Chase Agents. All rights reserved.", margin, y);
 
     const pdfBytes = doc.output("arraybuffer");
     const resolvedSignupId = signupId?.trim() || crypto.randomUUID();

@@ -11,12 +11,11 @@ const SUPABASE_SERVICE_ROLE_KEY =
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 
-const DEFAULT_SITE_URL = "https://chasecontinental.com";
-const DEFAULT_BOOKING_URL =
-  "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1o2TpvcYyg1qefQEEKyjUuWOO0v2yFYEkm81VtpFRYwn6uCnyZVk-Ju549TbW3wOjkHd9up7_6";
+const DEFAULT_SITE_URL = "https://chaseagents.com";
+const DEFAULT_BOOKING_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const DEFAULT_WEBSITE_CTA_URL = "https://chaseagents.com/";
 const DEFAULT_FROM_EMAIL = "Charles@keywordautopilot.com";
-const DEFAULT_FROM_NAME = "CHASE CONTINENTAL";
+const DEFAULT_FROM_NAME = "CHASE AGENTS";
 const DEFAULT_LOGO_URL =
   "https://ydjicfgyegmqfusgunko.supabase.co/storage/v1/object/public/Assets/cc-logo-mark.png";
 const functionsBaseUrl = `${SUPABASE_URL}/functions/v1`;
@@ -60,9 +59,27 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Inside, you will find a practical workflow-selection lens, the exceptions-and-approvals pattern that keeps automation from breaking, and a clear way to measure ROI before the work drifts into another pilot.",
     ],
     closingParagraph:
-      "If you want to see how this applies to your own operation, explore the site or book a straightforward call and we can map one workflow together.",
+      "If you want to see how this applies to your own operation, explore Chase Agents or book a scoping call and we can map one workflow together.",
     postscript:
       "If there is one workflow in your business that already feels overdue for automation, reply and tell me where it breaks down. I read every reply.",
+  },
+  "ccid-case-study": {
+    assetKey: "ccid-case-study",
+    title: "CCID Case Study Deep Dive",
+    subject: "Your CCID case study deep dive is ready",
+    bucket: "lead-magnets",
+    defaultFilePath: "ccid-case-study/ccid-case-study.pdf",
+    routeSlug: "ccid-case-study",
+    ctaLabel: "Open the case study",
+    introParagraphs: [
+      "Your CCID case study deep dive is ready.",
+      "Inside, you will see how CCID reduced reporting friction, tightened operational handoffs, and improved visibility by moving critical workflows onto a deterministic operating layer.",
+      "Use it as a reference for how Chase Agents can stabilize execution when manual reporting, fragmented approvals, and low visibility are slowing your team down.",
+    ],
+    closingParagraph:
+      "If you want to map the same operating pattern into your environment, explore Chase Agents or book a scoping call and we can pressure-test the workflow together.",
+    postscript:
+      "If there is one reporting or handoff workflow already causing drag in your operation, reply and tell me where it breaks first. I read every reply.",
   },
   "orchestration-swipe-file": {
     assetKey: "orchestration-swipe-file",
@@ -77,7 +94,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it as a shortcut for deciding what to automate first, where handoffs need protection, and how to design around the failure modes that stall teams later.",
     ],
     closingParagraph:
-      "If one of these patterns maps closely to a bottleneck in your operation, explore the site or book a call and we can walk through how to adapt it to your stack.",
+      "If one of these patterns maps closely to a bottleneck in your operation, explore Chase Agents or book a scoping call and we can walk through how to adapt it to your stack.",
     postscript:
       "If you already know which workflow is slowing your team down, reply and tell me what breaks today. I read every reply.",
   },
@@ -94,7 +111,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it to prioritise the next fixes with the highest leverage instead of treating reliability as a vague follow-up item after rollout.",
     ],
     closingParagraph:
-      "If you want to pressure-test one workflow in your operation, explore the site or book a call and we can map the failure points together.",
+      "If you want to pressure-test one workflow in your operation, explore Chase Agents or book a scoping call and we can map the failure points together.",
     postscript:
       "If one workflow already feels fragile in production, reply and tell me where it breaks first. I read every reply.",
   },
@@ -111,7 +128,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it to decide what needs centralisation, what should be orchestrated, and where governance needs to catch up before more agents are deployed.",
     ],
     closingParagraph:
-      "If your team is already seeing duplication, blind spots, or conflicting AI outputs, explore the site or book a call and we can map the root cause together.",
+      "If your team is already seeing duplication, blind spots, or conflicting AI outputs, explore Chase Agents or book a scoping call and we can map the root cause together.",
     postscript:
       "If one part of your AI stack already feels siloed, reply and tell me where the disconnect shows up first. I read every reply.",
   },
@@ -128,7 +145,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it to harden your workflows before peak load turns small automation gaps into missed SLAs, stock issues, and delayed escalations.",
     ],
     closingParagraph:
-      "If your operation already has one workflow that looks fragile under surge conditions, explore the site or book a call and we can map the breakpoints together.",
+      "If your operation already has one workflow that looks fragile under surge conditions, explore Chase Agents or book a scoping call and we can map the breakpoints together.",
     postscript:
       "If peak season usually reveals the same operational bottleneck every year, reply and tell me where it breaks first. I read every reply.",
   },
@@ -145,7 +162,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it to decide whether the next step should be a pilot, a deeper business case, or a more targeted workflow analysis.",
     ],
     closingParagraph:
-      "If you want to pressure-test the assumptions behind the projected upside, explore the site or book a call and we can walk through the workflow economics together.",
+      "If you want to pressure-test the assumptions behind the projected upside, explore Chase Agents or book a scoping call and we can walk through the workflow economics together.",
     postscript:
       "If one process already looks like your fastest ROI path, reply and tell me what it is. I read every reply.",
   },
@@ -162,7 +179,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it to turn a messy workflow into something explicit enough to test, govern, and improve without relying on tribal knowledge.",
     ],
     closingParagraph:
-      "If you want to pressure-test one workflow before you automate it further, explore the site or book a call and we can map the failure points together.",
+      "If you want to pressure-test one workflow before you automate it further, explore Chase Agents or book a scoping call and we can map the failure points together.",
     postscript:
       "If there is one workflow in your operation that still depends too heavily on heroics, reply and tell me where it breaks. I read every reply.",
   },
@@ -179,7 +196,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Use it to decide whether the next step is a targeted migration, a contract review, or a deeper architecture assessment.",
     ],
     closingParagraph:
-      "If your stack already feels harder to change than it should, explore the site or book a call and we can map the practical exit paths together.",
+      "If your stack already feels harder to change than it should, explore Chase Agents or book a scoping call and we can map the practical exit paths together.",
     postscript:
       "If one vendor dependency already feels expensive to unwind, reply and tell me where it is. I read every reply.",
   },
@@ -196,7 +213,7 @@ const assetConfigs: Record<string, AssetConfig> = {
       "Work through the guide to choose the right workflow, map the real steps, define exceptions and approvals, set success metrics, and outline the rollout sequence.",
     ],
     closingParagraph:
-      "You will also get one short follow-up email in 5 days so you can decide whether to pressure-test the plan further, book a call, or move ahead internally.",
+      "You will also get one short follow-up email in 5 days so you can decide whether to pressure-test the plan further, book a scoping call, or move ahead internally.",
     postscript:
       "If one workflow already feels like the right pilot candidate, reply and tell me what it is. I read every reply.",
   },
@@ -284,8 +301,8 @@ const buildResourceEmailHtml = (
           <tr>
             <td style="background:#f8f8f5;padding:28px 40px;text-align:center;border-bottom:1px solid #e5e5e0;">
               <a href="${safeSiteUrl}" style="display:inline-block;text-decoration:none;">
-                <img src="${safeLogoUrl}" alt="Chase Continental" height="56" style="display:block;margin:0 auto 14px;height:56px;width:auto;max-width:96px;" />
-                <div style="font-size:28px;line-height:1.1;font-weight:700;letter-spacing:0.1em;color:#0f6e56;text-transform:uppercase;">Chase Continental</div>
+                <img src="${safeLogoUrl}" alt="Chase Agents" height="56" style="display:block;margin:0 auto 14px;height:56px;width:auto;max-width:96px;" />
+                <div style="font-size:28px;line-height:1.1;font-weight:700;letter-spacing:0.1em;color:#0f6e56;text-transform:uppercase;">Chase Agents</div>
               </a>
             </td>
           </tr>
@@ -306,13 +323,13 @@ const buildResourceEmailHtml = (
               <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 24px;">${safeClosingParagraph}</p>
 
               <div style="text-align:center;margin:28px 0;">
-                <a href="${safeWebsiteCtaUrl}" style="display:inline-block;background:#1D9E75;color:#ffffff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;margin:0 6px 8px;">Visit our website</a>
-                <a href="${safeBookingUrl}" style="display:inline-block;background:transparent;color:#0F6E56;padding:11px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;border:1.5px solid #1D9E75;margin:0 6px 8px;">Book a free call</a>
+                <a href="${safeWebsiteCtaUrl}" style="display:inline-block;background:#1D9E75;color:#ffffff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;margin:0 6px 8px;">Explore Chase Agents</a>
+                <a href="${safeBookingUrl}" style="display:inline-block;background:transparent;color:#0F6E56;padding:11px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;border:1.5px solid #1D9E75;margin:0 6px 8px;">Book a scoping call</a>
               </div>
 
               <hr style="border:none;border-top:1px solid #e5e5e0;margin:24px 0;" />
 
-              <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 16px;">Speak soon,<br /><strong style="color:#1a1a18;">Charles</strong><br />CHASE CONTINENTAL</p>
+              <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 16px;">Speak soon,<br /><strong style="color:#1a1a18;">Charles</strong><br />CHASE AGENTS</p>
               <p style="font-size:13px;color:#5f5e5a;line-height:1.6;margin:0;"><strong>P.S.</strong> ${safePostscript}</p>
 
               <div style="text-align:center;margin:24px 0 8px;">
@@ -322,7 +339,7 @@ const buildResourceEmailHtml = (
           </tr>
           <tr>
             <td style="background:#f8f8f5;border-top:1px solid #e5e5e0;padding:16px 40px;text-align:center;">
-              <p style="font-size:11px;color:#888780;margin:0;">© 2026 CHASE CONTINENTAL</p>
+              <p style="font-size:11px;color:#888780;margin:0;">© 2026 CHASE AGENTS</p>
             </td>
           </tr>
         </table>

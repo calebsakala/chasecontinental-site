@@ -346,7 +346,7 @@ async function generateExecutiveSummaryPdf(
   doc.text(`Date: ${today}`, pageWidth / 2, 176, { align: "center" });
   doc.setTextColor(100, 116, 139);
   doc.setFontSize(10);
-  doc.text("Chase Continental", pageWidth / 2, 250, { align: "center" });
+  doc.text("Chase Agents", pageWidth / 2, 250, { align: "center" });
 
   addPage();
   addSectionHeader(
@@ -519,7 +519,7 @@ async function generateExecutiveSummaryPdf(
   doc.setFontSize(9.5);
   addWrappedText(
     doc,
-    "Schedule a complimentary strategy session with the Chase Continental team. Visit chasecontinental.com or reply to the email that delivered this report.",
+    "Explore Chase Agents, then book a scoping call to plan your rollout. Visit chaseagents.com or reply to the email that delivered this report.",
     margin + 6,
     y + 14,
     contentWidth - 12,

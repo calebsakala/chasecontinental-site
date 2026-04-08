@@ -56,7 +56,8 @@ import { toast } from "sonner";
 
 import heroImage from "@/assets/scorecard-hero.jpg";
 
-const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const ASSET_KEY = "neutral-vs-proprietary-scorecard";
 
 type CcEventInsert = Database["public"]["Tables"]["cc_events"]["Insert"];
@@ -83,7 +84,7 @@ const questions: Question[] = [
     id: 1,
     category: "Cloud Infrastructure",
     question:
-      "Do you rely on vendor-specific services or neutral, portable options?",
+      "Do you rely on vendor-specific platforms or neutral, portable options?",
     examples: {
       proprietary: "AWS Lambda, Azure Functions",
       neutral: "Kubernetes on any cloud",
@@ -180,10 +181,25 @@ const roleOptions = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
+];
+
+const stackSizeOptions = [
+  "1-5 core systems",
+  "6-10 core systems",
+  "11-20 core systems",
+  "20+ core systems",
+];
+
+const migrationTimelineOptions = [
+  "0-3 months",
+  "3-6 months",
+  "6-12 months",
+  "12+ months",
+  "Not sure yet",
 ];
 
 /* ── Band config ── */
@@ -218,7 +234,7 @@ const bandConfig = {
           "Explore Kubernetes for redundancy across providers. Netflix's migration saved 15% on infra (Netflix Engineering Blog, 2023).",
       },
     ],
-    cta: "Book a call to optimize further",
+    cta: "Book a scoping call",
   },
   medium: {
     label: "Medium Risk",
@@ -242,7 +258,7 @@ const bandConfig = {
       {
         title: "Adopt Modular Architecture",
         detail:
-          "Containerize services with Docker to enable vendor swaps without downtime. Test in staging environments.",
+          "Containerize workloads with Docker to enable vendor swaps without downtime. Test in staging environments.",
       },
       {
         title: "Review Vendor Contracts",
@@ -250,7 +266,7 @@ const bandConfig = {
           "Negotiate exit clauses. A tech firm reduced penalties by 50% through audits (HBR, 2024).",
       },
     ],
-    cta: "Book a call to mitigate risks",
+    cta: "Book a scoping call",
   },
   high: {
     label: "High Risk",
@@ -282,7 +298,7 @@ const bandConfig = {
           "Adopt open data standards now (JSON, Parquet). A financial firm saved $10M escaping AWS lock-in (Bloomberg, 2024).",
       },
     ],
-    cta: "Book a call now to unlock your stack",
+    cta: "Book a scoping call",
   },
 };
 
@@ -323,6 +339,8 @@ const NeutralVsProprietaryScorecard = () => {
     email: "",
     company: "",
     role: "",
+    stackSize: "",
+    migrationTimeline: "",
     stackDesc: "",
   });
   const [runId, setRunId] = useState<string | null>(null);
@@ -386,6 +404,8 @@ const NeutralVsProprietaryScorecard = () => {
           email: normalizedEmail,
           company,
           role: leadForm.role,
+          stack_size: leadForm.stackSize || null,
+          migration_timeline: leadForm.migrationTimeline || null,
           stack_desc: leadForm.stackDesc.trim() || null,
         };
 
@@ -420,11 +440,13 @@ const NeutralVsProprietaryScorecard = () => {
 
       // Insert scorecard run
       const answersArr = questions.map((q) => answers[q.id] || 2);
+      const chaseAgentsFitScore = Math.round((score / 30) * 100);
       const ccRun: CcScorecardRunInsert = {
         lead_id: lid,
         answers_json: answersArr,
         score,
         band,
+        chase_agents_fit_score: chaseAgentsFitScore,
       };
 
       const { data: run, error: re } = await supabase
@@ -452,6 +474,7 @@ const NeutralVsProprietaryScorecard = () => {
           asset: ASSET_KEY,
           score,
           band,
+          chase_agents_fit_score: chaseAgentsFitScore,
         },
       };
 
@@ -556,9 +579,7 @@ const NeutralVsProprietaryScorecard = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>
-          Neutral vs Proprietary Scorecard (Free) | Chase Continental
-        </title>
+        <title>Neutral vs Proprietary Scorecard (Free) | Chase Agents</title>
         <meta
           name="description"
           content="Score your stack in 5 minutes. See lock-in risk and the fastest path to reliable automation."
@@ -1007,7 +1028,7 @@ const NeutralVsProprietaryScorecard = () => {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => window.open(BOOK_CALL_URL, "_blank")}
+                onClick={() => window.open(BOOK_SCOPING_CALL_URL, "_blank")}
                 className="px-8 py-6 rounded-xl font-bold"
                 style={{ borderColor: config.color, color: config.color }}
               >
@@ -1022,6 +1043,27 @@ const NeutralVsProprietaryScorecard = () => {
       {phase === "hero" && (
         <section className="py-24 px-6 bg-card/50">
           <div className="mx-auto max-w-3xl">
+            <div className="mb-14 rounded-2xl border border-border/60 bg-background p-6 md:p-8 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold font-heading mb-3">
+                Need implementation support after the scorecard?
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Explore Chase Agents first, then book a scoping call for your
+                migration and rollout plan.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}>
+                  Explore Chase Agents
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => window.open(BOOK_SCOPING_CALL_URL, "_blank")}
+                >
+                  Book a scoping call
+                </Button>
+              </div>
+            </div>
+
             <h2 className="text-3xl font-bold font-heading text-center mb-12">
               How It Works
             </h2>
@@ -1173,6 +1215,46 @@ const NeutralVsProprietaryScorecard = () => {
                 }
                 rows={3}
               />
+            </div>
+            <div>
+              <Label>Stack Size</Label>
+              <Select
+                value={leadForm.stackSize}
+                onValueChange={(v) =>
+                  setLeadForm((p) => ({ ...p, stackSize: v }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select stack size" />
+                </SelectTrigger>
+                <SelectContent>
+                  {stackSizeOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Migration Timeline</Label>
+              <Select
+                value={leadForm.migrationTimeline}
+                onValueChange={(v) =>
+                  setLeadForm((p) => ({ ...p, migrationTimeline: v }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select timeline" />
+                </SelectTrigger>
+                <SelectContent>
+                  {migrationTimelineOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <Button

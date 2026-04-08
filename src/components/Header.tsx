@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-
-const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
-  { label: "Resources", href: "/resources" },
-  { label: "Services", href: "/#services" },
   { label: "Results", href: "/#results" },
+  { label: "Resources", href: "/resources" },
   { label: "Blog", href: "/blogs" },
 ];
 
@@ -78,9 +75,9 @@ const Header = ({ variant = "default" }: HeaderProps) => {
           <Button
             size="sm"
             className="rounded-full bg-foreground text-background hover:bg-foreground/90 font-semibold px-5 h-9 text-[13px] transition-all duration-300"
-            onClick={() => window.open(BOOK_CALL_URL, "_blank")}
+            onClick={() => window.location.assign("/products")}
           >
-            Get Started
+            See Our Work
           </Button>
         </div>
 
@@ -89,7 +86,11 @@ const Header = ({ variant = "default" }: HeaderProps) => {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
         </button>
       </div>
 
@@ -117,9 +118,12 @@ const Header = ({ variant = "default" }: HeaderProps) => {
             <div className="mt-4 px-6">
               <Button
                 className="w-full rounded-full bg-foreground text-background hover:bg-foreground/90 font-semibold h-11"
-                onClick={() => { window.open(BOOK_CALL_URL, "_blank"); setMobileOpen(false); }}
+                onClick={() => {
+                  window.location.assign("/products");
+                  setMobileOpen(false);
+                }}
               >
-                Get Started
+                See Our Work
               </Button>
             </div>
           </motion.div>

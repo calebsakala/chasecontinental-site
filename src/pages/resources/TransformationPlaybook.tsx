@@ -38,10 +38,11 @@ import playbookPages from "@/assets/playbook/playbook-pages.jpg";
 import workflowLines from "@/assets/playbook/workflow-lines.jpg";
 
 /* ─── Constants ─── */
-const META_TITLE = "AI Transformation Playbook (Free) | Chase Continental";
+const META_TITLE = "AI Transformation Playbook (Free) | Chase Agents";
 const META_DESC =
   "A practical guide to ship reliable AI automation—without failed pilots, wasted budget, or chaos.";
-const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const ASSET_KEY = "transformation-playbook";
 const PLAYBOOK_FILE_PATH =
   "transformation-playbook/AI-Transformation-Playbook.pdf";
@@ -64,7 +65,7 @@ const ROLE_OPTIONS = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
@@ -75,9 +76,9 @@ const VERTICAL_OPTIONS = [
   "BPO & Customer Operations",
   "E-commerce & Marketplaces",
   "Manufacturing",
-  "Financial Services",
+  "Financial Operations",
   "Healthcare",
-  "Professional Services",
+  "Professional Operations",
   "Technology",
   "Other",
 ];
@@ -136,11 +137,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "Do you implement this?",
-    a: "Yes. Chase Continental implements the exact approach described in this playbook. If you want help, book a call after downloading.",
+    a: "Yes. Chase Agents is built around the exact approach described in this playbook. Explore it first, then book a scoping call if you want implementation help.",
   },
   {
     q: "What happens after download?",
-    a: "You'll get immediate access to the PDF. Optionally, you can book a free strategy call to discuss how this applies to your specific workflows.",
+    a: "You'll get immediate access to the PDF. Then you can explore Chase Agents or book a scoping call to discuss how this applies to your workflows.",
   },
 ];
 
@@ -274,20 +275,42 @@ const TransformationPlaybook = () => {
       });
 
       await trackEvent("download_complete", {}, finalLeadId);
-      queueResourceEmail({
+      const emailResult = await queueResourceEmail({
         assetKey: ASSET_KEY,
         leadId: finalLeadId,
         name: trimmedName,
         email: normalizedEmail,
         company,
+        filePath: PLAYBOOK_FILE_PATH,
+        allowResend: true,
       });
+
+      if (emailResult === null) {
+        throw new Error("Playbook email trigger failed.");
+      }
+
+      if (!emailResult.success) {
+        throw new Error(
+          emailResult.errorMessage || "Playbook email trigger failed.",
+        );
+      }
+
+      if (emailResult.skipped && !emailResult.unsubscribed) {
+        throw new Error(
+          emailResult.errorMessage ||
+            "Playbook email was skipped instead of being sent.",
+        );
+      }
+
       setPhase("complete");
 
       toast({
         title: "Success!",
-        description: browserDownloadStarted
+        description: emailResult.unsubscribed
           ? "Your playbook is ready. Your browser download should start automatically."
-          : "Your playbook is ready. If the download did not start, use the private link we send by email.",
+          : browserDownloadStarted
+            ? "Your playbook is ready. Your browser download should start automatically, and we sent a backup copy by email."
+            : "Your playbook is ready. If the download did not start, use the private link we just sent by email.",
       });
     } catch (err: unknown) {
       const errorMessage =
@@ -306,7 +329,12 @@ const TransformationPlaybook = () => {
 
   const handleBookCall = () => {
     trackEvent("book_call_click", {}, leadId || undefined);
-    window.open(BOOK_CALL_URL, "_blank");
+    window.open(BOOK_SCOPING_CALL_URL, "_blank");
+  };
+
+  const handleExploreChaseAgents = () => {
+    trackEvent("explore_chase_agents_click", {}, leadId || undefined);
+    window.open(CHASE_AGENTS_URL, "_blank");
   };
 
   return (
@@ -364,6 +392,13 @@ const TransformationPlaybook = () => {
                   >
                     <Download className="mr-2 h-5 w-5" />
                     Download the playbook
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onClick={handleExploreChaseAgents}
+                  >
+                    Explore Chase Agents
                   </Button>
                 </div>
                 <p className="mt-4 text-sm text-muted-foreground/70">
@@ -676,7 +711,7 @@ const TransformationPlaybook = () => {
 
                       <p className="text-center text-xs text-muted-foreground/70">
                         By downloading, you agree to receive occasional emails
-                        from Chase Continental. Unsubscribe anytime.
+                        from Chase Agents. Unsubscribe anytime.
                       </p>
                     </form>
                   </div>
@@ -761,7 +796,7 @@ const TransformationPlaybook = () => {
                             3
                           </div>
                           <div>
-                            <p className="font-medium">Book a strategy call</p>
+                            <p className="font-medium">Book a scoping call</p>
                             <p className="text-sm text-muted-foreground">
                               We'll help you apply it to your context
                             </p>
@@ -772,15 +807,25 @@ const TransformationPlaybook = () => {
 
                     {/* Book Call CTA */}
                     <div className="mt-8 pt-8 border-t border-border/50">
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        onClick={handleBookCall}
-                        className="border-emerald-400/30 hover:bg-emerald-400/10 hover:border-emerald-400/50"
-                      >
-                        <Calendar className="mr-2 h-5 w-5" />
-                        Book a free strategy call
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <Button
+                          size="lg"
+                          onClick={handleExploreChaseAgents}
+                          className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/25"
+                        >
+                          <ArrowRight className="mr-2 h-5 w-5" />
+                          Explore Chase Agents
+                        </Button>
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          onClick={handleBookCall}
+                          className="border-emerald-400/30 hover:bg-emerald-400/10 hover:border-emerald-400/50"
+                        >
+                          <Calendar className="mr-2 h-5 w-5" />
+                          Book a scoping call
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -868,6 +913,20 @@ const TransformationPlaybook = () => {
                 <Download className="mr-2 h-5 w-5" />
                 Get the free playbook
               </Button>
+              <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={handleExploreChaseAgents}
+                >
+                  <ArrowRight className="mr-2 h-5 w-5" />
+                  Explore Chase Agents
+                </Button>
+                <Button size="lg" variant="outline" onClick={handleBookCall}>
+                  <Calendar className="mr-2 h-5 w-5" />
+                  Book a scoping call
+                </Button>
+              </div>
             </motion.div>
           </div>
         </section>

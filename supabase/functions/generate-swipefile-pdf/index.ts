@@ -394,8 +394,8 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
   // Footer
   doc.setFontSize(9);
   doc.setTextColor(...GRAY);
-  doc.text("Chase Continental | March 2026", M, H - 20);
-  doc.text("chasecontinental.com", W - M, H - 20, { align: "right" });
+  doc.text("Chase Agents | April 2026", M, H - 20);
+  doc.text("chaseagents.com", W - M, H - 20, { align: "right" });
 
   // ─── EXECUTIVE SUMMARY ───
   addPage();
@@ -646,7 +646,7 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
     "Pick 2-3 patterns most relevant to your operations",
     "Map your current workflow against the 'Where It Breaks' analysis",
     "Implement the tips — start small, measure, iterate",
-    "Book a free workflow review at chasecontinental.com to go deeper",
+    "Explore Chase Agents and book a scoping call if you want to pressure-test one workflow",
   ];
 
   for (let n = 0; n < nextSteps.length; n++) {
@@ -671,8 +671,8 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
   y += 8;
   doc.setFontSize(9);
   doc.setTextColor(...GRAY);
-  doc.text("© 2026 Chase Continental. All rights reserved.", M, y);
-  doc.text("chasecontinental.com", W - M, y, { align: "right" });
+  doc.text("© 2026 Chase Agents. All rights reserved.", M, y);
+  doc.text("chaseagents.com", W - M, y, { align: "right" });
 
   return doc.output("arraybuffer") as unknown as Uint8Array;
 }

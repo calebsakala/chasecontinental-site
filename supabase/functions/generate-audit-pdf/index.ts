@@ -465,7 +465,7 @@ Deno.serve(async (req) => {
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(7.5);
       doc.setFont("helvetica", "normal");
-      doc.text("AI Agent Silo Assessment  |  Chase Continental", m, 9);
+      doc.text("AI Agent Silo Assessment  |  Chase Agents", m, 9);
       doc.text(company || name, pw - m, 9, { align: "right" });
     };
 
@@ -536,7 +536,7 @@ Deno.serve(async (req) => {
     doc.setFillColor(0, 200, 220);
     doc.rect(m, 30, 40, 1.5, "F");
 
-    // Chase Continental branding
+    // Chase Agents branding
     const branding = await drawBrandHeader(doc, {
       margin: m,
       top: 22,
@@ -655,7 +655,7 @@ Deno.serve(async (req) => {
       m,
       278,
     );
-    doc.text("chasecontinental.com", pw - m, 278, { align: "right" });
+    doc.text("chaseagents.com", pw - m, 278, { align: "right" });
 
     // ═══════════════════════════════════════
     // PAGE 2: EXECUTIVE SUMMARY (expanded)
@@ -1396,7 +1396,7 @@ Deno.serve(async (req) => {
       },
       {
         num: "04",
-        text: "Book a free 15-minute strategy call to map your fastest path to connected AI agents.",
+        text: "Explore Chase Agents and book a scoping call to map your fastest path to connected AI agents.",
       },
     ];
 
@@ -1427,24 +1427,25 @@ Deno.serve(async (req) => {
     doc.setTextColor(0, 200, 220);
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.text("Book your free strategy call", m + 8, nsY + 14);
+    doc.text("Explore Chase Agents + book a scoping call", m + 8, nsY + 14);
     doc.setTextColor(180, 190, 210);
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
-    doc.text("https://calendar.app.google/8oZYnnuHcaiH64Ky8", m + 8, nsY + 22);
+    doc.text("https://chaseagents.com", m + 8, nsY + 22);
+    doc.text("https://calendar.app.google/8oZYnnuHcaiH64Ky8", m + 8, nsY + 27);
     doc.setTextColor(100, 115, 140);
     doc.setFontSize(8);
     doc.text(
-      "15 minutes  •  No obligation  •  Tailored to your assessment results",
+      "Scoping call  •  No obligation  •  Tailored to your assessment results",
       m + 8,
-      nsY + 29,
+      nsY + 32,
     );
 
     // Bottom branding
     doc.setTextColor(60, 75, 100);
     doc.setFontSize(8);
-    doc.text("Chase Continental — Enterprise AI Studio", m, 272);
-    doc.text("chasecontinental.com", m, 279);
+    doc.text("Chase Agents — Operating Layer", m, 272);
+    doc.text("chaseagents.com", m, 279);
 
     // ═══════════════════════════════════════
     // FOOTER ON ALL PAGES (except cover & last)
@@ -1457,7 +1458,7 @@ Deno.serve(async (req) => {
       doc.setTextColor(120, 125, 140);
       doc.setFontSize(7);
       doc.text(
-        "Chase Continental  |  Enterprise AI Studio  |  Confidential",
+        "Chase Agents  |  AI Agent Silo Assessment  |  Confidential",
         pw / 2,
         292,
         { align: "center" },

@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Shield, Zap, CheckCircle2 } from "lucide-react";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Shield,
+  Zap,
+  CheckCircle2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { CaseStudy } from "./caseStudyData";
 import { getDashboard } from "./MockDashboards";
@@ -16,7 +23,14 @@ interface CaseStudyModalProps {
   hasNext: boolean;
 }
 
-const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: CaseStudyModalProps) => {
+const CaseStudyModal = ({
+  study,
+  onClose,
+  onPrev,
+  onNext,
+  hasPrev,
+  hasNext,
+}: CaseStudyModalProps) => {
   const [activeTab, setActiveTab] = useState(0);
   const [isAutoRotating, setIsAutoRotating] = useState(true);
 
@@ -24,7 +38,7 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
   useEffect(() => {
     if (!isAutoRotating || !study.walkthrough.length) return;
     const interval = setInterval(() => {
-      setActiveTab(prev => (prev + 1) % study.walkthrough.length);
+      setActiveTab((prev) => (prev + 1) % study.walkthrough.length);
     }, 4000);
     return () => clearInterval(interval);
   }, [isAutoRotating, study.walkthrough.length]);
@@ -40,7 +54,10 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
       transition={{ duration: 0.25 }}
     >
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
       {/* Modal */}
       <motion.div
@@ -63,7 +80,9 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
             >
               {study.industry}
             </span>
-            <h2 className="text-sm sm:text-lg font-bold font-heading text-foreground truncate">{study.platformName}</h2>
+            <h2 className="text-sm sm:text-lg font-bold font-heading text-foreground truncate">
+              {study.platformName}
+            </h2>
           </div>
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button
@@ -96,30 +115,61 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
         <div className="px-4 sm:px-6 md:px-10 py-6 sm:py-8 space-y-6 sm:space-y-8">
           {/* Outcome badge */}
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-card border border-border/60 shadow-sm">
-            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" style={{ color: study.accentColor }} />
-            <span className="text-xs sm:text-sm font-semibold text-foreground">{study.outcome}</span>
+            <Zap
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+              style={{ color: study.accentColor }}
+            />
+            <span className="text-xs sm:text-sm font-semibold text-foreground">
+              {study.outcome}
+            </span>
           </div>
 
           {/* Problem / Fix grid */}
           <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
             <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-card border border-border/50">
-              <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2 sm:mb-3">The Problem</h3>
-              <p className="text-xs sm:text-sm leading-relaxed text-foreground/90">{study.problem}</p>
+              <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2 sm:mb-3">
+                The Problem
+              </h3>
+              <p className="text-xs sm:text-sm leading-relaxed text-foreground/90">
+                {study.problem}
+              </p>
             </div>
-            <div className="p-4 sm:p-6 rounded-xl sm:rounded-2xl border" style={{ background: `${study.accentColor}06`, borderColor: `${study.accentColor}20` }}>
-              <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-2 sm:mb-3" style={{ color: study.accentColor }}>The Fix</h3>
-              <p className="text-xs sm:text-sm leading-relaxed text-foreground/90">{study.fix}</p>
+            <div
+              className="p-4 sm:p-6 rounded-xl sm:rounded-2xl border"
+              style={{
+                background: `${study.accentColor}06`,
+                borderColor: `${study.accentColor}20`,
+              }}
+            >
+              <h3
+                className="text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-2 sm:mb-3"
+                style={{ color: study.accentColor }}
+              >
+                The Fix
+              </h3>
+              <p className="text-xs sm:text-sm leading-relaxed text-foreground/90">
+                {study.fix}
+              </p>
             </div>
           </div>
 
           {/* Results */}
           <div>
-            <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3 sm:mb-4">Example Outcomes</h3>
+            <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3 sm:mb-4">
+              Example Outcomes
+            </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
               {study.results.map((r) => (
-                <div key={r.label} className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-card border border-border/50 text-center">
-                  <div className="text-base sm:text-xl font-bold font-heading text-foreground">{r.value}</div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1">{r.label}</div>
+                <div
+                  key={r.label}
+                  className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-card border border-border/50 text-center"
+                >
+                  <div className="text-base sm:text-xl font-bold font-heading text-foreground">
+                    {r.value}
+                  </div>
+                  <div className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1">
+                    {r.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -127,18 +177,27 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
 
           {/* Walkthrough with Dashboard */}
           <div>
-            <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3 sm:mb-4">Platform Walkthrough</h3>
+            <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3 sm:mb-4">
+              Platform Walkthrough
+            </h3>
             <div className="flex gap-1 mb-4 sm:mb-5 overflow-x-auto pb-1 -mx-1 px-1">
               {study.walkthrough.map((page, i) => (
                 <button
                   key={page.title}
-                  onClick={() => { setActiveTab(i); setIsAutoRotating(false); }}
+                  onClick={() => {
+                    setActiveTab(i);
+                    setIsAutoRotating(false);
+                  }}
                   className={`relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 overflow-hidden ${
                     activeTab === i
                       ? "text-white shadow-md"
                       : "text-muted-foreground hover:text-foreground bg-accent/50"
                   }`}
-                  style={activeTab === i ? { backgroundColor: study.accentColor } : undefined}
+                  style={
+                    activeTab === i
+                      ? { backgroundColor: study.accentColor }
+                      : undefined
+                  }
                 >
                   <span className="relative z-10">{page.title}</span>
                   {activeTab === i && isAutoRotating && (
@@ -184,7 +243,9 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
                           animate={{ opacity: [1, 0.4, 1] }}
                           transition={{ duration: 2, repeat: Infinity }}
                         />
-                        <span className="text-[9px] text-emerald-500 font-semibold uppercase tracking-wide">Live</span>
+                        <span className="text-[9px] text-emerald-500 font-semibold uppercase tracking-wide">
+                          Live
+                        </span>
                       </div>
                     </div>
                     <DashboardComponent accent={study.accentColor} />
@@ -198,8 +259,14 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
                     {study.walkthrough[activeTab].features.map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-                        <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" style={{ color: study.accentColor }} />
+                      <div
+                        key={f}
+                        className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground"
+                      >
+                        <CheckCircle2
+                          className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0"
+                          style={{ color: study.accentColor }}
+                        />
                         <span>{f}</span>
                       </div>
                     ))}
@@ -217,7 +284,9 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
                 AI-native with deterministic reliability
               </h3>
             </div>
-            <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground">{study.aiNativeCallout}</p>
+            <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground">
+              {study.aiNativeCallout}
+            </p>
           </div>
 
           {/* CTA */}
@@ -227,7 +296,7 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
               className="w-full sm:w-auto rounded-full bg-foreground text-background hover:bg-foreground/90 font-semibold px-8"
               onClick={() => window.open(BOOK_CALL_URL, "_blank")}
             >
-              Describe your workflow
+              Request Product Demo
             </Button>
             <Button
               variant="outline"
@@ -235,7 +304,7 @@ const CaseStudyModal = ({ study, onClose, onPrev, onNext, hasPrev, hasNext }: Ca
               className="w-full sm:w-auto rounded-full font-semibold px-8"
               onClick={() => window.open(BOOK_CALL_URL, "_blank")}
             >
-              See how pilots work
+              Plan Implementation
             </Button>
           </div>
         </div>

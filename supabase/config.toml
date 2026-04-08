@@ -41,3 +41,6 @@ verify_jwt = false
 
 [functions.generate-scorecard-pdf]
 verify_jwt = false
+
+[functions.generate-ccid-case-study-pdf]
+verify_jwt = false

@@ -53,6 +53,8 @@ import { toast } from "sonner";
 
 import heroImage from "@/assets/pilot-challenge-hero.jpg";
 
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+
 type ChallengeSignupInsert =
   Database["public"]["Tables"]["lm08_challenge_signups"]["Insert"];
 type ChallengeSignupUpdate =
@@ -95,7 +97,7 @@ const roleOptions = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
@@ -107,9 +109,27 @@ const industryOptions = [
   "Manufacturing",
   "Healthcare",
   "BPO / Outsourcing",
-  "Financial Services",
+  "Financial Operations",
   "Technology / SaaS",
-  "Professional Services",
+  "Professional Operations",
+  "Other",
+];
+
+const pilotGoalOptions = [
+  "Reduce cycle time",
+  "Reduce error rates",
+  "Improve throughput",
+  "Increase visibility",
+  "Lower support load",
+  "Other",
+];
+
+const currentToolsOptions = [
+  "Mostly spreadsheets",
+  "ERP + manual handoffs",
+  "CRM + ticketing stack",
+  "Custom internal apps",
+  "Mixed stack with many tools",
   "Other",
 ];
 
@@ -150,7 +170,7 @@ const guideSectionCards = [
   {
     section: 5,
     title: "Rollout plan + next steps",
-    desc: "Develop a phased rollout: start small, gather feedback, scale up. Include training and change management. Book a call for expert help.",
+    desc: "Develop a phased rollout: start small, gather feedback, and scale with explicit ownership, training, and change management.",
     stat: "80% of finance tasks can be automated",
     icon: Rocket,
     color: "hsl(270, 60%, 55%)",
@@ -181,7 +201,7 @@ const faqItems = [
   },
   {
     q: "Can I get help?",
-    a: "Yes. The guide points you to the next step, and the follow-up email includes the same website and booking options if you want to talk through your pilot plan.",
+    a: "Yes. The guide points you to the next step, and the follow-up email includes Explore Chase Agents plus a scoping-call option if you want to pressure-test your pilot plan.",
   },
   { q: "Is there a cost?", a: "Completely free. No credit card required." },
   {
@@ -208,6 +228,8 @@ const FiveDayPilotChallenge = () => {
     company: "",
     role: "",
     industry: "",
+    pilotGoal: "",
+    currentTools: "",
   });
 
   useEffect(() => {
@@ -279,6 +301,8 @@ const FiveDayPilotChallenge = () => {
           company,
           role: form.role,
           vertical: form.industry,
+          pilot_goal: form.pilotGoal || null,
+          current_tools: form.currentTools || null,
           signup_date: nowIso,
           lead_id: lead.id,
           updated_at: nowIso,
@@ -299,6 +323,8 @@ const FiveDayPilotChallenge = () => {
           company,
           role: form.role,
           vertical: form.industry,
+          pilot_goal: form.pilotGoal || null,
+          current_tools: form.currentTools || null,
           signup_date: nowIso,
           updated_at: nowIso,
         };
@@ -320,6 +346,8 @@ const FiveDayPilotChallenge = () => {
 
       await trackEvent("challenge_signup", signupId, {
         source: "5-day-pilot-challenge",
+        pilot_goal: form.pilotGoal || null,
+        current_tools: form.currentTools || null,
       });
 
       await supabase.from("events").insert({
@@ -330,6 +358,8 @@ const FiveDayPilotChallenge = () => {
             : "challenge_signup",
         event_payload: {
           signup_id: signupId,
+          pilot_goal: form.pilotGoal || null,
+          current_tools: form.currentTools || null,
         },
       });
 
@@ -435,10 +465,10 @@ const FiveDayPilotChallenge = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>5-Day Automation Pilot Guide (Free) | Chase Continental</title>
+        <title>5-Day Automation Pilot Guide (Free) | Chase Agents</title>
         <meta
           name="description"
-          content="Get the 5-Day Automation Pilot Guide instantly, map one workflow, define your metrics, and receive one follow-up email after 5 days."
+          content="Get the 5-day pilot guide, map one workflow, define metrics, and move into deterministic operating-layer execution."
         />
       </Helmet>
       <Header />
@@ -508,6 +538,14 @@ const FiveDayPilotChallenge = () => {
             <span className="text-sm text-white/50">
               Instant download. One follow-up in 5 days.
             </span>
+
+            <Button
+              variant="outline"
+              onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+              className="border-white/40 bg-white/5 text-white hover:border-white/60 hover:bg-white/15"
+            >
+              Explore Chase Agents
+            </Button>
           </motion.div>
 
           <motion.div
@@ -787,6 +825,46 @@ const FiveDayPilotChallenge = () => {
                       {industryOptions.map((ind) => (
                         <SelectItem key={ind} value={ind}>
                           {ind}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Pilot goal</Label>
+                  <Select
+                    value={form.pilotGoal}
+                    onValueChange={(v) =>
+                      setForm((p) => ({ ...p, pilotGoal: v }))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select primary goal" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {pilotGoalOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Current tools</Label>
+                  <Select
+                    value={form.currentTools}
+                    onValueChange={(v) =>
+                      setForm((p) => ({ ...p, currentTools: v }))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select tool profile" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {currentToolsOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
                         </SelectItem>
                       ))}
                     </SelectContent>

@@ -112,8 +112,8 @@ Deno.serve(async (req) => {
     // Footer
     doc.setFontSize(9);
     doc.setTextColor(...GRAY);
-    doc.text("Chase Continental | March 2026", 20, H - 20);
-    doc.text("chasecontinental.com", W - 20, H - 20, { align: "right" });
+    doc.text("Chase Agents | April 2026", 20, H - 20);
+    doc.text("chaseagents.com", W - 20, H - 20, { align: "right" });
 
     /* --- PAGE 2: INTRO --- */
     addPage();
@@ -225,7 +225,7 @@ Deno.serve(async (req) => {
       "Set up backup plans for system downtimes or carrier issues.",
       "Audit website performance and scalability.",
       "Prepare returns processing workflows with automation.",
-      "Integrate predictive analytics for demand adjustments.",
+      "Connect predictive analytics for demand adjustments.",
       "Establish communication protocols for delays and updates.",
     ];
 
@@ -301,7 +301,7 @@ Deno.serve(async (req) => {
     doc.setFontSize(13);
     doc.setTextColor(180, 190, 210);
     doc.text(
-      "Book a free readiness review with Chase Continental.",
+      "Explore Chase Agents and book a scoping call if needed.",
       W / 2,
       140,
       { align: "center" },
@@ -310,18 +310,13 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(...TEAL);
-    doc.text("chasecontinental.com", W / 2, 165, { align: "center" });
+    doc.text("chaseagents.com", W / 2, 165, { align: "center" });
 
     doc.setFontSize(9);
     doc.setTextColor(...GRAY);
-    doc.text(
-      "(c) 2026 Chase Continental. All rights reserved.",
-      W / 2,
-      H - 20,
-      {
-        align: "center",
-      },
-    );
+    doc.text("(c) 2026 Chase Agents. All rights reserved.", W / 2, H - 20, {
+      align: "center",
+    });
 
     /* output */
     const pdfOutput = doc.output("arraybuffer");

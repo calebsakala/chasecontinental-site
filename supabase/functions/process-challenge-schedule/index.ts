@@ -10,6 +10,7 @@ const corsHeaders = {
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SUPABASE_SERVICE_ROLE_KEY =
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const FOLLOW_UP_DAY = 5;
 
 const json = (status: number, payload: unknown) =>
   new Response(JSON.stringify(payload), {
@@ -61,7 +62,7 @@ serve(async (req) => {
           },
           body: JSON.stringify({
             signupId: row.signup_id,
-            day: 6,
+            day: FOLLOW_UP_DAY,
             source: "scheduler",
           }),
         },
@@ -73,7 +74,7 @@ serve(async (req) => {
 
       processed.push({
         signupId: row.signup_id,
-        day: 6,
+        day: FOLLOW_UP_DAY,
         ok: response.ok,
         payload,
       });

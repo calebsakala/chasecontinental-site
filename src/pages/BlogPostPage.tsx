@@ -223,7 +223,7 @@ const BlogPostPage = () => {
               className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 hover-border-swipe"
               onClick={() => window.open(BOOK_CALL_URL, "_blank")}
             >
-              Book a Free Consultation
+              Start a Pilot
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>

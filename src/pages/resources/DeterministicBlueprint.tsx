@@ -57,6 +57,8 @@ import { toast } from "sonner";
 import heroImage from "@/assets/blueprint-hero.jpg";
 
 const ASSET_KEY = "deterministic-blueprint";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
+const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 
 type Lm07EventInsert = Database["public"]["Tables"]["lm07_events"]["Insert"];
 type Lm07LeadInsert = Database["public"]["Tables"]["lm07_leads"]["Insert"];
@@ -109,7 +111,7 @@ const roleOptions = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
@@ -121,9 +123,9 @@ const industryOptions = [
   "Manufacturing",
   "Healthcare",
   "BPO / Outsourcing",
-  "Financial Services",
+  "Financial Operations",
   "Technology / SaaS",
-  "Professional Services",
+  "Professional Operations",
   "Other",
 ];
 
@@ -423,7 +425,8 @@ const DeterministicBlueprint = () => {
       // Track download
       const lm07Download: Lm07DownloadInsert = {
         lead_id: leadId,
-        template_version: "2.0",
+        template_version: hasBuilderData() ? "2.0-populated" : "2.0-blank",
+        workflow_name: workflowName.trim() || null,
       };
 
       await supabase.from("lm07_downloads").insert([lm07Download]);
@@ -479,9 +482,7 @@ const DeterministicBlueprint = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>
-          Deterministic Automation Blueprint (Free) | Chase Continental
-        </title>
+        <title>Deterministic Automation Blueprint (Free) | Chase Agents</title>
         <meta
           name="description"
           content="A fill-in-the-blank template to turn messy work into a repeatable workflow."
@@ -940,6 +941,29 @@ const DeterministicBlueprint = () => {
       </section>
 
       {/* ════════ FAQ ════════ */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl md:text-3xl font-bold font-heading mb-3">
+            Ready to run this as an operating layer?
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            Explore Chase Agents first, then book a scoping call if you want
+            workflow-level implementation support.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}>
+              Explore Chase Agents
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => window.open(BOOK_SCOPING_CALL_URL, "_blank")}
+            >
+              Book a scoping call
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <section className="py-24 px-6 bg-card/50">
         <div className="mx-auto max-w-3xl">
           <motion.h2

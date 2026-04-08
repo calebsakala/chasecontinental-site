@@ -1,9 +1,28 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowRight, ShoppingCart, Package, Truck, RotateCcw, Headphones, DollarSign,
-  ShieldCheck, AlertTriangle, CheckCircle2, BarChart3, Clock, Zap, Bot,
-  ChevronDown, ChevronUp, Eye, Users, X, ChevronLeft, ChevronRight, ExternalLink,
+  ArrowRight,
+  ShoppingCart,
+  Package,
+  Truck,
+  RotateCcw,
+  Headphones,
+  DollarSign,
+  ShieldCheck,
+  AlertTriangle,
+  CheckCircle2,
+  BarChart3,
+  Clock,
+  Zap,
+  Bot,
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  Users,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -30,7 +49,8 @@ const USE_CASES = [
     title: "Order & Fraud Management",
     subtitle: "From checkout to fulfillment — zero manual handoffs",
     image: orderFulfillment,
-    description: "Automatically flag high-risk orders, route fraud signals to review queues, and sync holds across Shopify and your WMS — before a single package ships.",
+    description:
+      "Automatically flag high-risk orders, route fraud signals to review queues, and sync holds across Shopify and your WMS — before a single package ships.",
     automations: [
       "Auto-hold orders with fraud signals (address mismatch, velocity, card patterns)",
       "Route flagged orders to a review queue with pre-built evidence packs",
@@ -46,7 +66,8 @@ const USE_CASES = [
     title: "Inventory Reconciliation",
     subtitle: "One source of truth across every channel",
     image: inventoryManagement,
-    description: "Reconcile stock levels across Shopify, your WMS, and 3PL partners automatically. Prevent overselling and hide products before customers find out-of-stock items.",
+    description:
+      "Reconcile stock levels across Shopify, your WMS, and 3PL partners automatically. Prevent overselling and hide products before customers find out-of-stock items.",
     automations: [
       "Continuous stock reconciliation: Shopify ↔ WMS ↔ 3PL",
       "Auto-hide products or switch to pre-order when stock is unsafe",
@@ -62,7 +83,8 @@ const USE_CASES = [
     title: "Fulfillment & Shipping Control",
     subtitle: "Catch exceptions before your customers do",
     image: shippingLogistics,
-    description: "A unified control tower for every shipment. Delayed packages, failed labels, lost parcels — surfaced and acted on automatically, not discovered by angry customers.",
+    description:
+      "A unified control tower for every shipment. Delayed packages, failed labels, lost parcels — surfaced and acted on automatically, not discovered by angry customers.",
     automations: [
       "Exception control tower: delayed, failed, lost — all in one view",
       "Auto-open carrier claims with pre-filled shipment details",
@@ -78,7 +100,8 @@ const USE_CASES = [
     title: "Returns & Refunds Control",
     subtitle: "Auto-approve the easy ones. Escalate the rest.",
     image: returnsProcessing,
-    description: "Classify every return request automatically. Low-risk returns get instant approval. High-value or suspicious returns get routed for manual review — with full context.",
+    description:
+      "Classify every return request automatically. Low-risk returns get instant approval. High-value or suspicious returns get routed for manual review — with full context.",
     automations: [
       "Auto-classify: refund, exchange, damaged, missing item",
       "Low-risk auto-approval with instant label generation",
@@ -94,7 +117,8 @@ const USE_CASES = [
     title: "Support Ticket Routing",
     subtitle: "Classify, route, draft — before an agent touches it",
     image: supportAutomation,
-    description: "Every incoming ticket is classified by type, routed to the right queue, and presented with an AI-drafted, policy-safe response template — ready for agent approval.",
+    description:
+      "Every incoming ticket is classified by type, routed to the right queue, and presented with an AI-drafted, policy-safe response template — ready for agent approval.",
     automations: [
       "Auto-classify tickets: WISMO, refund, product question, billing",
       "Route to specialised queues (returns, escalations, VIP)",
@@ -110,7 +134,8 @@ const USE_CASES = [
     title: "Finance & Reconciliation",
     subtitle: "Close the day in minutes, not hours",
     image: financeReconciliation,
-    description: "Automated payout reconciliation, refund tracking, and leakage detection. A daily ops-close summary generated automatically — so finance never chases ops for numbers.",
+    description:
+      "Automated payout reconciliation, refund tracking, and leakage detection. A daily ops-close summary generated automatically — so finance never chases ops for numbers.",
     automations: [
       "Shopify payout reconciliation against orders, refunds, and fees",
       "Anomaly detection and variance alerting",
@@ -127,7 +152,11 @@ const GALLERY_FRAMES = [
   { id: "overview", label: "Ops Overview", view: "overview" as const },
   { id: "orders", label: "Order Queue", view: "orders" as const },
   { id: "inventory", label: "Inventory Sync", view: "inventory" as const },
-  { id: "fulfillment", label: "Fulfillment Tracker", view: "fulfillment" as const },
+  {
+    id: "fulfillment",
+    label: "Fulfillment Tracker",
+    view: "fulfillment" as const,
+  },
   { id: "returns", label: "Returns Hub", view: "returns" as const },
   { id: "support", label: "Support Routing", view: "support" as const },
   { id: "finance", label: "Finance Close", view: "finance" as const },
@@ -136,11 +165,26 @@ const GALLERY_FRAMES = [
 
 /* ─── FAQ ─── */
 const FAQ_ITEMS = [
-  { q: "Do we need to replace our existing Shopify apps?", a: "No. Chase Agents layers automation on top of your existing stack — Shopify, your WMS, 3PL, helpdesk, and accounting tools stay in place. We connect and orchestrate them." },
-  { q: "How is this different from Shopify Flow?", a: "Shopify Flow is great for simple triggers. Chase Agents builds production-grade, cross-system workflows with exception handling, monitoring, audit logs, and deterministic execution — the kind that actually survive in production." },
-  { q: "Is AI going to make decisions without human oversight?", a: "AI suggests, humans approve, workflows execute deterministically. Every decision point that matters has an approval gate, audit trail, and rollback mechanism." },
-  { q: "How long does it take to get started?", a: "Most use cases are live within 2–4 weeks. We start with one high-impact workflow, measure the result, and expand from there." },
-  { q: "What does it cost?", a: "Paid pilots start at $5K–$10K. You get a working, measurable automation — not a strategy deck." },
+  {
+    q: "Do we need to replace our existing Shopify apps?",
+    a: "No. Chase Agents layers automation on top of your existing stack — Shopify, your WMS, 3PL, helpdesk, and accounting tools stay in place. We connect and orchestrate them.",
+  },
+  {
+    q: "How is this different from Shopify Flow?",
+    a: "Shopify Flow is great for simple triggers. Chase Agents builds production-grade, cross-system workflows with exception handling, monitoring, audit logs, and deterministic execution — the kind that actually survive in production.",
+  },
+  {
+    q: "Is AI going to make decisions without human oversight?",
+    a: "AI suggests, humans approve, workflows execute deterministically. Every decision point that matters has an approval gate, audit trail, and rollback mechanism.",
+  },
+  {
+    q: "How long does it take to get started?",
+    a: "Most use cases are live within 2–4 weeks. We start with one high-impact workflow, measure the result, and expand from there.",
+  },
+  {
+    q: "What does it cost?",
+    a: "Paid pilots start at $5K–$10K. You get a working, measurable automation — not a strategy deck.",
+  },
 ];
 
 /* ─── Component ─── */
@@ -152,16 +196,21 @@ const ShopifyOpsAutomation = () => {
   const [isAutoRotating, setIsAutoRotating] = useState(true);
 
   useEffect(() => {
-    document.title = "Shopify Automation — AI-Powered Ops for Shopify | Chase Continental";
+    document.title =
+      "Shopify Automation — AI-Powered Ops for Shopify | Chase Agents";
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", "Production-grade Shopify automation: orders, inventory, fulfillment, returns, support, and finance — all orchestrated by Chase Agents.");
+    if (meta)
+      meta.setAttribute(
+        "content",
+        "Production-grade Shopify automation: orders, inventory, fulfillment, returns, support, and finance — all orchestrated by Chase Agents.",
+      );
   }, []);
 
   // Auto-rotate use cases every 5 seconds
   useEffect(() => {
     if (!isAutoRotating) return;
     const interval = setInterval(() => {
-      setActiveUseCase(prev => (prev + 1) % USE_CASES.length);
+      setActiveUseCase((prev) => (prev + 1) % USE_CASES.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [isAutoRotating]);
@@ -175,14 +224,33 @@ const ShopifyOpsAutomation = () => {
       {/* ─── HERO ─── */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={shopifyHero} alt="Shopify operations dashboard" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(7,12,25,0.95) 0%, rgba(7,12,25,0.8) 50%, rgba(7,12,25,0.5) 100%)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(7,12,25,0.95) 0%, transparent 50%)" }} />
+          <img
+            src={shopifyHero}
+            alt="Shopify operations dashboard"
+            className="w-full h-full object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(7,12,25,0.95) 0%, rgba(7,12,25,0.8) 50%, rgba(7,12,25,0.5) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(7,12,25,0.95) 0%, transparent 50%)",
+            }}
+          />
         </div>
 
         <motion.div
           className="absolute top-1/4 right-[10%] w-96 h-96 rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, hsl(142 71% 45% / 0.6), transparent)" }}
+          style={{
+            background:
+              "radial-gradient(circle, hsl(142 71% 45% / 0.6), transparent)",
+          }}
           animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -215,7 +283,9 @@ const ShopifyOpsAutomation = () => {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed"
             >
-              Orders, inventory, fulfillment, returns, support, and finance — connected end-to-end with deterministic AI automation that doesn't break in production.
+              Orders, inventory, fulfillment, returns, support, and finance —
+              connected end-to-end with deterministic AI automation that doesn't
+              break in production.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -223,7 +293,11 @@ const ShopifyOpsAutomation = () => {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <a href={CHASE_AGENTS_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={CHASE_AGENTS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button
                   size="lg"
                   className="group text-base font-semibold px-8 py-6 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.3)]"
@@ -251,9 +325,16 @@ const ShopifyOpsAutomation = () => {
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <div className="text-center mb-16">
-              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">Use cases</span>
-              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-4">Everything you can automate on Shopify</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Six automation pillars. Each one connects to your existing tools — no rip-and-replace.</p>
+              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+                Use cases
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-4">
+                Everything you can automate on Shopify
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Six automation pillars. Each one connects to your existing tools
+                — no rip-and-replace.
+              </p>
             </div>
           </Reveal>
 
@@ -264,7 +345,10 @@ const ShopifyOpsAutomation = () => {
               return (
                 <button
                   key={uc.id}
-                  onClick={() => { setActiveUseCase(i); setIsAutoRotating(false); }}
+                  onClick={() => {
+                    setActiveUseCase(i);
+                    setIsAutoRotating(false);
+                  }}
                   className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 overflow-hidden ${
                     i === activeUseCase
                       ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
@@ -272,7 +356,9 @@ const ShopifyOpsAutomation = () => {
                   }`}
                 >
                   <Icon className="h-4 w-4 relative z-10" />
-                  <span className="hidden sm:inline relative z-10">{uc.title}</span>
+                  <span className="hidden sm:inline relative z-10">
+                    {uc.title}
+                  </span>
                   {i === activeUseCase && isAutoRotating && (
                     <motion.div
                       className="absolute bottom-0 left-0 h-[3px] bg-white/40"
@@ -308,8 +394,12 @@ const ShopifyOpsAutomation = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <div className="inline-flex items-center gap-3 rounded-xl backdrop-blur-xl bg-white/10 border border-white/20 px-5 py-3">
-                      <span className="text-3xl font-bold font-heading text-white">{currentUseCase.stats.metric}</span>
-                      <span className="text-xs text-white/80">{currentUseCase.stats.label}</span>
+                      <span className="text-3xl font-bold font-heading text-white">
+                        {currentUseCase.stats.metric}
+                      </span>
+                      <span className="text-xs text-white/80">
+                        {currentUseCase.stats.label}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -323,15 +413,23 @@ const ShopifyOpsAutomation = () => {
                       <currentUseCase.icon className="h-6 w-6 text-emerald-500" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold font-heading">{currentUseCase.title}</h3>
-                      <p className="text-sm text-muted-foreground">{currentUseCase.subtitle}</p>
+                      <h3 className="text-2xl font-bold font-heading">
+                        {currentUseCase.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {currentUseCase.subtitle}
+                      </p>
                     </div>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">{currentUseCase.description}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {currentUseCase.description}
+                  </p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/60 mb-4">What Chase Agents automates</h4>
+                  <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/60 mb-4">
+                    What Chase Agents automates
+                  </h4>
                   <ul className="space-y-3">
                     {currentUseCase.automations.map((item, j) => (
                       <motion.li
@@ -348,9 +446,14 @@ const ShopifyOpsAutomation = () => {
                   </ul>
                 </div>
 
-                <a href={CHASE_AGENTS_URL} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={CHASE_AGENTS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button className="mt-4 bg-emerald-500 text-white hover:bg-emerald-600 rounded-xl px-6 py-5 text-sm font-semibold">
-                    See this in Chase Agents <ExternalLink className="ml-2 h-4 w-4" />
+                    See this in Chase Agents{" "}
+                    <ExternalLink className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
               </div>
@@ -364,17 +467,40 @@ const ShopifyOpsAutomation = () => {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <div className="text-center mb-14">
-              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">How it works</span>
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">AI that doesn't break in production</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">We don't rely on AI for execution. We use AI for assistance and deterministic workflows for correctness.</p>
+              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+                How it works
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+                AI that doesn't break in production
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                We don't rely on AI for execution. We use AI for assistance and
+                deterministic workflows for correctness.
+              </p>
             </div>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Bot, title: "AI-assisted", desc: "Classification, drafting, summarization — AI handles the fuzzy work" },
-              { icon: ShieldCheck, title: "Deterministic execution", desc: "Refunds, holds, inventory — workflows that must be correct run deterministically" },
-              { icon: Eye, title: "Full audit trail", desc: "Every action logged, every decision traceable, rollback on every workflow" },
-              { icon: Users, title: "Human approvals", desc: "Approval gates on every high-stakes decision — nothing ships without oversight" },
+              {
+                icon: Bot,
+                title: "AI-assisted",
+                desc: "Classification, drafting, summarization — AI handles the fuzzy work",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Deterministic execution",
+                desc: "Refunds, holds, inventory — workflows that must be correct run deterministically",
+              },
+              {
+                icon: Eye,
+                title: "Full audit trail",
+                desc: "Every action logged, every decision traceable, rollback on every workflow",
+              },
+              {
+                icon: Users,
+                title: "Human approvals",
+                desc: "Approval gates on every high-stakes decision — nothing ships without oversight",
+              },
             ].map((item, i) => {
               const Icon = item.icon;
               return (
@@ -383,7 +509,9 @@ const ShopifyOpsAutomation = () => {
                     <div className="h-12 w-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-6 w-6 text-emerald-500" />
                     </div>
-                    <h3 className="font-bold font-heading mb-2">{item.title}</h3>
+                    <h3 className="font-bold font-heading mb-2">
+                      {item.title}
+                    </h3>
                     <p className="text-sm text-muted-foreground">{item.desc}</p>
                   </div>
                 </Reveal>
@@ -398,9 +526,16 @@ const ShopifyOpsAutomation = () => {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="text-center mb-14">
-              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">Platform preview</span>
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">The Shopify Ops Control Tower</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">A unified view of every order, shipment, return, and exception — across every tool in your stack. Powered by Chase Agents.</p>
+              <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+                Operating layer preview
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+                The Shopify Ops Control Tower
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                A unified view of every order, shipment, return, and exception —
+                across every tool in your stack. Powered by Chase Agents.
+              </p>
             </div>
           </Reveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -411,11 +546,17 @@ const ShopifyOpsAutomation = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                onClick={() => { setLightboxIndex(i); setLightboxOpen(true); }}
+                onClick={() => {
+                  setLightboxIndex(i);
+                  setLightboxOpen(true);
+                }}
                 className="group relative rounded-xl border border-border/60 bg-card overflow-hidden aspect-[4/3] hover:border-emerald-500/40 transition-all hover:shadow-lg hover:shadow-emerald-500/5"
               >
                 <div className="absolute inset-0 p-2 overflow-hidden">
-                  <div className="w-full h-full rounded-lg overflow-hidden transform scale-[0.5] origin-top-left" style={{ width: "200%", height: "200%" }}>
+                  <div
+                    className="w-full h-full rounded-lg overflow-hidden transform scale-[0.5] origin-top-left"
+                    style={{ width: "200%", height: "200%" }}
+                  >
                     <ShopifyControlTower view={frame.view} />
                   </div>
                 </div>
@@ -443,25 +584,51 @@ const ShopifyOpsAutomation = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               className="relative w-full max-w-5xl bg-card rounded-2xl border border-border overflow-hidden"
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between p-4 border-b border-border">
-                <h3 className="font-bold font-heading">{GALLERY_FRAMES[lightboxIndex].label}</h3>
+                <h3 className="font-bold font-heading">
+                  {GALLERY_FRAMES[lightboxIndex].label}
+                </h3>
                 <div className="flex items-center gap-2">
-                  <Button size="icon" variant="ghost" onClick={() => setLightboxIndex(i => (i - 1 + GALLERY_FRAMES.length) % GALLERY_FRAMES.length)}>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() =>
+                      setLightboxIndex(
+                        (i) =>
+                          (i - 1 + GALLERY_FRAMES.length) %
+                          GALLERY_FRAMES.length,
+                      )
+                    }
+                  >
                     <ChevronLeft className="h-4 w-4" />
                   </Button>
-                  <span className="text-xs text-muted-foreground">{lightboxIndex + 1} / {GALLERY_FRAMES.length}</span>
-                  <Button size="icon" variant="ghost" onClick={() => setLightboxIndex(i => (i + 1) % GALLERY_FRAMES.length)}>
+                  <span className="text-xs text-muted-foreground">
+                    {lightboxIndex + 1} / {GALLERY_FRAMES.length}
+                  </span>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() =>
+                      setLightboxIndex((i) => (i + 1) % GALLERY_FRAMES.length)
+                    }
+                  >
                     <ChevronRight className="h-4 w-4" />
                   </Button>
-                  <Button size="icon" variant="ghost" onClick={() => setLightboxOpen(false)}>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => setLightboxOpen(false)}
+                  >
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
               <div className="p-4 h-[60vh] overflow-auto">
-                <ShopifyControlTower view={GALLERY_FRAMES[lightboxIndex].view} />
+                <ShopifyControlTower
+                  view={GALLERY_FRAMES[lightboxIndex].view}
+                />
               </div>
             </motion.div>
           </motion.div>
@@ -479,8 +646,12 @@ const ShopifyOpsAutomation = () => {
           ].map((stat, i) => (
             <Reveal key={i}>
               <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold font-heading text-emerald-500">{stat.value}</p>
-                <p className="text-xs text-muted-foreground mt-2">{stat.label}</p>
+                <p className="text-3xl md:text-4xl font-bold font-heading text-emerald-500">
+                  {stat.value}
+                </p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  {stat.label}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -493,10 +664,16 @@ const ShopifyOpsAutomation = () => {
           <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-card to-emerald-500/5 p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-emerald-500">Why Chase Agents</span>
-                <h2 className="text-3xl font-bold font-heading mb-4">Production-grade automation for ops-led brands</h2>
+                <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-emerald-500">
+                  Why Chase Agents
+                </span>
+                <h2 className="text-3xl font-bold font-heading mb-4">
+                  Production-grade automation for ops-led brands
+                </h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Chase Agents is the orchestration platform that connects Shopify to your entire ops stack — WMS, 3PL, helpdesk, email/SMS, and accounting — with deterministic reliability.
+                  Chase Agents is the operating layer that connects Shopify to
+                  your entire ops stack — WMS, 3PL, helpdesk, email/SMS, and
+                  accounting — with deterministic reliability.
                 </p>
                 <ul className="space-y-3 mb-8">
                   {[
@@ -513,25 +690,50 @@ const ShopifyOpsAutomation = () => {
                     </li>
                   ))}
                 </ul>
-                <a href={CHASE_AGENTS_URL} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-emerald-500 text-white hover:bg-emerald-600 text-base font-semibold px-8 py-6 rounded-xl">
-                    Explore Chase Agents <ExternalLink className="ml-2 h-5 w-5" />
+                <a
+                  href={CHASE_AGENTS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    size="lg"
+                    className="bg-emerald-500 text-white hover:bg-emerald-600 text-base font-semibold px-8 py-6 rounded-xl"
+                  >
+                    Explore Chase Agents{" "}
+                    <ExternalLink className="ml-2 h-5 w-5" />
                   </Button>
                 </a>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Zap, title: "Fast deployment", desc: "2–4 week pilots" },
-                  { icon: ShieldCheck, title: "Reliable", desc: "Deterministic execution" },
-                  { icon: BarChart3, title: "Measurable", desc: "KPI-driven ROI" },
+                  {
+                    icon: Zap,
+                    title: "Fast deployment",
+                    desc: "2–4 week pilots",
+                  },
+                  {
+                    icon: ShieldCheck,
+                    title: "Reliable",
+                    desc: "Deterministic execution",
+                  },
+                  {
+                    icon: BarChart3,
+                    title: "Measurable",
+                    desc: "KPI-driven ROI",
+                  },
                   { icon: Clock, title: "Ops-led", desc: "No IT dependency" },
                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <div key={i} className="rounded-xl border border-emerald-500/20 bg-card p-5 text-center">
+                    <div
+                      key={i}
+                      className="rounded-xl border border-emerald-500/20 bg-card p-5 text-center"
+                    >
                       <Icon className="h-6 w-6 text-emerald-500 mx-auto mb-2" />
                       <p className="font-bold text-sm">{item.title}</p>
-                      <p className="text-[11px] text-muted-foreground mt-1">{item.desc}</p>
+                      <p className="text-[11px] text-muted-foreground mt-1">
+                        {item.desc}
+                      </p>
                     </div>
                   );
                 })}
@@ -544,16 +746,25 @@ const ShopifyOpsAutomation = () => {
       {/* ─── FAQ ─── */}
       <section className="py-24 px-6 bg-card/50">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-3xl font-bold font-heading text-center mb-10">Frequently asked questions</h2>
+          <h2 className="text-3xl font-bold font-heading text-center mb-10">
+            Frequently asked questions
+          </h2>
           <div className="space-y-3">
             {FAQ_ITEMS.map((faq, i) => (
-              <div key={i} className="rounded-xl border border-border/60 bg-card overflow-hidden">
+              <div
+                key={i}
+                className="rounded-xl border border-border/60 bg-card overflow-hidden"
+              >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex justify-between items-center p-5 text-left"
                 >
                   <span className="font-semibold text-sm pr-4">{faq.q}</span>
-                  {openFaq === i ? <ChevronUp className="h-4 w-4 flex-shrink-0 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 flex-shrink-0 text-muted-foreground" />}
+                  {openFaq === i ? (
+                    <ChevronUp className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                  )}
                 </button>
                 <AnimatePresence>
                   {openFaq === i && (
@@ -564,7 +775,9 @@ const ShopifyOpsAutomation = () => {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <p className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                      <p className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
+                        {faq.a}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -579,17 +792,32 @@ const ShopifyOpsAutomation = () => {
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
             Ready to automate{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-[hsl(var(--teal))] bg-clip-text text-transparent">Shopify ops?</span>
+            <span className="bg-gradient-to-r from-emerald-400 to-[hsl(var(--teal))] bg-clip-text text-transparent">
+              Shopify ops?
+            </span>
           </h2>
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">Master AI agents. Eliminate tool silos. Deliver reliability.</p>
+          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+            Master AI agents. Eliminate tool silos. Deliver reliability.
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={CHASE_AGENTS_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="text-base font-semibold px-8 py-6 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600">
+            <a
+              href={CHASE_AGENTS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                size="lg"
+                className="text-base font-semibold px-8 py-6 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600"
+              >
                 Explore Chase Agents <ExternalLink className="ml-2 h-5 w-5" />
               </Button>
             </a>
             <a href={BOOK_CALL_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="text-base font-semibold px-8 py-6 rounded-xl border-foreground/30 text-foreground hover:bg-foreground/10">
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-base font-semibold px-8 py-6 rounded-xl border-foreground/30 text-foreground hover:bg-foreground/10"
+              >
                 Book a scoping call
               </Button>
             </a>

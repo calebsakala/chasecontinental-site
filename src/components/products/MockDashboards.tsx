@@ -805,7 +805,7 @@ const EcommerceRootCause = ({ accent }: MockProps) => (
   </DashShell>
 );
 
-/* ─── FIELD SERVICE DASHBOARDS ─── */
+/* ─── FIELD OPERATIONS DASHBOARDS ─── */
 const FieldDispatch = ({ accent }: MockProps) => (
   <DashShell
     accent={accent}

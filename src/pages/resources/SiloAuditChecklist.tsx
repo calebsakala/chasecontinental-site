@@ -34,11 +34,11 @@ import { queueResourceEmail } from "@/lib/resourceEmail";
 import siloHero from "@/assets/silo-audit-hero.jpg";
 
 /* ─── Constants ─── */
-const META_TITLE =
-  "AI Agent Silo Checklist — Free Assessment | Chase Continental";
+const META_TITLE = "AI Agent Silo Checklist — Free Assessment | Chase Agents";
 const META_DESC =
-  "Uncover whether your AI agent initiatives are creating new silos. 20-point assessment based on Gartner, McKinsey, and Forrester frameworks.";
+  "Uncover whether your AI initiatives are creating new silos. 20-point assessment with an operating-layer action plan.";
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
 const ASSET_KEY = "silo-audit-checklist";
 
 type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
@@ -53,6 +53,15 @@ const getSessionId = () => {
     sessionStorage.setItem("cc_session_id", sid);
   }
   return sid;
+};
+
+const getUtmParams = () => {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source"),
+    utm_medium: params.get("utm_medium"),
+    utm_campaign: params.get("utm_campaign"),
+  };
 };
 
 /* ─── 20 AI Agent Silo Checklist Items ─── */
@@ -231,10 +240,14 @@ const VERTICAL_OPTIONS = [
   "iGaming & Digital Entertainment",
   "Manufacturing",
   "Government & Public Sector",
-  "Financial Services",
+  "Financial Operations",
   "Healthcare",
   "Other",
 ];
+
+const AGENT_COUNT_OPTIONS = ["0-2", "3-5", "6-10", "11-25", "26+"];
+
+const ORG_SIZE_OPTIONS = ["1-25", "26-100", "101-500", "501-2000", "2000+"];
 
 const FAQ_ITEMS = [
   {
@@ -259,7 +272,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What happens after I download the report?",
-    a: "You'll get a personalised PDF with your overall score, category breakdowns, and prioritised recommendations. Optionally, you can book a free 15-minute review call.",
+    a: "You'll get a personalised PDF with your overall score, category breakdowns, and prioritised recommendations. Then you can explore Chase Agents or book a scoping call for your workflow.",
   },
 ];
 
@@ -304,6 +317,8 @@ const SiloAuditChecklist = () => {
     customRole: "",
     vertical: "",
     customVertical: "",
+    agentCount: "",
+    orgSize: "",
   });
   const [honeypot, setHoneypot] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -409,6 +424,7 @@ const SiloAuditChecklist = () => {
           : leadForm.vertical;
       const roleValue =
         leadForm.role === "Other" ? leadForm.customRole : leadForm.role;
+      const utm = getUtmParams();
 
       const leadRecord: LeadInsert = {
         name: trimmedName,
@@ -461,13 +477,27 @@ const SiloAuditChecklist = () => {
         answers_json: answersArray,
         score,
         band,
+        agent_count: leadForm.agentCount || null,
+        org_size: leadForm.orgSize || null,
+        utm_source: utm.utm_source,
+        utm_medium: utm.utm_medium,
+        utm_campaign: utm.utm_campaign,
       };
 
       await supabase.from("audit_runs").insert(auditRun);
 
       await trackEvent(
         "lead_submit",
-        { asset_key: ASSET_KEY, score, band },
+        {
+          asset_key: ASSET_KEY,
+          score,
+          band,
+          agent_count: leadForm.agentCount || null,
+          org_size: leadForm.orgSize || null,
+          utm_source: utm.utm_source,
+          utm_medium: utm.utm_medium,
+          utm_campaign: utm.utm_campaign,
+        },
         leadId,
       );
 
@@ -1190,6 +1220,53 @@ const SiloAuditChecklist = () => {
                     )}
                   </div>
 
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-xs text-muted-foreground mb-1.5 block">
+                        Active AI agents
+                      </Label>
+                      <select
+                        value={leadForm.agentCount}
+                        onChange={(e) =>
+                          setLeadForm((p) => ({
+                            ...p,
+                            agentCount: e.target.value,
+                          }))
+                        }
+                        className={selectStyle}
+                      >
+                        <option value="">Select range</option>
+                        {AGENT_COUNT_OPTIONS.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <Label className="text-xs text-muted-foreground mb-1.5 block">
+                        Team size
+                      </Label>
+                      <select
+                        value={leadForm.orgSize}
+                        onChange={(e) =>
+                          setLeadForm((p) => ({
+                            ...p,
+                            orgSize: e.target.value,
+                          }))
+                        }
+                        className={selectStyle}
+                      >
+                        <option value="">Select size</option>
+                        {ORG_SIZE_OPTIONS.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
                   <Button
                     onClick={handleSubmitLead}
                     disabled={submitting}
@@ -1260,7 +1337,7 @@ const SiloAuditChecklist = () => {
                   {[
                     "Review your category scores — focus on the lowest-scoring area first.",
                     "Share the PDF with your leadership team — use it to quantify AI silo risk across the organisation.",
-                    "Book a free 15-minute review with our team to map your fastest path to connected AI agents.",
+                    "Use your score to prioritise one operating-layer workflow and deploy it with deterministic execution.",
                   ].map((text, i) => (
                     <div key={i} className="flex gap-3 items-start">
                       <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-cyan/10 text-cyan">
@@ -1272,6 +1349,22 @@ const SiloAuditChecklist = () => {
                 </div>
 
                 <a
+                  href={CHASE_AGENTS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent("explore_chase_agents_click", {
+                      asset_key: "silo-audit-checklist",
+                    })
+                  }
+                >
+                  <Button className="mt-8 px-8 py-5 text-base font-semibold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
+                    Explore Chase Agents
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
+
+                <a
                   href={BOOK_CALL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1281,9 +1374,11 @@ const SiloAuditChecklist = () => {
                     })
                   }
                 >
-                  <Button className="mt-8 px-8 py-5 text-base font-semibold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
-                    Book a call
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                  <Button
+                    variant="outline"
+                    className="mt-3 px-8 py-5 text-base font-semibold rounded-xl"
+                  >
+                    Book a scoping call
                   </Button>
                 </a>
               </div>
@@ -1366,13 +1461,22 @@ const SiloAuditChecklist = () => {
       <section className="py-20 px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold font-heading text-foreground mb-4">
-            Want us to review your results and map the{" "}
-            <span className="text-cyan">fastest path forward?</span>
+            Ready to move from siloed pilots to a connected{" "}
+            <span className="text-cyan">operating layer?</span>
           </h2>
           <p className="text-sm text-muted-foreground mb-8">
-            Book a free 15-minute call. We'll walk through your AI agent silo
-            score and pinpoint the highest-leverage fix.
+            Start with Chase Agents to see deterministic automation patterns,
+            then book a scoping call when you want workflow-level guidance.
           </p>
+          <a href={CHASE_AGENTS_URL} target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              className="px-8 py-6 text-base font-semibold rounded-xl bg-cyan text-cyan-foreground hover:bg-cyan/90"
+            >
+              Explore Chase Agents
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </a>
           <a
             href={BOOK_CALL_URL}
             target="_blank"
@@ -1385,9 +1489,10 @@ const SiloAuditChecklist = () => {
           >
             <Button
               size="lg"
-              className="px-8 py-6 text-base font-semibold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
+              variant="outline"
+              className="mt-3 px-8 py-6 text-base font-semibold rounded-xl"
             >
-              Book a call
+              Book a scoping call
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </a>

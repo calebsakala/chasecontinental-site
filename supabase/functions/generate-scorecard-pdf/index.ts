@@ -139,7 +139,7 @@ serve(async (req) => {
     doc.rect(margin, 740, contentW, 3, "F");
     doc.setFontSize(9);
     doc.setTextColor(140, 160, 160);
-    doc.text("© 2026 Chase Continental. All rights reserved.", margin, 770);
+    doc.text("© 2026 Chase Agents. All rights reserved.", margin, 770);
 
     // ── Executive Summary ──
     addPage();
@@ -182,7 +182,7 @@ serve(async (req) => {
         "3x implementation (Nutanix, 2025). Urgent action is recommended.",
         "",
         "Immediate steps: Audit dependencies, plan phased exits, implement",
-        "data portability standards. Book a strategy call for guided migration.",
+        "data portability standards. Explore Chase Agents, then book a scoping call for guided migration.",
       ],
     };
 
@@ -374,7 +374,7 @@ serve(async (req) => {
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.text(
-      "Ready to reduce lock-in? Book a strategy call at chasecontinental.com",
+      "Ready to reduce lock-in? Explore Chase Agents, then book a scoping call at chaseagents.com",
       margin,
       y,
     );

@@ -56,6 +56,7 @@ import { toast } from "sonner";
 import heroImage from "@/assets/peak-season-hero.jpg";
 
 const ASSET_KEY = "peak-season-survival-guide";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
 
 type Lm06EventInsert = Database["public"]["Tables"]["lm06_events"]["Insert"];
 type EventInsert = Database["public"]["Tables"]["events"]["Insert"];
@@ -83,7 +84,7 @@ const roleOptions = [
   "Operations Manager",
   "Programme / Project Manager",
   "Process Improvement Lead",
-  "Strategy / Management Consultant",
+  "Strategy / Operations Lead",
   "Business Analyst",
   "Team Lead / Senior Manager",
   "Other",
@@ -92,11 +93,36 @@ const roleOptions = [
 const industryOptions = [
   "E-commerce & Retail",
   "Healthcare & Life Sciences",
-  "Financial Services",
+  "Financial Operations",
   "Manufacturing",
   "Logistics & Supply Chain",
   "BPO & Outsourcing",
   "Technology & SaaS",
+  "Other",
+];
+
+const peakSeasonMonthOptions = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const peakChallengeOptions = [
+  "Inventory sync",
+  "Fulfillment throughput",
+  "Shipping delays",
+  "Returns volume",
+  "Support ticket spikes",
+  "Forecasting accuracy",
   "Other",
 ];
 
@@ -151,7 +177,7 @@ const checklistItems = [
   "Set up backup plans for system downtimes or carrier issues.",
   "Audit website performance and scalability.",
   "Prepare returns processing workflows with automation.",
-  "Integrate predictive analytics for demand adjustments.",
+  "Connect predictive analytics for demand adjustments.",
   "Establish communication protocols for delays and updates.",
 ];
 
@@ -185,6 +211,8 @@ const PeakSeasonSurvivalGuide = () => {
     company: "",
     role: "",
     industry: "",
+    peakSeasonMonth: "",
+    peakChallenge: "",
   });
 
   /* track page view */
@@ -253,6 +281,8 @@ const PeakSeasonSurvivalGuide = () => {
               company,
               role: leadForm.role,
               vertical: leadForm.industry,
+              peak_season_month: leadForm.peakSeasonMonth || null,
+              peak_challenge: leadForm.peakChallenge || null,
             },
           ])
           .select("id")
@@ -288,6 +318,8 @@ const PeakSeasonSurvivalGuide = () => {
         event_payload: {
           asset: ASSET_KEY,
           lead_id: mainLeadId,
+          peak_season_month: leadForm.peakSeasonMonth || null,
+          peak_challenge: leadForm.peakChallenge || null,
         },
         lead_id: mainLeadId,
       };
@@ -376,11 +408,11 @@ const PeakSeasonSurvivalGuide = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
         <title>
-          Peak Season Automation Survival Guide (Free) | Chase Continental
+          Peak Season Automation Survival Guide (Free) | Chase Agents
         </title>
         <meta
           name="description"
-          content="Keep workflows stable when volume spikes. A practical guide for avoiding breakdowns during peak."
+          content="Keep workflows stable when volume spikes with an operating-layer checklist for peak-season reliability."
         />
       </Helmet>
       <Header />
@@ -446,6 +478,16 @@ const PeakSeasonSurvivalGuide = () => {
             <p className="mt-3 text-sm text-gray-400 italic">
               Instant access. No spam.
             </p>
+
+            <div className="mt-5">
+              <Button
+                variant="outline"
+                onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+                className="border-white/40 bg-white/5 text-white hover:border-white/60 hover:bg-white/15"
+              >
+                Explore Chase Agents
+              </Button>
+            </div>
           </motion.div>
         </div>
 
@@ -746,6 +788,46 @@ const PeakSeasonSurvivalGuide = () => {
                   </SelectContent>
                 </Select>
               </div>
+              <div>
+                <Label>Primary peak month</Label>
+                <Select
+                  value={leadForm.peakSeasonMonth}
+                  onValueChange={(v) =>
+                    setLeadForm((p) => ({ ...p, peakSeasonMonth: v }))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select month" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {peakSeasonMonthOptions.map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Biggest peak challenge</Label>
+                <Select
+                  value={leadForm.peakChallenge}
+                  onValueChange={(v) =>
+                    setLeadForm((p) => ({ ...p, peakChallenge: v }))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select challenge" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {peakChallengeOptions.map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
               <Button
                 onClick={handleSubmit}
@@ -877,6 +959,46 @@ const PeakSeasonSurvivalGuide = () => {
                       {industryOptions.map((r) => (
                         <SelectItem key={r} value={r}>
                           {r}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Primary peak month</Label>
+                  <Select
+                    value={leadForm.peakSeasonMonth}
+                    onValueChange={(v) =>
+                      setLeadForm((p) => ({ ...p, peakSeasonMonth: v }))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {peakSeasonMonthOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Biggest peak challenge</Label>
+                  <Select
+                    value={leadForm.peakChallenge}
+                    onValueChange={(v) =>
+                      setLeadForm((p) => ({ ...p, peakChallenge: v }))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select challenge" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {peakChallengeOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
                         </SelectItem>
                       ))}
                     </SelectContent>
