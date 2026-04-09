@@ -11,11 +11,11 @@ const SUPABASE_SERVICE_ROLE_KEY =
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 
-const DEFAULT_SITE_URL = "https://chaseagents.com";
+const DEFAULT_SITE_URL = "https://chasecontinental.com";
 const DEFAULT_BOOKING_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const DEFAULT_WEBSITE_CTA_URL = "https://chaseagents.com/";
 const DEFAULT_FROM_EMAIL = "Charles@keywordautopilot.com";
-const DEFAULT_FROM_NAME = "CHASE AGENTS";
+const DEFAULT_FROM_NAME = "CHASE CONTINENTAL";
 const DEFAULT_LOGO_URL =
   "https://ydjicfgyegmqfusgunko.supabase.co/storage/v1/object/public/Assets/cc-logo-mark.png";
 const functionsBaseUrl = `${SUPABASE_URL}/functions/v1`;
@@ -277,6 +277,7 @@ const buildResourceEmailHtml = (
   const safeWebsiteCtaUrl = escapeHtml(websiteCtaUrl);
   const safeBookingUrl = escapeHtml(bookingUrl);
   const safeLogoUrl = escapeHtml(logoUrl);
+  const safeFromName = escapeHtml(fromName);
   const safeCtaLabel = escapeHtml(assetConfig.ctaLabel);
   const safeClosingParagraph = escapeHtml(assetConfig.closingParagraph);
   const safePostscript = escapeHtml(assetConfig.postscript);
@@ -301,8 +302,8 @@ const buildResourceEmailHtml = (
           <tr>
             <td style="background:#f8f8f5;padding:28px 40px;text-align:center;border-bottom:1px solid #e5e5e0;">
               <a href="${safeSiteUrl}" style="display:inline-block;text-decoration:none;">
-                <img src="${safeLogoUrl}" alt="Chase Agents" height="56" style="display:block;margin:0 auto 14px;height:56px;width:auto;max-width:96px;" />
-                <div style="font-size:28px;line-height:1.1;font-weight:700;letter-spacing:0.1em;color:#0f6e56;text-transform:uppercase;">Chase Agents</div>
+                <img src="${safeLogoUrl}" alt="${safeFromName}" height="56" style="display:block;margin:0 auto 14px;height:56px;width:auto;max-width:96px;" />
+                <div style="font-size:28px;line-height:1.1;font-weight:700;letter-spacing:0.1em;color:#0f6e56;text-transform:uppercase;">${safeFromName}</div>
               </a>
             </td>
           </tr>
@@ -329,7 +330,7 @@ const buildResourceEmailHtml = (
 
               <hr style="border:none;border-top:1px solid #e5e5e0;margin:24px 0;" />
 
-              <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 16px;">Speak soon,<br /><strong style="color:#1a1a18;">Charles</strong><br />CHASE AGENTS</p>
+              <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 16px;">Speak soon,<br /><strong style="color:#1a1a18;">Charles</strong><br />${safeFromName}</p>
               <p style="font-size:13px;color:#5f5e5a;line-height:1.6;margin:0;"><strong>P.S.</strong> ${safePostscript}</p>
 
               <div style="text-align:center;margin:24px 0 8px;">
@@ -339,7 +340,7 @@ const buildResourceEmailHtml = (
           </tr>
           <tr>
             <td style="background:#f8f8f5;border-top:1px solid #e5e5e0;padding:16px 40px;text-align:center;">
-              <p style="font-size:11px;color:#888780;margin:0;">© 2026 CHASE AGENTS</p>
+              <p style="font-size:11px;color:#888780;margin:0;">© 2026 ${safeFromName}</p>
             </td>
           </tr>
         </table>

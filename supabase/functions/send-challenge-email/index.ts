@@ -11,11 +11,11 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SUPABASE_SERVICE_ROLE_KEY =
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
-const DEFAULT_SITE_URL = "https://chaseagents.com";
+const DEFAULT_SITE_URL = "https://chasecontinental.com";
 const DEFAULT_BOOKING_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const DEFAULT_WEBSITE_CTA_URL = "https://chaseagents.com/";
 const DEFAULT_FROM_EMAIL = "Charles@keywordautopilot.com";
-const DEFAULT_FROM_NAME = "CHASE AGENTS";
+const DEFAULT_FROM_NAME = "CHASE CONTINENTAL";
 const FOLLOW_UP_DAY = 5;
 const FOLLOW_UP_ASSET_KEY = "5-day-pilot-challenge-follow-up";
 
@@ -65,6 +65,7 @@ const buildFollowUpEmailHtml = (name: string, unsubscribeUrl: string) => {
   const safeSiteUrl = escapeHtml(siteUrl);
   const safeWebsiteCtaUrl = escapeHtml(websiteCtaUrl);
   const safeBookingUrl = escapeHtml(bookingUrl);
+  const safeFromName = escapeHtml(fromName);
 
   return `<!DOCTYPE html>
 <html>
@@ -81,7 +82,7 @@ const buildFollowUpEmailHtml = (name: string, unsubscribeUrl: string) => {
             <td style="background:#f8f8f5;padding:24px 40px;border-bottom:1px solid #e5e5e0;">
               <div style="font-size:11px;letter-spacing:0.16em;font-weight:700;color:#0f6e56;text-transform:uppercase;margin-bottom:10px;">5-Day Pilot Guide Follow-Up</div>
               <a href="${safeSiteUrl}" style="text-decoration:none;color:#1a1a18;">
-                <div style="font-size:28px;line-height:1.1;font-weight:700;letter-spacing:0.1em;color:#0f6e56;text-transform:uppercase;">Chase Agents</div>
+                <div style="font-size:28px;line-height:1.1;font-weight:700;letter-spacing:0.1em;color:#0f6e56;text-transform:uppercase;">${safeFromName}</div>
               </a>
             </td>
           </tr>
@@ -104,7 +105,7 @@ const buildFollowUpEmailHtml = (name: string, unsubscribeUrl: string) => {
                 <a href="${safeWebsiteCtaUrl}" style="display:inline-block;background:#1D9E75;color:#ffffff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;margin:0 6px 8px;">Explore Chase Agents</a>
                 <a href="${safeBookingUrl}" style="display:inline-block;background:transparent;color:#0F6E56;padding:11px 28px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;border:1.5px solid #1D9E75;margin:0 6px 8px;">Book a scoping call</a>
               </div>
-              <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 16px;">Speak soon,<br /><strong style="color:#1a1a18;">Charles</strong><br />CHASE AGENTS</p>
+              <p style="font-size:14px;color:#5f5e5a;line-height:1.7;margin:0 0 16px;">Speak soon,<br /><strong style="color:#1a1a18;">Charles</strong><br />${safeFromName}</p>
               <div style="text-align:center;margin-top:24px;">
                 <a href="${safeUnsubscribeUrl}" style="display:inline-block;background:transparent;color:#6c6b66;padding:9px 18px;border-radius:999px;font-size:12px;font-weight:600;text-decoration:none;border:1px solid #d8d7d1;">Unsubscribe</a>
               </div>
