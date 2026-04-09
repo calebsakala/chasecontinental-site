@@ -1,43 +1,67 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import LandingPage from "./pages/LandingPage";
-import BlogPage from "./pages/BlogPage";
-import BlogPostPage from "./pages/BlogPostPage";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import ResourcesPage from "./pages/ResourcesPage";
-import SiloAuditChecklist from "./pages/resources/SiloAuditChecklist";
 
-import TransformationPlaybook from "./pages/resources/TransformationPlaybook";
-import ReliabilityAssessment from "./pages/resources/ReliabilityAssessment";
-import OrchestrationSwipeFile from "./pages/resources/OrchestrationSwipeFile";
-import PeakSeasonSurvivalGuide from "./pages/resources/PeakSeasonSurvivalGuide";
-import DeterministicBlueprint from "./pages/resources/DeterministicBlueprint";
-import FiveDayPilotChallenge from "./pages/resources/FiveDayPilotChallenge";
-import CcidCaseStudy from "./pages/resources/CcidCaseStudy";
-import NeutralVsProprietaryScorecard from "./pages/resources/NeutralVsProprietaryScorecard";
-import ShopifyOpsAutomation from "./pages/resources/ShopifyOpsAutomation";
-import AiRoiCalculator from "./pages/resources/AiRoiCalculator";
-import ResourceDownloadRedirect from "./pages/resources/ResourceDownloadRedirect";
-import ProductsPage from "./pages/ProductsPage";
-import CharlesPage from "./pages/CharlesPage";
-import NotFound from "./pages/NotFound";
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
+const SiloAuditChecklist = lazy(
+  () => import("./pages/resources/SiloAuditChecklist"),
+);
+const TransformationPlaybook = lazy(
+  () => import("./pages/resources/TransformationPlaybook"),
+);
+const ReliabilityAssessment = lazy(
+  () => import("./pages/resources/ReliabilityAssessment"),
+);
+const OrchestrationSwipeFile = lazy(
+  () => import("./pages/resources/OrchestrationSwipeFile"),
+);
+const PeakSeasonSurvivalGuide = lazy(
+  () => import("./pages/resources/PeakSeasonSurvivalGuide"),
+);
+const DeterministicBlueprint = lazy(
+  () => import("./pages/resources/DeterministicBlueprint"),
+);
+const FiveDayPilotChallenge = lazy(
+  () => import("./pages/resources/FiveDayPilotChallenge"),
+);
+const CcidCaseStudy = lazy(() => import("./pages/resources/CcidCaseStudy"));
+const NeutralVsProprietaryScorecard = lazy(
+  () => import("./pages/resources/NeutralVsProprietaryScorecard"),
+);
+const ShopifyOpsAutomation = lazy(
+  () => import("./pages/resources/ShopifyOpsAutomation"),
+);
+const AiRoiCalculator = lazy(() => import("./pages/resources/AiRoiCalculator"));
+const ResourceDownloadRedirect = lazy(
+  () => import("./pages/resources/ResourceDownloadRedirect"),
+);
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
+const CharlesPage = lazy(() => import("./pages/CharlesPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-const queryClient = new QueryClient();
+const routeFallback = (
+  <div className="flex min-h-screen items-center justify-center bg-background text-sm text-muted-foreground">
+    Loading...
+  </div>
+);
 
 // Backwards-compatible alias (older bundles/links may still reference this name)
 const AutomationRoiCalculator = AiRoiCalculator;
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    <BrowserRouter>
+      <ScrollToTop />
+      <Suspense fallback={routeFallback}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/products" element={<ProductsPage />} />
@@ -100,9 +124,9 @@ const App = () => (
           <Route path="/resources/charles" element={<CharlesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </Suspense>
+    </BrowserRouter>
+  </TooltipProvider>
 );
 
 export default App;
