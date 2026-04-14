@@ -2,6 +2,10 @@
   command = "npm install && npm run build"
   publish = "dist"
 
+[[edge_functions]]
+  path = "/*"
+  function = "inject-meta"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
