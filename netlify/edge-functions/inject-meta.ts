@@ -35,8 +35,8 @@ async function fetchBlogMeta(slug: string): Promise<RouteMeta | null> {
   const query = encodeURIComponent(
     `*[_type=="post" && slug.current==$slug][0]{title,"description":coalesce(excerpt,pt::text(body[0...1])),mainImage}`,
   );
-  const params = encodeURIComponent(JSON.stringify({ slug }));
-  const url = `https://${SANITY_PROJECT}.api.sanity.io/v2024-01-01/data/query/${SANITY_DATASET}?query=${query}&%24slug=${params}`;
+  const slugParam = encodeURIComponent(JSON.stringify(slug));
+  const url = `https://${SANITY_PROJECT}.api.sanity.io/v2024-01-01/data/query/${SANITY_DATASET}?query=${query}&%24slug=${slugParam}`;
 
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 2000);
