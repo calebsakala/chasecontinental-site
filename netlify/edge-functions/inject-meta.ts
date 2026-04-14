@@ -4,7 +4,7 @@ import {
   ROUTE_META,
   SITE_ORIGIN,
   type RouteMeta,
-} from "./route-meta.ts";
+} from "./lib/route-meta.ts";
 
 const SANITY_PROJECT = "87a8gku7";
 const SANITY_DATASET = "production";
