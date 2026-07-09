@@ -224,7 +224,14 @@ html{scroll-behavior:smooth}
 .fwcard,.outcard,.learn,.step,.finding{break-inside:avoid}
 }
 </style>
-<style>.img-ph{display:flex;align-items:center;justify-content:center;min-height:220px;background:repeating-linear-gradient(45deg,#f4f1ec,#f4f1ec 12px,#efeae0 12px,#efeae0 24px);color:#9c958a;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;text-align:center;padding:34px;line-height:1.6}</style>
+<style>.img-ph{display:flex;align-items:center;justify-content:center;min-height:220px;background:repeating-linear-gradient(45deg,#f4f1ec,#f4f1ec 12px,#efeae0 12px,#efeae0 24px);color:#9c958a;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;text-align:center;padding:34px;line-height:1.6}
+.eqs{margin-top:34px;display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:start;border-top:1px solid var(--line);padding-top:36px}
+.eqs .qm{font-family:'Archivo';font-weight:800;font-size:42px;line-height:.5;color:var(--accent);margin-bottom:14px}
+.eqs blockquote{font-family:'Archivo';font-weight:600;font-size:clamp(18px,2vw,22px);line-height:1.38;letter-spacing:-.012em;color:var(--ink)}
+.eqs .eqs-2{padding-top:6px}
+.eqs .eqs-2 blockquote{font-weight:500;font-size:16px;line-height:1.55;color:#2c353e}
+.eqs-a{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.05em;color:var(--muted);margin-top:16px}
+@media(max-width:880px){.eqs{grid-template-columns:1fr;gap:24px}}</style>
 </head>
 <body>
 <div class="doc" id="cc-doc">
@@ -270,6 +277,10 @@ html{scroll-behavior:smooth}
 <div class="exec-hero reveal">
 <div class="eh-stat"><div class="eh-n">3wk&#8594;1hr</div><div class="eh-l">The full research delivery cycle, from clean data to a client-ready report. What took three weeks now takes under an hour.</div></div>
 <div class="eh-q"><div class="eh-qm">“</div><blockquote>It has elevated the way I think. I can now focus entirely on what I was actually hired to do.</blockquote><div class="eh-a">Head of Research · Client, South Africa</div></div>
+</div>
+<div class="eqs reveal">
+<div class="eqs-1"><div class="qm">“</div><blockquote>It has elevated the way I think. I can now focus entirely on what I was actually hired to do, to engage with the data at a high level, think creatively about what it means, and find the insights. The process work takes care of itself.</blockquote><div class="eqs-a">Head of Research · Client, South Africa</div></div>
+<div class="eqs-2"><blockquote>“The time I used to spend on preparation and formatting is time I now spend on thinking. That shift changes the quality of the work — not incrementally, but fundamentally.”</blockquote><div class="eqs-a">Head of Research · Client, South Africa</div></div>
 </div>
 <div class="findings reveal">
 <div class="finding"><div class="finding-n">FINDING 01</div><div class="finding-h">AI enablement is, first, an organisational diagnostic</div><div class="finding-b">AI transformation starts with operational clarity. Mapping workflows, decision points, information flows, and institutional knowledge reveals where automation can create value and where organisational foundations need strengthening. The limiting factor is rarely the technology itself: it is whether the business has structured its knowledge and processes in a way that systems can reliably support.</div></div>
@@ -431,7 +442,7 @@ html{scroll-behavior:smooth}
 <div class="reveal">
 <div class="eyebrow"><span class="tick"></span><span class="idx mono">06</span><span class="eyw">Outcomes</span></div>
 <h2 class="h2">What changed, and what it proves.</h2>
-<p class="copy">This engagement redesigned the operating model of the research practice. The proof is the cycle time: a deliverable that once required three people across two departments and the better part of three weeks now moves through a single structured system in under an hour, with one person orchestrating it. Before, someone cleaned the data by hand over two to three days. A data scientist then ran the analysis, returning results within a week. A senior researcher spent a day compiling the final analysis. An external graphic designer built the presentation at R7,500–R10,000 per project with a two-day turnaround. Proposals took one to two days to draft from scratch.</p>
+<p class="copy">Before this engagement, four people across two departments ran every research project. The research lead cleaned data by hand over two to three days. An internal data scientist handled the analysis, returning results within a week. A senior researcher spent a day on final compilation. An external graphic designer built the client presentation at R7,500–R10,000 per project, with a two-day turnaround. IT was on standby throughout. The same deliverable now moves through a single structured system in under an hour, with one person reviewing the output before it goes to the client.</p>
 <p class="copy">That same cycle now completes in under 30 minutes. Human review adds another 30 minutes. The total active time from clean data to a client-ready output, including the review step, is under an hour.</p>
 <div class="flowgrid">
 <div class="flow"><div class="flow-l">Before: 4 people, 2 departments, ~3 weeks</div>
@@ -471,6 +482,7 @@ html{scroll-behavior:smooth}
 <tr><td class="k">Full cycle: data to client-ready output</td><td class="bef">~3 weeks</td><td class="aft">Under 1 hour</td></tr>
 </tbody>
 </table>
+<div class="note"><div class="note-l">What the Client Didn't Expect</div><p class="note-b">The engagement was scoped around time savings, and delivered them. Two outcomes were not anticipated. First, IT capacity returned: a team that expected to keep supporting research operations indefinitely stopped being needed there at all. Second, the mapping exercise surfaced organisational knowledge no one had ever written down: pricing logic, analytical standards, client context that lived only in individual heads. Codifying it was meant to enable automation. It turned out to be an asset in its own right.</p></div>
 <div class="statsl">
 <div class="statl"><div class="statl-n">10.4×</div><div class="statl-l">Efficiency gain across the daily research workflow</div><div class="statl-s">Measured via Chase Agents portal activity</div></div>
 <div class="statl divl"><div class="statl-n">+18%</div><div class="statl-l">Revenue increase in the research business over two months</div><div class="statl-s">From AI-driven completion-rate optimisation</div></div>
@@ -501,19 +513,9 @@ html{scroll-behavior:smooth}
 <div class="wrap reveal">
 <div class="subh"><span class="ph">6.4</span>What changed for the role</div>
 <p class="copy">When process work is absorbed by automation, capacity does not simply become available: it shifts. The tasks that previously consumed the senior role have been removed from it entirely. What remains is the work the role exists to do.</p>
-<div class="note"><div class="note-l">What the Client Didn't Expect</div><p class="note-b">The engagement was scoped around time savings, and delivered them. Two outcomes were not anticipated. First, IT capacity returned: a team that expected to keep supporting research operations indefinitely stopped being needed there at all. Second, the mapping exercise surfaced organisational knowledge no one had ever written down: pricing logic, analytical standards, client context that lived only in individual heads. Codifying it was meant to enable automation. It turned out to be an asset in its own right.</p></div>
 </div>
 </section>
 
-<!-- QUOTE BAND -->
-<section class="section band">
-<div class="wrap reveal">
-<div class="qmark">“</div>
-<blockquote class="pull-q">It has elevated the way I think. I can now focus entirely on what I was actually hired to do, to engage with the data at a high level, think creatively about what it means, and find the insights. The process work takes care of itself.</blockquote>
-<div class="pull-a"><b>Head of Research</b> · Client, South Africa</div>
-<div class="qsmall"><p class="pull-q2">“The time I used to spend on preparation and formatting is time I now spend on thinking. That shift changes the quality of the work — not incrementally, but fundamentally.”</p><div class="pull-a2">Head of Research · Client, South Africa</div></div>
-</div>
-</section>
 
 <!-- COST EFFICIENCY -->
 <section class="section">
@@ -522,31 +524,12 @@ html{scroll-behavior:smooth}
 </div>
 </section>
 
-<!-- RESILIENCE -->
-<section class="section">
-<div class="wrap">
-<div class="reveal">
-<div class="eyebrow"><span class="tick"></span><span class="idx mono">07</span><span class="eyw">Resilience</span></div>
-<h2 class="h2">Built to outlast the tools it runs on.</h2>
-<p class="lead">AI pricing, model quality, and vendor roadmaps continue to evolve, and most implementations are quietly locked to a single provider's decisions on all three. That dependency becomes a scaling risk the moment the landscape shifts. This engagement was architected so the client's research practice is insulated from it: provider, model, and price.</p>
-</div>
-<div class="fwgrid reveal">
-<div class="fwcard"><div class="fwbar bar-det"></div><div class="fw-l l-det">Portable across agents</div><div class="fw-h">The workflows are not tied to one AI product</div><div class="fw-b">The automation logic is portable between coding agents: Claude, ChatGPT, Cursor, and whatever comes next. If a provider has an outage or degrades in quality, the work moves to another and continues. The practice stays on regardless of which agent is up on any given day.</div></div>
-<div class="fwcard"><div class="fwbar bar-hyb"></div><div class="fw-l l-hyb">Model-agnostic</div><div class="fw-h">Bring your own model, and swap it whenever</div><div class="fw-b">The AI layer is interchangeable. Any model can be plugged in, upgraded, or replaced (even one that gets deprecated) without rebuilding the workflow around it. Improvements are adopted as they arrive; no single vendor's decisions determine whether the system keeps working.</div></div>
-<div class="fwcard"><div class="fwbar bar-ai"></div><div class="fw-l l-ai">Insulated from cost</div><div class="fw-h">The automations run at effectively zero cost</div><div class="fw-b">Deterministic work runs on Chase Agents at fractions of a cent, with AI invoked only where judgment is required. As AI pricing normalises toward its real cost, scaling is not exposed to it: the economics that make the stack viable today hold as volume grows.</div></div>
-</div>
-<div class="note acc reveal"><div class="note-l">Institutional Knowledge Travels With the Team</div><p class="note-b">Because context, standards, and logic live in a structured knowledge base rather than inside any one tool, the organisation carries its institutional knowledge wherever it goes. Move to a different agent, adopt a different model, restructure the team: the accumulated intelligence of the practice moves with it, intact. The system is a portable asset the organisation owns, not a configuration rented from a provider.</p></div>
-<div class="reveal">
-<p class="copy" style="margin-top:38px">The strategic payoff is straightforward. With the team insulated from provider risk, model risk, and price risk, leadership can plan around it rather than hedge against it. The attention that would otherwise go to managing tooling dependencies and absorbing price changes is freed to focus on the work that grows the business. A team that is resilient by design is one the organisation can build on with confidence, and that confidence lets a capable team reach further than the day-to-day previously allowed.</p>
-</div>
-</div>
-</section>
 
 <!-- LEARNINGS -->
 <section class="section">
 <div class="wrap">
 <div class="reveal">
-<div class="eyebrow"><span class="tick"></span><span class="idx mono">08</span><span class="eyw">Strategic Learnings</span></div>
+<div class="eyebrow"><span class="tick"></span><span class="idx mono">07</span><span class="eyw">Strategic Learnings</span></div>
 <h2 class="h2">What this engagement establishes.</h2>
 <p class="lead">These learnings transfer to any knowledge-driven practice. They reflect what was observed, what was unexpected, and what any organisation considering similar work should carry into its planning.</p>
 </div>
@@ -558,6 +541,26 @@ html{scroll-behavior:smooth}
 <div class="learn"><div class="learn-n">05</div><div><div class="learn-h">Mindset precedes method</div><div class="learn-b">The single most important pre-condition for success is a correct mental model of what AI is and is not capable of. Believe AI can replace judgment, and it gets applied where judgment is required: producing unreliable output at scale. Treat it as a mere process tool, and it goes unused in the synthesis and interpretation where it creates real leverage. Getting that model right before any tool is selected or any process is mapped is the investment everything else depends on.</div></div></div>
 <div class="learn"><div class="learn-n">06</div><div><div class="learn-h">Building this way keeps the business in your hands</div><div class="learn-b">When the critical path is mapped and every stage is systematised, the practitioner can see and intervene at any point: the business never becomes a black box. Each stage has a natural review point: the system produces, the practitioner approves, the process continues. Knowledge moves from individual heads into a structured system. The stack is model-agnostic: if a provider changes or a better option emerges, the workflows keep running and the AI layer is redirected without a rebuild. If a key person leaves, someone else steps in and the work continues. The organisation becomes a system, not a dependency on whoever happens to be running it today.</div></div></div>
 <div class="learn"><div class="learn-n">07</div><div><div class="learn-h">The AI that works best is the one nobody has to think about</div><div class="learn-b">For operational workflows, every manual prompt is another task someone has to remember: what to ask, how to frame it, when to ask it, how to read the response. That is cognitive load added to the workflow, not removed from it. The design objective is therefore to minimise prompting by embedding AI directly into the workflow, acting when conditions are met, without waiting for instruction. The highest-performing capabilities in this engagement require no ongoing human input: the system observes, detects, and executes. The practitioner sets the standards and reviews the output; the AI handles everything in between. When this is achieved, adoption stops being a change-management problem: there is nothing to adopt. The system simply works.</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- RESILIENCE -->
+<section class="section">
+<div class="wrap">
+<div class="reveal">
+<div class="eyebrow"><span class="tick"></span><span class="idx mono">08</span><span class="eyw">Resilience</span></div>
+<h2 class="h2">Built to outlast the tools it runs on.</h2>
+<p class="lead">AI pricing, model quality, and vendor roadmaps continue to evolve, and most implementations are quietly locked to a single provider's decisions on all three. That dependency becomes a scaling risk the moment the landscape shifts. This engagement was architected so the client's research practice is insulated from it: provider, model, and price.</p>
+</div>
+<div class="fwgrid reveal">
+<div class="fwcard"><div class="fwbar bar-det"></div><div class="fw-l l-det">Portable across agents</div><div class="fw-h">The workflows are not tied to one AI product</div><div class="fw-b">The automation logic is portable between coding agents: Claude, ChatGPT, Cursor, and whatever comes next. If a provider has an outage or degrades in quality, the work moves to another and continues. The practice stays on regardless of which agent is up on any given day.</div></div>
+<div class="fwcard"><div class="fwbar bar-hyb"></div><div class="fw-l l-hyb">Model-agnostic</div><div class="fw-h">Bring your own model, and swap it whenever</div><div class="fw-b">The AI layer is interchangeable. Any model can be plugged in, upgraded, or replaced (even one that gets deprecated) without rebuilding the workflow around it. Improvements are adopted as they arrive; no single vendor's decisions determine whether the system keeps working.</div></div>
+<div class="fwcard"><div class="fwbar bar-ai"></div><div class="fw-l l-ai">Insulated from cost</div><div class="fw-h">The automations run at effectively zero cost</div><div class="fw-b">Deterministic work runs on Chase Agents at fractions of a cent, with AI invoked only where judgment is required. As AI pricing normalises toward its real cost, scaling is not exposed to it: the economics that make the stack viable today hold as volume grows.</div></div>
+</div>
+<div class="note acc reveal"><div class="note-l">Institutional Knowledge Travels With the Team</div><p class="note-b">Because context, standards, and logic live in a structured knowledge base rather than inside any one tool, the organisation carries its institutional knowledge wherever it goes. Move to a different agent, adopt a different model, restructure the team: the accumulated intelligence of the practice moves with it, intact. The system is a portable asset the organisation owns, not a configuration rented from a provider.</p></div>
+<div class="reveal">
+<p class="copy" style="margin-top:38px">The strategic payoff is straightforward. With the team insulated from provider risk, model risk, and price risk, leadership can plan around it rather than hedge against it. The attention that would otherwise go to managing tooling dependencies and absorbing price changes is freed to focus on the work that grows the business. A team that is resilient by design is one the organisation can build on with confidence, and that confidence lets a capable team reach further than the day-to-day previously allowed.</p>
 </div>
 </div>
 </section>
