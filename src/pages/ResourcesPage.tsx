@@ -5,6 +5,16 @@ import { ArrowRight, CheckSquare, Calculator, BookOpen, Activity, Layers, Shield
 
 const resources = [
   {
+    slug: "research-automation-case-study",
+    href: "/case-study/",
+    title: "AI Enablement Case Study: Scaling a Research Practice",
+    badge: "Case Study",
+    description: "A three-week research cycle compressed to under an hour—10.4× efficiency, +18% revenue, under $5/month. See the full breakdown.",
+    icon: FileBarChart,
+    accent: "from-teal-500 to-emerald-400",
+    status: "available" as const,
+  },
+  {
     slug: "silo-audit-checklist",
     title: "2026 AI Agent Silo Audit Checklist",
     badge: "Free Checklist",
@@ -142,12 +152,10 @@ const ResourcesPage = () => {
         <div className="mx-auto max-w-6xl grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {resources.map((r) => {
             const Icon = r.icon;
-            return (
-              <Link
-                key={r.slug}
-                to={`/resources/${r.slug}`}
-                className="group relative flex flex-col rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm p-6 hover:border-teal/40 transition-all duration-300 hover:shadow-lg hover:shadow-teal/5"
-              >
+            const cardClass =
+              "group relative flex flex-col rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm p-6 hover:border-teal/40 transition-all duration-300 hover:shadow-lg hover:shadow-teal/5";
+            const inner = (
+              <>
                 <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${r.accent} mb-4`}>
                   <Icon className="h-5 w-5 text-white" />
                 </div>
@@ -163,6 +171,16 @@ const ResourcesPage = () => {
                 <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-teal opacity-0 group-hover:opacity-100 transition-opacity">
                   Explore <ArrowRight className="h-4 w-4" />
                 </div>
+              </>
+            );
+            // Static hosted pages (r.href) use a full-page <a>; SPA routes use <Link>.
+            return r.href ? (
+              <a key={r.slug} href={r.href} className={cardClass}>
+                {inner}
+              </a>
+            ) : (
+              <Link key={r.slug} to={`/resources/${r.slug}`} className={cardClass}>
+                {inner}
               </Link>
             );
           })}

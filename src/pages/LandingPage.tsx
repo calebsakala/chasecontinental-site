@@ -478,6 +478,14 @@ const LandingPage = () => {
               </Reveal>
             </div>
           </div>
+          <div className="mx-auto max-w-6xl px-6 mt-14 text-center">
+            <a
+              href="/case-study/"
+              className="inline-flex items-center gap-2 rounded-full border border-teal/40 bg-teal/10 px-6 py-3 text-sm font-semibold text-teal transition-colors hover:bg-teal/20"
+            >
+              Read the full AI enablement case study →
+            </a>
+          </div>
         </section>
 
         {/* ═══════════════════════════ IMPACT STATS ═══════════════════════════ */}
