@@ -275,18 +275,18 @@ const LandingPage = () => {
               </p>
               <div className="flex flex-wrap items-end justify-center gap-x-12 gap-y-8 md:gap-x-16">
                 {[
-                  { name: "CCID", industry: "Government" },
-                  { name: "Heineken", industry: "Manufacturing" },
+                  { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
+                  { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
                   { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
                   { name: "HealthyMe Living", industry: "Wellness", logo: "/static/images/healthymeliving-logo.png" },
                 ].map((partner) => (
                   <div key={partner.name} className="flex flex-col items-center text-center">
-                    <div className="flex h-9 items-center">
+                    <div className="flex h-10 md:h-11 items-center">
                       {partner.logo ? (
                         <img
                           src={partner.logo}
                           alt={partner.name}
-                          className="h-full w-auto max-w-[150px] object-contain"
+                          className="h-full w-auto max-w-[170px] object-contain"
                         />
                       ) : (
                         <span className="text-lg font-bold font-heading text-foreground">
