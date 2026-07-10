@@ -273,16 +273,28 @@ const LandingPage = () => {
               <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">
                 Trusted by
               </p>
-              <div className="flex flex-wrap justify-center gap-12 md:gap-20">
+              <div className="flex flex-wrap items-end justify-center gap-x-12 gap-y-8 md:gap-x-16">
                 {[
                   { name: "CCID", industry: "Government" },
                   { name: "Heineken", industry: "Manufacturing" },
+                  { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
+                  { name: "HealthyMe Living", industry: "Wellness", logo: "/static/images/healthymeliving-logo.png" },
                 ].map((partner) => (
-                  <div key={partner.name} className="text-center">
-                    <span className="text-lg font-bold font-heading text-foreground">
-                      {partner.name}
-                    </span>
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mt-0.5">
+                  <div key={partner.name} className="flex flex-col items-center text-center">
+                    <div className="flex h-9 items-center">
+                      {partner.logo ? (
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className="h-full w-auto max-w-[150px] object-contain"
+                        />
+                      ) : (
+                        <span className="text-lg font-bold font-heading text-foreground">
+                          {partner.name}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mt-2">
                       {partner.industry}
                     </p>
                   </div>
@@ -389,7 +401,7 @@ const LandingPage = () => {
               </div>
             </Reveal>
 
-            <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
               {/* CCID Case Study */}
               <Reveal delay={0}>
                 <Link
@@ -476,15 +488,51 @@ const LandingPage = () => {
                   </div>
                 </div>
               </Reveal>
+
+              {/* Moya App Case Study */}
+              <Reveal delay={0.24}>
+                <a href="/case-study/" className="group block h-full">
+                  <div className="rounded-2xl border border-teal/25 bg-teal/[0.06] p-7 transition-all duration-300 hover:border-teal/40 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col">
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="rounded-xl bg-teal/10 p-2.5">
+                        <Zap className="h-4 w-4 text-teal" />
+                      </div>
+                      <span className="text-[11px] font-bold text-background/60 uppercase tracking-[0.15em]">
+                        Technology
+                      </span>
+                    </div>
+                    <h4 className="text-lg mb-3 text-background group-hover:text-teal transition-colors font-bold">
+                      Moya App — AI Enablement
+                    </h4>
+                    <p className="text-sm text-background/60 leading-relaxed mb-5 flex-1">
+                      Compressed a three-week market-research delivery cycle to
+                      under an hour and lifted revenue—running the full automation
+                      stack for under $5 a month.
+                    </p>
+                    <div className="grid grid-cols-2 gap-3 pt-5 border-t border-background/[0.08] mb-5">
+                      {[
+                        { metric: "10.4×", label: "Efficiency gain" },
+                        { metric: "+18%", label: "Revenue increase" },
+                        { metric: "3wk→1hr", label: "Cycle time" },
+                        { metric: "<$5", label: "Monthly cost" },
+                      ].map((r) => (
+                        <div key={r.label} className="text-center">
+                          <span className="text-xl font-extrabold font-heading text-teal">
+                            {r.metric}
+                          </span>
+                          <p className="text-[10px] text-background/50 mt-0.5 uppercase tracking-wider">
+                            {r.label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      Read Full Case Study <ArrowRight className="h-4 w-4" />
+                    </div>
+                  </div>
+                </a>
+              </Reveal>
             </div>
-          </div>
-          <div className="mx-auto max-w-6xl px-6 mt-14 text-center">
-            <a
-              href="/case-study/"
-              className="inline-flex items-center gap-2 rounded-full border border-teal/40 bg-teal/10 px-6 py-3 text-sm font-semibold text-teal transition-colors hover:bg-teal/20"
-            >
-              Read the full AI enablement case study →
-            </a>
           </div>
         </section>
 

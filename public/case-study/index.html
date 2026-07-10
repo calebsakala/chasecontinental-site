@@ -228,12 +228,18 @@ html{scroll-behavior:smooth}
 .eqs{margin-top:34px;border-top:1px solid var(--line);padding-top:34px;max-width:900px}
 .eqs .qm{font-family:'Archivo';font-weight:800;font-size:42px;line-height:.5;color:var(--accent);margin-bottom:14px}
 .eqs blockquote{font-family:'Archivo';font-weight:600;font-size:clamp(19px,2.2vw,24px);line-height:1.36;letter-spacing:-.012em;color:var(--ink)}
-.eqs-a{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.05em;color:var(--muted);margin-top:16px}</style>
+.eqs-a{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.05em;color:var(--muted);margin-top:16px}
+.cover-top-r{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.cover-back{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;white-space:nowrap}
+.cover-back:hover{color:var(--accent)}
+a.brand-lock,a.tb-lock,a.foot-lock{cursor:pointer}
+.tb-r{text-decoration:none;transition:color .2s}.tb-r:hover{color:var(--accent)}
+@media(max-width:560px){.cover-back{font-size:10px}}</style>
 </head>
 <body>
 <div class="doc" id="cc-doc">
 <div class="progress" id="cc-progress"><div class="progress-bar" id="cc-progress-bar"></div></div>
-<div class="topbar" id="cc-topbar"><div class="wrap"><div class="topbar-in"><div class="tb-lock"><img class="tb-logo" src="assets/cc-logo-glass-white.png" alt=""><div class="tb-mark">CHASE <b>CONTINENTAL</b></div></div><div class="tb-r">Case Study</div></div></div></div>
+<div class="topbar" id="cc-topbar"><div class="wrap"><div class="topbar-in"><a href="/" class="tb-lock" style="text-decoration:none;color:inherit"><img class="tb-logo" src="assets/cc-logo-glass-white.png" alt=""><div class="tb-mark">CHASE <b>CONTINENTAL</b></div></a><a href="/" class="tb-r">← Back to site</a></div></div></div>
 
 <!-- COVER -->
 <section class="cover">
@@ -241,8 +247,8 @@ html{scroll-behavior:smooth}
 <div class="cover-ghost">AI</div>
 <div class="cover-in">
 <header class="cover-top">
-<div class="brand-lock"><img class="brand-logo" src="assets/cc-logo-glass-white.png" alt="Chase Continental"><div><div class="brand-mark">CHASE <b>CONTINENTAL</b></div><div class="brand-sub">Building software that changes the way people work</div></div></div>
-<div class="tag">AI Enablement Case Study</div>
+<a href="/" class="brand-lock" style="text-decoration:none;color:inherit"><img class="brand-logo" src="assets/cc-logo-glass-white.png" alt="Chase Continental"><div><div class="brand-mark">CHASE <b>CONTINENTAL</b></div><div class="brand-sub">Building software that changes the way people work</div></div></a>
+<div class="cover-top-r"><a href="/" class="cover-back">← Back to chasecontinental.com</a><div class="tag">AI Enablement Case Study</div></div>
 </header>
 <div class="cover-mid">
 <div class="cover-eye"><span class="tick"></span>AI Enablement / Research Operations</div>
@@ -251,7 +257,7 @@ html{scroll-behavior:smooth}
 <p class="cover-moat">The approach in this document: deterministic automation, knowledge architecture, and AI judgment, each applied where it belongs.</p>
 </div>
 <div class="cover-meta">
-<div class="cmeta"><div class="cmeta-l">Client</div><div class="cmeta-v">Confidential · South Africa</div></div>
+<div class="cmeta"><div class="cmeta-l">Client</div><div class="cmeta-v">Moya App · South Africa</div></div>
 <div class="cmeta divl"><div class="cmeta-l">Engagement</div><div class="cmeta-v">AI Enablement &amp; Process Automation</div></div>
 <div class="cmeta divl"><div class="cmeta-l">Implementing Partner</div><div class="cmeta-v">Chase Continental (Pty) Ltd</div></div>
 <div class="cmeta divl"><div class="cmeta-l">Duration</div><div class="cmeta-v">April – May 2025</div></div>
@@ -273,12 +279,12 @@ html{scroll-behavior:smooth}
 </div>
 <div class="exec-hero reveal">
 <div class="eh-stat"><div class="eh-n">3wk&#8594;1hr</div><div class="eh-l">The full research delivery cycle, from clean data to a client-ready report. What took three weeks now takes under an hour.</div></div>
-<div class="eh-q"><div class="eh-qm">“</div><blockquote>It has elevated the way I think. I can now focus entirely on what I was actually hired to do, to engage with the data at a high level, think creatively about what it means, and find the insights. The process work takes care of itself.</blockquote><div class="eh-a">Head of Research · Client, South Africa</div></div>
+<div class="eh-q"><div class="eh-qm">“</div><blockquote>It has elevated the way I think. I can now focus entirely on what I was actually hired to do, to engage with the data at a high level, think creatively about what it means, and find the insights. The process work takes care of itself.</blockquote><div class="eh-a">Shana Abrahams · Head of Research, Moya App</div></div>
 </div>
 <div class="eqs reveal">
 <div class="qm">“</div>
 <blockquote>The time I used to spend on preparation and formatting is time I now spend on thinking, and the quality of the work is far higher for it.</blockquote>
-<div class="eqs-a">Head of Research · Client, South Africa</div>
+<div class="eqs-a">Shana Abrahams · Head of Research, Moya App</div>
 </div>
 <div class="findings reveal">
 <div class="finding"><div class="finding-n">FINDING 01</div><div class="finding-h">AI enablement is, first, an organisational diagnostic</div><div class="finding-b">AI transformation starts with operational clarity. Mapping workflows, decision points, information flows, and institutional knowledge reveals where automation can create value and where organisational foundations need strengthening. The limiting factor is rarely the technology itself: it is whether the business has structured its knowledge and processes in a way that systems can reliably support.</div></div>
@@ -308,7 +314,7 @@ html{scroll-behavior:smooth}
 <div class="reveal">
 <div class="eyebrow"><span class="tick"></span><span class="idx mono">02</span><span class="eyw">Context</span></div>
 <h2 class="h2">The client and the challenge.</h2>
-<p class="copy">The client is a South African technology company operating a zero-rated digital platform available across all of the country's major mobile networks. Users can send messages and access content even when their data has run out, making its infrastructure one of the most accessible digital channels in the country. The platform serves a large, active user base spanning South Africa and the broader African market.</p>
+<p class="copy">The client, Moya App, is a South African technology company operating a zero-rated digital platform (a datafree super-app) available across all of the country's major mobile networks. Users can send messages and access content even when their data has run out, making its infrastructure one of the most accessible digital channels in the country. The platform serves a large, active user base spanning South Africa and the broader African market.</p>
 <p class="copy">Within the business, research is a standalone practice conducting quantitative market research for corporate clients. Its primary asset is the company's own user base, which functions as a proprietary research panel. Surveys are deployed through the platform directly to panellists, and clients pay per completed response, making both response volume and response rate directly tied to revenue.</p>
 <p class="copy">The research practice delivers strong, well-regarded work and drives real revenue. The next step was scale: every project cycle required significant manual effort and the involvement of multiple people across two departments: the natural ceiling to raise as the business kept growing.</p>
 </div>
@@ -567,7 +573,7 @@ html{scroll-behavior:smooth}
 <footer class="foot">
 <div class="wrap">
 <div class="foot-in">
-<div class="foot-lock"><img class="foot-logo" src="assets/cc-logo-glass-white.png" alt=""><div><div class="foot-mark">CHASE <b>CONTINENTAL</b></div><div class="foot-sub">Building software that changes the way people work</div></div></div>
+<a href="/" class="foot-lock" style="text-decoration:none;color:inherit"><img class="foot-logo" src="assets/cc-logo-glass-white.png" alt=""><div><div class="foot-mark">CHASE <b>CONTINENTAL</b></div><div class="foot-sub">Building software that changes the way people work</div></div></a>
 <div class="foot-c"><a href="mailto:charles@chaseagents.com">charles@chaseagents.com</a><p>chaseagents.com · Chase Continental (Pty) Ltd · June 2026</p></div>
 </div>
 </div>
