@@ -301,31 +301,23 @@ const LandingPage = () => {
                 ))}
               </div>
 
-              {/* Part of (startup programs) */}
+              {/* Backed by (startup programs) */}
               <div className="mt-12 border-t border-border/40 pt-8">
                 <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-7">
-                  Part of
+                  Backed by
                 </p>
-                <div className="flex flex-wrap items-start justify-center gap-x-14 gap-y-8 md:gap-x-20">
-                  {/* Google for Startups Cloud Program (official identifier lockup) */}
+                <div className="flex flex-wrap items-start justify-center gap-x-16 gap-y-8 md:gap-x-24">
+                  {/* Google Cloud for Startups (official Google Cloud logo) */}
                   <div className="flex flex-col items-center">
                     <div className="flex h-16 md:h-[72px] items-center">
-                      <div className="inline-flex items-end gap-3 md:gap-4">
-                        <img
-                          src="/static/images/google-for-startups-logo.svg"
-                          alt="Google for Startups"
-                          className="h-[30px] md:h-[34px] w-auto"
-                        />
-                        <span className="w-px h-7 md:h-[34px] bg-border" />
-                        <img
-                          src="/static/images/google-cloud-startups-logo.svg"
-                          alt="Cloud Program"
-                          className="h-[46px] md:h-[52px] w-auto -mb-0.5"
-                        />
-                      </div>
+                      <img
+                        src="/static/images/google-cloud-logo.svg"
+                        alt="Google Cloud for Startups"
+                        className="h-[26px] md:h-[30px] w-auto"
+                      />
                     </div>
                     <p className="mt-3 text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
-                      Cloud Program
+                      for Startups
                     </p>
                   </div>
                   {/* Microsoft for Startups Founders Hub (official member badge) */}
@@ -333,7 +325,7 @@ const LandingPage = () => {
                     <div className="flex h-16 md:h-[72px] items-center">
                       <img
                         src="/static/images/ms-startups-badge.png"
-                        alt="Proud to collaborate with Microsoft for Startups"
+                        alt="Microsoft for Startups Founders Hub"
                         className="h-16 md:h-[72px] w-auto rounded-xl"
                       />
                     </div>
