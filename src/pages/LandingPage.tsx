@@ -301,32 +301,46 @@ const LandingPage = () => {
                 ))}
               </div>
 
-              {/* Backed by (startup programs) */}
+              {/* Part of (startup programs) */}
               <div className="mt-12 border-t border-border/40 pt-8">
                 <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-7">
-                  Backed by
+                  Part of
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-x-16">
-                  {/* Google for Startups — Cloud Program (official identifier lockup) */}
-                  <div className="inline-flex items-end gap-3 md:gap-4">
-                    <img
-                      src="/static/images/google-for-startups-logo.svg"
-                      alt="Google for Startups"
-                      className="h-[30px] md:h-[34px] w-auto"
-                    />
-                    <span className="w-px h-7 md:h-[34px] bg-border" />
-                    <img
-                      src="/static/images/google-cloud-startups-logo.svg"
-                      alt="Cloud Program"
-                      className="h-[46px] md:h-[52px] w-auto -mb-0.5"
-                    />
+                <div className="flex flex-wrap items-start justify-center gap-x-14 gap-y-8 md:gap-x-20">
+                  {/* Google for Startups Cloud Program (official identifier lockup) */}
+                  <div className="flex flex-col items-center">
+                    <div className="flex h-16 md:h-[72px] items-center">
+                      <div className="inline-flex items-end gap-3 md:gap-4">
+                        <img
+                          src="/static/images/google-for-startups-logo.svg"
+                          alt="Google for Startups"
+                          className="h-[30px] md:h-[34px] w-auto"
+                        />
+                        <span className="w-px h-7 md:h-[34px] bg-border" />
+                        <img
+                          src="/static/images/google-cloud-startups-logo.svg"
+                          alt="Cloud Program"
+                          className="h-[46px] md:h-[52px] w-auto -mb-0.5"
+                        />
+                      </div>
+                    </div>
+                    <p className="mt-3 text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
+                      Cloud Program
+                    </p>
                   </div>
-                  {/* Microsoft for Startups (official member badge) */}
-                  <img
-                    src="/static/images/ms-startups-badge.png"
-                    alt="Proud to collaborate with Microsoft for Startups"
-                    className="h-16 md:h-[76px] w-auto rounded-xl"
-                  />
+                  {/* Microsoft for Startups Founders Hub (official member badge) */}
+                  <div className="flex flex-col items-center">
+                    <div className="flex h-16 md:h-[72px] items-center">
+                      <img
+                        src="/static/images/ms-startups-badge.png"
+                        alt="Proud to collaborate with Microsoft for Startups"
+                        className="h-16 md:h-[72px] w-auto rounded-xl"
+                      />
+                    </div>
+                    <p className="mt-3 text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
+                      Founders Hub
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
