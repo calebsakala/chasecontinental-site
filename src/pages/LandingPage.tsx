@@ -278,6 +278,7 @@ const LandingPage = () => {
                   { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
                   { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
                   { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
+                  { name: "Datafree", industry: "Connectivity", logo: "/static/images/datafree-logo.png" },
                   { name: "HealthyMe Living", industry: "Wellness", logo: "/static/images/healthymeliving-logo.png" },
                 ].map((partner) => (
                   <div key={partner.name} className="flex flex-col items-center text-center">
