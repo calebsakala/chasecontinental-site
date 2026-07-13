@@ -279,7 +279,7 @@ const LandingPage = () => {
                   { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
                   { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
                   { name: "Datafree", industry: "Connectivity", logo: "/static/images/datafree-logo.png" },
-                  { name: "HealthyMe Living", industry: "Wellness", logo: "/static/images/healthymeliving-logo.png" },
+                  { name: "HealthyMe Living", industry: "E-commerce", logo: "/static/images/healthymeliving-logo.png" },
                 ].map((partner) => (
                   <div key={partner.name} className="flex flex-col items-center text-center">
                     <div className="flex h-10 md:h-11 items-center">
