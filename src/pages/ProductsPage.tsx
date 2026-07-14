@@ -14,7 +14,7 @@ const FEATURED_PRODUCTS = [
     name: "Chase Agents",
     label: "Flagship Product",
     description:
-      "The business standard for agentic AI: the flexibility of AI with the reliability of code. AI plans the work, deterministic actions execute it — every time, the same way, fully observable.",
+      "Reliable AI automation, built for scale: the flexibility of AI with the reliability of code. AI plans the work, deterministic code executes it — every time, the same way, fully observable.",
     ctaLabel: "Try Chase Agents",
     href: "https://chaseagents.com",
   },

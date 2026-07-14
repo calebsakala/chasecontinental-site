@@ -16,11 +16,10 @@ import {
   UserX,
   Bot,
   Link2,
-  Target,
   Compass,
   Users,
   Wrench,
-  BarChart3,
+  Library,
   Truck,
   Headphones,
   ShoppingCart,
@@ -79,45 +78,33 @@ const INDUSTRY_STATS = [
 const WHAT_WE_DO = [
   {
     icon: Compass,
-    title: "Set the AI strategy",
-    description:
-      "We decide where AI belongs and where it doesn't, so effort goes to the work that actually moves the business — not to AI for its own sake.",
+    title: "AI strategy",
+    description: "Where AI belongs, and where it doesn't.",
   },
   {
     icon: Wrench,
-    title: "Give you the right tooling",
-    description:
-      "Deterministic where reliability matters, AI where judgment helps, no lock-in. We fit the tool to the job instead of forcing the job onto a tool.",
+    title: "The right tooling",
+    description: "Deterministic reliability, AI flexibility, no lock-in.",
   },
   {
     icon: Link2,
-    title: "Connect every system you already use",
-    description:
-      "ERP, CRM, databases, spreadsheets, legacy tools: we wire them together so data flows automatically instead of your team moving it by hand.",
+    title: "Connected systems",
+    description: "ERP, CRM, and databases in one live flow.",
   },
   {
     icon: Users,
-    title: "Build digital employees",
-    description:
-      "Agentic automations that handle repetitive tasks 24/7: processing, checking, routing, reporting, without human intervention unless you want it.",
+    title: "Digital employees",
+    description: "Agents that run the repetitive work, around the clock.",
+  },
+  {
+    icon: Library,
+    title: "Institutional knowledge",
+    description: "How your business runs, kept in the system — not in someone's head.",
   },
   {
     icon: ShieldCheck,
-    title: "Reliability built in from day one",
-    description:
-      "Automated error checks, exception queues, and monitoring. When something unexpected happens, the system catches it, not your team three days later.",
-  },
-  {
-    icon: Target,
-    title: "Built for adoption, not IT dependency",
-    description:
-      "Frontline workers use the tools directly. When people leave, the system keeps running: knowledge stays in the workflow, not in someone's head.",
-  },
-  {
-    icon: BarChart3,
-    title: "Measurable outcomes, not promises",
-    description:
-      "Every automation ships with reporting and KPIs. You see exactly what changed, what improved, and where to go next.",
+    title: "Resilience & results",
+    description: "Exception handling, monitoring, and measurable ROI, built in.",
   },
 ];
 
@@ -564,7 +551,7 @@ const LandingPage = () => {
         <section className="relative bg-background px-6 py-16 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-7xl">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
               <Reveal direction="left">
                 <div>
                   <span className="inline-flex items-center rounded-full border border-teal/15 bg-teal/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
@@ -574,39 +561,23 @@ const LandingPage = () => {
                     We don't replace your tools.{" "}
                     <span className="text-teal">We make them 10× more powerful.</span>
                   </h2>
-                  <p className="mt-5 leading-relaxed text-muted-foreground">
-                    From the AI strategy to the right tooling to the automations themselves, we
-                    handle the whole thing. Your tools stay. The manual work disappears. You get
-                    digital employees running inside the platform you already use — reliably,
-                    measurably.
+                  <p className="mt-5 max-w-lg leading-relaxed text-muted-foreground">
+                    From strategy to tooling to the automations themselves, we handle the whole
+                    thing — and the knowledge stays in the system, so it outlasts the team.
                   </p>
-
-                  <ul className="mt-8 space-y-4">
-                    {WHAT_WE_DO.map((s) => (
-                      <li key={s.title} className="flex items-start gap-4">
-                        <span className="mt-0.5 inline-flex shrink-0 rounded-lg bg-teal/10 p-2">
-                          <s.icon className="h-4 w-4 text-teal" />
-                        </span>
-                        <div>
-                          <h4 className="font-heading text-sm font-bold text-foreground">{s.title}</h4>
-                          <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </Reveal>
               <Reveal direction="right" delay={0.1}>
-                <div className="relative flex justify-center lg:sticky lg:top-24">
+                <div className="relative flex justify-center">
                   <motion.img
                     src={heroRobot}
                     alt="Digital employee"
-                    className="w-full max-w-sm drop-shadow-2xl lg:max-w-md"
+                    className="w-full max-w-xs drop-shadow-2xl lg:max-w-sm"
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                   />
                   <motion.div
-                    className="absolute right-2 top-[38%] z-10 flex items-center gap-3 rounded-2xl border border-border bg-background/90 px-4 py-3 shadow-lg backdrop-blur-xl sm:right-6"
+                    className="absolute right-0 top-[36%] z-10 flex items-center gap-3 rounded-2xl border border-border bg-background/90 px-4 py-3 shadow-lg backdrop-blur-xl"
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   >
@@ -620,6 +591,26 @@ const LandingPage = () => {
                   </motion.div>
                 </div>
               </Reveal>
+            </div>
+
+            {/* animated capability cards */}
+            <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {WHAT_WE_DO.map((s, i) => (
+                <Reveal key={s.title} delay={i * 0.07}>
+                  <motion.div
+                    whileHover={{ y: -6 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="group relative h-full overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors duration-300 hover:border-teal/40 hover:shadow-lg"
+                  >
+                    <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-teal/[0.07] opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3 transition-all duration-300 group-hover:bg-teal group-hover:scale-105">
+                      <s.icon className="h-5 w-5 text-teal transition-colors duration-300 group-hover:text-teal-foreground" />
+                    </div>
+                    <h4 className="font-heading text-base font-bold text-foreground">{s.title}</h4>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+                  </motion.div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>
@@ -643,8 +634,8 @@ const LandingPage = () => {
                     The flexibility of AI with the reliability of code.
                   </p>
                   <p className="mt-4 leading-relaxed text-background/70">
-                    The business standard for agentic AI. Define your tools, let AI plan
-                    the work, and deterministic actions execute it. Every time. The same way.
+                    Reliable AI automation, built for scale. Define your tools, let AI plan
+                    the work, and deterministic code execute it. Every time. The same way.
                   </p>
                   <ul className="mt-6 space-y-3">
                     {AGENT_FEATURES.map((f) => (
