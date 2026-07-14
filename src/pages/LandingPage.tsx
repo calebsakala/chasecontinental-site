@@ -278,35 +278,48 @@ const HeroGlow = () => (
 );
 
 const TRUSTED_LOGOS = [
-  { name: "CCID", logo: "/static/images/ccid-logo.svg" },
-  { name: "Heineken", logo: "/static/images/heineken-logo.svg" },
-  { name: "Moya App", logo: "/static/images/moya-logo.png" },
-  { name: "Datafree", logo: "/static/images/datafree-logo.png" },
-  { name: "HealthyMe Living", logo: "/static/images/healthymeliving-logo.png" },
+  { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
+  { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
+  { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
+  { name: "Datafree", industry: "Connectivity", logo: "/static/images/datafree-logo.png" },
+  { name: "HealthyMe Living", industry: "E-commerce", logo: "/static/images/healthymeliving-logo.png" },
 ];
 
-/* Compact trust + backed band that fits at the bottom of the hero,
-   in full colour, with the two groups clearly separated. */
+/* Compact trust + backed band that fits at the bottom of the hero, in full
+   colour, with each logo captioned by industry and the two groups separated. */
 const HeroTrust = () => (
-  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-    <div className="flex flex-col items-center gap-x-7 gap-y-3 sm:flex-row lg:items-center">
-      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Trusted by</span>
-      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+  <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+    <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row lg:items-center">
+      <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Trusted by</span>
+      <div className="flex flex-wrap items-start justify-center gap-x-8 gap-y-4">
         {TRUSTED_LOGOS.map((p) => (
-          <div key={p.name} className="flex h-8 items-center transition-transform duration-300 hover:scale-105">
-            <img src={p.logo} alt={p.name} className="h-full w-auto max-w-[130px] object-contain" />
+          <div key={p.name} className="flex flex-col items-center text-center">
+            <div className="flex h-8 items-center transition-transform duration-300 hover:scale-105">
+              <img src={p.logo} alt={p.name} className="h-full w-auto max-w-[120px] object-contain" />
+            </div>
+            <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">{p.industry}</p>
           </div>
         ))}
       </div>
     </div>
 
-    <div className="hidden h-9 w-px bg-black/10 lg:block" aria-hidden />
+    <div className="hidden h-12 w-px shrink-0 bg-black/10 lg:block" aria-hidden />
 
-    <div className="flex flex-col items-center gap-x-7 gap-y-3 sm:flex-row lg:items-center">
-      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Backed by</span>
-      <div className="flex items-center gap-x-7">
-        <img src="/static/images/google-cloud-logo.svg" alt="Google Cloud for Startups" className="h-6 w-auto" />
-        <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-9 w-auto rounded-lg" />
+    <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row lg:items-center">
+      <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Backed by</span>
+      <div className="flex items-start gap-x-8">
+        <div className="flex flex-col items-center text-center">
+          <div className="flex h-8 items-center">
+            <img src="/static/images/google-cloud-icon.svg" alt="Google Cloud" className="h-7 w-auto" />
+          </div>
+          <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Google Cloud for Startups</p>
+        </div>
+        <div className="flex flex-col items-center text-center">
+          <div className="flex h-8 items-center">
+            <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups" className="h-8 w-auto rounded-md" />
+          </div>
+          <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Microsoft Founders Hub</p>
+        </div>
       </div>
     </div>
   </div>
@@ -321,7 +334,7 @@ const LandingPage = () => {
         {/* ── 1. HERO (copy + image + trust band, all on one screen) ── */}
         <section className="relative flex flex-col overflow-hidden bg-[#e2e2e2] lg:min-h-screen">
           {/* upper region: copy on the left, image on the right */}
-          <div className="relative flex-1">
+          <div className="relative flex flex-1 flex-col justify-center">
             {/* the vision image: full-bleed to the right edge, bottom-anchored */}
             <motion.div
               className="pointer-events-none absolute bottom-0 right-0 top-16 hidden w-[58%] max-w-[1040px] lg:block"
@@ -339,7 +352,7 @@ const LandingPage = () => {
             {/* solid ground under the text so the copy is always crisp */}
             <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-3/5 bg-gradient-to-r from-[#e2e2e2] via-[#e2e2e2] to-transparent lg:block" />
 
-            <div className="relative z-10 mx-auto flex h-full max-w-[90rem] items-center px-6 pt-28 pb-10 lg:pt-24">
+            <div className="relative z-10 mx-auto w-full max-w-[90rem] px-6 pt-28 pb-10 lg:pt-20">
               <div className="w-full lg:max-w-xl">
                 <div className="max-w-xl">
               <motion.div
