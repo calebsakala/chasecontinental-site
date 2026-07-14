@@ -154,14 +154,14 @@ const CASE_STUDIES = [
     featured: false,
     icon: Leaf,
     tag: "Manufacturing",
-    name: "Heineken Sustainability Monitoring",
+    name: "Heineken Glass Bottle Recovery",
     description:
-      "Real-time monitoring and automated reporting across multi-regional operations for a national sustainability programme.",
+      "Digital delivery and reporting for Heineken's circular economy programme: bottle collection, reclaimer earnings, and job creation tracked from the field to a monthly executive dashboard.",
     metrics: [
-      { m: "350+", l: "Jobs created" },
-      { m: "Weekly", l: "Reporting cadence" },
-      { m: "100%", l: "KPIs outperformed" },
       { m: "4", l: "Regions tracked" },
+      { m: "14", l: "KPIs reported monthly" },
+      { m: "18k+", l: "Bottles in month one" },
+      { m: "64.5t", l: "Glass tracked" },
     ],
   },
 ];
@@ -240,13 +240,13 @@ const panelClass =
 const HeroOverlay = () => (
   <div className="pointer-events-none absolute inset-0">
     {/* throughput chart */}
-    <motion.div className={`${panelClass} left-[27%] top-[10%] p-3`} {...drift(5.2, 0, 9)}>
+    <motion.div className={`${panelClass} left-[44%] top-[12%] p-3`} {...drift(5.2, 0, 9)}>
       <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-slate-500">Throughput</p>
       <HeroBars />
     </motion.div>
 
     {/* workflow card */}
-    <motion.div className={`${panelClass} left-[30%] top-[52%] p-3`} {...drift(6.4, 0.8, 7)}>
+    <motion.div className={`${panelClass} left-[45%] top-[56%] p-3`} {...drift(6.4, 0.8, 7)}>
       <div className="flex items-center gap-2">
         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal/15">
           <CheckCircle2 className="h-3.5 w-3.5 text-teal" />
@@ -259,7 +259,7 @@ const HeroOverlay = () => (
     </motion.div>
 
     {/* KPI card */}
-    <motion.div className={`${panelClass} left-[58%] top-[5%] px-4 py-3 text-center`} {...drift(4.6, 0.4, 10)}>
+    <motion.div className={`${panelClass} left-[72%] top-[6%] px-4 py-3 text-center`} {...drift(4.6, 0.4, 10)}>
       <motion.p
         className="font-heading text-lg font-extrabold leading-none text-slate-800"
         animate={{ scale: [1, 1.04, 1] }}
@@ -271,7 +271,7 @@ const HeroOverlay = () => (
     </motion.div>
 
     {/* status chip */}
-    <motion.div className={`${panelClass} left-[68%] top-[64%] flex items-center gap-2 px-3 py-2`} {...drift(5.8, 1.2, 8)}>
+    <motion.div className={`${panelClass} left-[66%] top-[68%] flex items-center gap-2 px-3 py-2`} {...drift(5.8, 1.2, 8)}>
       <span className="relative flex h-2 w-2">
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-70" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
@@ -284,17 +284,17 @@ const HeroOverlay = () => (
 
     {/* drifting glow accents */}
     <motion.div
-      className="absolute left-[48%] top-[38%] h-3 w-3 rounded-full bg-amber-400/60 blur-[2px]"
+      className="absolute left-[56%] top-[38%] h-3 w-3 rounded-full bg-amber-400/60 blur-[2px]"
       animate={{ y: [0, -14, 0], opacity: [0.35, 0.8, 0.35] }}
       transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
     />
     <motion.div
-      className="absolute left-[55%] top-[58%] h-2 w-2 rounded-full bg-teal/60 blur-[1px]"
+      className="absolute left-[60%] top-[58%] h-2 w-2 rounded-full bg-teal/60 blur-[1px]"
       animate={{ y: [0, -10, 0], opacity: [0.3, 0.7, 0.3] }}
       transition={{ duration: 6.2, delay: 1, repeat: Infinity, ease: "easeInOut" }}
     />
     <motion.div
-      className="absolute left-[40%] top-[24%] h-2.5 w-2.5 rounded-full bg-orange-400/50 blur-[2px]"
+      className="absolute left-[50%] top-[24%] h-2.5 w-2.5 rounded-full bg-orange-400/50 blur-[2px]"
       animate={{ y: [0, -12, 0], opacity: [0.3, 0.75, 0.3] }}
       transition={{ duration: 5.6, delay: 0.5, repeat: Infinity, ease: "easeInOut" }}
     />
@@ -306,38 +306,54 @@ const HeroVisual = ({ className = "" }: { className?: string }) => (
     <img
       src={heroVision}
       alt="Operator with an augmented view of connected business systems"
-      className="h-full w-full object-cover"
+      className="h-full w-full object-cover [mask-image:linear-gradient(to_right,transparent_0%,black_26%)]"
     />
     <HeroOverlay />
   </div>
 );
 
 const TrustedRow = () => (
-  <div className="border-t border-border/60 pt-10">
-    <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-      Trusted by teams in government, manufacturing, and technology
-    </p>
-    <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 md:gap-x-14">
-      {[
-        { name: "CCID", logo: "/static/images/ccid-logo.svg" },
-        { name: "Heineken", logo: "/static/images/heineken-logo.svg" },
-        { name: "Moya App", logo: "/static/images/moya-logo.png" },
-        { name: "Datafree", logo: "/static/images/datafree-logo.png" },
-        { name: "HealthyMe Living", logo: "/static/images/healthymeliving-logo.png" },
-      ].map((partner) => (
-        <div
-          key={partner.name}
-          className="flex h-9 items-center opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 md:h-10"
-        >
-          <img src={partner.logo} alt={partner.name} className="h-full w-auto max-w-[150px] object-contain" />
+  <div className="border-t border-border/60 pt-12">
+    <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-stretch lg:justify-between lg:gap-10">
+      <div className="flex flex-col items-center lg:items-start">
+        <p className="mb-7 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Trusted by</p>
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 lg:justify-start">
+          {[
+            { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
+            { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
+            { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
+            { name: "Datafree", industry: "Connectivity", logo: "/static/images/datafree-logo.png" },
+            { name: "HealthyMe Living", industry: "E-commerce", logo: "/static/images/healthymeliving-logo.png" },
+          ].map((partner) => (
+            <div key={partner.name} className="flex flex-col items-center text-center">
+              <div className="flex h-9 items-center transition-transform duration-300 hover:scale-105 md:h-10">
+                <img src={partner.logo} alt={partner.name} className="h-full w-auto max-w-[150px] object-contain" />
+              </div>
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">{partner.industry}</p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-    <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Backed by</p>
-      <div className="flex items-center gap-x-8">
-        <img src="/static/images/google-cloud-logo.svg" alt="Google Cloud for Startups" className="h-6 w-auto opacity-80" />
-        <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-12 w-auto rounded-lg opacity-90" />
+      </div>
+
+      <div className="hidden w-px self-stretch bg-border/70 lg:block" aria-hidden />
+      <div className="h-px w-24 bg-border/70 lg:hidden" aria-hidden />
+
+      <div className="flex flex-col items-center lg:items-start">
+        <p className="mb-7 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Backed by</p>
+        <div className="flex items-center gap-x-8">
+          <div className="flex flex-col items-center">
+            <div className="flex h-9 items-center md:h-10">
+              <img src="/static/images/google-cloud-logo.svg" alt="Google Cloud for Startups" className="h-6 w-auto md:h-7" />
+            </div>
+            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">for Startups</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="flex h-9 items-center md:h-10">
+              <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-9 w-auto rounded-lg md:h-10" />
+            </div>
+            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Founders Hub</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -379,13 +395,14 @@ const LandingPage = () => {
               </motion.h1>
 
               <motion.p
-                className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 md:text-lg"
+                className="mt-6 max-w-lg text-base leading-relaxed text-slate-700 md:text-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                From flagship AI products to custom automations, we ship reliable
-                systems your operators can trust every day.
+                Growth shouldn't require more manual work. For organisations ready
+                to scale, we build reliable AI systems that unlock efficiency and
+                take operations to the next stage.
               </motion.p>
 
               <motion.div
@@ -456,7 +473,7 @@ const LandingPage = () => {
             <Reveal>
               <div className="max-w-2xl">
                 <span className="inline-flex items-center rounded-full border border-destructive/20 bg-destructive/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-destructive">
-                  Sound Familiar?
+                  Does this sound like you?
                 </span>
                 <h2 className="mt-6 text-foreground">
                   Your tools don't talk to each other.{" "}
@@ -555,7 +572,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 5. FLAGSHIP PRODUCT: CHASE AGENTS ── */}
-        <section id="products" className="bg-foreground px-6 py-16 md:py-20">
+        <section id="products" className="scroll-mt-16 bg-foreground px-6 py-16 md:py-20">
           <div className="mx-auto max-w-6xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal direction="left">
@@ -604,7 +621,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 6. PROOF: IMPACT + CASE STUDIES ── */}
-        <section id="results" className="relative bg-background px-6 py-16 md:py-20">
+        <section id="results" className="relative scroll-mt-16 bg-background px-6 py-16 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
@@ -783,8 +800,8 @@ const LandingPage = () => {
                 <span className="text-teal">slowing your team down?</span>
               </h2>
               <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-background/60">
-                Start with a focused pilot. We'll identify the best workflow to automate
-                first and show you a clear path to implementation.
+                Start with a focused pilot. We'll find the workflow holding back your
+                growth and show you a clear path to automating it.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Button
