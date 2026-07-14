@@ -100,6 +100,33 @@ const WHAT_WE_DO = [
   },
 ];
 
+const PROCESS = [
+  {
+    n: "01",
+    title: "Understand the business",
+    description:
+      "Before a single tool is chosen, we map your operation end to end: the processes, the context, where data originates and moves, and where human judgment actually matters.",
+  },
+  {
+    n: "02",
+    title: "Map value & redesign the process",
+    description:
+      "We fix the process before we automate it. Every workflow is mapped from first brief to final delivery, then prioritised by where automation creates the most value.",
+  },
+  {
+    n: "03",
+    title: "Structure the information",
+    description:
+      "We get your data and knowledge foundations right. The limiting factor is rarely the technology — it's whether the business is structured to support automation at all.",
+  },
+  {
+    n: "04",
+    title: "Build, deploy & measure",
+    description:
+      "Only now does technology enter: the smallest automation at the biggest bottleneck, tested against live work, scaled once it's reliable, and reported at every layer.",
+  },
+];
+
 const AGENT_FEATURES = [
   "Connect to any API, database, or internal system. You control the scope.",
   "AI plans the work, deterministic actions execute it: zero hallucinations.",
@@ -207,108 +234,25 @@ const SectionRule = () => (
   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 );
 
-/* ── Hero overlay: live panels floating over the vision image.
-   The person stays still; everything layered on top moves. ── */
-
-const drift = (duration: number, delay = 0, distance = 8) => ({
-  animate: { y: [0, -distance, 0] },
-  transition: { duration, delay, repeat: Infinity, ease: "easeInOut" as const },
-});
-
-const HeroBars = () => (
-  <div className="flex h-9 items-end gap-1">
-    {[
-      { s: [0.4, 0.9, 0.4], d: 2.6, delay: 0 },
-      { s: [0.65, 1, 0.65], d: 3.1, delay: 0.3 },
-      { s: [0.35, 0.75, 0.35], d: 2.8, delay: 0.6 },
-      { s: [0.75, 1, 0.75], d: 3.4, delay: 0.2 },
-      { s: [0.5, 0.95, 0.5], d: 2.9, delay: 0.5 },
-    ].map((bar, i) => (
-      <motion.div
-        key={i}
-        className={`h-9 w-1.5 origin-bottom rounded-sm ${i % 2 ? "bg-teal/70" : "bg-amber-500/70"}`}
-        animate={{ scaleY: bar.s }}
-        transition={{ duration: bar.d, delay: bar.delay, repeat: Infinity, ease: "easeInOut" }}
-      />
-    ))}
-  </div>
-);
-
-const panelClass =
-  "absolute rounded-xl border border-white/70 bg-white/60 shadow-[0_8px_30px_rgba(15,23,42,0.10)] backdrop-blur-md";
-
-const HeroOverlay = () => (
-  <div className="pointer-events-none absolute inset-0">
-    {/* throughput chart */}
-    <motion.div className={`${panelClass} left-[44%] top-[12%] p-3`} {...drift(5.2, 0, 9)}>
-      <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-slate-500">Throughput</p>
-      <HeroBars />
-    </motion.div>
-
-    {/* workflow card */}
-    <motion.div className={`${panelClass} left-[45%] top-[56%] p-3`} {...drift(6.4, 0.8, 7)}>
-      <div className="flex items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal/15">
-          <CheckCircle2 className="h-3.5 w-3.5 text-teal" />
-        </span>
-        <div>
-          <p className="text-[10px] font-bold text-slate-700">Invoice #2841 matched</p>
-          <p className="text-[9px] text-slate-500">Posted to ERP · 0 exceptions</p>
-        </div>
-      </div>
-    </motion.div>
-
-    {/* KPI card */}
-    <motion.div className={`${panelClass} left-[72%] top-[6%] px-4 py-3 text-center`} {...drift(4.6, 0.4, 10)}>
-      <motion.p
-        className="font-heading text-lg font-extrabold leading-none text-slate-800"
-        animate={{ scale: [1, 1.04, 1] }}
-        transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        10.4×
-      </motion.p>
-      <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">Productivity</p>
-    </motion.div>
-
-    {/* status chip */}
-    <motion.div className={`${panelClass} left-[66%] top-[68%] flex items-center gap-2 px-3 py-2`} {...drift(5.8, 1.2, 8)}>
-      <span className="relative flex h-2 w-2">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-70" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
-      </span>
-      <div>
-        <p className="text-[9px] font-medium text-slate-500">System Status</p>
-        <p className="text-[10px] font-bold text-slate-700">Automation Active</p>
-      </div>
-    </motion.div>
-
-    {/* drifting glow accents */}
+/* ── Hero glow: a soft, living light over the augmented screens.
+   No floating cards — just the image, made to feel alive. ── */
+const HeroGlow = () => (
+  <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen">
     <motion.div
-      className="absolute left-[56%] top-[38%] h-3 w-3 rounded-full bg-amber-400/60 blur-[2px]"
-      animate={{ y: [0, -14, 0], opacity: [0.35, 0.8, 0.35] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute left-[12%] top-[16%] h-[46%] w-[58%] rounded-full bg-teal/25 blur-3xl"
+      animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.06, 1] }}
+      transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
     />
     <motion.div
-      className="absolute left-[60%] top-[58%] h-2 w-2 rounded-full bg-teal/60 blur-[1px]"
-      animate={{ y: [0, -10, 0], opacity: [0.3, 0.7, 0.3] }}
-      transition={{ duration: 6.2, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute left-[20%] top-[26%] h-[34%] w-[40%] rounded-full bg-amber-400/25 blur-3xl"
+      animate={{ opacity: [0.25, 0.6, 0.25], scale: [1.05, 1, 1.05] }}
+      transition={{ duration: 6.5, delay: 0.8, repeat: Infinity, ease: "easeInOut" }}
     />
     <motion.div
-      className="absolute left-[50%] top-[24%] h-2.5 w-2.5 rounded-full bg-orange-400/50 blur-[2px]"
-      animate={{ y: [0, -12, 0], opacity: [0.3, 0.75, 0.3] }}
-      transition={{ duration: 5.6, delay: 0.5, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute left-[8%] top-[44%] h-[26%] w-[34%] rounded-full bg-orange-400/20 blur-3xl"
+      animate={{ opacity: [0.2, 0.5, 0.2] }}
+      transition={{ duration: 7, delay: 1.4, repeat: Infinity, ease: "easeInOut" }}
     />
-  </div>
-);
-
-const HeroVisual = ({ className = "" }: { className?: string }) => (
-  <div className={`relative aspect-[1360/752] ${className}`}>
-    <img
-      src={heroVision}
-      alt="Operator with an augmented view of connected business systems"
-      className="h-full w-full object-cover [mask-image:linear-gradient(to_right,transparent_0%,black_26%)]"
-    />
-    <HeroOverlay />
   </div>
 );
 
@@ -366,9 +310,30 @@ const LandingPage = () => {
 
       <main>
         {/* ── 1. HERO ── */}
-        <section className="relative overflow-hidden bg-[#e2e2e2]">
-          <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-16 lg:min-h-[86vh] lg:content-center">
-            <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        <section className="relative overflow-hidden bg-[#e2e2e2] lg:min-h-[92vh]">
+          {/* the vision image: bigger, anchored to the bottom of the section */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 top-16 hidden lg:block">
+            <div className="relative mx-auto h-full max-w-[90rem]">
+              <motion.div
+                className="absolute bottom-0 right-0 h-full w-[62%]"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <img
+                  src={heroVision}
+                  alt="Operator with an augmented view of connected business systems"
+                  className="h-full w-full object-cover object-[right_bottom]"
+                />
+                <HeroGlow />
+              </motion.div>
+            </div>
+          </div>
+          {/* solid ground under the text so the copy is always crisp */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-3/5 bg-gradient-to-r from-[#e2e2e2] via-[#e2e2e2] to-transparent lg:block" />
+
+          <div className="relative z-10 mx-auto max-w-[90rem] px-6 pt-28 pb-16 lg:flex lg:min-h-[92vh] lg:items-center">
+            <div className="w-full lg:max-w-xl">
               <div className="max-w-xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -447,13 +412,19 @@ const LandingPage = () => {
               </motion.div>
               </div>
 
-              {/* the vision image: person stays still, the layers move */}
+              {/* mobile: the same image, in flow below the copy */}
               <motion.div
+                className="relative mt-12 overflow-hidden rounded-2xl lg:hidden"
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                <HeroVisual className="overflow-hidden rounded-2xl lg:rounded-none" />
+                <img
+                  src={heroVision}
+                  alt="Operator with an augmented view of connected business systems"
+                  className="w-full"
+                />
+                <HeroGlow />
               </motion.div>
             </div>
           </div>
@@ -520,8 +491,56 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* ── 4. WHAT WE ACTUALLY DO ── */}
+        {/* ── 4. HOW WE WORK (PROCESS) ── */}
         <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-6xl">
+            <Reveal>
+              <div className="mx-auto max-w-3xl text-center">
+                <span className="inline-flex items-center rounded-full border border-teal/15 bg-teal/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
+                  How We Work
+                </span>
+                <h2 className="mt-6 text-foreground">
+                  We don't start with technology.{" "}
+                  <span className="text-teal">We start with your business.</span>
+                </h2>
+                <p className="mt-5 leading-relaxed text-muted-foreground">
+                  Most AI projects fail because the tools get chosen before the problem is
+                  understood. We do it the other way around: understand the business, fix the
+                  process, structure the information, and only then automate. We don't just sell
+                  you technology — we help you get the whole thing right.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {PROCESS.map((step, i) => (
+                <Reveal key={step.n} delay={i * 0.08}>
+                  <div className="group relative h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
+                    <div className="flex items-center gap-3">
+                      <span className="font-heading text-3xl font-extrabold text-teal">{step.n}</span>
+                      {i < PROCESS.length - 1 && (
+                        <span className="hidden h-px flex-1 bg-gradient-to-r from-teal/40 to-transparent lg:block" aria-hidden />
+                      )}
+                    </div>
+                    <h4 className="mt-4 font-heading text-base font-bold text-foreground">{step.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal delay={0.1}>
+              <p className="mx-auto mt-10 max-w-2xl text-center text-sm font-medium text-foreground">
+                The limiting factor is rarely the technology. It's whether the business has
+                structured its processes and knowledge to support automation in the first place.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── 5. WHAT WE ACTUALLY DO ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-7xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -535,15 +554,28 @@ const LandingPage = () => {
                     <span className="text-teal">We make them 10× more powerful.</span>
                   </h2>
                   <p className="mt-5 leading-relaxed text-muted-foreground">
-                    We install automation that connects your existing systems into one
-                    coordinated flow. Your tools stay. The manual work disappears. You
-                    get digital employees and agentic automations running inside your
-                    current platform: reliably, measurably.
+                    We connect your existing systems into one coordinated flow. Your tools stay.
+                    The manual work disappears. You get digital employees running inside the
+                    platform you already use — reliably, measurably.
                   </p>
+
+                  <ul className="mt-8 space-y-4">
+                    {WHAT_WE_DO.map((s) => (
+                      <li key={s.title} className="flex items-start gap-4">
+                        <span className="mt-0.5 inline-flex shrink-0 rounded-lg bg-teal/10 p-2">
+                          <s.icon className="h-4 w-4 text-teal" />
+                        </span>
+                        <div>
+                          <h4 className="font-heading text-sm font-bold text-foreground">{s.title}</h4>
+                          <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </Reveal>
               <Reveal direction="right" delay={0.1}>
-                <div className="relative flex justify-center">
+                <div className="relative flex justify-center lg:sticky lg:top-24">
                   <motion.img
                     src={heroRobot}
                     alt="Digital employee"
@@ -553,20 +585,6 @@ const LandingPage = () => {
                   />
                 </div>
               </Reveal>
-            </div>
-
-            <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {WHAT_WE_DO.map((s, i) => (
-                <Reveal key={s.title} delay={i * 0.06}>
-                  <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
-                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3 transition-colors group-hover:bg-teal/15">
-                      <s.icon className="h-5 w-5 text-teal" />
-                    </div>
-                    <h4 className="mb-2 font-heading text-base font-bold text-foreground">{s.title}</h4>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{s.description}</p>
-                  </div>
-                </Reveal>
-              ))}
             </div>
           </div>
         </section>
