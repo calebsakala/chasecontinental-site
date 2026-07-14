@@ -43,68 +43,36 @@ import industryAutomation from "@/assets/industry-automation.jpg";
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const CHASE_AGENTS_URL = "https://chaseagents.com";
 
-const HERO_CHIPS = [
-  "Measurable outcomes",
-  "Complete visibility",
-  "Enterprise-grade reliability",
-];
+const HERO_CHIPS = ["Measurable outcomes", "Complete visibility", "Enterprise-grade reliability"];
 
 const RESULTS = [
-  { metric: "100+", label: "Business workflows automated" },
-  { metric: "30+", label: "Countries with active deployments" },
-  { metric: "90%", label: "Reduction in manual processing time" },
-  { metric: "10.4×", label: "Productivity improvement" },
-  { metric: "<$5", label: "Operational cost per automation, monthly, at scale" },
+  { metric: "100+", label: "Workflows automated" },
+  { metric: "30+", label: "Countries deployed" },
+  { metric: "90%", label: "Less manual processing" },
+  { metric: "10.4×", label: "Productivity gain" },
+  { metric: "<$5", label: "Monthly cost per automation" },
 ];
 
 const PROBLEMS = [
-  {
-    icon: Unplug,
-    title: "Disconnected Systems",
-    desc: "Your CRM, ERP, spreadsheets, and internal tools operate independently, forcing people to become the integration layer.",
-  },
-  {
-    icon: Copy,
-    title: "Manual Operations",
-    desc: "Employees repeatedly copy information between systems, introducing delays, inconsistencies, and avoidable errors.",
-  },
-  {
-    icon: EyeOff,
-    title: "Limited Visibility",
-    desc: "Critical information arrives too late, making decisions reactive instead of operationally informed.",
-  },
-  {
-    icon: Bot,
-    title: "AI That Creates More Work",
-    desc: "Copilots and chatbots need constant human instruction. If someone must prompt it to act, the tool hasn't solved the problem. It has added one.",
-  },
+  { icon: Unplug, title: "Disconnected Systems", desc: "CRM, ERP, and spreadsheets run in isolation. People become the integration layer." },
+  { icon: Copy, title: "Manual Operations", desc: "Teams re-key data between systems, adding delays and errors." },
+  { icon: EyeOff, title: "Limited Visibility", desc: "Information arrives too late. Decisions turn reactive." },
+  { icon: Bot, title: "AI That Creates More Work", desc: "Copilots need constant prompting. If you must ask it to act, it added work." },
 ];
 
 const SOLUTIONS = [
-  { icon: Link2, title: "Connect Every System", desc: "ERP, CRM, APIs, databases, spreadsheets, and legacy platforms, wired into one flow." },
-  { icon: Users, title: "Digital Employees", desc: "AI agents perform repetitive operational work around the clock." },
-  { icon: ShieldCheck, title: "Reliability First", desc: "Deterministic execution with automated validation and exception handling." },
-  { icon: SlidersHorizontal, title: "Human Control", desc: "Run autonomously, require approvals, or keep humans involved wherever needed." },
-  { icon: BarChart3, title: "Built-In Measurement", desc: "Every automation includes monitoring, reporting, and measurable ROI." },
-  { icon: Library, title: "Institutional Knowledge", desc: "Every engagement produces a structured knowledge base of taxonomy, process logic, and reusable components. The asset outlasts the tools, the models, and any individual team member." },
+  { icon: Link2, title: "Connect Every System", desc: "ERP, CRM, APIs, databases, and legacy tools in one flow." },
+  { icon: Users, title: "Digital Employees", desc: "AI agents run repetitive operational work around the clock." },
+  { icon: ShieldCheck, title: "Reliability First", desc: "Deterministic execution with validation and exception handling." },
+  { icon: SlidersHorizontal, title: "Human Control", desc: "Autonomous, approval-gated, or human-in-the-loop. Your call." },
+  { icon: BarChart3, title: "Built-In Measurement", desc: "Monitoring, reporting, and measurable ROI in every automation." },
+  { icon: Library, title: "Institutional Knowledge", desc: "A knowledge base of process logic and reusable components. It outlasts the tools and the team." },
 ];
 
 const PHASES = [
-  {
-    n: "01",
-    title: "Diagnostic Framing",
-    desc: "Map the operation end to end. Identify where judgment is genuinely required versus where people are doing mechanical work that logic can handle. The critical path becomes the build plan.",
-  },
-  {
-    n: "02",
-    title: "Intervention Classification",
-    desc: "Every intervention is classified before anything is built, so the right tool is matched to the right task.",
-  },
-  {
-    n: "03",
-    title: "Precision Intervention",
-    desc: "Build the minimum viable automation at the highest-value bottleneck. Measure, then expand. We never rebuild a workflow from scratch. We insert into it.",
-  },
+  { n: "01", title: "Diagnostic Framing", desc: "Map the operation end to end. Separate real judgment from mechanical work. The critical path becomes the build plan." },
+  { n: "02", title: "Intervention Classification", desc: "Every intervention is classified before we build, so the right tool fits the right task." },
+  { n: "03", title: "Precision Intervention", desc: "Build the smallest automation at the biggest bottleneck. Measure, then expand. We insert into workflows, never rebuild them." },
 ];
 
 const ARCH_FLOW = [
@@ -129,19 +97,19 @@ const INDUSTRIES = [
 ];
 
 const WHY = [
-  { icon: Bot, title: "AI Must Not Create Work", desc: "If someone must prompt it to act, the system isn't finished. We design automation that observes, decides, and executes without human instruction, by default." },
-  { icon: ShieldCheck, title: "Production Ready", desc: "Designed for real operational environments from day one." },
-  { icon: Cpu, title: "Reliable AI", desc: "AI plans. Deterministic systems execute. The things that must be right, always are." },
-  { icon: Eye, title: "Observable", desc: "Every workflow is measurable and fully traceable." },
-  { icon: GitBranch, title: "Model-Independent", desc: "No vendor lock-in. Automations run across AI providers. When models change, and they will, your operations don't." },
-  { icon: Target, title: "Business Outcomes", desc: "Every deployment starts with a measurable operational baseline and ends with a documented result." },
+  { icon: Bot, title: "AI Must Not Create Work", desc: "If you must prompt it, it isn't finished. Our systems observe, decide, and act on their own." },
+  { icon: ShieldCheck, title: "Production Ready", desc: "Built for real operations from day one." },
+  { icon: Cpu, title: "Reliable AI", desc: "AI plans. Deterministic systems execute. What must be right, is." },
+  { icon: Eye, title: "Observable", desc: "Every workflow is measurable and traceable." },
+  { icon: GitBranch, title: "Model-Independent", desc: "No lock-in. When models change, your operations don't." },
+  { icon: Target, title: "Business Outcomes", desc: "Start with a baseline. End with a documented result." },
 ];
 
 const TEAM = [
   {
     name: "Charles K. Chirongoma",
     role: "CEO · Product-led Transformation",
-    bio: "Charles builds systems that make organisations run better. His background spans economics, data, and industrial development across complex, multi-regional environments. He focuses on turning slow, manual operations into faster, measurable execution.",
+    bio: "Charles builds systems that make organisations run better, across economics, data, and industrial development. He turns slow, manual operations into fast, measurable execution.",
     image: "/static/images/team/charles.png",
     linkedin: "https://www.linkedin.com/in/charles-k-chirongoma-41327716b/",
     twitter: "https://x.com/tue_sday",
@@ -149,7 +117,7 @@ const TEAM = [
   {
     name: "Caleb Sakala",
     role: "CTO · Product & Engineering",
-    bio: "Caleb is a product and engineering leader who has delivered software and AI initiatives across the US, Brazil, and Cyprus. He builds high-quality systems that perform reliably in real-world business conditions. His focus is production reliability at scale.",
+    bio: "Caleb has shipped software and AI across the US, Brazil, and Cyprus. He builds systems that stay reliable in real business conditions.",
     image: "/static/images/team/caleb.jpg",
     linkedin: "https://www.linkedin.com/in/calebsakala",
     twitter: "https://x.com/bytecaleb",
@@ -162,9 +130,7 @@ const SectionRule = () => (
 
 const TrustedRow = () => (
   <div className="mt-20 border-t border-border/60 pt-10">
-    <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">
-      Trusted by
-    </p>
+    <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">Trusted by</p>
     <div className="flex flex-wrap items-end justify-center gap-x-12 gap-y-8 md:gap-x-16">
       {[
         { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
@@ -177,17 +143,12 @@ const TrustedRow = () => (
           <div className="flex h-10 md:h-11 items-center opacity-80 transition-opacity hover:opacity-100">
             <img src={partner.logo} alt={partner.name} className="h-full w-auto max-w-[170px] object-contain" />
           </div>
-          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mt-2">
-            {partner.industry}
-          </p>
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mt-2">{partner.industry}</p>
         </div>
       ))}
     </div>
-
     <div className="mt-12 border-t border-border/40 pt-8">
-      <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-7">
-        Backed by
-      </p>
+      <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-7">Backed by</p>
       <div className="flex flex-wrap items-start justify-center gap-x-16 gap-y-8 md:gap-x-24">
         <div className="flex flex-col items-center">
           <div className="flex h-16 md:h-[72px] items-center">
@@ -229,15 +190,13 @@ const LandingPage = () => {
                 </motion.h1>
 
                 <motion.p
-                  className="mt-6 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed"
+                  className="mt-6 max-w-md text-base md:text-lg text-muted-foreground leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  We design and build reliable AI systems that automate operations,
-                  connect business software, and help teams execute faster, with
-                  measurable outcomes, complete visibility, and enterprise-grade
-                  reliability.
+                  Reliable AI systems that automate operations and connect the software your
+                  business already runs on.
                 </motion.p>
 
                 <motion.p
@@ -311,11 +270,7 @@ const LandingPage = () => {
                     <p className="text-xs font-bold text-foreground">Automation Active</p>
                   </div>
                 </motion.div>
-                <img
-                  src={heroRobot}
-                  alt="AI automation assistant"
-                  className="w-full max-w-md lg:max-w-lg xl:max-w-xl drop-shadow-2xl"
-                />
+                <img src={heroRobot} alt="AI automation assistant" className="w-full max-w-md lg:max-w-lg xl:max-w-xl drop-shadow-2xl" />
               </motion.div>
             </div>
 
@@ -335,19 +290,13 @@ const LandingPage = () => {
               {RESULTS.map((r, i) => (
                 <Reveal key={r.label} delay={i * 0.06}>
                   <div className="h-full rounded-2xl border border-background/10 bg-background/[0.04] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-background/[0.07]">
-                    <span className="font-heading text-3xl md:text-[2.5rem] font-extrabold leading-none text-teal">
-                      {r.metric}
-                    </span>
-                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.1em] leading-relaxed text-background/55">
-                      {r.label}
-                    </p>
+                    <span className="font-heading text-3xl md:text-[2.5rem] font-extrabold leading-none text-teal">{r.metric}</span>
+                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.1em] leading-relaxed text-background/55">{r.label}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
-            <p className="mt-8 text-center text-xs text-background/40">
-              Measured across client engagements and production deployments.
-            </p>
+            <p className="mt-8 text-center text-xs text-background/40">Across client engagements and production deployments.</p>
           </div>
         </section>
 
@@ -356,32 +305,27 @@ const LandingPage = () => {
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="max-w-3xl">
+              <div className="max-w-2xl">
                 <span className="inline-flex items-center rounded-full bg-destructive/10 border border-destructive/20 px-4 py-1.5 text-xs font-semibold text-destructive tracking-wide">
                   The Real Problem
                 </span>
                 <h2 className="mt-6 text-foreground">
-                  Most companies don't have an AI problem.{" "}
-                  <span className="text-teal">They have an operations problem.</span>
+                  It's not an AI problem.{" "}
+                  <span className="text-teal">It's an operations problem.</span>
                 </h2>
                 <p className="mt-6 text-muted-foreground leading-relaxed">
-                  AI isn't failing because the models aren't good enough. It's failing
-                  because business systems don't communicate, manual work fills the gaps,
-                  and every exception requires another person to intervene.
-                </p>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  The result is slower execution, hidden costs, inconsistent decisions,
-                  and teams spending more time moving information than creating value.
-                  Most AI pilots make this worse. They create a new class of work:
-                  prompting, checking, correcting, and rerunning.
+                  AI doesn't fail because the models are weak. It fails because your systems
+                  don't talk to each other, manual work fills the gaps, and every exception
+                  needs a person. Most pilots make it worse: they add prompting, checking,
+                  correcting, and rerunning.
                 </p>
               </div>
             </Reveal>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {PROBLEMS.map((p, i) => (
                 <Reveal key={p.title} delay={i * 0.08}>
-                  <div className="group h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-destructive/25 hover:shadow-md">
+                  <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-destructive/25 hover:shadow-md">
                     <div className="mb-4 inline-flex rounded-xl bg-destructive/10 p-3 transition-colors group-hover:bg-destructive/15">
                       <p.icon className="h-5 w-5 text-destructive" />
                     </div>
@@ -401,11 +345,7 @@ const LandingPage = () => {
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal direction="left">
                 <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
-                  <img
-                    src={industryAutomation}
-                    alt="AI-powered operational automation across a modern facility"
-                    className="w-full h-auto"
-                  />
+                  <img src={industryAutomation} alt="AI-powered operational automation" className="w-full h-auto" />
                 </div>
               </Reveal>
               <Reveal direction="right" delay={0.1}>
@@ -414,15 +354,13 @@ const LandingPage = () => {
                     Our Solution
                   </span>
                   <h2 className="mt-6 text-foreground">
-                    We turn disconnected operations into{" "}
-                    <span className="text-teal">one intelligent system.</span>
+                    One intelligent system, from{" "}
+                    <span className="text-teal">disconnected operations.</span>
                   </h2>
                   <p className="mt-5 text-muted-foreground leading-relaxed">
-                    We don't replace your existing software. We connect it, then automate
-                    the work happening between every application, approval, report,
-                    spreadsheet, email, and database. The result is an organisation that
-                    executes faster while remaining completely observable and under your
-                    control.
+                    We don't replace your software. We connect it, then automate the work
+                    between every app, approval, report, and database. Everything stays
+                    observable and under your control.
                   </p>
                   <p className="mt-4 font-medium text-foreground leading-relaxed">
                     The system knows when to act. Nobody has to tell it to.
@@ -434,7 +372,7 @@ const LandingPage = () => {
             <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {SOLUTIONS.map((s, i) => (
                 <Reveal key={s.title} delay={i * 0.06}>
-                  <div className="group h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
+                  <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
                     <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3 transition-colors group-hover:bg-teal/15">
                       <s.icon className="h-5 w-5 text-teal" />
                     </div>
@@ -452,13 +390,11 @@ const LandingPage = () => {
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="max-w-3xl">
+              <div className="max-w-2xl">
                 <span className="inline-flex items-center rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">
                   How We Work
                 </span>
-                <h2 className="mt-6 text-foreground">
-                  A methodology built for operational environments.
-                </h2>
+                <h2 className="mt-6 text-foreground">A methodology built for operations.</h2>
                 <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
                   We don't start with AI. We start with the workflow.
                 </p>
@@ -471,9 +407,7 @@ const LandingPage = () => {
                   <div className="h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                     <div className="flex items-center gap-3">
                       <span className="font-heading text-2xl font-extrabold text-teal">{phase.n}</span>
-                      <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                        Phase {phase.n.replace(/^0/, "")}
-                      </span>
+                      <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">Phase {phase.n.replace(/^0/, "")}</span>
                     </div>
                     <h4 className="mt-4 font-heading text-lg font-bold text-foreground">{phase.title}</h4>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{phase.desc}</p>
@@ -484,9 +418,7 @@ const LandingPage = () => {
 
             <Reveal delay={0.1}>
               <div className="mt-8">
-                <p className="mb-5 text-sm font-semibold text-foreground">
-                  Phase 2: every intervention is classified before anything is built.
-                </p>
+                <p className="mb-5 text-sm font-semibold text-foreground">Phase 2: classify before you build.</p>
                 <InterventionMatrix />
               </div>
             </Reveal>
@@ -497,23 +429,19 @@ const LandingPage = () => {
         <section id="products" className="bg-foreground py-16 md:py-20 px-6">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="max-w-3xl">
+              <div className="max-w-2xl">
                 <span className="inline-flex items-center rounded-full bg-teal/10 border border-teal/20 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">
                   Enterprise Automation Platform
                 </span>
                 <h2 className="mt-6 text-background">Powered by Chase Agents.</h2>
                 <p className="mt-5 text-background/70 leading-relaxed">
-                  Every solution we deliver runs on Chase Agents, our enterprise automation
-                  platform designed for reliability at scale. AI determines the best
-                  approach. Deterministic workflows execute the work. Every action is
-                  observable, traceable, and measurable.
+                  Every solution runs on Chase Agents, built for reliability at scale. AI plans
+                  the approach. Deterministic workflows do the work. Every action is observable
+                  and measurable.
                 </p>
                 <p className="mt-4 text-background/70 leading-relaxed">
-                  Chase Agents is model-agnostic. Your automations run inside Claude,
-                  ChatGPT, or any MCP-compatible environment.{" "}
-                  <span className="font-semibold text-background">
-                    No vendor lock-in. No single point of failure.
-                  </span>
+                  Model-agnostic: run inside Claude, ChatGPT, or any MCP-compatible environment.{" "}
+                  <span className="font-semibold text-background">No lock-in. No single point of failure.</span>
                 </p>
               </div>
             </Reveal>
@@ -521,14 +449,9 @@ const LandingPage = () => {
             <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center">
               <Reveal direction="left">
                 <div className="overflow-hidden rounded-2xl border border-background/15 bg-background/[0.03] shadow-xl">
-                  <img
-                    src="/static/images/chase-agents-hero.png"
-                    alt="Chase Agents automation platform dashboard"
-                    className="w-full"
-                  />
+                  <img src="/static/images/chase-agents-hero.png" alt="Chase Agents automation platform dashboard" className="w-full" />
                 </div>
               </Reveal>
-
               <Reveal direction="right" delay={0.1}>
                 <div className="flex flex-col items-center gap-2">
                   {ARCH_FLOW.map((node, i) => (
@@ -542,9 +465,7 @@ const LandingPage = () => {
                       >
                         {node}
                       </div>
-                      {i < ARCH_FLOW.length - 1 && (
-                        <span className="my-0.5 h-4 w-px bg-background/20" />
-                      )}
+                      {i < ARCH_FLOW.length - 1 && <span className="my-0.5 h-4 w-px bg-background/20" />}
                     </div>
                   ))}
                 </div>
@@ -553,9 +474,7 @@ const LandingPage = () => {
 
             <Reveal delay={0.1}>
               <div className="mx-auto mt-16 max-w-2xl">
-                <p className="mb-6 text-center text-sm font-bold uppercase tracking-[0.14em] text-teal">
-                  How we measure impact
-                </p>
+                <p className="mb-6 text-center text-sm font-bold uppercase tracking-[0.14em] text-teal">How we measure impact</p>
                 <MeasurementLayers />
               </div>
             </Reveal>
@@ -581,9 +500,7 @@ const LandingPage = () => {
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <div className="text-center">
-                <span className="inline-flex items-center rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">
-                  Case Studies
-                </span>
+                <span className="inline-flex items-center rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">Case Studies</span>
                 <h2 className="mt-6 text-foreground">
                   Real deployments. <span className="text-teal">Measurable outcomes.</span>
                 </h2>
@@ -602,15 +519,13 @@ const LandingPage = () => {
                     <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Government</span>
                   </div>
                   <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">CCID</h4>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    Digital transformation across organisational operations.
-                  </p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">Digital transformation across operations.</p>
                   <div className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-5">
                     {[
                       { m: "90%", l: "Faster processing" },
                       { m: "100%", l: "Paperless" },
-                      { m: "4×", l: "Operational visibility" },
-                      { m: "60%", l: "Lower operating costs" },
+                      { m: "4×", l: "Visibility" },
+                      { m: "60%", l: "Lower costs" },
                     ].map((s) => (
                       <div key={s.l} className="text-center">
                         <span className="font-heading text-xl font-extrabold text-teal">{s.m}</span>
@@ -618,13 +533,11 @@ const LandingPage = () => {
                       </div>
                     ))}
                   </div>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">
-                    Read Case Study <ArrowRight className="h-4 w-4" />
-                  </span>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">Read Case Study <ArrowRight className="h-4 w-4" /></span>
                 </Link>
               </Reveal>
 
-              {/* Moya (featured) */}
+              {/* Moya */}
               <Reveal delay={0.1}>
                 <a
                   href="/case-study/"
@@ -635,13 +548,11 @@ const LandingPage = () => {
                     <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Technology</span>
                   </div>
                   <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">Moya</h4>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    AI-enabled research operations at scale.
-                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">AI-enabled research operations at scale.</p>
                   <div className="mt-5 grid grid-cols-2 gap-3 border-t border-teal/20 pt-5">
                     {[
                       { m: "10.4×", l: "Productivity" },
-                      { m: "+18%", l: "Revenue increase" },
+                      { m: "+18%", l: "Revenue" },
                       { m: "3wk→1hr", l: "Cycle time" },
                       { m: "<$5", l: "Monthly cost" },
                     ].map((s) => (
@@ -651,12 +562,8 @@ const LandingPage = () => {
                       </div>
                     ))}
                   </div>
-                  <p className="mt-5 flex-1 text-sm font-medium leading-relaxed text-foreground">
-                    A four-person team now operates at the output capacity of a full department.
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">
-                    Read Case Study <ArrowRight className="h-4 w-4" />
-                  </span>
+                  <p className="mt-5 flex-1 text-sm font-medium leading-relaxed text-foreground">A four-person team now runs at the capacity of a full department.</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">Read Case Study <ArrowRight className="h-4 w-4" /></span>
                 </a>
               </Reveal>
 
@@ -671,25 +578,16 @@ const LandingPage = () => {
                     <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Manufacturing</span>
                   </div>
                   <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">Heineken</h4>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    Digital programme delivery and performance reporting for a national
-                    circular economy programme.
-                  </p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">Digital programme delivery and performance reporting for a national circular economy programme.</p>
                   <div className="mt-5 space-y-2.5 border-t border-border pt-5">
-                    {[
-                      "ETL data pipeline & data quality",
-                      "Standardised KPI reporting across regions",
-                      "Executive operational dashboards",
-                    ].map((r) => (
+                    {["ETL data pipeline & data quality", "Standardised KPI reporting", "Executive dashboards"].map((r) => (
                       <div key={r} className="flex items-start gap-2.5">
                         <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-teal" />
                         <span className="text-sm text-muted-foreground">{r}</span>
                       </div>
                     ))}
                   </div>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">
-                    Read Case Study <ArrowRight className="h-4 w-4" />
-                  </span>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">Read Case Study <ArrowRight className="h-4 w-4" /></span>
                 </Link>
               </Reveal>
             </div>
@@ -701,9 +599,7 @@ const LandingPage = () => {
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <h2 className="mx-auto max-w-3xl text-center text-foreground">
-                Built for operations-intensive organisations.
-              </h2>
+              <h2 className="mx-auto max-w-2xl text-center text-foreground">Built for operations-intensive teams.</h2>
             </Reveal>
             <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {INDUSTRIES.map((ind, i) => (
@@ -724,14 +620,12 @@ const LandingPage = () => {
         <section className="bg-foreground py-16 md:py-20 px-6">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <h2 className="text-center text-background">
-                Why enterprise teams choose Chase Continental.
-              </h2>
+              <h2 className="text-center text-background">Why teams choose Chase Continental.</h2>
             </Reveal>
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {WHY.map((w, i) => (
                 <Reveal key={w.title} delay={i * 0.06}>
-                  <div className="group h-full rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-background/[0.07]">
+                  <div className="group h-full rounded-2xl border border-background/10 bg-background/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-background/[0.07]">
                     <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3 transition-colors group-hover:bg-teal/15">
                       <w.icon className="h-5 w-5 text-teal" />
                     </div>
@@ -751,10 +645,7 @@ const LandingPage = () => {
             <Reveal>
               <div className="mx-auto max-w-2xl text-center">
                 <h2 className="text-foreground">Built by operators who ship production systems.</h2>
-                <p className="mt-5 text-muted-foreground leading-relaxed">
-                  We're a product-led AI studio focused on operational software that
-                  businesses depend on every day.
-                </p>
+                <p className="mt-5 text-muted-foreground leading-relaxed">A product-led AI studio building operational software businesses depend on every day.</p>
               </div>
             </Reveal>
 
@@ -791,13 +682,12 @@ const LandingPage = () => {
           <div className="relative z-10 mx-auto max-w-3xl text-center">
             <Reveal>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] text-background">
-                Ready to automate the work that's{" "}
-                <span className="text-teal">slowing your business down?</span>
+                Ready to automate the work{" "}
+                <span className="text-teal">slowing you down?</span>
               </h2>
-              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-background/60">
-                Every successful transformation starts with one workflow. We'll map your
-                critical path, classify the highest-impact interventions, build a pilot,
-                and create a roadmap for broader adoption.
+              <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-background/60">
+                Every transformation starts with one workflow. We map your critical path, build
+                a pilot, and hand you the roadmap.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Button
@@ -817,9 +707,7 @@ const LandingPage = () => {
                   See Case Studies
                 </Button>
               </div>
-              <p className="mt-5 text-sm text-background/40">
-                30-minute consultation • No obligation • Implementation roadmap included
-              </p>
+              <p className="mt-5 text-sm text-background/40">30-minute consultation • No obligation • Roadmap included</p>
             </Reveal>
           </div>
         </section>
