@@ -32,6 +32,7 @@ const FiveDayPilotChallenge = lazy(
   () => import("./pages/resources/FiveDayPilotChallenge"),
 );
 const CcidCaseStudy = lazy(() => import("./pages/resources/CcidCaseStudy"));
+const HeinekenCaseStudy = lazy(() => import("./pages/resources/HeinekenCaseStudy"));
 const NeutralVsProprietaryScorecard = lazy(
   () => import("./pages/resources/NeutralVsProprietaryScorecard"),
 );
@@ -104,6 +105,10 @@ const App = () => (
           <Route
             path="/resources/ccid-case-study"
             element={<CcidCaseStudy />}
+          />
+          <Route
+            path="/resources/heineken-case-study"
+            element={<HeinekenCaseStudy />}
           />
           <Route
             path="/resources/neutral-vs-proprietary-scorecard"

@@ -14,17 +14,17 @@ const FEATURED_PRODUCTS = [
     name: "Chase Agents",
     label: "Flagship Product",
     description:
-      "Agentic execution platform for operations teams that need AI planning with deterministic, auditable actions.",
+      "The business standard for agentic AI: the flexibility of AI with the reliability of code. AI plans the work, deterministic actions execute it — every time, the same way, fully observable.",
     ctaLabel: "Try Chase Agents",
     href: "https://chaseagents.com",
   },
   {
     id: "optiweb",
-    name: "OptiWeb",
-    label: "Growth + Ops Product",
+    name: "OptiWeb Solutions",
+    label: "Web Design & Local Presence",
     description:
-      "Productized web and workflow layer that improves conversion while tightening operational handoff and visibility.",
-    ctaLabel: "Request OptiWeb Demo",
+      "Our web design studio. We build clean, high-converting websites and set up and manage Google Business Profiles so local customers find you and choose you.",
+    ctaLabel: "Visit OptiWeb",
     href: "https://www.optiweb.it.com/",
   },
 ];

@@ -14,9 +14,12 @@ import {
   Plug,
   AlertTriangle,
   UserX,
+  Bot,
   Link2,
   Target,
+  Compass,
   Users,
+  Wrench,
   BarChart3,
   Truck,
   Headphones,
@@ -58,6 +61,12 @@ const PROBLEMS = [
     description:
       "Leadership asks for a report and it takes days. By the time numbers arrive, they're stale. Decisions get made on gut feel, not data.",
   },
+  {
+    icon: Bot,
+    title: "AI that added work, not results",
+    description:
+      "You tried a copilot or a pilot. It needed constant prompting, never made it to production, and quietly became one more thing to manage.",
+  },
 ];
 
 const INDUSTRY_STATS = [
@@ -68,6 +77,18 @@ const INDUSTRY_STATS = [
 ];
 
 const WHAT_WE_DO = [
+  {
+    icon: Compass,
+    title: "Set the AI strategy",
+    description:
+      "We decide where AI belongs and where it doesn't, so effort goes to the work that actually moves the business — not to AI for its own sake.",
+  },
+  {
+    icon: Wrench,
+    title: "Give you the right tooling",
+    description:
+      "Deterministic where reliability matters, AI where judgment helps, no lock-in. We fit the tool to the job instead of forcing the job onto a tool.",
+  },
   {
     icon: Link2,
     title: "Connect every system you already use",
@@ -176,7 +197,7 @@ const CASE_STUDIES = [
     ],
   },
   {
-    href: null,
+    href: "/resources/heineken-case-study",
     external: false,
     featured: false,
     icon: Leaf,
@@ -256,48 +277,36 @@ const HeroGlow = () => (
   </div>
 );
 
-const TrustedRow = () => (
-  <div className="border-t border-border/60 pt-12">
-    <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-stretch lg:justify-between lg:gap-10">
-      <div className="flex flex-col items-center lg:items-start">
-        <p className="mb-7 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Trusted by</p>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 lg:justify-start">
-          {[
-            { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
-            { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
-            { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
-            { name: "Datafree", industry: "Connectivity", logo: "/static/images/datafree-logo.png" },
-            { name: "HealthyMe Living", industry: "E-commerce", logo: "/static/images/healthymeliving-logo.png" },
-          ].map((partner) => (
-            <div key={partner.name} className="flex flex-col items-center text-center">
-              <div className="flex h-9 items-center transition-transform duration-300 hover:scale-105 md:h-10">
-                <img src={partner.logo} alt={partner.name} className="h-full w-auto max-w-[150px] object-contain" />
-              </div>
-              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">{partner.industry}</p>
-            </div>
-          ))}
-        </div>
+const TRUSTED_LOGOS = [
+  { name: "CCID", logo: "/static/images/ccid-logo.svg" },
+  { name: "Heineken", logo: "/static/images/heineken-logo.svg" },
+  { name: "Moya App", logo: "/static/images/moya-logo.png" },
+  { name: "Datafree", logo: "/static/images/datafree-logo.png" },
+  { name: "HealthyMe Living", logo: "/static/images/healthymeliving-logo.png" },
+];
+
+/* Compact trust + backed band that fits at the bottom of the hero,
+   in full colour, with the two groups clearly separated. */
+const HeroTrust = () => (
+  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+    <div className="flex flex-col items-center gap-x-7 gap-y-3 sm:flex-row lg:items-center">
+      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Trusted by</span>
+      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        {TRUSTED_LOGOS.map((p) => (
+          <div key={p.name} className="flex h-8 items-center transition-transform duration-300 hover:scale-105">
+            <img src={p.logo} alt={p.name} className="h-full w-auto max-w-[130px] object-contain" />
+          </div>
+        ))}
       </div>
+    </div>
 
-      <div className="hidden w-px self-stretch bg-border/70 lg:block" aria-hidden />
-      <div className="h-px w-24 bg-border/70 lg:hidden" aria-hidden />
+    <div className="hidden h-9 w-px bg-black/10 lg:block" aria-hidden />
 
-      <div className="flex flex-col items-center lg:items-start">
-        <p className="mb-7 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Backed by</p>
-        <div className="flex items-center gap-x-8">
-          <div className="flex flex-col items-center">
-            <div className="flex h-9 items-center md:h-10">
-              <img src="/static/images/google-cloud-logo.svg" alt="Google Cloud for Startups" className="h-6 w-auto md:h-7" />
-            </div>
-            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">for Startups</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="flex h-9 items-center md:h-10">
-              <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-9 w-auto rounded-lg md:h-10" />
-            </div>
-            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Founders Hub</p>
-          </div>
-        </div>
+    <div className="flex flex-col items-center gap-x-7 gap-y-3 sm:flex-row lg:items-center">
+      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Backed by</span>
+      <div className="flex items-center gap-x-7">
+        <img src="/static/images/google-cloud-logo.svg" alt="Google Cloud for Startups" className="h-6 w-auto" />
+        <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-9 w-auto rounded-lg" />
       </div>
     </div>
   </div>
@@ -309,32 +318,30 @@ const LandingPage = () => {
       <Header />
 
       <main>
-        {/* ── 1. HERO ── */}
-        <section className="relative overflow-hidden bg-[#e2e2e2] lg:min-h-[92vh]">
-          {/* the vision image: bigger, anchored to the bottom of the section */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 top-16 hidden lg:block">
-            <div className="relative mx-auto h-full max-w-[90rem]">
-              <motion.div
-                className="absolute bottom-0 right-0 h-full w-[62%]"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <img
-                  src={heroVision}
-                  alt="Operator with an augmented view of connected business systems"
-                  className="h-full w-full object-cover object-[right_bottom]"
-                />
-                <HeroGlow />
-              </motion.div>
-            </div>
-          </div>
-          {/* solid ground under the text so the copy is always crisp */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-3/5 bg-gradient-to-r from-[#e2e2e2] via-[#e2e2e2] to-transparent lg:block" />
+        {/* ── 1. HERO (copy + image + trust band, all on one screen) ── */}
+        <section className="relative flex flex-col overflow-hidden bg-[#e2e2e2] lg:min-h-screen">
+          {/* upper region: copy on the left, image on the right */}
+          <div className="relative flex-1">
+            {/* the vision image: full-bleed to the right edge, bottom-anchored */}
+            <motion.div
+              className="pointer-events-none absolute bottom-0 right-0 top-16 hidden w-[58%] max-w-[1040px] lg:block"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <img
+                src={heroVision}
+                alt="Operator with an augmented view of connected business systems"
+                className="h-full w-full object-cover object-[right_bottom]"
+              />
+              <HeroGlow />
+            </motion.div>
+            {/* solid ground under the text so the copy is always crisp */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-3/5 bg-gradient-to-r from-[#e2e2e2] via-[#e2e2e2] to-transparent lg:block" />
 
-          <div className="relative z-10 mx-auto max-w-[90rem] px-6 pt-28 pb-16 lg:flex lg:min-h-[92vh] lg:items-center">
-            <div className="w-full lg:max-w-xl">
-              <div className="max-w-xl">
+            <div className="relative z-10 mx-auto flex h-full max-w-[90rem] items-center px-6 pt-28 pb-10 lg:pt-24">
+              <div className="w-full lg:max-w-xl">
+                <div className="max-w-xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -412,28 +419,29 @@ const LandingPage = () => {
               </motion.div>
               </div>
 
-              {/* mobile: the same image, in flow below the copy */}
-              <motion.div
-                className="relative mt-12 overflow-hidden rounded-2xl lg:hidden"
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <img
-                  src={heroVision}
-                  alt="Operator with an augmented view of connected business systems"
-                  className="w-full"
-                />
-                <HeroGlow />
-              </motion.div>
+                {/* mobile: the same image, in flow below the copy */}
+                <motion.div
+                  className="relative mt-12 overflow-hidden rounded-2xl lg:hidden"
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <img
+                    src={heroVision}
+                    alt="Operator with an augmented view of connected business systems"
+                    className="w-full"
+                  />
+                  <HeroGlow />
+                </motion.div>
+              </div>
             </div>
           </div>
-        </section>
 
-        {/* ── 2. TRUSTED / BACKED ── */}
-        <section className="bg-background px-6 py-14">
-          <div className="mx-auto max-w-7xl">
-            <TrustedRow />
+          {/* trusted + backed, folded into the bottom of the hero */}
+          <div className="relative z-10 border-t border-black/10 bg-[#e2e2e2]/80 px-6 py-6 backdrop-blur-sm">
+            <div className="mx-auto max-w-[90rem]">
+              <HeroTrust />
+            </div>
           </div>
         </section>
 
@@ -451,14 +459,14 @@ const LandingPage = () => {
                   <span className="text-teal">Your team pays the price.</span>
                 </h2>
                 <p className="mt-6 leading-relaxed text-muted-foreground">
-                  Data lives in silos. People copy-paste between systems. Reports take
-                  days to compile. Errors compound silently. And when something breaks,
-                  nobody knows until it's too late.
+                  Data lives in silos. People copy-paste between systems. Reports take days to
+                  compile, errors compound silently, and the AI you tried only added more
+                  prompting and checking. If a pilot quietly stalled, you're not alone.
                 </p>
               </div>
             </Reveal>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {PROBLEMS.map((p, i) => (
                 <Reveal key={p.title} delay={i * 0.08}>
                   <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-destructive/25 hover:shadow-md">
@@ -474,7 +482,7 @@ const LandingPage = () => {
 
             <Reveal>
               <p className="mt-14 text-center text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/60">
-                And the numbers confirm it
+                And this is why most AI fails
               </p>
             </Reveal>
             <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -554,9 +562,10 @@ const LandingPage = () => {
                     <span className="text-teal">We make them 10× more powerful.</span>
                   </h2>
                   <p className="mt-5 leading-relaxed text-muted-foreground">
-                    We connect your existing systems into one coordinated flow. Your tools stay.
-                    The manual work disappears. You get digital employees running inside the
-                    platform you already use — reliably, measurably.
+                    From the AI strategy to the right tooling to the automations themselves, we
+                    handle the whole thing. Your tools stay. The manual work disappears. You get
+                    digital employees running inside the platform you already use — reliably,
+                    measurably.
                   </p>
 
                   <ul className="mt-8 space-y-4">
@@ -583,6 +592,19 @@ const LandingPage = () => {
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                   />
+                  <motion.div
+                    className="absolute right-2 top-[38%] z-10 flex items-center gap-3 rounded-2xl border border-border bg-background/90 px-4 py-3 shadow-lg backdrop-blur-xl sm:right-6"
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal/10">
+                      <CheckCircle2 className="h-4 w-4 text-teal" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-medium text-muted-foreground">System Status</p>
+                      <p className="text-xs font-bold text-foreground">Automation Active</p>
+                    </div>
+                  </motion.div>
                 </div>
               </Reveal>
             </div>
