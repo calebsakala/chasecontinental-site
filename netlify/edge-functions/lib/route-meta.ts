@@ -4,94 +4,128 @@ export type RouteMeta = {
   image: string;
 };
 
-export const SITE_ORIGIN = "https://chaseagents.com";
-export const DEFAULT_IMAGE = "/static/images/chase-agents-hero.png";
+export const SITE_ORIGIN = "https://chasecontinental.com";
+export const DEFAULT_IMAGE = "/static/images/og-chasecontinental.jpg";
 
 export const DEFAULT_META: RouteMeta = {
-  title: "Chase Continental — Production-grade AI agents",
+  title: "Chase Continental — AI Automation Agency for Enterprise Operations",
   description:
-    "Chase Continental - Production-grade AI agents that transform your operations.",
+    "An AI studio that redesigns how organisations work. We build reliable AI automation and custom software that deliver measurable business outcomes.",
   image: DEFAULT_IMAGE,
 };
 
 export const ROUTE_META: Record<string, RouteMeta> = {
   "/": {
-    title: "Chase Continental — Production-grade AI agents",
+    title: "Chase Continental — AI Automation Agency for Enterprise Operations",
     description:
-      "Production-grade AI agents and automation that run inside real operations. Deterministic execution, built for enterprise reliability.",
+      "We build software that changes the way people work. Reliable AI automation and custom systems for organisations ready to scale — strategy, tooling, and execution.",
     image: DEFAULT_IMAGE,
   },
-
-  "/resources/charles": {
-    title: "Charles — AI Product Builder & Founder | Chase Agents",
+  "/products": {
+    title: "Chase Agents & OptiWeb — Our Products | Chase Continental",
     description:
-      "I build AI products and execution systems that run inside real operations. Founder, systems thinker, and product-led transformation operator.",
+      "Chase Agents: reliable AI automation with the flexibility of AI and the reliability of code. OptiWeb: web design and Google Business Profile management.",
+    image: DEFAULT_IMAGE,
+  },
+  "/resources": {
+    title: "Resources & Insights | Chase Continental",
+    description:
+      "Case studies, frameworks, and points of view on building AI automation that survives contact with real operations.",
+    image: DEFAULT_IMAGE,
+  },
+  "/resources/charles": {
+    title: "Charles K. Chirongoma — Building organizations that think | Chase Continental",
+    description:
+      "Charles K. Chirongoma designs how organisations make decisions, then builds the systems that execute them. The thesis behind Chase Agents, OptiWeb, and Precinct.",
     image: "/static/images/team/charles.png",
   },
-  "/resources/ai-roi-calculator": {
-    title: "AI Automation ROI Calculator | Chase Agents",
+  "/resources/heineken-case-study": {
+    title: "Heineken Circular Economy Programme — Case Study | Chase Continental",
     description:
-      "Calculate your AI automation ROI with industry-specific benchmarks from McKinsey, Deloitte, and PwC. 12+ sectors, revenue & headcount based projections.",
-    image: DEFAULT_IMAGE,
-  },
-  "/resources/deterministic-blueprint": {
-    title: "Deterministic Automation Blueprint (Free) | Chase Agents",
-    description:
-      "A fill-in-the-blank template to turn messy work into a repeatable workflow.",
+      "With Greenway Africa, we cleaned and structured messy field data into a governed reporting system across four regions — 252,000 tonnes of glass recovered, 14 KPIs tracked monthly.",
     image: DEFAULT_IMAGE,
   },
   "/resources/ccid-case-study": {
-    title: "CCID Case Study (Download) | Chase Agents",
+    title: "CCID Digital Transformation — Case Study | Chase Continental",
     description:
-      "See how CCID achieved faster processing and stronger visibility with Chase Agents as the operating layer.",
+      "How CCID moved manual workflows into a modern operational system: 90% faster processing, 100% paperless, and 4× operational visibility.",
+    image: DEFAULT_IMAGE,
+  },
+  "/case-study/": {
+    title: "Moya App — AI Enablement Case Study | Chase Continental",
+    description:
+      "A three-week research delivery cycle compressed to under an hour, revenue lifted, and the full stack running for under $5 a month — a 10.4× productivity gain.",
+    image: DEFAULT_IMAGE,
+  },
+  "/blogs": {
+    title: "Blog | Chase Continental",
+    description:
+      "Points of view on AI in production, operational design, and building systems that make organisations more capable over time.",
+    image: DEFAULT_IMAGE,
+  },
+  "/resources/ai-roi-calculator": {
+    title: "AI Automation ROI Calculator | Chase Continental",
+    description:
+      "Estimate your AI automation ROI with industry benchmarks across 12+ sectors, based on revenue and headcount.",
+    image: DEFAULT_IMAGE,
+  },
+  "/resources/deterministic-blueprint": {
+    title: "Deterministic Automation Blueprint | Chase Continental",
+    description:
+      "A fill-in-the-blank template to turn messy work into a repeatable, reliable workflow.",
     image: DEFAULT_IMAGE,
   },
   "/resources/silo-audit-checklist": {
-    title: "AI Agent Silo Checklist — Free Assessment | Chase Agents",
+    title: "AI Agent Silo Checklist | Chase Continental",
     description:
-      "Uncover whether your AI initiatives are creating new silos. 20-point assessment with an operating-layer action plan.",
+      "A 20-point assessment to uncover whether your AI initiatives are creating new silos, with an operating-layer action plan.",
     image: DEFAULT_IMAGE,
   },
   "/resources/transformation-playbook": {
-    title: "AI Transformation Playbook (Free) | Chase Agents",
+    title: "AI Transformation Playbook | Chase Continental",
     description:
-      "A practical guide to ship reliable AI automation—without failed pilots, wasted budget, or chaos.",
+      "A practical guide to shipping reliable AI automation without failed pilots, wasted budget, or chaos.",
     image: DEFAULT_IMAGE,
   },
   "/resources/reliability-assessment": {
-    title: "Production Reliability Assessment (Free) | Chase Agents",
+    title: "Production Reliability Assessment | Chase Continental",
     description:
-      "Take a 5-minute assessment to see if your automation can hold up in production, then map your operating-layer next steps.",
+      "A 5-minute assessment to see whether your automation can hold up in production, with your next steps mapped.",
     image: DEFAULT_IMAGE,
   },
-  "/resources/orchestration-swipeFile": {
-    title: "Automation Workflow Swipe File (Free) | Chase Agents",
+  "/resources/orchestration-swipe-file": {
+    title: "Automation Workflow Swipe File | Chase Continental",
     description:
-      "15 workflow patterns you can adapt across logistics, supply chain, BPO, and e-commerce with operating-layer execution principles.",
+      "15 workflow patterns you can adapt across logistics, supply chain, BPO, and e-commerce.",
     image: DEFAULT_IMAGE,
   },
   "/resources/peak-season-survival-guide": {
-    title: "Peak Season Survival Guide | Chase Agents",
+    title: "Peak Season Survival Guide | Chase Continental",
     description:
-      "Keep workflows stable when volume spikes with an operating-layer checklist for peak-season reliability.",
+      "Keep workflows stable when volume spikes, with a checklist for peak-season reliability.",
     image: DEFAULT_IMAGE,
   },
   "/resources/5-day-pilot-challenge": {
-    title: "5-Day Automation Pilot Guide (Free) | Chase Agents",
+    title: "5-Day Automation Pilot Guide | Chase Continental",
     description:
-      "Get the 5-day pilot guide, map one workflow, define metrics, and move into deterministic operating-layer execution.",
+      "Map one workflow, define metrics, and move into deterministic execution in five days.",
     image: DEFAULT_IMAGE,
   },
   "/resources/neutral-vs-proprietary-scorecard": {
-    title: "Neutral vs Proprietary Scorecard (Free) | Chase Agents",
+    title: "Neutral vs Proprietary Scorecard | Chase Continental",
     description:
       "Score your stack in 5 minutes. See lock-in risk and the fastest path to reliable automation.",
     image: DEFAULT_IMAGE,
   },
   "/resources/shopify-ops-automation": {
-    title: "Shopify Automation — AI-Powered Ops for Shopify | Chase Agents",
+    title: "Shopify Ops Automation | Chase Continental",
     description:
-      "Production-grade Shopify automation: orders, inventory, fulfillment, returns, support, and finance — all orchestrated by Chase Agents.",
+      "Orders, inventory, fulfilment, returns, support, and finance — orchestrated with reliable AI automation.",
+    image: DEFAULT_IMAGE,
+  },
+  "/privacy": {
+    title: "Privacy Policy | Chase Continental",
+    description: "How Chase Continental collects, uses, and protects your data.",
     image: DEFAULT_IMAGE,
   },
 };
