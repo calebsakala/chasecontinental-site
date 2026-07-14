@@ -131,6 +131,31 @@ const HeinekenCaseStudy = () => {
         </div>
       </section>
 
+      {/* ── Recognition / In the media ── */}
+      <section className="px-6 pb-4">
+        <div className="mx-auto max-w-3xl">
+          <div className="grid items-center gap-6 rounded-2xl border border-border bg-secondary/40 p-6 sm:grid-cols-[auto_1fr] md:p-8">
+            <img
+              src="/static/images/charles-capetalk.jpg"
+              alt="Charles K. Chirongoma on CapeTalk for Nedbank Business Ignite"
+              className="h-28 w-28 shrink-0 rounded-2xl object-cover ring-1 ring-border sm:h-32 sm:w-32"
+            />
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-teal">Recognition</span>
+              <p className="mt-2 font-heading text-lg font-bold text-foreground">
+                2024 Nedbank Business Ignite finalist
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Greenway Africa, the programme's delivery partner, was a finalist in the 2024
+                Nedbank Business Ignite (Nedbank &amp; CapeTalk) — South Africa's premier SME
+                growth campaign — and was featured on <em>Good Morning Cape Town with Lester
+                Kiewit</em>. We were honoured to represent this work on air.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── The Challenge ── */}
       <section className="py-16 md:py-20 px-6 bg-secondary/40">
         <div className="mx-auto max-w-3xl">

@@ -258,6 +258,32 @@ const CharlesPage = () => {
           </div>
         </section>
 
+        {/* ── Recognition ── */}
+        <section className="relative bg-background px-6 pb-8">
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <div className="grid items-center gap-6 rounded-2xl border border-border bg-secondary/40 p-6 sm:grid-cols-[auto_1fr] md:p-7">
+                <img
+                  src="/static/images/charles-capetalk.jpg"
+                  alt="Charles K. Chirongoma on CapeTalk for Nedbank Business Ignite"
+                  className="h-24 w-24 shrink-0 rounded-2xl object-cover ring-1 ring-border sm:h-28 sm:w-28"
+                />
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-teal">Recognition</span>
+                  <p className="mt-2 font-heading text-lg font-bold text-foreground">
+                    2024 Nedbank Business Ignite finalist
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    A finalist in the 2024 Nedbank Business Ignite (Nedbank &amp; CapeTalk),
+                    South Africa's premier SME growth campaign, featured on <em>Good Morning
+                    Cape Town with Lester Kiewit</em>. I was honoured to take this work to air.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* ── The Thesis ── */}
         <section className="relative bg-foreground px-6 py-16 md:py-20">
           <div className="mx-auto max-w-3xl">
