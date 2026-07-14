@@ -294,19 +294,9 @@ const HeroTrust = () => (
 
     <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row lg:items-center">
       <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Backed by</span>
-      <div className="flex items-start gap-x-8">
-        <div className="flex flex-col items-center text-center">
-          <div className="flex h-8 items-center">
-            <img src="/static/images/google-cloud-icon.svg" alt="Google Cloud" className="h-7 w-auto" />
-          </div>
-          <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Google Cloud for Startups</p>
-        </div>
-        <div className="flex flex-col items-center text-center">
-          <div className="flex h-8 items-center">
-            <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups" className="h-8 w-auto rounded-md" />
-          </div>
-          <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Microsoft Founders Hub</p>
-        </div>
+      <div className="flex items-center gap-x-8">
+        <img src="/static/images/google-cloud-startups.webp" alt="Google Cloud for Startups" className="h-9 w-auto" />
+        <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-9 w-auto rounded-md" />
       </div>
     </div>
   </div>
