@@ -17,6 +17,7 @@ import {
   Link2,
   Target,
   Users,
+  BarChart3,
   Truck,
   Headphones,
   ShoppingCart,
@@ -30,88 +31,317 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
+import heroVision from "@/assets/hero-vision.webp";
 import heroRobot from "@/assets/hero-robot.png";
-import industryAutomation from "@/assets/industry-automation.jpg";
 
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const CHASE_AGENTS_URL = "https://chaseagents.com";
 
-const values = [
+const HERO_CHIPS = ["Shortened time to value", "Measurable outcomes", "Built to survive exceptions"];
+
+const PROBLEMS = [
   {
-    icon: Zap,
-    title: "Practical",
+    icon: Plug,
+    title: "Siloed systems, zero flow",
     description:
-      "We build things that work in real conditions—not demos that impress in a meeting and break in production.",
+      "Your CRM doesn't talk to your ERP. Your ERP doesn't talk to your spreadsheets. Your team is the glue holding it all together, manually.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "Manual work, invisible errors",
+    description:
+      "People re-key data across tools. Mistakes pile up. By the time you spot them, the damage is done and nobody knows where it started.",
+  },
+  {
+    icon: UserX,
+    title: "No visibility until it's too late",
+    description:
+      "Leadership asks for a report and it takes days. By the time numbers arrive, they're stale. Decisions get made on gut feel, not data.",
+  },
+];
+
+const INDUSTRY_STATS = [
+  { number: "42%", label: "of companies abandoned most AI initiatives in 2025", source: "S&P Global" },
+  { number: "46%", label: "of AI proof-of-concepts scrapped before production", source: "S&P Global" },
+  { number: "95%", label: "of enterprise AI projects fail to deliver ROI", source: "MIT 2025" },
+  { number: "$40B", label: "spent on AI in 2024 with near-zero measurable impact", source: "MIT" },
+];
+
+const WHAT_WE_DO = [
+  {
+    icon: Link2,
+    title: "Connect every system you already use",
+    description:
+      "ERP, CRM, databases, spreadsheets, legacy tools: we wire them together so data flows automatically instead of your team moving it by hand.",
+  },
+  {
+    icon: Users,
+    title: "Build digital employees",
+    description:
+      "Agentic automations that handle repetitive tasks 24/7: processing, checking, routing, reporting, without human intervention unless you want it.",
   },
   {
     icon: ShieldCheck,
-    title: "Reliable",
+    title: "Reliability built in from day one",
     description:
-      "Every system we deliver is tested, monitored, and built to run without hand-holding.",
+      "Automated error checks, exception queues, and monitoring. When something unexpected happens, the system catches it, not your team three days later.",
   },
   {
-    icon: Star,
-    title: "Clear",
+    icon: Target,
+    title: "Built for adoption, not IT dependency",
     description:
-      "No jargon, no hidden complexity. We communicate plainly and build transparently.",
+      "Frontline workers use the tools directly. When people leave, the system keeps running: knowledge stays in the workflow, not in someone's head.",
   },
   {
-    icon: Shield,
-    title: "Secure",
+    icon: BarChart3,
+    title: "Measurable outcomes, not promises",
     description:
-      "Security and data integrity are non-negotiable in everything we ship.",
+      "Every automation ships with reporting and KPIs. You see exactly what changed, what improved, and where to go next.",
   },
 ];
 
-const industries = [
+const AGENT_FEATURES = [
+  "Connect to any API, database, or internal system. You control the scope.",
+  "AI plans the work, deterministic actions execute it: zero hallucinations.",
+  "Full transparency: see every decision, every tool call, every cost.",
+  "Measurable ROI and cost control in real time.",
+  "Autonomous, human-in-the-loop, or co-pilot execution modes.",
+];
+
+const IMPACT_STATS = [
+  { number: "100+", label: "Businesses automated" },
+  { number: "30+", label: "Countries with active presence" },
+  { number: "3×", label: "Faster turnaround on repetitive work" },
+  { number: "89%", label: "Fewer errors with automated checks" },
+];
+
+const CASE_STUDIES = [
   {
-    icon: Truck,
-    title: "Logistics & Supply Chain",
+    href: "/blog/case-study-building-practical-ai-capacity-with-the-ccid",
+    external: false,
+    featured: false,
+    icon: Building2,
+    tag: "Government",
+    name: "CCID Digital Transformation",
     description:
-      "Automated exception handling, document validation, SLA monitoring, and shipment tracking across 3PLs, freight, and warehousing.",
+      "Migrated manual workflows into a modern operational system with automation and visibility across the entire organisation.",
+    metrics: [
+      { m: "100%", l: "Paperless transition" },
+      { m: "90%", l: "Faster processing" },
+      { m: "4×", l: "Operational visibility" },
+      { m: "60%", l: "Cost reduction" },
+    ],
   },
   {
-    icon: Headphones,
-    title: "BPO & Customer Operations",
+    href: "/case-study/",
+    external: true,
+    featured: true,
+    icon: Zap,
+    tag: "Technology",
+    name: "Moya App: AI Enablement",
     description:
-      "AI-assisted agent workflows, automated QA sampling, intake-to-resolution pipelines, and real-time SLA risk detection.",
+      "Compressed a three-week market-research delivery cycle to under an hour and lifted revenue, running the full stack for under $5 a month.",
+    metrics: [
+      { m: "10.4×", l: "Efficiency gain" },
+      { m: "+18%", l: "Revenue increase" },
+      { m: "3wk→1hr", l: "Cycle time" },
+      { m: "<$5", l: "Monthly cost" },
+    ],
   },
   {
-    icon: ShoppingCart,
-    title: "E-commerce & Marketplaces",
+    href: null,
+    external: false,
+    featured: false,
+    icon: Leaf,
+    tag: "Manufacturing",
+    name: "Heineken Sustainability Monitoring",
     description:
-      "AI triage for support, automated returns processing, inventory alerts, and lower cost-to-serve across high-volume operations.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Sales & Revenue Operations",
-    description:
-      "Faster lead routing, automated pipeline hygiene, seamless handoffs between teams, and forecasting with anomaly detection.",
-  },
-  {
-    icon: HardHat,
-    title: "Mining & Natural Resources",
-    description:
-      "Operational automation for safety compliance, resource tracking, maintenance scheduling, and field-to-office data flows.",
-  },
-  {
-    icon: Gamepad2,
-    title: "iGaming & Digital Entertainment",
-    description:
-      "AI agents for advanced analytics, player behavior modeling, compliance automation, and uncovering new revenue streams from data.",
-  },
-  {
-    icon: Factory,
-    title: "Manufacturing",
-    description:
-      "Supply chain visibility, sustainability monitoring, quality control automation, and multi-regional operational reporting.",
-  },
-  {
-    icon: Landmark,
-    title: "Government & Public Sector",
-    description:
-      "Digital transformation of manual workflows, paperless operations, citizen support automation, and cross-department visibility.",
+      "Real-time monitoring and automated reporting across multi-regional operations for a national sustainability programme.",
+    metrics: [
+      { m: "350+", l: "Jobs created" },
+      { m: "Weekly", l: "Reporting cadence" },
+      { m: "100%", l: "KPIs outperformed" },
+      { m: "4", l: "Regions tracked" },
+    ],
   },
 ];
+
+const INDUSTRIES = [
+  { icon: Truck, title: "Logistics & Supply Chain", description: "Exception handling, document validation, SLA monitoring, and shipment tracking." },
+  { icon: Headphones, title: "BPO & Customer Operations", description: "AI-assisted agent workflows, automated QA sampling, and real-time SLA risk detection." },
+  { icon: ShoppingCart, title: "E-commerce & Marketplaces", description: "AI support triage, automated returns, inventory alerts, and lower cost-to-serve." },
+  { icon: TrendingUp, title: "Sales & Revenue Operations", description: "Faster lead routing, pipeline hygiene, clean handoffs, and anomaly-aware forecasting." },
+  { icon: HardHat, title: "Mining & Natural Resources", description: "Safety compliance, resource tracking, maintenance scheduling, and field-to-office data." },
+  { icon: Gamepad2, title: "iGaming & Digital Entertainment", description: "Advanced analytics, player behaviour modelling, and compliance automation." },
+  { icon: Factory, title: "Manufacturing", description: "Supply chain visibility, quality control automation, and multi-regional reporting." },
+  { icon: Landmark, title: "Government & Public Sector", description: "Paperless operations, citizen support automation, and cross-department visibility." },
+];
+
+const VALUES = [
+  { icon: Zap, title: "Practical", description: "We build things that work in real conditions, not demos that impress in a meeting and break in production." },
+  { icon: ShieldCheck, title: "Reliable", description: "Every system we deliver is tested, monitored, and built to run without hand-holding." },
+  { icon: Star, title: "Clear", description: "No jargon, no hidden complexity. We communicate plainly and build transparently." },
+  { icon: Shield, title: "Secure", description: "Security and data integrity are non-negotiable in everything we ship." },
+];
+
+const TEAM = [
+  {
+    name: "Charles K. Chirongoma",
+    role: "CEO · Product-led Transformation",
+    bio: "Charles builds systems that make organisations run better. With a background spanning economics, data, and industrial development, he has led digital transformation across complex, multi-regional environments, turning slow, manual operations into fast, measurable execution.",
+    image: "/static/images/team/charles.png",
+    linkedin: "https://www.linkedin.com/in/charles-k-chirongoma-41327716b/",
+    twitter: "https://x.com/tue_sday",
+  },
+  {
+    name: "Caleb Sakala",
+    role: "CTO · Product & Engineering",
+    bio: "Caleb is a product and engineering leader who has delivered software and AI initiatives across the US, Brazil, and Cyprus. He builds high-quality systems that perform reliably in real-world business conditions.",
+    image: "/static/images/team/caleb.jpg",
+    linkedin: "https://www.linkedin.com/in/calebsakala",
+    twitter: "https://x.com/bytecaleb",
+  },
+];
+
+const SectionRule = () => (
+  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+);
+
+/* ── Hero overlay: live panels floating over the vision image.
+   The person stays still; everything layered on top moves. ── */
+
+const drift = (duration: number, delay = 0, distance = 8) => ({
+  animate: { y: [0, -distance, 0] },
+  transition: { duration, delay, repeat: Infinity, ease: "easeInOut" as const },
+});
+
+const HeroBars = () => (
+  <div className="flex h-9 items-end gap-1">
+    {[
+      { s: [0.4, 0.9, 0.4], d: 2.6, delay: 0 },
+      { s: [0.65, 1, 0.65], d: 3.1, delay: 0.3 },
+      { s: [0.35, 0.75, 0.35], d: 2.8, delay: 0.6 },
+      { s: [0.75, 1, 0.75], d: 3.4, delay: 0.2 },
+      { s: [0.5, 0.95, 0.5], d: 2.9, delay: 0.5 },
+    ].map((bar, i) => (
+      <motion.div
+        key={i}
+        className={`h-9 w-1.5 origin-bottom rounded-sm ${i % 2 ? "bg-teal/70" : "bg-amber-500/70"}`}
+        animate={{ scaleY: bar.s }}
+        transition={{ duration: bar.d, delay: bar.delay, repeat: Infinity, ease: "easeInOut" }}
+      />
+    ))}
+  </div>
+);
+
+const panelClass =
+  "absolute rounded-xl border border-white/70 bg-white/60 shadow-[0_8px_30px_rgba(15,23,42,0.10)] backdrop-blur-md";
+
+const HeroOverlay = () => (
+  <div className="pointer-events-none absolute inset-0">
+    {/* throughput chart */}
+    <motion.div className={`${panelClass} left-[27%] top-[10%] p-3`} {...drift(5.2, 0, 9)}>
+      <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-slate-500">Throughput</p>
+      <HeroBars />
+    </motion.div>
+
+    {/* workflow card */}
+    <motion.div className={`${panelClass} left-[30%] top-[52%] p-3`} {...drift(6.4, 0.8, 7)}>
+      <div className="flex items-center gap-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal/15">
+          <CheckCircle2 className="h-3.5 w-3.5 text-teal" />
+        </span>
+        <div>
+          <p className="text-[10px] font-bold text-slate-700">Invoice #2841 matched</p>
+          <p className="text-[9px] text-slate-500">Posted to ERP · 0 exceptions</p>
+        </div>
+      </div>
+    </motion.div>
+
+    {/* KPI card */}
+    <motion.div className={`${panelClass} left-[58%] top-[5%] px-4 py-3 text-center`} {...drift(4.6, 0.4, 10)}>
+      <motion.p
+        className="font-heading text-lg font-extrabold leading-none text-slate-800"
+        animate={{ scale: [1, 1.04, 1] }}
+        transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        10.4×
+      </motion.p>
+      <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">Productivity</p>
+    </motion.div>
+
+    {/* status chip */}
+    <motion.div className={`${panelClass} left-[68%] top-[64%] flex items-center gap-2 px-3 py-2`} {...drift(5.8, 1.2, 8)}>
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-70" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
+      </span>
+      <div>
+        <p className="text-[9px] font-medium text-slate-500">System Status</p>
+        <p className="text-[10px] font-bold text-slate-700">Automation Active</p>
+      </div>
+    </motion.div>
+
+    {/* drifting glow accents */}
+    <motion.div
+      className="absolute left-[48%] top-[38%] h-3 w-3 rounded-full bg-amber-400/60 blur-[2px]"
+      animate={{ y: [0, -14, 0], opacity: [0.35, 0.8, 0.35] }}
+      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.div
+      className="absolute left-[55%] top-[58%] h-2 w-2 rounded-full bg-teal/60 blur-[1px]"
+      animate={{ y: [0, -10, 0], opacity: [0.3, 0.7, 0.3] }}
+      transition={{ duration: 6.2, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.div
+      className="absolute left-[40%] top-[24%] h-2.5 w-2.5 rounded-full bg-orange-400/50 blur-[2px]"
+      animate={{ y: [0, -12, 0], opacity: [0.3, 0.75, 0.3] }}
+      transition={{ duration: 5.6, delay: 0.5, repeat: Infinity, ease: "easeInOut" }}
+    />
+  </div>
+);
+
+const HeroVisual = ({ className = "" }: { className?: string }) => (
+  <div className={`relative aspect-[1360/752] ${className}`}>
+    <img
+      src={heroVision}
+      alt="Operator with an augmented view of connected business systems"
+      className="h-full w-full object-cover"
+    />
+    <HeroOverlay />
+  </div>
+);
+
+const TrustedRow = () => (
+  <div className="border-t border-border/60 pt-10">
+    <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+      Trusted by teams in government, manufacturing, and technology
+    </p>
+    <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 md:gap-x-14">
+      {[
+        { name: "CCID", logo: "/static/images/ccid-logo.svg" },
+        { name: "Heineken", logo: "/static/images/heineken-logo.svg" },
+        { name: "Moya App", logo: "/static/images/moya-logo.png" },
+        { name: "Datafree", logo: "/static/images/datafree-logo.png" },
+        { name: "HealthyMe Living", logo: "/static/images/healthymeliving-logo.png" },
+      ].map((partner) => (
+        <div
+          key={partner.name}
+          className="flex h-9 items-center opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 md:h-10"
+        >
+          <img src={partner.logo} alt={partner.name} className="h-full w-auto max-w-[150px] object-contain" />
+        </div>
+      ))}
+    </div>
+    <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Backed by</p>
+      <div className="flex items-center gap-x-8">
+        <img src="/static/images/google-cloud-logo.svg" alt="Google Cloud for Startups" className="h-6 w-auto opacity-80" />
+        <img src="/static/images/ms-startups-badge.png" alt="Microsoft for Startups Founders Hub" className="h-12 w-auto rounded-lg opacity-90" />
+      </div>
+    </div>
+  </div>
+);
 
 const LandingPage = () => {
   return (
@@ -119,635 +349,365 @@ const LandingPage = () => {
       <Header />
 
       <main>
-        {/* ═══════════════════════════ HERO ═══════════════════════════ */}
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-background via-secondary/30 to-background">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal/5 rounded-full blur-[200px] pointer-events-none" />
-
-          <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-16 w-full">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left — Text */}
-              <div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <span className="inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] border border-border px-4 py-1.5 text-xs font-semibold text-muted-foreground tracking-wide">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-teal" />
-                    </span>
-                    AI Studio
+        {/* ── 1. HERO ── */}
+        <section className="relative overflow-hidden bg-[#e2e2e2]">
+          <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-16 lg:min-h-[86vh] lg:content-center">
+            <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+              <div className="max-w-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/50 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-600">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal" />
                   </span>
-                </motion.div>
+                  AI Studio
+                </span>
+              </motion.div>
 
-                <motion.h1
-                  className="mt-8 text-4xl md:text-5xl lg:text-[3.75rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-foreground"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.1,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  We Build Software That Changes{" "}
-                  <span className="text-teal">How Teams Work.</span>
-                </motion.h1>
+              <motion.h1
+                className="mt-8 text-4xl font-extrabold leading-[1.08] tracking-[-0.03em] text-slate-900 md:text-5xl lg:text-[3.6rem]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                We build software that changes{" "}
+                <span className="text-teal">the way people work.</span>
+              </motion.h1>
 
-                <motion.p
-                  className="mt-6 max-w-lg text-base md:text-lg text-muted-foreground leading-relaxed"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.2,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  From flagship AI products to custom automations, we ship
-                  reliable systems your operators can trust every day.
-                </motion.p>
+              <motion.p
+                className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 md:text-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              >
+                From flagship AI products to custom automations, we ship reliable
+                systems your operators can trust every day.
+              </motion.p>
 
-                <motion.div
-                  className="mt-8 flex flex-wrap items-center gap-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+              <motion.div
+                className="mt-8 flex flex-wrap items-center gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Button
+                  size="lg"
+                  className="h-12 rounded-full bg-slate-900 px-7 text-sm font-semibold text-white transition-all duration-300 hover:bg-slate-800"
+                  onClick={() => window.location.assign("/products")}
                 >
-                  <Button
-                    size="lg"
-                    className="rounded-full bg-foreground text-background hover:bg-foreground/90 font-semibold px-7 h-12 text-sm transition-all duration-300"
-                    onClick={() => window.location.assign("/products")}
+                  See Our Work
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="h-12 rounded-full border-slate-400/60 bg-white/40 px-7 text-sm font-semibold text-slate-800 transition-all duration-300 hover:bg-white/70"
+                  onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+                >
+                  Try Chase Agents
+                </Button>
+              </motion.div>
+
+              <motion.div
+                className="mt-8 flex flex-wrap items-center gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {HERO_CHIPS.map((chip) => (
+                  <span
+                    key={chip}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-300/80 bg-white/50 px-3 py-1.5 text-xs font-medium text-slate-600"
                   >
-                    See Our Work
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="rounded-full border-border text-foreground hover:bg-accent font-semibold px-7 h-12 text-sm transition-all duration-300"
-                    onClick={() =>
-                      window.open("https://chaseagents.com", "_blank")
-                    }
-                  >
-                    Try Chase Agents
-                  </Button>
-                </motion.div>
-
-                {/* Trust badges */}
-                <motion.div
-                  className="mt-8 flex flex-wrap items-center gap-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.4,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {[
-                    "Shortened time to value",
-                    "Measurable outcomes",
-                    "Built to survive exceptions",
-                  ].map((badge) => (
-                    <span
-                      key={badge}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-foreground/[0.04] border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground"
-                    >
-                      <CheckCircle2 className="h-3 w-3 text-teal" />
-                      {badge}
-                    </span>
-                  ))}
-                </motion.div>
+                    <CheckCircle2 className="h-3 w-3 text-teal" />
+                    {chip}
+                  </span>
+                ))}
+              </motion.div>
               </div>
 
-              {/* Right — Hero Image */}
+              {/* the vision image: person stays still, the layers move */}
               <motion.div
-                className="relative flex justify-center lg:justify-end"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.2,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="absolute top-[35%] right-0 lg:right-[-10px] z-20 rounded-2xl bg-background/90 backdrop-blur-xl border border-border shadow-lg px-4 py-3 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-teal/10 flex items-center justify-center">
-                    <CheckCircle2 className="h-4 w-4 text-teal" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-muted-foreground font-medium">
-                      System Status
-                    </p>
-                    <p className="text-xs font-bold text-foreground">
-                      Automation Active
-                    </p>
-                  </div>
-                </div>
-
-                <img
-                  src={heroRobot}
-                  alt="AI automation robot assistant"
-                  className="w-full max-w-md lg:max-w-lg xl:max-w-xl drop-shadow-2xl"
-                />
+                <HeroVisual className="overflow-hidden rounded-2xl lg:rounded-none" />
               </motion.div>
             </div>
-
-            {/* Trusted By */}
-            <motion.div
-              className="mt-16 border-t border-border/60 pt-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.5,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">
-                Trusted by
-              </p>
-              <div className="flex flex-wrap items-end justify-center gap-x-12 gap-y-8 md:gap-x-16">
-                {[
-                  { name: "CCID", industry: "Government", logo: "/static/images/ccid-logo.svg" },
-                  { name: "Heineken", industry: "Manufacturing", logo: "/static/images/heineken-logo.svg" },
-                  { name: "Moya App", industry: "Technology", logo: "/static/images/moya-logo.png" },
-                  { name: "Datafree", industry: "Connectivity", logo: "/static/images/datafree-logo.png" },
-                  { name: "HealthyMe Living", industry: "E-commerce", logo: "/static/images/healthymeliving-logo.png" },
-                ].map((partner) => (
-                  <div key={partner.name} className="flex flex-col items-center text-center">
-                    <div className="flex h-10 md:h-11 items-center">
-                      {partner.logo ? (
-                        <img
-                          src={partner.logo}
-                          alt={partner.name}
-                          className="h-full w-auto max-w-[170px] object-contain"
-                        />
-                      ) : (
-                        <span className="text-lg font-bold font-heading text-foreground">
-                          {partner.name}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em] mt-2">
-                      {partner.industry}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Backed by (startup programs) */}
-              <div className="mt-12 border-t border-border/40 pt-8">
-                <p className="text-center text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-7">
-                  Backed by
-                </p>
-                <div className="flex flex-wrap items-start justify-center gap-x-16 gap-y-8 md:gap-x-24">
-                  {/* Google Cloud for Startups (official Google Cloud logo) */}
-                  <div className="flex flex-col items-center">
-                    <div className="flex h-16 md:h-[72px] items-center">
-                      <img
-                        src="/static/images/google-cloud-logo.svg"
-                        alt="Google Cloud for Startups"
-                        className="h-[26px] md:h-[30px] w-auto"
-                      />
-                    </div>
-                    <p className="mt-3 text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
-                      for Startups
-                    </p>
-                  </div>
-                  {/* Microsoft for Startups Founders Hub (official member badge) */}
-                  <div className="flex flex-col items-center">
-                    <div className="flex h-16 md:h-[72px] items-center">
-                      <img
-                        src="/static/images/ms-startups-badge.png"
-                        alt="Microsoft for Startups Founders Hub"
-                        className="h-16 md:h-[72px] w-auto rounded-xl"
-                      />
-                    </div>
-                    <p className="mt-3 text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
-                      Founders Hub
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </section>
 
-        {/* ═══════════════════════════ PRODUCT — CHASE AGENTS ═══════════════════════════ */}
-        <section
-          id="products"
-          className="relative py-16 md:py-20 px-6 overflow-hidden bg-secondary/40"
-        >
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        {/* ── 2. TRUSTED / BACKED ── */}
+        <section className="bg-background px-6 py-14">
+          <div className="mx-auto max-w-7xl">
+            <TrustedRow />
+          </div>
+        </section>
 
-          <div className="relative z-10 mx-auto max-w-7xl">
+        {/* ── 3. THE PROBLEM ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal mb-6 tracking-wide">
-                  Our Flagship Product
+              <div className="max-w-2xl">
+                <span className="inline-flex items-center rounded-full border border-destructive/20 bg-destructive/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-destructive">
+                  Sound Familiar?
                 </span>
-                <h2 className="text-foreground">Chase Agents</h2>
-                <p className="mx-auto mt-5 max-w-2xl text-muted-foreground leading-relaxed">
-                  Reliable AI automation. Built for scale. The intelligence of
-                  AI with the reliability of a computer.
+                <h2 className="mt-6 text-foreground">
+                  Your tools don't talk to each other.{" "}
+                  <span className="text-teal">Your team pays the price.</span>
+                </h2>
+                <p className="mt-6 leading-relaxed text-muted-foreground">
+                  Data lives in silos. People copy-paste between systems. Reports take
+                  days to compile. Errors compound silently. And when something breaks,
+                  nobody knows until it's too late.
                 </p>
               </div>
             </Reveal>
 
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {PROBLEMS.map((p, i) => (
+                <Reveal key={p.title} delay={i * 0.08}>
+                  <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-destructive/25 hover:shadow-md">
+                    <div className="mb-4 inline-flex rounded-xl bg-destructive/10 p-3 transition-colors group-hover:bg-destructive/15">
+                      <p.icon className="h-5 w-5 text-destructive" />
+                    </div>
+                    <h4 className="mb-2 font-heading text-base font-bold text-foreground">{p.title}</h4>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal>
+              <p className="mt-14 text-center text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/60">
+                And the numbers confirm it
+              </p>
+            </Reveal>
+            <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+              {INDUSTRY_STATS.map((stat, i) => (
+                <Reveal key={stat.label} delay={i * 0.08}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-5 text-center">
+                    <span className="font-heading text-2xl font-extrabold text-teal md:text-3xl">{stat.number}</span>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{stat.label}</p>
+                    <p className="mt-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">{stat.source}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 4. WHAT WE ACTUALLY DO ── */}
+        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-7xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal direction="left">
-                <div className="rounded-2xl overflow-hidden border border-border shadow-sm bg-card">
-                  <img
-                    src="/static/images/chase-agents-hero.png"
-                    alt="Chase Agents Automation Platform"
-                    className="w-full"
+                <div>
+                  <span className="inline-flex items-center rounded-full border border-teal/15 bg-teal/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
+                    What We Actually Do
+                  </span>
+                  <h2 className="mt-6 text-foreground">
+                    We don't replace your tools.{" "}
+                    <span className="text-teal">We make them 10× more powerful.</span>
+                  </h2>
+                  <p className="mt-5 leading-relaxed text-muted-foreground">
+                    We install automation that connects your existing systems into one
+                    coordinated flow. Your tools stay. The manual work disappears. You
+                    get digital employees and agentic automations running inside your
+                    current platform: reliably, measurably.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal direction="right" delay={0.1}>
+                <div className="relative flex justify-center">
+                  <motion.img
+                    src={heroRobot}
+                    alt="Digital employee"
+                    className="w-full max-w-sm drop-shadow-2xl lg:max-w-md"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                   />
                 </div>
               </Reveal>
-              <Reveal direction="right" delay={0.15}>
+            </div>
+
+            <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {WHAT_WE_DO.map((s, i) => (
+                <Reveal key={s.title} delay={i * 0.06}>
+                  <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
+                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3 transition-colors group-hover:bg-teal/15">
+                      <s.icon className="h-5 w-5 text-teal" />
+                    </div>
+                    <h4 className="mb-2 font-heading text-base font-bold text-foreground">{s.title}</h4>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5. FLAGSHIP PRODUCT: CHASE AGENTS ── */}
+        <section id="products" className="bg-foreground px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <Reveal direction="left">
+                <div className="overflow-hidden rounded-2xl border border-background/15 bg-background/[0.03] shadow-xl">
+                  <img src="/static/images/chase-agents-hero.png" alt="Chase Agents automation platform" className="w-full" />
+                </div>
+              </Reveal>
+              <Reveal direction="right" delay={0.1}>
                 <div>
-                  <span className="inline-block rounded-full bg-foreground/[0.06] border border-border px-3.5 py-1 text-[11px] font-bold text-muted-foreground uppercase tracking-[0.12em] mb-5">
-                    Automation Platform
+                  <span className="inline-flex items-center rounded-full border border-teal/20 bg-teal/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
+                    Our Flagship Product
                   </span>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    The business standard for agentic AI. Chase Agents combines
-                    the flexibility of AI with the reliability of code—deploying
-                    automations that execute complex enterprise workflows with
-                    zero hallucinations and full observability. Define your
-                    tools, let AI plan the work, and deterministic actions
-                    execute it. Every time. The same way.
+                  <h2 className="mt-6 text-background">Meet Chase Agents.</h2>
+                  <p className="mt-3 text-lg font-medium text-teal">
+                    The flexibility of AI with the reliability of code.
                   </p>
-                  <ul className="space-y-3 mb-8">
-                    {[
-                      "Connect to any API, database, or internal system—you control the scope",
-                      "AI plans the work, deterministic actions execute it—zero hallucinations",
-                      "Full transparency: see every decision, every tool call, every cost",
-                      "Measurable ROI & cost control in real-time",
-                      "Autonomous, human-in-the-loop, or co-pilot execution modes",
-                    ].map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-center gap-3 text-muted-foreground"
-                      >
-                        <CheckCircle2 className="h-4 w-4 text-teal flex-shrink-0" />
-                        <span className="text-sm">{item}</span>
+                  <p className="mt-4 leading-relaxed text-background/70">
+                    The business standard for agentic AI. Define your tools, let AI plan
+                    the work, and deterministic actions execute it. Every time. The same way.
+                  </p>
+                  <ul className="mt-6 space-y-3">
+                    {AGENT_FEATURES.map((f) => (
+                      <li key={f} className="flex items-start gap-3">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+                        <span className="text-sm leading-relaxed text-background/75">{f}</span>
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    size="lg"
-                    className="rounded-full bg-foreground text-background hover:bg-foreground/90 font-semibold transition-all duration-300"
-                    onClick={() =>
-                      window.open("https://chaseagents.com", "_blank")
-                    }
-                  >
-                    Try Chase Agents <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    Start with one workflow. Expand once it's proven.
-                  </p>
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Button
+                      size="lg"
+                      className="h-12 rounded-full bg-teal px-8 font-semibold text-teal-foreground transition-all duration-300 hover:bg-teal/90"
+                      onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+                    >
+                      Try Chase Agents
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                    <p className="text-sm text-background/50">
+                      Start with one workflow. Expand once it's proven.
+                    </p>
+                  </div>
                 </div>
               </Reveal>
             </div>
           </div>
         </section>
 
-        {/* ═══════════════════════════ RESULTS / CASE STUDIES ═══════════════════════════ */}
-        <section
-          id="results"
-          className="relative py-16 md:py-20 px-6 overflow-hidden bg-foreground"
-        >
-          <div className="relative z-10 mx-auto max-w-6xl">
+        {/* ── 6. PROOF: IMPACT + CASE STUDIES ── */}
+        <section id="results" className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full bg-teal/10 border border-teal/20 px-4 py-1.5 text-xs font-semibold text-teal mb-6 tracking-wide">
+              <div className="mx-auto max-w-2xl text-center">
+                <span className="inline-flex items-center rounded-full border border-teal/15 bg-teal/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
                   Case Studies
                 </span>
-                <h2 className="text-background">
-                  Proven results{" "}
-                  <span className="text-teal">in production</span>
+                <h2 className="mt-6 text-foreground">
+                  Built for impact. <span className="text-teal">Measured by results.</span>
                 </h2>
-              </div>
-            </Reveal>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-              {/* CCID Case Study */}
-              <Reveal delay={0}>
-                <Link
-                  to="/blog/case-study-building-practical-ai-capacity-with-the-ccid"
-                  className="group block h-full"
-                >
-                  <div className="rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:border-teal/25 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col">
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="rounded-xl bg-teal/10 p-2.5">
-                        <Building2 className="h-4 w-4 text-teal" />
-                      </div>
-                      <span className="text-[11px] font-bold text-background/60 uppercase tracking-[0.15em]">
-                        Government
-                      </span>
-                    </div>
-                    <h4 className="text-lg mb-3 text-background group-hover:text-teal transition-colors font-bold">
-                      CCID Digital Transformation
-                    </h4>
-                    <p className="text-sm text-background/60 leading-relaxed mb-5 flex-1">
-                      Migrated manual workflows into a modern operational system
-                      with automation and visibility across the entire
-                      organisation.
-                    </p>
-                    <div className="grid grid-cols-2 gap-3 pt-5 border-t border-background/[0.08] mb-5">
-                      {[
-                        { metric: "100%", label: "Paperless transition" },
-                        { metric: "90%", label: "Faster processing" },
-                        { metric: "4×", label: "Operational visibility" },
-                        { metric: "60%", label: "Cost reduction" },
-                      ].map((r) => (
-                        <div key={r.label} className="text-center">
-                          <span className="text-xl font-extrabold font-heading text-teal">
-                            {r.metric}
-                          </span>
-                          <p className="text-[10px] text-background/50 mt-0.5 uppercase tracking-wider">
-                            {r.label}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      Read Full Case Study <ArrowRight className="h-4 w-4" />
-                    </div>
-                  </div>
-                </Link>
-              </Reveal>
-
-              {/* Heineken Case Study */}
-              <Reveal delay={0.12}>
-                <div className="group block h-full">
-                  <div className="rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:border-teal/25 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col">
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="rounded-xl bg-teal/10 p-2.5">
-                        <Leaf className="h-4 w-4 text-teal" />
-                      </div>
-                      <span className="text-[11px] font-bold text-background/60 uppercase tracking-[0.15em]">
-                        Manufacturing
-                      </span>
-                    </div>
-                    <h4 className="text-lg mb-3 text-background group-hover:text-teal transition-colors font-bold">
-                      Heineken Sustainability Monitoring
-                    </h4>
-                    <p className="text-sm text-background/60 leading-relaxed mb-5 flex-1">
-                      Real-time monitoring and automated reporting across
-                      multi-regional operations for sustainability compliance.
-                    </p>
-                    <div className="space-y-2.5 pt-5 border-t border-background/[0.08]">
-                      <p className="text-[10px] font-bold text-background/60 uppercase tracking-[0.15em]">
-                        Key Results
-                      </p>
-                      {[
-                        "Multi-region monitoring coverage",
-                        "Automated sustainability reporting",
-                        "Better visibility for executive decisions",
-                      ].map((r) => (
-                        <div key={r} className="flex items-start gap-2.5">
-                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-teal mt-0.5" />
-                          <span className="text-sm text-background/60">
-                            {r}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-
-              {/* Moya App Case Study */}
-              <Reveal delay={0.24}>
-                <a href="/case-study/" className="group block h-full">
-                  <div className="rounded-2xl border border-teal/25 bg-teal/[0.06] p-7 transition-all duration-300 hover:border-teal/40 hover:-translate-y-1 hover:shadow-lg h-full flex flex-col">
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="rounded-xl bg-teal/10 p-2.5">
-                        <Zap className="h-4 w-4 text-teal" />
-                      </div>
-                      <span className="text-[11px] font-bold text-background/60 uppercase tracking-[0.15em]">
-                        Technology
-                      </span>
-                    </div>
-                    <h4 className="text-lg mb-3 text-background group-hover:text-teal transition-colors font-bold">
-                      Moya App — AI Enablement
-                    </h4>
-                    <p className="text-sm text-background/60 leading-relaxed mb-5 flex-1">
-                      Compressed a three-week market-research delivery cycle to
-                      under an hour and lifted revenue—running the full automation
-                      stack for under $5 a month.
-                    </p>
-                    <div className="grid grid-cols-2 gap-3 pt-5 border-t border-background/[0.08] mb-5">
-                      {[
-                        { metric: "10.4×", label: "Efficiency gain" },
-                        { metric: "+18%", label: "Revenue increase" },
-                        { metric: "3wk→1hr", label: "Cycle time" },
-                        { metric: "<$5", label: "Monthly cost" },
-                      ].map((r) => (
-                        <div key={r.label} className="text-center">
-                          <span className="text-xl font-extrabold font-heading text-teal">
-                            {r.metric}
-                          </span>
-                          <p className="text-[10px] text-background/50 mt-0.5 uppercase tracking-wider">
-                            {r.label}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      Read Full Case Study <ArrowRight className="h-4 w-4" />
-                    </div>
-                  </div>
-                </a>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════ IMPACT STATS ═══════════════════════════ */}
-        <section className="relative overflow-hidden bg-foreground">
-          <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-20">
-            <Reveal>
-              <div className="text-center mb-14">
-                <h2 className="text-background">
-                  Built for impact.{" "}
-                  <span className="text-background/50">
-                    Measured by results.
-                  </span>
-                </h2>
-                <p className="text-background/60 max-w-2xl mx-auto mt-5 leading-relaxed">
+                <p className="mt-5 leading-relaxed text-muted-foreground">
                   We build AI automation and custom software that delivers real,
                   measurable business outcomes.
                 </p>
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-              {[
-                { number: "7+", label: "Years combined experience" },
-                { number: "100+", label: "Businesses automated" },
-                { number: "30+", label: "Countries with active presence" },
-                { number: "3×", label: "Faster turnaround on repetitive work" },
-                { number: "89%", label: "Less errors with automated checks" },
-              ].map((stat, i) => (
-                <Reveal key={stat.label} delay={i * 0.08}>
-                  <div className="rounded-2xl border border-background/10 bg-background/[0.04] p-6 text-center transition-all duration-300 hover:bg-background/[0.07] hover:-translate-y-1 h-full">
-                    <span className="text-3xl md:text-4xl font-extrabold font-heading text-teal">
-                      {stat.number}
-                    </span>
-                    <p className="mt-2 text-[11px] font-semibold text-background/50 uppercase tracking-[0.1em] leading-relaxed">
-                      {stat.label}
-                    </p>
+            <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+              {IMPACT_STATS.map((stat, i) => (
+                <Reveal key={stat.label} delay={i * 0.06}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                    <span className="font-heading text-3xl font-extrabold leading-none text-teal md:text-[2.5rem]">{stat.number}</span>
+                    <p className="mt-3 text-[11px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-muted-foreground">{stat.label}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* ═══════════════════════════ OUR APPROACH ═══════════════════════════ */}
-        <section className="relative overflow-hidden bg-secondary/50">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-          <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:py-20">
-            <Reveal>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal mb-6 tracking-wide">
-                  <ShieldCheck className="h-3.5 w-3.5" />
-                  What We Actually Do
-                </span>
-                <h2 className="text-foreground max-w-4xl mx-auto">
-                  We don't replace your tools.{" "}
-                  <span className="text-teal">
-                    We make them 10× more powerful.
-                  </span>
-                </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-muted-foreground leading-relaxed">
-                  We install automation that connects your existing systems into
-                  one coordinated flow. Your tools stay. The manual work
-                  disappears. You get digital employees and agentic automations
-                  running inside your current platform—reliably, measurably.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <Reveal direction="left">
-                <div className="rounded-2xl overflow-hidden border border-border shadow-sm">
-                  <img
-                    src={industryAutomation}
-                    alt="Industrial automation with AI-powered analytics and robotic systems in a modern warehouse"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </Reveal>
-
-              <Reveal direction="right" delay={0.15}>
-                <div className="space-y-3">
-                  {[
-                    {
-                      icon: Link2,
-                      title: "Connect every system you already use",
-                      desc: "ERP, CRM, databases, spreadsheets, legacy tools—we wire them together so data flows automatically instead of your team moving it by hand.",
-                    },
-                    {
-                      icon: Zap,
-                      title: "Build digital employees",
-                      desc: "Agentic automations that handle repetitive tasks 24/7—processing, checking, routing, reporting—without human intervention unless you want it.",
-                    },
-                    {
-                      icon: Shield,
-                      title: "Reliability built in from day one",
-                      desc: "Automated error checks, exception queues, and monitoring. When something unexpected happens, the system catches it—not your team three days later.",
-                    },
-                    {
-                      icon: Users,
-                      title: "Built for adoption, not IT dependency",
-                      desc: "Frontline workers use the tools directly. No IT bottleneck for maintenance. When people leave, the system keeps running—knowledge stays in the workflow, not in someone's head.",
-                    },
-                    {
-                      icon: Target,
-                      title: "Measurable outcomes, not promises",
-                      desc: "Every automation ships with reporting and KPIs. You see exactly what changed, what improved, and where to go next.",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.title}
-                      className="flex items-start gap-4 p-4 rounded-xl hover:bg-background/50 transition-all duration-300"
-                    >
-                      <div className="flex-shrink-0 h-10 w-10 rounded-xl bg-teal/10 flex items-center justify-center">
-                        <item.icon className="h-5 w-5 text-teal" />
+            <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {CASE_STUDIES.map((cs, i) => {
+                const CardBody = (
+                  <>
+                    <div className="mb-5 flex items-center gap-3">
+                      <div className={`rounded-xl p-2.5 ${cs.featured ? "bg-teal/15" : "bg-teal/10"}`}>
+                        <cs.icon className="h-4 w-4 text-teal" />
                       </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-foreground mb-1">
-                          {item.title}
-                        </h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {item.desc}
-                        </p>
-                      </div>
+                      <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{cs.tag}</span>
                     </div>
-                  ))}
-                </div>
-              </Reveal>
+                    <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">{cs.name}</h4>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{cs.description}</p>
+                    <div className={`mt-5 grid grid-cols-2 gap-3 border-t pt-5 ${cs.featured ? "border-teal/20" : "border-border"}`}>
+                      {cs.metrics.map((s) => (
+                        <div key={s.l} className="text-center">
+                          <span className="font-heading text-xl font-extrabold text-teal">{s.m}</span>
+                          <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground/70">{s.l}</p>
+                        </div>
+                      ))}
+                    </div>
+                    {cs.href && (
+                      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">
+                        Read Full Case Study <ArrowRight className="h-4 w-4" />
+                      </span>
+                    )}
+                  </>
+                );
+                const cardClass = `group flex h-full flex-col rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 ${
+                  cs.featured
+                    ? "border border-teal/40 bg-teal/[0.06] hover:border-teal/60 hover:shadow-md"
+                    : "border border-border bg-card hover:border-teal/30 hover:shadow-md"
+                }`;
+                return (
+                  <Reveal key={cs.name} delay={i * 0.1}>
+                    {cs.href ? (
+                      cs.external ? (
+                        <a href={cs.href} className={cardClass}>{CardBody}</a>
+                      ) : (
+                        <Link to={cs.href} className={cardClass}>{CardBody}</Link>
+                      )
+                    ) : (
+                      <div className={cardClass}>{CardBody}</div>
+                    )}
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* ═══════════════════════════ INDUSTRIES ═══════════════════════════ */}
-        <section className="relative overflow-hidden bg-background">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-          <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:py-20">
+        {/* ── 7. INDUSTRIES ── */}
+        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] border border-border px-4 py-1.5 text-xs font-semibold text-muted-foreground mb-6 tracking-wide">
+              <div className="mx-auto max-w-2xl text-center">
+                <span className="inline-flex items-center rounded-full border border-teal/15 bg-teal/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
                   Industries We Serve
                 </span>
-                <h2 className="text-foreground max-w-3xl mx-auto">
-                  Proven across sectors where{" "}
-                  <span className="text-teal">operations matter most</span>
-                </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-muted-foreground leading-relaxed">
-                  We work with operations-heavy businesses that need
-                  reliability, not experiments. From logistics to iGaming, we
-                  automate the workflows that slow teams down.
+                <h2 className="mt-6 text-foreground">Proven across sectors where operations matter most.</h2>
+                <p className="mt-5 leading-relaxed text-muted-foreground">
+                  We work with operations-heavy businesses that need reliability, not
+                  experiments. We automate the workflows that slow teams down.
                 </p>
               </div>
             </Reveal>
-
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {industries.map((ind, i) => (
-                <Reveal key={ind.title} delay={i * 0.06}>
-                  <div className="relative rounded-2xl border border-border bg-card p-6 group hover:shadow-md hover:-translate-y-1 transition-all duration-300 hover-border-snake snake-variant-thin-2xl glow-teal-hover h-full">
-                    <svg
-                      className="snake-svg"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="calc(100% - 2px)"
-                        height="calc(100% - 2px)"
-                      />
-                    </svg>
-                    <div className="mb-4 inline-flex rounded-xl bg-teal/8 p-3 group-hover:bg-teal/12 transition-colors duration-300">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {INDUSTRIES.map((ind, i) => (
+                <Reveal key={ind.title} delay={i * 0.05}>
+                  <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
+                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3 transition-colors group-hover:bg-teal/15">
                       <ind.icon className="h-5 w-5 text-teal" />
                     </div>
-                    <h4 className="text-sm mb-2 font-bold font-heading text-foreground">
-                      {ind.title}
-                    </h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {ind.description}
-                    </p>
+                    <h4 className="mb-2 font-heading text-sm font-bold text-foreground">{ind.title}</h4>
+                    <p className="text-xs leading-relaxed text-muted-foreground">{ind.description}</p>
                   </div>
                 </Reveal>
               ))}
@@ -755,250 +715,53 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* ═══════════════════════════ PAIN SECTION ═══════════════════════════ */}
-        <section className="relative overflow-hidden bg-foreground">
-          <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:py-20">
+        {/* ── 8. WHO WE ARE: VALUES + LEADERSHIP ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full bg-destructive/15 border border-destructive/20 px-4 py-1.5 text-xs font-semibold text-destructive mb-6 tracking-wide">
-                  <AlertTriangle className="h-3.5 w-3.5" />
-                  Sound Familiar?
+              <div className="mx-auto max-w-2xl text-center">
+                <span className="inline-flex items-center rounded-full border border-teal/15 bg-teal/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-teal">
+                  Product Company. Enterprise Focus.
                 </span>
-                <h2 className="text-background max-w-3xl mx-auto">
-                  Your tools don't talk to each other.{" "}
-                  <span className="text-destructive">
-                    Your team pays the price.
-                  </span>
-                </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-background/60 leading-relaxed">
-                  Data lives in silos. People copy-paste between systems.
-                  Reports take days to compile. Errors compound silently. And
-                  when something breaks, nobody knows until it's too late.
+                <h2 className="mt-6 text-foreground">How we build work that lasts.</h2>
+                <p className="mt-5 leading-relaxed text-muted-foreground">
+                  We build automation with a product mindset: reliability, usability,
+                  and measurable outcomes.
                 </p>
               </div>
             </Reveal>
 
-            <div className="grid md:grid-cols-3 gap-5 mb-16">
-              {[
-                {
-                  icon: Plug,
-                  number: "01",
-                  title: "Siloed systems, zero flow",
-                  desc: "Your CRM doesn't talk to your ERP. Your ERP doesn't talk to your spreadsheets. Your team is the glue holding it all together—manually.",
-                },
-                {
-                  icon: AlertTriangle,
-                  number: "02",
-                  title: "Manual work, invisible errors",
-                  desc: "People re-key data across tools. Mistakes pile up. By the time you spot them, the damage is done and nobody knows where it started.",
-                },
-                {
-                  icon: UserX,
-                  number: "03",
-                  title: "No visibility until it's too late",
-                  desc: "Leadership asks for a report and it takes days. By the time numbers arrive, they're already stale. Decisions get made on gut feel, not data.",
-                },
-              ].map((item, i) => (
-                <Reveal key={item.title} delay={i * 0.1}>
-                  <div className="relative rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-background/[0.07] h-full">
-                    <span className="text-5xl font-black text-background/[0.04] font-heading absolute top-3 right-5 select-none">
-                      {item.number}
-                    </span>
-                    <div className="h-10 w-10 rounded-xl bg-destructive/15 flex items-center justify-center mb-5">
-                      <item.icon className="h-5 w-5 text-destructive" />
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {VALUES.map((v, i) => (
+                <Reveal key={v.title} delay={i * 0.06}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3">
+                      <v.icon className="h-5 w-5 text-teal" />
                     </div>
-                    <h4 className="text-sm font-bold text-background mb-2">
-                      {item.title}
-                    </h4>
-                    <p className="text-sm text-background/50 leading-relaxed">
-                      {item.desc}
-                    </p>
+                    <h4 className="mb-2 font-heading text-base font-bold text-foreground">{v.title}</h4>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{v.description}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
 
-            {/* Industry stats */}
-            <Reveal>
-              <p className="text-center text-xs font-semibold text-background/40 uppercase tracking-[0.15em] mb-6">
-                And the numbers confirm it
-              </p>
-            </Reveal>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                {
-                  number: "42%",
-                  label: "of companies abandoned most AI initiatives in 2025",
-                  source: "S&P Global",
-                },
-                {
-                  number: "46%",
-                  label: "of AI proof-of-concepts scrapped before production",
-                  source: "S&P Global",
-                },
-                {
-                  number: "95%",
-                  label: "of enterprise AI projects fail to deliver ROI",
-                  source: "MIT 2025",
-                },
-                {
-                  number: "$40B",
-                  label: "spent on AI in 2024 with near-zero measurable impact",
-                  source: "MIT",
-                },
-              ].map((stat, i) => (
-                <Reveal key={stat.label} delay={i * 0.08}>
-                  <div className="rounded-2xl border border-background/10 bg-background/[0.04] p-5 text-center transition-all duration-300 hover:bg-background/[0.07] h-full">
-                    <span className="text-2xl md:text-3xl font-extrabold font-heading text-teal">
-                      {stat.number}
-                    </span>
-                    <p className="mt-2 text-xs text-background/50 leading-relaxed">
-                      {stat.label}
-                    </p>
-                    <p className="mt-1.5 text-[10px] text-background/30 uppercase tracking-wider font-bold">
-                      {stat.source}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════ VALUES ═══════════════════════════ */}
-        <section className="relative py-16 md:py-20 px-6 bg-secondary/40 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-          <div className="relative z-10 mx-auto max-w-6xl">
-            <Reveal>
-              <div className="text-center mb-14">
-                <h2 className="text-foreground">
-                  Our <span className="text-teal">Values</span>
-                </h2>
-                <p className="mx-auto mt-5 max-w-2xl text-muted-foreground leading-relaxed">
-                  How we build work that lasts—and gets adopted.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {values.map((v, i) => (
-                <Reveal key={v.title} delay={i * 0.1}>
-                  <div className="relative rounded-2xl border border-border bg-card p-7 group hover:shadow-md hover:-translate-y-1 transition-all duration-300 hover-border-snake snake-variant-thin-2xl glow-teal-hover">
-                    <svg
-                      className="snake-svg"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="calc(100% - 2px)"
-                        height="calc(100% - 2px)"
-                      />
-                    </svg>
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-xl bg-teal/8 p-3 group-hover:bg-teal/12 transition-colors duration-300 shrink-0">
-                        <v.icon className="h-5 w-5 text-teal" />
-                      </div>
-                      <div>
-                        <h4 className="text-base mb-1.5 font-bold font-heading text-foreground">
-                          {v.title}
-                        </h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {v.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════ LEADERSHIP ═══════════════════════════ */}
-        <section className="relative py-16 md:py-20 px-6 overflow-hidden bg-background">
-          <div className="relative z-10 mx-auto max-w-6xl">
-            <Reveal>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] border border-border px-4 py-1.5 text-xs font-semibold text-muted-foreground mb-6 tracking-wide">
-                  Product company. Enterprise focus.
-                </span>
-                <h2 className="text-foreground">Leadership Team</h2>
-                <p className="mx-auto mt-5 max-w-2xl text-muted-foreground leading-relaxed">
-                  We build automation with a product mindset: reliability,
-                  usability, and measurable outcomes.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
-              {[
-                {
-                  name: "Charles K. Chirongoma",
-                  role: "CEO, CX, Product-led Transformation",
-                  bio: "Charles builds systems that make organisations run better. With a background spanning economics, data, and industrial development, he has led digital transformation work across complex, multi-regional environments—focused on turning slow, manual operations into faster, measurable execution.",
-                  image: "/static/images/team/charles.png",
-                  linkedin:
-                    "https://www.linkedin.com/in/charles-k-chirongoma-41327716b/",
-                  twitter: "https://x.com/tue_sday",
-                },
-                {
-                  name: "Caleb Sakala",
-                  role: "CTO, Product & Engineering",
-                  bio: "Caleb is a product and engineering leader who has delivered software and AI initiatives across the US, Brazil, and Cyprus. He focuses on building high-quality systems that perform reliably in real-world business conditions.",
-                  image: "/static/images/team/caleb.jpg",
-                  linkedin: "https://www.linkedin.com/in/calebsakala",
-                  twitter: "https://x.com/bytecaleb",
-                },
-              ].map((member, i) => (
-                <Reveal key={member.name} delay={i * 0.15}>
-                  <div className="relative rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:shadow-md hover-border-snake snake-variant-thin-2xl glow-teal-hover">
-                    <svg
-                      className="snake-svg"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="calc(100% - 2px)"
-                        height="calc(100% - 2px)"
-                      />
-                    </svg>
+            <div className="mt-14 grid gap-6 md:grid-cols-2">
+              {TEAM.map((member, i) => (
+                <Reveal key={member.name} delay={i * 0.12}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                     <div className="flex flex-col items-center text-center">
-                      <div className="mb-5 h-28 w-28 overflow-hidden rounded-full ring-2 ring-border">
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="h-full w-full object-cover"
-                        />
+                      <div className="mb-5 h-24 w-24 overflow-hidden rounded-full ring-2 ring-border">
+                        <img src={member.image} alt={member.name} className="h-full w-full object-cover" />
                       </div>
-                      <h3 className="text-xl font-bold font-heading text-foreground">
-                        {member.name}
-                      </h3>
-                      <p className="text-teal font-semibold mt-1 text-sm">
-                        {member.role}
-                      </p>
-                      <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-sm">
-                        {member.bio}
-                      </p>
+                      <h3 className="font-heading text-xl font-bold text-foreground">{member.name}</h3>
+                      <p className="mt-1 text-sm font-semibold text-teal">{member.role}</p>
+                      <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">{member.bio}</p>
                       <div className="mt-5 flex gap-2">
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-full border border-border p-2.5 text-muted-foreground hover:text-teal hover:border-teal/30 transition-colors duration-200"
-                          aria-label="LinkedIn"
-                        >
+                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="inline-flex items-center justify-center rounded-full border border-border p-2.5 text-muted-foreground transition-colors hover:border-teal/30 hover:text-teal">
                           <Linkedin className="h-4 w-4" />
                         </a>
-                        <a
-                          href={member.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-full border border-border p-2.5 text-muted-foreground hover:text-teal hover:border-teal/30 transition-colors duration-200"
-                          aria-label="Twitter"
-                        >
+                        <a href={member.twitter} target="_blank" rel="noopener noreferrer" aria-label="X" className="inline-flex items-center justify-center rounded-full border border-border p-2.5 text-muted-foreground transition-colors hover:border-teal/30 hover:text-teal">
                           <Twitter className="h-4 w-4" />
                         </a>
                       </div>
@@ -1010,31 +773,38 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* ═══════════════════════════ CTA ═══════════════════════════ */}
-        <section className="relative overflow-hidden bg-foreground">
-          <div className="relative z-10 mx-auto max-w-3xl px-6 py-20 md:py-24 text-center">
+        {/* ── 9. FINAL CTA ── */}
+        <section className="relative overflow-hidden bg-foreground px-6 py-20 md:py-24">
+          <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/10 blur-[160px]" />
+          <div className="relative z-10 mx-auto max-w-3xl text-center">
             <Reveal>
-              <h2 className="text-background text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em]">
-                Ready to automate the work that's{" "}
+              <h2 className="text-3xl font-extrabold tracking-[-0.03em] text-background md:text-4xl lg:text-5xl">
+                Ready to automate the work{" "}
                 <span className="text-teal">slowing your team down?</span>
               </h2>
-              <p className="mt-6 text-lg text-background/60 leading-relaxed max-w-xl mx-auto">
-                Start with a focused pilot. We will identify the best workflow
-                to automate first and show you a clear path to implementation.
+              <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-background/60">
+                Start with a focused pilot. We'll identify the best workflow to automate
+                first and show you a clear path to implementation.
               </p>
-              <div className="mt-8">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Button
                   size="lg"
-                  className="rounded-full bg-teal text-teal-foreground hover:bg-teal/90 font-semibold px-8 h-12 transition-all duration-300"
+                  className="h-12 rounded-full bg-teal px-8 font-semibold text-teal-foreground transition-all duration-300 hover:bg-teal/90"
                   onClick={() => window.open(BOOK_CALL_URL, "_blank")}
                 >
                   Start a Pilot
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="h-12 rounded-full border-background/20 bg-transparent px-8 font-semibold text-background transition-all duration-300 hover:bg-background/10"
+                  onClick={() => window.location.assign("/#results")}
+                >
+                  See Case Studies
+                </Button>
               </div>
-              <p className="mt-5 text-sm text-background/40">
-                No commitment required · 30-minute strategy call · 100% free
-              </p>
+              <p className="mt-5 text-sm text-background/40">30-minute strategy call · No obligation</p>
             </Reveal>
           </div>
         </section>
