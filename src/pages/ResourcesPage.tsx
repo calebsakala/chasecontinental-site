@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowRight, CheckSquare, Calculator, BookOpen, Activity, Layers, Shield, FileText, Zap, FileBarChart, Scale, ShoppingCart, User } from "lucide-react";
+import { ArrowRight, CheckSquare, Calculator, BookOpen, Activity, Layers, Shield, FileText, Zap, FileBarChart, Scale, ShoppingCart, User, Leaf } from "lucide-react";
 
 const resources = [
   {
@@ -93,6 +93,15 @@ const resources = [
     description: "A real team cut errors and sped up reporting. Get the deep dive.",
     icon: FileBarChart,
     accent: "from-teal-500 to-cyan-400",
+    status: "coming-soon" as const,
+  },
+  {
+    slug: "heineken-case-study",
+    title: "Heineken Circular Economy Programme",
+    badge: "Case Study",
+    description: "How we cleaned and structured messy field data into a governed reporting system across four regions.",
+    icon: Leaf,
+    accent: "from-green-500 to-emerald-400",
     status: "coming-soon" as const,
   },
   {

@@ -1,6 +1,6 @@
 /*
-  Charles — Personal Profile & Thought Leadership Page
-  Premium dark theme: Apple × OpenAI × Stripe aesthetic
+  Charles — Personal profile & thesis.
+  Content authored by Charles; consistent with the main site's light theme.
 */
 
 import { useState } from "react";
@@ -9,173 +9,138 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  Brain,
-  Workflow,
-  Shield,
-  BarChart3,
-  Cpu,
-  Sparkles,
-  BookOpen,
+  ArrowUpRight,
   Mail,
   Linkedin,
-  Send,
-  Lightbulb,
-  Network,
-  Lock,
+  Building2,
+  Leaf,
+  Zap,
+  Brain,
+  Cpu,
+  Layers,
 } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-
-import heroBg from "@/assets/charles-hero-bg.jpg";
 import charlesPhoto from "/static/images/team/charles.png";
-import ccLogoWhite from "@/assets/cc-logo-glass-white.png";
 
-/* ── Animation variants ── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: i * 0.1, ease: "easeOut" as const },
-  }),
-};
+const LINKEDIN_URL = "https://www.linkedin.com/in/charles-k-chirongoma-41327716b/";
+const EMAIL = "charles@chasecontinental.com";
 
-const stagger = {
-  visible: { transition: { staggerChildren: 0.08 } },
-};
+const HOW_I_BUILD = [
+  {
+    n: "01",
+    title: "Encode judgement",
+    desc: "The most valuable asset in any organization is rarely its data — it's the judgement experienced people develop over years of operating. I build systems that capture that judgement and make it available whenever it's needed.",
+  },
+  {
+    n: "02",
+    title: "Automate what should be automated",
+    desc: "Not every decision deserves AI. Routing, validation, scheduling, classification, and orchestration should be deterministic wherever possible. AI is introduced only where interpretation, reasoning, or genuine uncertainty exists. Reliable systems outperform impressive demos.",
+  },
+  {
+    n: "03",
+    title: "Design for compounding",
+    desc: "The first implementation is always the hardest — that's where workflows are mapped, decisions classified, and knowledge structured. Every deployment after that is faster. Every new customer improves the platform. Every improvement benefits the next organization.",
+  },
+];
 
-/* ── Data ── */
-const workAreas = [
+const SYSTEMS = [
   {
     icon: Cpu,
-    title: "AI Product Architecture",
-    desc: "Designing reliable AI products that run inside day-to-day operations and hold up under real usage.",
-  },
-  {
-    icon: Network,
-    title: "Agent Platforms",
-    desc: "Building agent systems with clear guardrails, observability, and deterministic execution paths.",
-  },
-  {
-    icon: Workflow,
-    title: "Execution Workflows",
-    desc: "Restructuring how work flows across teams so AI and people operate as one system.",
-  },
-  {
-    icon: Sparkles,
-    title: "Product-Led Transformation",
-    desc: "Replacing fragmented tooling with coherent platforms teams can adopt quickly and trust long-term.",
-  },
-  {
-    icon: BarChart3,
-    title: "Decision Infrastructure",
-    desc: "Turning operational data into visible, actionable systems that improve strategic decisions.",
-  },
-];
-
-const thinkingCards = [
-  {
-    icon: Brain,
-    text: "AI should not replace people. It should improve how decisions are made.",
-  },
-  {
-    icon: Shield,
-    text: "Automation without oversight creates risk. Reliable AI requires governance and supervision.",
-  },
-  {
-    icon: Workflow,
-    text: "The real transformation happens in workflows, not tools.",
-  },
-  {
-    icon: Lightbulb,
-    text: "Organizations need intelligence infrastructure, not isolated AI features.",
-  },
-  {
-    icon: Lock,
-    text: "AI systems must prioritize trust, transparency, and reliability above all.",
-  },
-];
-
-const skills = [
-  "AI Systems Design",
-  "Agent Architecture",
-  "Automation Strategy",
-  "Workflow Engineering",
-  "Product-Led Transformation",
-  "Operational Intelligence",
-  "Enterprise AI Implementation",
-  "Data Quality & Reporting",
-  "Decision Intelligence",
-  "AI Product Strategy",
-];
-
-const builtProducts = [
-  {
-    title: "Chase Agents",
-    label: "Flagship AI Platform",
-    description:
-      "An agentic execution platform for operations teams that combines AI planning with deterministic actions, observability, and governance.",
-    ctaLabel: "Visit Chase Agents",
+    name: "Chase Agents",
+    desc: "An execution platform that turns organizational knowledge into operational systems. Rather than another chatbot, Chase Agents embeds intelligence directly into existing workflows across WhatsApp, Slack, Microsoft Teams, and other business systems. The objective isn't conversation — it's execution.",
     href: "https://chaseagents.com",
   },
   {
-    title: "OptiWeb",
-    label: "Conversion + Operations Layer",
-    description:
-      "A productized web and workflow system designed to improve conversion, reduce operational drag, and give teams clearer control of growth execution.",
-    ctaLabel: "Request OptiWeb Demo",
+    icon: Layers,
+    name: "OptiWeb",
+    desc: "A platform for organizations that need their digital presence and internal operations to work as one system rather than separate projects.",
     href: "https://www.optiweb.it.com/",
   },
-];
-
-const articles = [
   {
-    title: "Why Most AI Projects Fail Inside Organizations",
-    desc: "The gap between AI capability and organizational readiness is where most implementations break down.",
-    date: "March 2026",
-  },
-  {
-    title: "The Shift From Tools to Agent Systems",
-    desc: "Moving beyond point tools to interconnected agent architectures that compound value.",
-    date: "February 2026",
-  },
-  {
-    title: "Why Reliable AI Matters More Than Powerful AI",
-    desc: "Enterprise AI needs consistency and governance, not just raw capability.",
-    date: "January 2026",
-  },
-  {
-    title: "Designing Workflows for Human-AI Collaboration",
-    desc: "The art of building systems where human judgment and machine intelligence amplify each other.",
-    date: "December 2025",
-  },
-  {
-    title: "The Future of Decision Intelligence",
-    desc: "How structured data, AI agents, and operational workflows converge to create a new operating model.",
-    date: "November 2025",
+    icon: Building2,
+    name: "Precinct",
+    desc: "Technology for organizations responsible for managing physical environments, combining operational data with spatial intelligence to improve decision-making.",
+    href: null,
   },
 ];
 
-const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
+const SELECTED_WORK = [
+  {
+    icon: Building2,
+    tag: "Public Infrastructure",
+    name: "CCID",
+    desc: "Institutional knowledge as infrastructure.",
+    href: "/blog/case-study-building-practical-ai-capacity-with-the-ccid",
+    external: false,
+  },
+  {
+    icon: Leaf,
+    tag: "Enterprise Operations",
+    name: "Heineken",
+    desc: "Sustainability reporting and operational intelligence.",
+    href: "/resources/heineken-case-study",
+    external: false,
+  },
+  {
+    icon: Zap,
+    tag: "Research & AI",
+    name: "Moya Research Operations",
+    desc: "Scaling research through intelligent systems.",
+    href: "/case-study/",
+    external: true,
+  },
+];
+
+const PRINCIPLES = [
+  {
+    title: "Organizations should become more capable over time.",
+    desc: "Every deployment should leave behind structured knowledge that survives people, projects, and technology changes.",
+  },
+  {
+    title: "AI should reduce work, not create it.",
+    desc: "If someone has to constantly prompt a system to keep work moving, the architecture is incomplete. The best systems quietly observe, decide, and act.",
+  },
+  {
+    title: "Deterministic systems deserve more respect.",
+    desc: "Most operational work doesn't require intelligence. It requires consistency. Rules outperform models whenever judgement isn't necessary.",
+  },
+  {
+    title: "Fractal Fit comes before automation.",
+    desc: "Digital systems should mirror reality before attempting to improve it. Organizations don't fail because people resist technology — they fail because the technology doesn't reflect how work actually happens.",
+  },
+  {
+    title: "Build once. Compound forever.",
+    desc: "Every implementation should increase the value of the next one. Organizations shouldn't keep paying to solve the same problem twice.",
+  },
+];
+
+const WRITING = [
+  "Why Most AI Projects Fail Inside Organizations",
+  "The Shift From Tools to Agent Systems",
+  "Why Reliable AI Matters More Than Powerful AI",
+  "The Production Possibility Frontier of Organizations",
+  "Intelligence as Operating Expenditure",
+  "Designing Organizations That Think",
+];
+
+const SectionRule = () => (
+  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+);
 
 const CharlesPage = () => {
-  const [contactForm, setContactForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
 
   const handleContactSubmit = async () => {
-    if (
-      !contactForm.name.trim() ||
-      !contactForm.email.trim() ||
-      !contactForm.message.trim()
-    ) {
+    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) {
       toast({ title: "Please fill in all fields", variant: "destructive" });
       return;
     }
@@ -194,785 +159,437 @@ const CharlesPage = () => {
           email: contactForm.email.trim(),
         },
       });
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-      });
+      toast({ title: "Message sent!", description: "Thanks for reaching out. I'll get back to you soon." });
       setContactForm({ name: "", email: "", message: "" });
     } catch {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: "Something went wrong. Please try again.", variant: "destructive" });
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(220,50%,4%)] text-[hsl(210,20%,96%)] overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden bg-background">
       <Helmet>
-        <title>Charles — AI Product Builder & Founder</title>
+        <title>Charles K. Chirongoma — Building organizations that think</title>
         <meta
           name="description"
-          content="I build AI products and execution systems that run inside real operations. Founder, systems thinker, and product-led transformation operator."
+          content="I design how organizations make decisions, then build the systems that execute them. Chase Agents, OptiWeb, Precinct, and the thesis behind them."
         />
       </Helmet>
+      <Header />
 
-      {/* ═══════════════════════════════════════════
-          TOP NAV BAR
-      ═══════════════════════════════════════════ */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[hsl(220,50%,4%)]/80 backdrop-blur-2xl border-b border-white/5">
-        <div className="mx-auto max-w-7xl flex h-16 items-center justify-between px-6 md:px-12">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <img
-              src={ccLogoWhite}
-              alt="Chase Continental"
-              className="h-9 w-auto opacity-70 group-hover:opacity-100 transition-opacity"
-            />
-            <span className="text-sm font-semibold text-[hsl(210,20%,70%)] group-hover:text-white transition-colors">
-              Chase Continental
-            </span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              to="/resources"
-              className="text-xs font-medium text-[hsl(210,20%,60%)] hover:text-[hsl(190,100%,50%)] transition-colors"
-            >
-              Resources
-            </Link>
-            <Link
-              to="/products"
-              className="text-xs font-medium text-[hsl(210,20%,60%)] hover:text-[hsl(190,100%,50%)] transition-colors"
-            >
-              Products
-            </Link>
-            <Link
-              to="/blogs"
-              className="text-xs font-medium text-[hsl(210,20%,60%)] hover:text-[hsl(190,100%,50%)] transition-colors"
-            >
-              Blog
-            </Link>
-            <Button
-              size="sm"
-              onClick={() => window.open(BOOK_CALL_URL, "_blank")}
-              className="rounded-full bg-[hsl(190,100%,50%)]/10 border border-[hsl(190,100%,50%)]/30 text-[hsl(190,100%,50%)] hover:bg-[hsl(190,100%,50%)]/20 text-xs font-medium px-4 h-8"
-            >
-              Book a Call
-            </Button>
-          </div>
-        </div>
-      </nav>
-
-      {/* ═══════════════════════════════════════════
-          HERO
-      ═══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* BG */}
-        <div className="absolute inset-0">
-          <img
-            src={heroBg}
-            alt=""
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(220,50%,4%)] via-[hsl(220,50%,4%)]/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220,50%,4%)] via-transparent to-[hsl(220,50%,4%)]/50" />
-        </div>
-
-        {/* Glow orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(190,100%,50%)]/[0.03] blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[hsl(270,80%,60%)]/[0.04] blur-[100px]" />
-
-        <div className="relative z-10 mx-auto max-w-7xl w-full px-6 md:px-12 pt-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-6"
-              >
-                <span className="inline-block text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/70 border border-[hsl(190,100%,50%)]/20 rounded-full px-4 py-1.5 backdrop-blur-sm">
-                  AI Product Builder · Founder
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold font-heading leading-[0.9] mb-8 tracking-tight"
-              >
-                Charles
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="text-xl md:text-2xl font-light leading-relaxed text-[hsl(210,20%,80%)] mb-6 max-w-xl"
-              >
-                I build AI products and systems that run inside real operations.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="text-base text-[hsl(215,16%,58%)] leading-relaxed mb-10 max-w-lg"
-              >
-                Most teams can ship pilots. Few can run AI in production with
-                consistency. My work focuses on productizing agent systems,
-                operational workflows, and decision infrastructure that teams
-                can trust every day.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex flex-wrap gap-3"
-              >
-                <Button
-                  onClick={() =>
-                    document
-                      .getElementById("articles")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="bg-[hsl(190,100%,50%)]/10 border border-[hsl(190,100%,50%)]/30 text-[hsl(190,100%,50%)] hover:bg-[hsl(190,100%,50%)]/20 px-6 py-5 rounded-xl font-medium backdrop-blur-sm"
+      <main>
+        {/* ── Hero ── */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-secondary/25 to-background px-6 pt-32 pb-16 md:pt-40 md:pb-20">
+          <div className="pointer-events-none absolute top-1/3 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-teal/5 blur-[160px]" />
+          <div className="relative z-10 mx-auto max-w-5xl">
+            <div className="grid items-center gap-10 md:grid-cols-[1.3fr_0.7fr]">
+              <div>
+                <motion.span
+                  className="text-xs font-bold uppercase tracking-[0.25em] text-teal"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  Read My Articles <BookOpen className="ml-2 h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() =>
-                    document
-                      .getElementById("built")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="text-[hsl(210,20%,70%)] hover:text-white hover:bg-white/5 px-6 py-5 rounded-xl"
+                  Charles K. Chirongoma
+                </motion.span>
+                <motion.h1
+                  className="mt-4 text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] text-foreground md:text-5xl lg:text-[3.4rem]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  What I Have Built <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() =>
-                    document
-                      .getElementById("contact")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="text-[hsl(210,20%,70%)] hover:text-white hover:bg-white/5 px-6 py-5 rounded-xl"
+                  Building organizations <span className="text-teal">that think.</span>
+                </motion.h1>
+                <motion.p
+                  className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  Contact <Mail className="ml-2 h-4 w-4" />
-                </Button>
-              </motion.div>
-            </div>
-
-            {/* Right — Photo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="hidden lg:flex justify-end"
-            >
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-[hsl(190,100%,50%)]/20 via-transparent to-[hsl(270,80%,60%)]/20 blur-xl" />
-                <div className="relative w-[380px] h-[460px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
-                  <img
-                    src={charlesPhoto}
-                    alt="Charles"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220,50%,4%)]/60 via-transparent to-transparent" />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        >
-          <div className="w-px h-16 bg-gradient-to-b from-transparent via-[hsl(190,100%,50%)]/30 to-transparent" />
-        </motion.div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          ABOUT
-      ═══════════════════════════════════════════ */}
-      <section id="about" className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(190,100%,50%)]/10 to-transparent" />
-        <div className="mx-auto max-w-4xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/60 mb-4 block"
-            >
-              About
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-12 tracking-tight"
-            >
-              About Charles
-            </motion.h2>
-
-            <div className="space-y-6 text-lg text-[hsl(215,16%,65%)] leading-relaxed">
-              <motion.p variants={fadeUp} custom={2}>
-                Charles is a founder building AI products, agent systems, and
-                software that changes how teams execute work.
-              </motion.p>
-              <motion.p variants={fadeUp} custom={3}>
-                His work centers on a simple idea:{" "}
-                <span className="text-[hsl(210,20%,90%)] font-medium">
-                  AI fails less because of model quality and more because
-                  execution systems are not redesigned to run it inside everyday
-                  operations.
-                </span>
-              </motion.p>
-              <motion.p variants={fadeUp} custom={4}>
-                Instead of isolated features, Charles builds full products and
-                workflow infrastructure that connect data, people, and automated
-                agents into one operating system.
-              </motion.p>
-            </div>
-
-            <motion.div
-              variants={fadeUp}
-              custom={5}
-              className="mt-12 grid grid-cols-2 md:grid-cols-5 gap-4"
-            >
-              {[
-                "Reliability",
-                "Governance",
-                "Data Integrity",
-                "Operational Intelligence",
-                "Practical Implementation",
-              ].map((p) => (
-                <div
-                  key={p}
-                  className="text-center px-4 py-5 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+                  I design how organizations make decisions, then build the systems that execute
+                  them.
+                </motion.p>
+                <motion.p
+                  className="mt-4 max-w-xl leading-relaxed text-muted-foreground"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <span className="text-sm font-medium text-[hsl(190,100%,50%)]/80">
-                    {p}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          WHAT I WORK ON
-      ═══════════════════════════════════════════ */}
-      <section className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/60 mb-4 block"
-            >
-              Focus Areas
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-16 tracking-tight"
-            >
-              What I Build
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {workAreas.map((area, i) => (
-              <motion.div key={area.title} variants={fadeUp} custom={i}>
-                <div className="group h-full p-8 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.04] hover:border-[hsl(190,100%,50%)]/20 transition-all duration-500">
-                  <div className="w-12 h-12 rounded-2xl bg-[hsl(190,100%,50%)]/[0.08] flex items-center justify-center mb-6 group-hover:bg-[hsl(190,100%,50%)]/[0.15] transition-colors">
-                    <area.icon className="h-6 w-6 text-[hsl(190,100%,50%)]/70" />
-                  </div>
-                  <h3 className="text-xl font-bold font-heading mb-3 tracking-tight">
-                    {area.title}
-                  </h3>
-                  <p className="text-[hsl(215,16%,58%)] text-sm leading-relaxed">
-                    {area.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          WHAT I HAVE BUILT
-      ═══════════════════════════════════════════ */}
-      <section id="built" className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/60 mb-4 block"
-            >
-              Products
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight"
-            >
-              What I Have Built
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              custom={2}
-              className="text-[hsl(215,16%,58%)] text-lg max-w-3xl mb-14"
-            >
-              Two products currently anchor my work: one focused on agent
-              execution and one focused on digital growth operations.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="grid md:grid-cols-2 gap-6"
-          >
-            {builtProducts.map((product, i) => (
-              <motion.div key={product.title} variants={fadeUp} custom={i}>
-                <div className="h-full p-8 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.04] hover:border-[hsl(190,100%,50%)]/20 transition-all duration-500">
-                  <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-[hsl(190,100%,50%)]/70 mb-3">
-                    {product.label}
-                  </p>
-                  <h3 className="text-2xl font-bold font-heading tracking-tight mb-3">
-                    {product.title}
-                  </h3>
-                  <p className="text-[hsl(215,16%,58%)] text-sm leading-relaxed mb-7">
-                    {product.description}
-                  </p>
+                  The companies that outperform over the next decade won't simply adopt AI.
+                  They'll redesign how work happens. That's the work I do.
+                </motion.p>
+                <motion.div
+                  className="mt-8 flex flex-wrap gap-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
                   <Button
-                    onClick={() => window.open(product.href, "_blank")}
-                    className="bg-[hsl(190,100%,50%)]/10 border border-[hsl(190,100%,50%)]/30 text-[hsl(190,100%,50%)] hover:bg-[hsl(190,100%,50%)]/20 px-5 py-4 rounded-xl font-medium"
+                    size="lg"
+                    className="h-12 rounded-full bg-foreground px-7 text-sm font-semibold text-background hover:bg-foreground/90"
+                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                   >
-                    {product.ctaLabel}
+                    Get in touch
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 text-sm font-semibold text-foreground transition-colors hover:border-teal/40 hover:text-teal"
+                  >
+                    <Linkedin className="h-4 w-4" /> LinkedIn
+                  </a>
+                </motion.div>
+              </div>
+              <motion.div
+                className="relative flex justify-center md:justify-end"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                <div className="h-48 w-48 overflow-hidden rounded-3xl ring-2 ring-border md:h-56 md:w-56">
+                  <img src={charlesPhoto} alt="Charles K. Chirongoma" className="h-full w-full object-cover" />
                 </div>
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+            </div>
+          </div>
+        </section>
 
-      {/* ═══════════════════════════════════════════
-          CORE THINKING
-      ═══════════════════════════════════════════ */}
-      <section className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        {/* Ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[hsl(270,80%,60%)]/[0.02] blur-[150px]" />
+        {/* ── The Thesis ── */}
+        <section className="relative bg-foreground px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">The Thesis</span>
+              <h2 className="mt-5 text-background">
+                Organizations don't have a software problem.{" "}
+                <span className="text-teal">They have an execution problem.</span>
+              </h2>
+              <div className="mt-6 space-y-4 leading-relaxed text-background/70">
+                <p>
+                  Most organizations already know what they should do. The challenge is turning
+                  decisions into consistent action. Knowledge sits inside individuals instead of
+                  systems. Processes drift. Work is recreated. Valuable expertise walks out the
+                  door every evening.
+                </p>
+                <p>
+                  Technology alone doesn't solve this. In many cases, it adds another layer of
+                  complexity. I believe organizations should operate differently: knowledge should
+                  compound, decisions should be repeatable, and execution should improve as the
+                  organization learns.
+                </p>
+                <p className="font-medium text-background">
+                  Artificial intelligence makes this possible — but only when it's built into the
+                  operating model rather than layered on top of it.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-        <div className="relative mx-auto max-w-5xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(270,80%,60%)]/60 mb-4 block"
-            >
-              Philosophy
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-16 tracking-tight"
-            >
-              How I Think About AI
-            </motion.h2>
-          </motion.div>
+        {/* ── Why I Care ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">Why I Care</span>
+              <div className="mt-5 space-y-4 leading-relaxed text-muted-foreground">
+                <p>
+                  I began my career in management consulting, working on industrial development,
+                  operational redesign, and large-scale transformation programmes across South
+                  Africa — from redesigning waste management systems to helping manufacturers
+                  coordinate around shared operational goals.
+                </p>
+                <p>
+                  Every engagement followed the same pattern. We diagnosed the problem. We designed
+                  a better operating model. The engagement ended. The knowledge left with us. And
+                  the organization slowly returned to its previous state.
+                </p>
+                <p className="font-medium text-foreground">
+                  The real deliverable isn't a presentation. It's an organization that becomes more
+                  capable after you've left. I've spent my career trying to build that instead.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="space-y-4"
-          >
-            {thinkingCards.map((card, i) => (
-              <motion.div key={i} variants={fadeUp} custom={i}>
-                <div className="flex items-start gap-6 p-8 rounded-2xl border border-white/5 bg-white/[0.015] hover:bg-white/[0.03] hover:border-[hsl(270,80%,60%)]/15 transition-all duration-500 group">
-                  <div className="w-10 h-10 rounded-xl bg-[hsl(270,80%,60%)]/[0.1] flex items-center justify-center shrink-0 group-hover:bg-[hsl(270,80%,60%)]/[0.2] transition-colors">
-                    <card.icon className="h-5 w-5 text-[hsl(270,80%,60%)]/70" />
+        {/* ── How I Think: Fractal Fit ── */}
+        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-teal">
+                <Brain className="h-4 w-4" /> How I Think
+              </span>
+              <h2 className="mt-5 text-foreground">Fractal Fit.</h2>
+              <div className="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+                <p>
+                  Organizations are information-processing systems. Every workflow is a sequence of
+                  observations, decisions, and actions. Before software exists, that system already
+                  exists inside people — the conversations they have, the approvals they make, the
+                  judgement they apply, the exceptions they recognise.
+                </p>
+                <p>
+                  Technology should never invent a new way of working simply because it can. It
+                  should first understand how the organization naturally operates, then replicate
+                  that structure digitally. When the digital system reflects reality, adoption
+                  becomes natural — the software feels obvious because it behaves the way the
+                  organization already thinks.
+                </p>
+                <p className="font-medium text-foreground">
+                  Only then do I automate it. The goal isn't digital transformation. The goal is
+                  organizational transformation through software.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── How I Build ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <div className="max-w-2xl">
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">How I Build</span>
+                <h2 className="mt-5 text-foreground">Every engagement follows the same philosophy.</h2>
+              </div>
+            </Reveal>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {HOW_I_BUILD.map((s, i) => (
+                <Reveal key={s.n} delay={i * 0.08}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                    <span className="font-heading text-3xl font-extrabold text-teal">{s.n}</span>
+                    <h4 className="mt-4 font-heading text-lg font-bold text-foreground">{s.title}</h4>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                   </div>
-                  <p className="text-lg md:text-xl font-light text-[hsl(210,20%,80%)] leading-relaxed">
-                    {card.text}
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── The Systems ── */}
+        <section className="relative bg-foreground px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <div className="max-w-2xl">
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">The Systems</span>
+                <h2 className="mt-5 text-background">What I'm building.</h2>
+              </div>
+            </Reveal>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {SYSTEMS.map((s, i) => {
+                const inner = (
+                  <div className="group flex h-full flex-col rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:bg-background/[0.07]">
+                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3">
+                      <s.icon className="h-5 w-5 text-teal" />
+                    </div>
+                    <h4 className="flex items-center gap-1.5 font-heading text-lg font-bold text-background">
+                      {s.name}
+                      {s.href && <ArrowUpRight className="h-4 w-4 text-teal opacity-0 transition-opacity group-hover:opacity-100" />}
+                    </h4>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-background/60">{s.desc}</p>
+                  </div>
+                );
+                return (
+                  <Reveal key={s.name} delay={i * 0.08}>
+                    {s.href ? (
+                      <a href={s.href} target="_blank" rel="noopener noreferrer">{inner}</a>
+                    ) : (
+                      inner
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Selected Work ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <div className="max-w-2xl">
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">Selected Work</span>
+                <h2 className="mt-5 text-foreground">Theory only matters when it survives contact with reality.</h2>
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  How these ideas have been applied across public infrastructure, enterprise
+                  operations, and research.
+                </p>
+              </div>
+            </Reveal>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {SELECTED_WORK.map((w, i) => {
+                const inner = (
+                  <div className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
+                    <div className="mb-5 flex items-center gap-3">
+                      <div className="rounded-xl bg-teal/10 p-2.5"><w.icon className="h-4 w-4 text-teal" /></div>
+                      <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{w.tag}</span>
+                    </div>
+                    <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">{w.name}</h4>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{w.desc}</p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">
+                      Read case study <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                );
+                return (
+                  <Reveal key={w.name} delay={i * 0.08}>
+                    {w.external ? (
+                      <a href={w.href}>{inner}</a>
+                    ) : (
+                      <Link to={w.href}>{inner}</Link>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Principles ── */}
+        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-4xl">
+            <Reveal>
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">Principles</span>
+            </Reveal>
+            <div className="mt-8 space-y-5">
+              {PRINCIPLES.map((p, i) => (
+                <Reveal key={p.title} delay={i * 0.06}>
+                  <div className="flex gap-5 rounded-2xl border border-border bg-card p-6">
+                    <span className="font-heading text-xl font-extrabold text-teal">{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h4 className="font-heading text-base font-bold text-foreground">{p.title}</h4>
+                      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Writing ── */}
+        <section className="relative bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">Writing</span>
+              <h2 className="mt-5 text-foreground">On organizational design, AI, and the future of execution.</h2>
+            </Reveal>
+            <div className="mt-8 divide-y divide-border/70 border-y border-border/70">
+              {WRITING.map((title, i) => (
+                <Reveal key={title} delay={i * 0.04}>
+                  <Link to="/blogs" className="group flex items-center justify-between gap-4 py-4">
+                    <span className="font-medium text-foreground transition-colors group-hover:text-teal">{title}</span>
+                    <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-teal" />
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── What I'm Building Toward ── */}
+        <section className="relative bg-foreground px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">What I'm Building Toward</span>
+              <div className="mt-5 space-y-4 leading-relaxed text-background/70">
+                <p>
+                  My work today is focused on helping organizations become more intelligent. But my
+                  ambition is larger than building software.
+                </p>
+                <p>
+                  Over time, I see this evolving into an operating-focused investment firm that
+                  acquires and grows companies by redesigning how they work — not through financial
+                  engineering, but through operational engineering: encoding institutional
+                  knowledge, removing friction, and building systems that let organizations improve
+                  continuously.
+                </p>
+                <p className="font-medium text-background">
+                  The software is one part of that vision. The organizations it enables are the real
+                  product.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── Contact ── */}
+        <section id="contact" className="relative scroll-mt-20 bg-background px-6 py-16 md:py-20">
+          <SectionRule />
+          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
+            <Reveal>
+              <div>
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">Contact</span>
+                <h2 className="mt-5 text-foreground">Building something difficult?</h2>
+                <p className="mt-5 leading-relaxed text-muted-foreground">
+                  I work with a small number of organizations willing to rethink how they operate —
+                  not just adopt new technology. If you're dealing with complex workflows, large
+                  volumes of structured information, or institutional knowledge that's difficult to
+                  scale, I'd like to hear about it.
+                </p>
+                <div className="mt-8 space-y-3">
+                  <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-3 text-sm font-medium text-foreground transition-colors hover:text-teal">
+                    <span className="inline-flex rounded-lg border border-border p-2.5"><Mail className="h-4 w-4" /></span>
+                    {EMAIL}
+                  </a>
+                  <br />
+                  <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-sm font-medium text-foreground transition-colors hover:text-teal">
+                    <span className="inline-flex rounded-lg border border-border p-2.5"><Linkedin className="h-4 w-4" /></span>
+                    LinkedIn
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="rounded-2xl border border-border bg-card p-7">
+                <p className="text-sm font-semibold text-foreground">Leave your details and I'll reach out.</p>
+                <div className="mt-5 space-y-4">
+                  <Input
+                    placeholder="Your name"
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm((p) => ({ ...p, name: e.target.value }))}
+                  />
+                  <Input
+                    type="email"
+                    placeholder="Email address"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
+                  />
+                  <Textarea
+                    placeholder="What are you working on?"
+                    rows={4}
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm((p) => ({ ...p, message: e.target.value }))}
+                  />
+                  <Button
+                    className="h-12 w-full rounded-full bg-teal font-semibold text-teal-foreground hover:bg-teal/90"
+                    onClick={handleContactSubmit}
+                    disabled={submitting}
+                  >
+                    {submitting ? "Sending…" : "Send message"}
+                    {!submitting && <ArrowRight className="ml-2 h-4 w-4" />}
+                  </Button>
+                  <p className="text-center text-xs text-muted-foreground">
+                    Or email me directly at {EMAIL}
                   </p>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SKILLS
-      ═══════════════════════════════════════════ */}
-      <section className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        <div className="mx-auto max-w-5xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/60 mb-4 block"
-            >
-              Expertise
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-16 tracking-tight"
-            >
-              Skills & Expertise
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="flex flex-wrap gap-3"
-          >
-            {skills.map((skill, i) => (
-              <motion.div key={skill} variants={fadeUp} custom={i}>
-                <div className="px-6 py-3.5 rounded-full border border-white/8 bg-white/[0.02] text-sm font-medium text-[hsl(210,20%,80%)] hover:border-[hsl(190,100%,50%)]/25 hover:text-[hsl(190,100%,50%)] hover:bg-[hsl(190,100%,50%)]/[0.05] transition-all duration-300 cursor-default">
-                  {skill}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          ARTICLES
-      ═══════════════════════════════════════════ */}
-      <section id="articles" className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        <div className="absolute top-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[hsl(190,100%,50%)]/[0.02] blur-[120px]" />
-
-        <div className="relative mx-auto max-w-5xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/60 mb-4 block"
-            >
-              Insights
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-16 tracking-tight"
-            >
-              Insights & Writing
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="space-y-4"
-          >
-            {articles.map((article, i) => (
-              <motion.div key={article.title} variants={fadeUp} custom={i}>
-                <div className="group flex items-start justify-between gap-8 p-8 rounded-2xl border border-white/5 bg-white/[0.015] hover:bg-white/[0.04] hover:border-[hsl(190,100%,50%)]/15 transition-all duration-500 cursor-pointer">
-                  <div className="flex-1">
-                    <span className="text-xs font-mono text-[hsl(215,16%,48%)] mb-2 block">
-                      {article.date}
-                    </span>
-                    <h3 className="text-xl font-bold font-heading mb-2 group-hover:text-[hsl(190,100%,50%)] transition-colors tracking-tight">
-                      {article.title}
-                    </h3>
-                    <p className="text-[hsl(215,16%,55%)] text-sm leading-relaxed">
-                      {article.desc}
-                    </p>
-                  </div>
-                  <div className="shrink-0 mt-2">
-                    <ArrowRight className="h-5 w-5 text-[hsl(215,16%,40%)] group-hover:text-[hsl(190,100%,50%)] group-hover:translate-x-1 transition-all" />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          PHILOSOPHY
-      ═══════════════════════════════════════════ */}
-      <section className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        <div className="mx-auto max-w-3xl text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(270,80%,60%)]/60 mb-4 block"
-            >
-              Vision
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-8 tracking-tight leading-tight"
-            >
-              Building the Future of Intelligent Organizations
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              custom={2}
-              className="text-lg text-[hsl(215,16%,60%)] leading-relaxed mb-6"
-            >
-              The next generation of organizations will not run purely on
-              software or people. They will run on{" "}
-              <span className="text-[hsl(210,20%,90%)] font-medium">
-                systems of intelligence
-              </span>{" "}
-              — where humans, data, and AI agents collaborate.
-            </motion.p>
-            <motion.p
-              variants={fadeUp}
-              custom={3}
-              className="text-lg text-[hsl(215,16%,55%)] leading-relaxed"
-            >
-              The objective is not to chase trends, but to design infrastructure
-              that enables better decisions, faster execution, and resilient
-              operations.
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          CONTACT
-      ═══════════════════════════════════════════ */}
-      <section id="contact" className="py-32 px-6 md:px-12 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(190,100%,50%)]/10 to-transparent" />
-        <div className="mx-auto max-w-2xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="text-center mb-12"
-          >
-            <motion.span
-              variants={fadeUp}
-              custom={0}
-              className="text-xs font-mono uppercase tracking-[0.3em] text-[hsl(190,100%,50%)]/60 mb-4 block"
-            >
-              Connect
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight"
-            >
-              Get in Touch
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              custom={2}
-              className="text-[hsl(215,16%,58%)] text-lg"
-            >
-              If you're exploring how AI can be implemented reliably within your
-              organization, feel free to reach out.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            {/* Social links */}
-            <motion.div
-              variants={fadeUp}
-              custom={3}
-              className="flex justify-center gap-4 mb-12"
-            >
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/8 bg-white/[0.02] text-sm font-medium text-[hsl(210,20%,70%)] hover:border-[hsl(190,100%,50%)]/30 hover:text-[hsl(190,100%,50%)] transition-all"
-              >
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <a
-                href="mailto:charles@chasecontinental.com"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/8 bg-white/[0.02] text-sm font-medium text-[hsl(210,20%,70%)] hover:border-[hsl(190,100%,50%)]/30 hover:text-[hsl(190,100%,50%)] transition-all"
-              >
-                <Mail className="h-4 w-4" /> Email
-              </a>
-            </motion.div>
-
-            {/* Contact form */}
-            <motion.div
-              variants={fadeUp}
-              custom={4}
-              className="p-8 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
-            >
-              <div className="space-y-5">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-mono uppercase tracking-wider text-[hsl(215,16%,48%)] mb-2 block">
-                      Name
-                    </label>
-                    <Input
-                      value={contactForm.name}
-                      onChange={(e) =>
-                        setContactForm((p) => ({ ...p, name: e.target.value }))
-                      }
-                      placeholder="Your name"
-                      className="bg-white/[0.03] border-white/8 text-white placeholder:text-[hsl(215,16%,35%)] focus:border-[hsl(190,100%,50%)]/40 rounded-xl"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-mono uppercase tracking-wider text-[hsl(215,16%,48%)] mb-2 block">
-                      Email
-                    </label>
-                    <Input
-                      type="email"
-                      value={contactForm.email}
-                      onChange={(e) =>
-                        setContactForm((p) => ({ ...p, email: e.target.value }))
-                      }
-                      placeholder="you@company.com"
-                      className="bg-white/[0.03] border-white/8 text-white placeholder:text-[hsl(215,16%,35%)] focus:border-[hsl(190,100%,50%)]/40 rounded-xl"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-xs font-mono uppercase tracking-wider text-[hsl(215,16%,48%)] mb-2 block">
-                    Message
-                  </label>
-                  <Textarea
-                    value={contactForm.message}
-                    onChange={(e) =>
-                      setContactForm((p) => ({ ...p, message: e.target.value }))
-                    }
-                    placeholder="Tell me about your project or challenge..."
-                    rows={5}
-                    className="bg-white/[0.03] border-white/8 text-white placeholder:text-[hsl(215,16%,35%)] focus:border-[hsl(190,100%,50%)]/40 rounded-xl resize-none"
-                  />
-                </div>
-                <Button
-                  onClick={handleContactSubmit}
-                  disabled={submitting}
-                  className="w-full bg-[hsl(190,100%,50%)]/10 border border-[hsl(190,100%,50%)]/30 text-[hsl(190,100%,50%)] hover:bg-[hsl(190,100%,50%)]/20 py-5 rounded-xl font-medium"
-                >
-                  {submitting ? (
-                    "Sending…"
-                  ) : (
-                    <>
-                      <Send className="mr-2 h-4 w-4" /> Send Message
-                    </>
-                  )}
-                </Button>
               </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          FOOTER
-      ═══════════════════════════════════════════ */}
-      <footer className="py-12 px-6 md:px-12 border-t border-white/5">
-        <div className="mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-4">
-          <a href="/" className="flex items-center gap-2.5 group">
-            <img
-              src={ccLogoWhite}
-              alt="Chase Continental"
-              className="h-9 w-auto opacity-60 group-hover:opacity-100 transition-opacity"
-            />
-            <span className="text-xs text-[hsl(215,16%,40%)] group-hover:text-[hsl(190,100%,50%)] transition-colors">
-              Chase Continental
-            </span>
-          </a>
-          <div className="flex items-center gap-6">
-            <p className="text-xs text-[hsl(215,16%,40%)]">
-              © 2026 Charles. All rights reserved.
-            </p>
-            <a
-              href="/privacy"
-              className="text-xs text-[hsl(215,16%,40%)] hover:text-[hsl(190,100%,50%)] transition-colors"
-            >
-              Privacy
-            </a>
+            </Reveal>
           </div>
-        </div>
-      </footer>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 };

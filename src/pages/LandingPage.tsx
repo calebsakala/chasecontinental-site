@@ -146,7 +146,7 @@ const AGENT_FEATURES = [
 const IMPACT_STATS = [
   { number: "100+", label: "Businesses automated" },
   { number: "30+", label: "Countries with active presence" },
-  { number: "3×", label: "Faster turnaround on repetitive work" },
+  { number: "10.4×", label: "Productivity gain" },
   { number: "89%", label: "Fewer errors with automated checks" },
 ];
 
@@ -191,12 +191,12 @@ const CASE_STUDIES = [
     tag: "Manufacturing",
     name: "Heineken Glass Bottle Recovery",
     description:
-      "Digital delivery and reporting for Heineken's circular economy programme: bottle collection, reclaimer earnings, and job creation tracked from the field to a monthly executive dashboard.",
+      "Digital delivery and reporting for Heineken's circular economy programme with Greenway Africa: field data cleaned, structured, and tracked to a monthly executive dashboard.",
     metrics: [
+      { m: "252k t", l: "Glass recovered" },
       { m: "4", l: "Regions tracked" },
       { m: "14", l: "KPIs reported monthly" },
-      { m: "18k+", l: "Bottles in month one" },
-      { m: "64.5t", l: "Glass tracked" },
+      { m: "1", l: "Trusted data source" },
     ],
   },
 ];
@@ -610,8 +610,28 @@ const LandingPage = () => {
           <div className="mx-auto max-w-6xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal direction="left">
-                <div className="overflow-hidden rounded-2xl border border-background/15 bg-background/[0.03] shadow-xl">
-                  <img src="/static/images/chase-agents-hero.png" alt="Chase Agents automation platform" className="w-full" />
+                <div className="relative lg:-ml-4 lg:scale-[1.04]">
+                  {/* soft product glow */}
+                  <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-teal/20 blur-3xl" />
+                  {/* browser-window mockup frame */}
+                  <div className="relative overflow-hidden rounded-2xl border border-background/15 bg-[#0d1526] shadow-2xl ring-1 ring-white/5">
+                    <div className="flex items-center gap-2 border-b border-white/10 bg-white/[0.04] px-4 py-3">
+                      <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                      <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                      <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                      <div className="ml-3 flex-1">
+                        <div className="mx-auto max-w-[220px] rounded-md bg-white/[0.06] px-3 py-1 text-center text-[11px] font-medium text-background/50">
+                          chaseagents.com
+                        </div>
+                      </div>
+                    </div>
+                    <img
+                      src="/static/images/chase-agents-hero.png"
+                      alt="Chase Agents automation platform"
+                      className="w-full"
+                      style={{ imageRendering: "auto" }}
+                    />
+                  </div>
                 </div>
               </Reveal>
               <Reveal direction="right" delay={0.1}>

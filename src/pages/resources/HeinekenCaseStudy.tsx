@@ -8,27 +8,27 @@ import { Button } from "@/components/ui/button";
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 
 const META = [
-  { label: "Partners", value: "Illinois Africa · HEINEKEN Beverages SA" },
+  { label: "Partners", value: "Greenway Africa · HEINEKEN Beverages SA" },
   { label: "Sector", value: "Circular Economy · Manufacturing" },
   { label: "Scope", value: "Digital delivery & performance reporting" },
-  { label: "Regions", value: "Alexandra · Soweto · KZN · Western Cape" },
+  { label: "Regions", value: "Gauteng · Western Cape · KwaZulu-Natal · Venda" },
 ];
 
 const CHALLENGE_BULLETS = [
-  "Performance across regions was difficult to compare.",
-  "Data quality varied between reporting teams.",
-  "Programme management relied on manual consolidation.",
-  "Decision-makers lacked timely operational visibility.",
-  "Measuring environmental and socioeconomic impact at scale became increasingly complex.",
+  "Field data arrived in inconsistent formats from every region.",
+  "The same KPI was recorded and defined differently by different teams.",
+  "Duplicates, gaps, and errors were common, and hard to catch by hand.",
+  "Programme management relied on slow, manual consolidation.",
+  "Decision-makers lacked a single, trustworthy view of performance.",
 ];
 
 const APPROACH_BULLETS = [
-  "Designing the end-to-end data collection architecture.",
-  "Building ETL pipelines that transformed raw field data into structured operational datasets.",
-  "Standardising KPI definitions across all participating regions.",
-  "Automating data validation and enrichment wherever possible.",
-  "Eliminating repetitive manual reporting activities.",
-  "Creating executive dashboards that updated from a single trusted source of operational data.",
+  "Cleaning the raw field data: de-duplicating, correcting, and filling the gaps.",
+  "Organising it into one consistent structure with standard KPI definitions across every region.",
+  "Building ETL pipelines that turned messy field records into governed operational datasets.",
+  "Automating data validation and enrichment so quality holds as volume grows.",
+  "Eliminating repetitive manual reporting work.",
+  "Creating executive dashboards that update from a single trusted source of data.",
 ];
 
 const KPIS = [
@@ -85,10 +85,10 @@ const HeinekenCaseStudy = () => {
           </p>
           <div className="mt-9 grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
+              { m: "252,000t", l: "Crushed glass recovered" },
               { m: "4", l: "Regions tracked" },
               { m: "14", l: "KPIs reported monthly" },
-              { m: "18k+", l: "Bottles in month one" },
-              { m: "64.5t", l: "Glass recovered" },
+              { m: "1", l: "Trusted source of truth" },
             ].map((s) => (
               <div key={s.l} className="rounded-xl border border-background/10 bg-background/[0.05] p-4 text-center">
                 <span className="font-heading text-2xl md:text-3xl font-extrabold text-teal">{s.m}</span>
@@ -116,7 +116,7 @@ const HeinekenCaseStudy = () => {
         <div className="mx-auto max-w-3xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">Overview</h2>
           <p className="mt-5 text-muted-foreground leading-relaxed">
-            In partnership with Illinois Africa and HEINEKEN Beverages South Africa, Chase
+            In partnership with Greenway Africa and HEINEKEN Beverages South Africa, Chase
             Continental supported the digital delivery of a national circular economy
             programme focused on improving glass bottle recovery across multiple regions.
           </p>
@@ -167,17 +167,24 @@ const HeinekenCaseStudy = () => {
             We started with the data, not the dashboards.
           </h2>
           <p className="mt-5 text-muted-foreground leading-relaxed">
-            Working alongside Illinois Africa and HEINEKEN Beverages, we designed the
+            Working alongside Greenway Africa and HEINEKEN Beverages, we designed the
             operational data pipeline that powered the programme's reporting and
             decision-making.
+          </p>
+          <p className="mt-4 text-muted-foreground leading-relaxed">
+            The raw field data was messy: inconsistent formats, duplicates, gaps, and the same
+            KPI defined differently from one region to the next. Our first job was to clean it —
+            de-duplicating records, correcting errors, filling gaps — and then organise it into
+            one consistent structure with a single, standard definition for every KPI. That
+            clean, structured foundation is what made everything downstream possible.
           </p>
           <p className="mt-4 text-muted-foreground leading-relaxed">
             Instead of asking field teams to complete large, complex forms, we redesigned the
             collection process around the minimum amount of information required. Every
             additional data point was derived, enriched, or calculated automatically
             downstream. This ETL-first approach reduced the reporting burden on frontline
-            teams, improved data quality, and created a consistent foundation for automation
-            across the programme.
+            teams, held data quality steady as volume grew, and created a consistent foundation
+            for automation across the programme.
           </p>
           <div className="mt-8 rounded-2xl border border-border bg-card p-7">
             <p className="text-sm font-semibold text-foreground">Our work included</p>
@@ -244,7 +251,7 @@ const HeinekenCaseStudy = () => {
           <p className="mt-8 text-muted-foreground leading-relaxed">
             Detailed regional performance tracking across{" "}
             <span className="font-semibold text-foreground">
-              Alexandra, Soweto, KwaZulu-Natal, and the Western Cape
+              Gauteng, the Western Cape, KwaZulu-Natal, and Venda
             </span>{" "}
             allowed stakeholders to identify trends, monitor progress against targets, and
             allocate support where it was needed most.
