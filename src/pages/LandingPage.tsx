@@ -680,13 +680,14 @@ const LandingPage = () => {
                     Heineken
                   </h4>
                   <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed">
-                    Regional sustainability monitoring and reporting automation.
+                    Digital programme delivery &amp; performance reporting for a national
+                    circular economy programme.
                   </p>
                   <div className="mt-5 space-y-2.5 border-t border-border pt-5">
                     {[
-                      "Multi-region monitoring",
-                      "Automated compliance reporting",
-                      "Executive operational visibility",
+                      "ETL data pipeline & data quality",
+                      "Standardised KPI reporting across regions",
+                      "Executive operational dashboards",
                     ].map((r) => (
                       <div key={r} className="flex items-start gap-2.5">
                         <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-teal" />
