@@ -61,7 +61,7 @@ const HeinekenCaseStudy = () => {
         <title>HEINEKEN Beverages Circular Economy Programme | Chase Continental</title>
         <meta
           name="description"
-          content="Digital programme delivery and performance reporting for the HEINEKEN Beverages Circular Economy Programme — an ETL-first operational data pipeline that made programme performance measurable, governed, and largely self-driving."
+          content="Digital programme delivery and performance reporting for the HEINEKEN Beverages Circular Economy Programme. An ETL-first operational data pipeline that made programme performance measurable, governed, and largely self-driving."
         />
       </Helmet>
       <Header />
@@ -80,10 +80,23 @@ const HeinekenCaseStudy = () => {
           </p>
           <p className="mt-5 max-w-2xl text-base text-background/70 leading-relaxed">
             We engineered the operational data layer behind a national circular economy
-            programme — turning fragmented field data into a governed, largely automated
-            reporting system that made performance measurable and manageable at scale.
+            programme, turning fragmented field data into a governed, largely automated
+            reporting system that made performance measurable at scale.
           </p>
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-xl border border-background/15 bg-background/10">
+          <div className="mt-9 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { m: "350+", l: "Jobs created" },
+              { m: "Weekly", l: "Reporting, was monthly" },
+              { m: "100%", l: "KPIs outperformed" },
+              { m: "4", l: "Regions tracked" },
+            ].map((s) => (
+              <div key={s.l} className="rounded-xl border border-background/10 bg-background/[0.05] p-4 text-center">
+                <span className="font-heading text-2xl md:text-3xl font-extrabold text-teal">{s.m}</span>
+                <p className="mt-1.5 text-[11px] uppercase tracking-wider text-background/55">{s.l}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-xl border border-background/15 bg-background/10">
             {META.map((m) => (
               <div key={m.label} className="bg-foreground p-4">
                 <div className="text-[10px] font-semibold uppercase tracking-[0.13em] text-background/45">
@@ -128,7 +141,7 @@ const HeinekenCaseStudy = () => {
             needed to be consolidated into a single reporting framework.
           </p>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            Success depended on more than collecting data — it required confidence that every
+            Success depended on more than collecting data. It required confidence that every
             KPI was consistently defined, accurately captured, and reported in a way that
             project leaders could use to drive execution.
           </p>
@@ -178,7 +191,7 @@ const HeinekenCaseStudy = () => {
             </ul>
           </div>
           <p className="mt-6 font-medium text-foreground leading-relaxed">
-            The objective wasn't simply to collect information — it was to build a reporting
+            The objective wasn't simply to collect information. It was to build a reporting
             system that produced reliable operational intelligence with minimal manual effort.
           </p>
         </div>
@@ -193,7 +206,7 @@ const HeinekenCaseStudy = () => {
           <p className="mt-5 text-muted-foreground leading-relaxed">
             Once the reporting pipeline was established, we automated the layers above it.
             Because the underlying data was clean and consistently structured, operational
-            reporting became largely automated — the system generated performance dashboards,
+            reporting became largely automated. The system generated performance dashboards,
             surfaced operational trends, and accelerated the production of programme reports
             that would previously have required significant manual effort.
           </p>
@@ -201,7 +214,7 @@ const HeinekenCaseStudy = () => {
             AI-assisted reporting further reduced turnaround times by transforming structured
             operational data into executive-ready summaries, allowing project leadership to
             review recommendations instead of manually compiling reports. AI was one component
-            of the operating model — not the point of it. The result: stakeholders spent less
+            of the operating model, not the point of it. The result: stakeholders spent less
             time preparing information and more time improving programme delivery.
           </p>
         </div>
@@ -246,9 +259,10 @@ const HeinekenCaseStudy = () => {
             Business impact
           </h2>
           <p className="mt-5 max-w-3xl text-background/70 leading-relaxed">
-            By reducing the amount of information collected in the field while increasing the
-            amount of intelligence generated centrally, the programme achieved a reporting
-            process that was both more scalable and more reliable.
+            The programme it powered outperformed every KPI target, created over 350 jobs, and
+            moved reporting from a monthly to a weekly cadence. By collecting less in the field
+            while generating more intelligence centrally, the reporting process became both more
+            scalable and more reliable.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {IMPACT.map((item) => (
@@ -277,7 +291,7 @@ const HeinekenCaseStudy = () => {
           </p>
           <p className="mt-4 text-muted-foreground leading-relaxed">
             This reflects our broader approach to digital transformation: we design digital
-            operating systems — reliable data pipelines, governance, and reporting — that turn
+            operating systems, from data pipelines to governance and reporting, that turn
             data into better execution. AI is simply one component of that operating model.
           </p>
         </div>

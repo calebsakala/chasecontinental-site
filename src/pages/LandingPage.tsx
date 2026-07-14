@@ -75,14 +75,18 @@ const PHASES = [
   { n: "03", title: "Precision Intervention", desc: "Build the smallest automation at the biggest bottleneck. Measure, then expand. We insert into workflows, never rebuild them." },
 ];
 
-const ARCH_FLOW = [
-  "Business Systems",
-  "Chase Agents",
-  "AI Planning Layer",
-  "Deterministic Actions",
-  "Five-Layer Measurement",
-  "Monitoring",
-  "Business Outcomes",
+const INDUSTRY_STATS = [
+  { number: "42%", label: "abandoned most AI initiatives in 2025", source: "S&P Global" },
+  { number: "46%", label: "of AI proof-of-concepts scrapped before production", source: "S&P Global" },
+  { number: "95%", label: "of enterprise AI projects fail to deliver ROI", source: "MIT 2025" },
+  { number: "$40B", label: "spent on AI in 2024 with near-zero measurable impact", source: "MIT" },
+];
+
+const AGENT_FEATURES = [
+  "AI plans the work; deterministic actions execute it, with zero hallucinations.",
+  "Connect to any API, database, or internal system. You control the scope.",
+  "Full observability: every decision, tool call, and cost is traceable.",
+  "Model-agnostic: runs inside Claude, ChatGPT, or any MCP environment.",
 ];
 
 const INDUSTRIES = [
@@ -335,6 +339,23 @@ const LandingPage = () => {
                 </Reveal>
               ))}
             </div>
+
+            <Reveal>
+              <p className="mt-14 text-center text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/60">
+                And the numbers confirm it
+              </p>
+            </Reveal>
+            <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {INDUSTRY_STATS.map((stat, i) => (
+                <Reveal key={stat.label} delay={i * 0.08}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-5 text-center">
+                    <span className="font-heading text-2xl md:text-3xl font-extrabold text-teal">{stat.number}</span>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{stat.label}</p>
+                    <p className="mt-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">{stat.source}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -428,80 +449,75 @@ const LandingPage = () => {
         {/* ── 5. CHASE AGENTS ── */}
         <section id="products" className="bg-foreground py-16 md:py-20 px-6">
           <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <div className="max-w-2xl">
-                <span className="inline-flex items-center rounded-full bg-teal/10 border border-teal/20 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">
-                  Enterprise Automation Platform
-                </span>
-                <h2 className="mt-6 text-background">Powered by Chase Agents.</h2>
-                <p className="mt-5 text-background/70 leading-relaxed">
-                  Every solution runs on Chase Agents, built for reliability at scale. AI plans
-                  the approach. Deterministic workflows do the work. Every action is observable
-                  and measurable.
-                </p>
-                <p className="mt-4 text-background/70 leading-relaxed">
-                  Model-agnostic: run inside Claude, ChatGPT, or any MCP-compatible environment.{" "}
-                  <span className="font-semibold text-background">No lock-in. No single point of failure.</span>
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal direction="left">
                 <div className="overflow-hidden rounded-2xl border border-background/15 bg-background/[0.03] shadow-xl">
                   <img src="/static/images/chase-agents-hero.png" alt="Chase Agents automation platform dashboard" className="w-full" />
                 </div>
               </Reveal>
               <Reveal direction="right" delay={0.1}>
-                <div className="flex flex-col items-center gap-2">
-                  {ARCH_FLOW.map((node, i) => (
-                    <div key={node} className="flex w-full flex-col items-center">
-                      <div
-                        className={`w-full max-w-sm rounded-xl border px-5 py-3 text-center text-sm font-semibold transition-colors ${
-                          node === "Chase Agents"
-                            ? "border-teal/50 bg-teal/15 text-background"
-                            : "border-background/10 bg-background/[0.05] text-background/85"
-                        }`}
-                      >
-                        {node}
-                      </div>
-                      {i < ARCH_FLOW.length - 1 && <span className="my-0.5 h-4 w-px bg-background/20" />}
-                    </div>
-                  ))}
+                <div>
+                  <span className="inline-flex items-center rounded-full bg-teal/10 border border-teal/20 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">
+                    Enterprise Automation Platform
+                  </span>
+                  <h2 className="mt-6 text-background">Powered by Chase Agents.</h2>
+                  <p className="mt-5 text-background/70 leading-relaxed">
+                    Every solution runs on Chase Agents. AI plans the approach, deterministic
+                    workflows do the work, and every action is observable.
+                  </p>
+                  <ul className="mt-6 space-y-3">
+                    {AGENT_FEATURES.map((f) => (
+                      <li key={f} className="flex items-start gap-3">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+                        <span className="text-sm leading-relaxed text-background/75">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    size="lg"
+                    className="mt-8 rounded-full bg-teal text-teal-foreground hover:bg-teal/90 font-semibold px-8 h-12 transition-all duration-300"
+                    onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
+                  >
+                    Explore Chase Agents
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
                 </div>
               </Reveal>
             </div>
+          </div>
+        </section>
 
-            <Reveal delay={0.1}>
-              <div className="mx-auto mt-16 max-w-2xl">
-                <p className="mb-6 text-center text-sm font-bold uppercase tracking-[0.14em] text-teal">How we measure impact</p>
-                <MeasurementLayers />
+        {/* ── 5.5 HOW WE MEASURE IMPACT ── */}
+        <section className="relative bg-background py-16 md:py-20 px-6">
+          <SectionRule />
+          <div className="mx-auto max-w-2xl">
+            <Reveal>
+              <div className="text-center">
+                <span className="inline-flex items-center rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">
+                  How We Measure Impact
+                </span>
+                <h2 className="mt-6 text-foreground">We report at every layer.</h2>
+                <p className="mt-4 text-muted-foreground leading-relaxed">
+                  Most vendors measure model accuracy and stop. We connect the whole chain,
+                  from technical performance to financial impact.
+                </p>
               </div>
             </Reveal>
-
-            <Reveal delay={0.15}>
-              <div className="mt-12 text-center">
-                <Button
-                  size="lg"
-                  className="rounded-full bg-teal text-teal-foreground hover:bg-teal/90 font-semibold px-8 h-12 transition-all duration-300"
-                  onClick={() => window.open(CHASE_AGENTS_URL, "_blank")}
-                >
-                  Explore Chase Agents
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+            <Reveal delay={0.1}>
+              <div className="mt-12">
+                <MeasurementLayers />
               </div>
             </Reveal>
           </div>
         </section>
 
         {/* ── 6. CASE STUDIES ── */}
-        <section className="relative bg-secondary/40 py-16 md:py-20 px-6">
-          <SectionRule />
+        <section className="bg-foreground py-16 md:py-20 px-6">
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <div className="text-center">
-                <span className="inline-flex items-center rounded-full bg-teal/8 border border-teal/15 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">Case Studies</span>
-                <h2 className="mt-6 text-foreground">
+                <span className="inline-flex items-center rounded-full bg-teal/10 border border-teal/20 px-4 py-1.5 text-xs font-semibold text-teal tracking-wide">Case Studies</span>
+                <h2 className="mt-6 text-background">
                   Real deployments. <span className="text-teal">Measurable outcomes.</span>
                 </h2>
               </div>
@@ -512,15 +528,15 @@ const LandingPage = () => {
               <Reveal delay={0}>
                 <Link
                   to="/blog/case-study-building-practical-ai-capacity-with-the-ccid"
-                  className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-lg"
+                  className="group flex h-full flex-col rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:bg-background/[0.07]"
                 >
                   <div className="mb-5 flex items-center gap-3">
                     <div className="rounded-xl bg-teal/10 p-2.5"><Building2 className="h-4 w-4 text-teal" /></div>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Government</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-background/60">Government</span>
                   </div>
-                  <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">CCID</h4>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">Digital transformation across operations.</p>
-                  <div className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-5">
+                  <h4 className="font-heading text-lg font-bold text-background transition-colors group-hover:text-teal">CCID</h4>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-background/60">Digital transformation across operations.</p>
+                  <div className="mt-5 grid grid-cols-2 gap-3 border-t border-background/[0.08] pt-5">
                     {[
                       { m: "90%", l: "Faster processing" },
                       { m: "100%", l: "Paperless" },
@@ -529,7 +545,7 @@ const LandingPage = () => {
                     ].map((s) => (
                       <div key={s.l} className="text-center">
                         <span className="font-heading text-xl font-extrabold text-teal">{s.m}</span>
-                        <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">{s.l}</p>
+                        <p className="mt-0.5 text-[10px] uppercase tracking-wider text-background/50">{s.l}</p>
                       </div>
                     ))}
                   </div>
@@ -537,18 +553,18 @@ const LandingPage = () => {
                 </Link>
               </Reveal>
 
-              {/* Moya */}
+              {/* Moya (featured) */}
               <Reveal delay={0.1}>
                 <a
                   href="/case-study/"
-                  className="group flex h-full flex-col rounded-2xl border border-teal/30 bg-teal/[0.05] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/50 hover:shadow-lg"
+                  className="group flex h-full flex-col rounded-2xl border border-teal/40 bg-teal/[0.10] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/60 hover:bg-teal/[0.14]"
                 >
                   <div className="mb-5 flex items-center gap-3">
-                    <div className="rounded-xl bg-teal/10 p-2.5"><Zap className="h-4 w-4 text-teal" /></div>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Technology</span>
+                    <div className="rounded-xl bg-teal/15 p-2.5"><Zap className="h-4 w-4 text-teal" /></div>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-background/60">Technology</span>
                   </div>
-                  <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">Moya</h4>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">AI-enabled research operations at scale.</p>
+                  <h4 className="font-heading text-lg font-bold text-background transition-colors group-hover:text-teal">Moya</h4>
+                  <p className="mt-3 text-sm leading-relaxed text-background/60">AI-enabled research operations at scale.</p>
                   <div className="mt-5 grid grid-cols-2 gap-3 border-t border-teal/20 pt-5">
                     {[
                       { m: "10.4×", l: "Productivity" },
@@ -558,11 +574,11 @@ const LandingPage = () => {
                     ].map((s) => (
                       <div key={s.l} className="text-center">
                         <span className="font-heading text-xl font-extrabold text-teal">{s.m}</span>
-                        <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">{s.l}</p>
+                        <p className="mt-0.5 text-[10px] uppercase tracking-wider text-background/50">{s.l}</p>
                       </div>
                     ))}
                   </div>
-                  <p className="mt-5 flex-1 text-sm font-medium leading-relaxed text-foreground">A four-person team now runs at the capacity of a full department.</p>
+                  <p className="mt-5 flex-1 text-sm font-medium leading-relaxed text-background/90">A four-person team now runs at the capacity of a full department.</p>
                   <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-teal opacity-0 transition-opacity group-hover:opacity-100">Read Case Study <ArrowRight className="h-4 w-4" /></span>
                 </a>
               </Reveal>
@@ -571,19 +587,24 @@ const LandingPage = () => {
               <Reveal delay={0.2}>
                 <Link
                   to="/case-study/heineken"
-                  className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-lg"
+                  className="group flex h-full flex-col rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:bg-background/[0.07]"
                 >
                   <div className="mb-5 flex items-center gap-3">
                     <div className="rounded-xl bg-teal/10 p-2.5"><Leaf className="h-4 w-4 text-teal" /></div>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Manufacturing</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-background/60">Manufacturing</span>
                   </div>
-                  <h4 className="font-heading text-lg font-bold text-foreground transition-colors group-hover:text-teal">Heineken</h4>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">Digital programme delivery and performance reporting for a national circular economy programme.</p>
-                  <div className="mt-5 space-y-2.5 border-t border-border pt-5">
-                    {["ETL data pipeline & data quality", "Standardised KPI reporting", "Executive dashboards"].map((r) => (
-                      <div key={r} className="flex items-start gap-2.5">
-                        <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-teal" />
-                        <span className="text-sm text-muted-foreground">{r}</span>
+                  <h4 className="font-heading text-lg font-bold text-background transition-colors group-hover:text-teal">Heineken</h4>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-background/60">Digital delivery and performance reporting for a national circular economy programme.</p>
+                  <div className="mt-5 grid grid-cols-2 gap-3 border-t border-background/[0.08] pt-5">
+                    {[
+                      { m: "350+", l: "Jobs created" },
+                      { m: "Weekly", l: "Reporting, was monthly" },
+                      { m: "100%", l: "KPIs outperformed" },
+                      { m: "4", l: "Regions tracked" },
+                    ].map((s) => (
+                      <div key={s.l} className="text-center">
+                        <span className="font-heading text-xl font-extrabold text-teal">{s.m}</span>
+                        <p className="mt-0.5 text-[10px] uppercase tracking-wider text-background/50">{s.l}</p>
                       </div>
                     ))}
                   </div>

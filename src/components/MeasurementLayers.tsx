@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-// Five-layer measurement model. Designed for a DARK section (bg-foreground):
-// text is `background`, surfaces are background/[opacity]. Layer 5 (top) is the
-// narrowest, Layer 1 (bottom) the widest. Hover / focus / tap a layer to reveal it.
+// Five-layer measurement model for a LIGHT section. Layer 5 (top) is the
+// narrowest, Layer 1 (bottom) the widest. Hover / focus / tap to reveal each.
 
 const LAYERS = [
   { n: 5, title: "Technical Performance", desc: "Model accuracy, latency, error rates.", width: "56%" },
@@ -31,42 +30,35 @@ const MeasurementLayers = () => {
               aria-pressed={isActive}
               className={`group relative rounded-xl border px-5 py-4 text-left transition-all duration-300 ${
                 isActive
-                  ? "border-teal/50 bg-teal/15"
-                  : "border-background/10 bg-background/[0.05] hover:bg-background/[0.08]"
+                  ? "border-teal/50 bg-teal/10 shadow-sm"
+                  : "border-border bg-card hover:border-teal/30"
               }`}
             >
               <div className="flex items-center justify-between gap-4">
-                <span className="text-sm font-bold text-background">
-                  <span className={`mr-2 font-mono text-xs ${isActive ? "text-teal" : "text-background/40"}`}>
+                <span className="text-sm font-bold text-foreground">
+                  <span className={`mr-2 font-mono text-xs ${isActive ? "text-teal" : "text-muted-foreground/60"}`}>
                     L{layer.n}
                   </span>
                   {layer.title}
                 </span>
                 <span
-                  className={`hidden shrink-0 text-right text-xs leading-snug text-background/70 transition-opacity duration-300 sm:block ${
+                  className={`hidden shrink-0 text-right text-xs leading-snug text-muted-foreground transition-opacity duration-300 sm:block ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {layer.desc}
                 </span>
               </div>
-              {/* Mobile: description below (only when active) */}
-              <p
-                className={`mt-1.5 text-xs leading-snug text-background/70 sm:hidden ${
-                  isActive ? "block" : "hidden"
-                }`}
-              >
+              <p className={`mt-1.5 text-xs leading-snug text-muted-foreground sm:hidden ${isActive ? "block" : "hidden"}`}>
                 {layer.desc}
               </p>
             </button>
           );
         })}
       </div>
-      <p className="mt-6 text-center text-sm text-background/60">
+      <p className="mt-6 text-center text-sm text-muted-foreground">
         Most vendors stop at Layer 5.{" "}
-        <span className="font-semibold text-background">
-          We start there and report at Layer 1.
-        </span>
+        <span className="font-semibold text-foreground">We start there and report at Layer 1.</span>
       </p>
     </div>
   );
