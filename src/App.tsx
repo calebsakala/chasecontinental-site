@@ -42,6 +42,7 @@ const AiRoiCalculator = lazy(() => import("./pages/resources/AiRoiCalculator"));
 const ResourceDownloadRedirect = lazy(
   () => import("./pages/resources/ResourceDownloadRedirect"),
 );
+const HeinekenCaseStudy = lazy(() => import("./pages/HeinekenCaseStudy"));
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const CharlesPage = lazy(() => import("./pages/CharlesPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -122,6 +123,7 @@ const App = () => (
             element={<ResourceDownloadRedirect />}
           />
           <Route path="/resources/charles" element={<CharlesPage />} />
+          <Route path="/case-study/heineken" element={<HeinekenCaseStudy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
