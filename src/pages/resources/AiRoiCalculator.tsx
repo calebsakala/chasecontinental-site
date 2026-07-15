@@ -195,173 +195,65 @@ const SECTORS = [
   },
 ];
 
-// Sector benchmark data from 2025-2026 research (McKinsey, Deloitte, PwC, Gartner)
+// Sector inputs are conservative, illustrative ranges informed by public AI/
+// automation ROI research (Deloitte AI ROI 2024-2025, Forrester Total Economic
+// Impact studies, McKinsey State of AI, MIT 2025). timeShare = share of an
+// affected employee's time on automatable tasks; reduction = realistic share of
+// that time actually saved after a real deployment; rate = fully-loaded hourly
+// COST (not billing rate); quality = modest error/quality uplift. These are
+// estimates for a well-scoped, well-adopted programme, NOT guarantees.
+const SOURCE_NOTE =
+  "Illustrative estimate. Ranges informed by Deloitte, Forrester TEI, McKinsey and MIT AI ROI research (2024-2025). Not a guarantee.";
+
 const SECTOR_BENCHMARKS: Record<
   string,
   {
-    baseTimeReduction: number;
-    baseErrorReduction: number;
-    avgHourlyRate: number;
-    automationPotential: number;
-    avgProcessesPerEmployee: number;
-    avgErrorCostMultiplier: number;
-    implementationFactor: number;
+    timeShare: number;
+    reduction: number;
+    rate: number;
+    quality: number;
+    implFactor: number;
     insight: string;
     keyMetric: string;
     source: string;
   }
 > = {
-  healthcare: {
-    baseTimeReduction: 0.42,
-    baseErrorReduction: 0.55,
-    avgHourlyRate: 125,
-    automationPotential: 0.36,
-    avgProcessesPerEmployee: 850,
-    avgErrorCostMultiplier: 2500,
-    implementationFactor: 1.15,
-    insight:
-      "AI-powered diagnostic workflows reduce clinical documentation time by 42%",
-    keyMetric: "42% documentation time saved",
-    source: "McKinsey Health 2025",
-  },
-  financial_services: {
-    baseTimeReduction: 0.38,
-    baseErrorReduction: 0.62,
-    avgHourlyRate: 175,
-    automationPotential: 0.43,
-    avgProcessesPerEmployee: 1200,
-    avgErrorCostMultiplier: 5000,
-    implementationFactor: 1.25,
-    insight:
-      "Intelligent automation in compliance achieves 62% error reduction",
-    keyMetric: "62% compliance error reduction",
-    source: "Deloitte Banking 2025",
-  },
-  manufacturing: {
-    baseTimeReduction: 0.35,
-    baseErrorReduction: 0.48,
-    avgHourlyRate: 85,
-    automationPotential: 0.52,
-    avgProcessesPerEmployee: 650,
-    avgErrorCostMultiplier: 3500,
-    implementationFactor: 1.1,
-    insight: "Predictive maintenance AI reduces unplanned downtime by 48%",
-    keyMetric: "48% downtime reduction",
-    source: "PwC Manufacturing 2026",
-  },
-  retail: {
-    baseTimeReduction: 0.32,
-    baseErrorReduction: 0.45,
-    avgHourlyRate: 55,
-    automationPotential: 0.48,
-    avgProcessesPerEmployee: 1500,
-    avgErrorCostMultiplier: 150,
-    implementationFactor: 0.95,
-    insight:
-      "AI inventory optimization cuts stockouts by 45% while reducing overstock",
-    keyMetric: "45% stockout reduction",
-    source: "McKinsey Retail 2025",
-  },
-  logistics: {
-    baseTimeReduction: 0.45,
-    baseErrorReduction: 0.52,
-    avgHourlyRate: 65,
-    automationPotential: 0.55,
-    avgProcessesPerEmployee: 2000,
-    avgErrorCostMultiplier: 350,
-    implementationFactor: 1.0,
-    insight: "Route optimization AI delivers 45% faster delivery scheduling",
-    keyMetric: "45% scheduling efficiency",
-    source: "Gartner Supply Chain 2025",
-  },
-  technology: {
-    baseTimeReduction: 0.4,
-    baseErrorReduction: 0.5,
-    avgHourlyRate: 145,
-    automationPotential: 0.38,
-    avgProcessesPerEmployee: 400,
-    avgErrorCostMultiplier: 2000,
-    implementationFactor: 0.85,
-    insight: "AI code assistants accelerate development cycles by 40%",
-    keyMetric: "40% faster development",
-    source: "Stanford AI Index 2025",
-  },
-  bpo: {
-    baseTimeReduction: 0.55,
-    baseErrorReduction: 0.58,
-    avgHourlyRate: 45,
-    automationPotential: 0.65,
-    avgProcessesPerEmployee: 2500,
-    avgErrorCostMultiplier: 200,
-    implementationFactor: 0.9,
-    insight:
-      "Process automation achieves 55% handling time reduction in contact centers",
-    keyMetric: "55% handling time reduction",
-    source: "Deloitte BPO 2025",
-  },
-  legal: {
-    baseTimeReduction: 0.35,
-    baseErrorReduction: 0.42,
-    avgHourlyRate: 250,
-    automationPotential: 0.28,
-    avgProcessesPerEmployee: 300,
-    avgErrorCostMultiplier: 8000,
-    implementationFactor: 1.2,
-    insight:
-      "Contract analysis AI reduces review time by 35% with higher accuracy",
-    keyMetric: "35% review time saved",
-    source: "Thomson Reuters 2025",
-  },
-  insurance: {
-    baseTimeReduction: 0.4,
-    baseErrorReduction: 0.55,
-    avgHourlyRate: 95,
-    automationPotential: 0.45,
-    avgProcessesPerEmployee: 900,
-    avgErrorCostMultiplier: 3000,
-    implementationFactor: 1.1,
-    insight:
-      "Claims processing AI reduces cycle time by 40% with improved accuracy",
-    keyMetric: "40% faster claims processing",
-    source: "McKinsey Insurance 2025",
-  },
-  energy: {
-    baseTimeReduction: 0.32,
-    baseErrorReduction: 0.45,
-    avgHourlyRate: 105,
-    automationPotential: 0.35,
-    avgProcessesPerEmployee: 500,
-    avgErrorCostMultiplier: 6000,
-    implementationFactor: 1.15,
-    insight:
-      "Grid optimization AI achieves 32% improvement in demand forecasting",
-    keyMetric: "32% forecast accuracy gain",
-    source: "Deloitte Energy 2025",
-  },
-  construction: {
-    baseTimeReduction: 0.28,
-    baseErrorReduction: 0.38,
-    avgHourlyRate: 75,
-    automationPotential: 0.32,
-    avgProcessesPerEmployee: 400,
-    avgErrorCostMultiplier: 4500,
-    implementationFactor: 1.05,
-    insight: "Project management AI reduces scheduling conflicts by 38%",
-    keyMetric: "38% fewer scheduling conflicts",
-    source: "McKinsey Construction 2025",
-  },
-  cpg: {
-    baseTimeReduction: 0.38,
-    baseErrorReduction: 0.48,
-    avgHourlyRate: 70,
-    automationPotential: 0.45,
-    avgProcessesPerEmployee: 1100,
-    avgErrorCostMultiplier: 400,
-    implementationFactor: 0.95,
-    insight: "Demand sensing AI improves forecast accuracy by 48%",
-    keyMetric: "48% forecast improvement",
-    source: "Gartner CPG 2025",
-  },
+  healthcare: { timeShare: 0.18, reduction: 0.35, rate: 65, quality: 0.12, implFactor: 1.15,
+    insight: "Automating clinical documentation and intake returns a meaningful share of admin time to care.",
+    keyMetric: "~5-8% of eligible time saved", source: SOURCE_NOTE },
+  financial_services: { timeShare: 0.22, reduction: 0.4, rate: 80, quality: 0.15, implFactor: 1.25,
+    insight: "Reconciliation, compliance checks and reporting are strong deterministic-automation candidates.",
+    keyMetric: "~7-10% of eligible time saved", source: SOURCE_NOTE },
+  manufacturing: { timeShare: 0.2, reduction: 0.35, rate: 50, quality: 0.12, implFactor: 1.1,
+    insight: "Planning, quality reporting and maintenance scheduling benefit most from structured automation.",
+    keyMetric: "~6-9% of eligible time saved", source: SOURCE_NOTE },
+  retail: { timeShare: 0.16, reduction: 0.35, rate: 38, quality: 0.1, implFactor: 0.95,
+    insight: "Inventory, pricing and support triage are the highest-return automation areas.",
+    keyMetric: "~5-7% of eligible time saved", source: SOURCE_NOTE },
+  logistics: { timeShare: 0.24, reduction: 0.4, rate: 42, quality: 0.12, implFactor: 1.0,
+    insight: "Exception handling, document validation and SLA monitoring are high-volume, high-return.",
+    keyMetric: "~8-11% of eligible time saved", source: SOURCE_NOTE },
+  technology: { timeShare: 0.2, reduction: 0.35, rate: 90, quality: 0.12, implFactor: 0.85,
+    insight: "Internal ops, QA and support workflows automate well; core engineering gains are smaller.",
+    keyMetric: "~6-9% of eligible time saved", source: SOURCE_NOTE },
+  bpo: { timeShare: 0.3, reduction: 0.42, rate: 32, quality: 0.12, implFactor: 0.9,
+    insight: "High-volume, repetitive contact-centre and back-office work has the strongest automation case.",
+    keyMetric: "~10-14% of eligible time saved", source: SOURCE_NOTE },
+  legal: { timeShare: 0.14, reduction: 0.3, rate: 95, quality: 0.12, implFactor: 1.2,
+    insight: "Document review and intake automate partially; judgment-heavy work stays with people.",
+    keyMetric: "~3-5% of eligible time saved", source: SOURCE_NOTE },
+  insurance: { timeShare: 0.22, reduction: 0.38, rate: 58, quality: 0.13, implFactor: 1.1,
+    insight: "Claims intake, validation and routing are strong candidates for reliable automation.",
+    keyMetric: "~7-10% of eligible time saved", source: SOURCE_NOTE },
+  energy: { timeShare: 0.16, reduction: 0.32, rate: 72, quality: 0.11, implFactor: 1.15,
+    insight: "Forecasting, reporting and field-to-office data flows benefit from structured automation.",
+    keyMetric: "~4-6% of eligible time saved", source: SOURCE_NOTE },
+  construction: { timeShare: 0.14, reduction: 0.3, rate: 50, quality: 0.1, implFactor: 1.05,
+    insight: "Scheduling, compliance and reporting automate well; on-site work does not.",
+    keyMetric: "~3-5% of eligible time saved", source: SOURCE_NOTE },
+  cpg: { timeShare: 0.2, reduction: 0.35, rate: 50, quality: 0.11, implFactor: 0.95,
+    insight: "Demand sensing, trade-promotion admin and reporting are the highest-return areas.",
+    keyMetric: "~6-9% of eligible time saved", source: SOURCE_NOTE },
 };
 
 // Revenue brackets with scaling factors
@@ -444,11 +336,13 @@ interface CalculationInputs {
 interface CalculationResults {
   // Core metrics
   annualSavings: number;
+  savingsLow: number;
+  savingsHigh: number;
   monthlySavings: number;
   hoursSavedPerYear: number;
-  errorsPreventedPerYear: number;
+  fteEquivalents: number;
 
-  // ROI metrics
+  // ROI metrics (3-year)
   roiPercentage: number;
   paybackMonths: number;
   threeYearValue: number;
@@ -469,8 +363,20 @@ interface CalculationResults {
   breakdownData: { name: string; value: number; color: string }[];
 }
 
+// Global realism controls, calibrated so outputs match published AI/automation
+// ROI research (median ~185% 3-year ROI, ~20-month payback over realistic
+// inputs) rather than the hype numbers a naive model produces.
+const AFFECTED_SHARE = 0.3; // share of headcount in roles automation actually touches
+const VALUE_CAPTURED = 0.45; // not every saved hour becomes hard savings
+const ROI_CAP = 300; // defensible display ceiling for 3-year ROI
+const PAYBACK_FLOOR = 8; // months; even great deployments rarely beat this
+const PAYBACK_CAP = 36; // months; above this we just say "longer than typical"
+const IMPL_HOURS = 55; // implementation hours priced per affected seat
+const REVENUE_SAVINGS_CAP = 0.12; // savings can never exceed this share of revenue
+const RAMP = [0.55, 1.0, 1.1]; // realized fraction of steady savings, years 1-3
+
 function calculateROI(inputs: CalculationInputs): CalculationResults {
-  const benchmark = SECTOR_BENCHMARKS[inputs.sector];
+  const b = SECTOR_BENCHMARKS[inputs.sector];
   const revenueBracket = REVENUE_BRACKETS.find(
     (r) => r.id === inputs.revenueId,
   )!;
@@ -478,131 +384,95 @@ function calculateROI(inputs: CalculationInputs): CalculationResults {
     (h) => h.id === inputs.headcountId,
   )!;
 
-  // Base calculations
-  const avgHeadcount = (headcountBracket.min + headcountBracket.max) / 2;
+  const headcount = (headcountBracket.min + headcountBracket.max) / 2;
   const avgRevenue = (revenueBracket.min + revenueBracket.max) / 2;
+  const affected = headcount * AFFECTED_SHARE;
 
-  // Revenue per employee efficiency factor (higher = more efficient, less automation benefit per person)
-  const revenuePerEmployee = avgRevenue / avgHeadcount;
-  const efficiencyFactor = Math.min(
-    1.5,
-    Math.max(0.7, 1000000 / revenuePerEmployee),
-  );
+  // Net hours saved per affected employee per year (a few % of their time).
+  const hoursSavedPerEmployee = 2080 * b.timeShare * b.reduction;
+  const totalHoursSaved = hoursSavedPerEmployee * affected;
 
-  // Hours calculations
-  const annualHoursPerEmployee = 2080; // 40 hrs/week * 52 weeks
-  const automatableHours =
-    annualHoursPerEmployee * benchmark.automationPotential;
-  const hoursSavedPerEmployee = automatableHours * benchmark.baseTimeReduction;
-  const totalHoursSaved =
-    hoursSavedPerEmployee * avgHeadcount * headcountBracket.factor;
+  // Value, discounted for realization, plus a modest quality/error uplift.
+  const timeValue = totalHoursSaved * b.rate * VALUE_CAPTURED;
+  const qualityValue = timeValue * b.quality;
+  const steadyRaw = timeValue + qualityValue;
 
-  // Time savings in dollars
-  const timeSavings = totalHoursSaved * benchmark.avgHourlyRate;
-
-  // Error reduction savings
-  const totalProcesses = avgHeadcount * benchmark.avgProcessesPerEmployee;
-  const baseErrorRate = 0.05; // 5% baseline error rate
-  const errorsPreventedPerYear =
-    totalProcesses * baseErrorRate * benchmark.baseErrorReduction;
-  const errorSavings =
-    errorsPreventedPerYear * benchmark.avgErrorCostMultiplier;
-
-  // Productivity gain (additional output from same workforce)
-  const productivityGain = timeSavings * 0.25; // 25% of time savings converts to additional output
-
-  // Total annual savings
-  const annualSavings =
-    (timeSavings + errorSavings + productivityGain) *
-    revenueBracket.factor *
-    efficiencyFactor;
+  // Safety rail: savings cannot exceed a sane share of revenue.
+  const annualSavings = Math.min(steadyRaw, avgRevenue * REVENUE_SAVINGS_CAP);
+  const scale = steadyRaw > 0 ? annualSavings / steadyRaw : 0;
+  const timeSavings = timeValue * scale;
+  const errorSavings = qualityValue * scale;
   const monthlySavings = annualSavings / 12;
 
-  // Investment calculation
+  // Investment: platform base (by size) + per-affected-seat implementation.
   const estimatedInvestment =
-    revenueBracket.investmentBase *
-    benchmark.implementationFactor *
-    headcountBracket.factor;
+    revenueBracket.investmentBase * 0.5 + affected * b.rate * IMPL_HOURS * b.implFactor;
 
-  // ROI calculations
-  const roiPercentage =
-    ((annualSavings - estimatedInvestment) / estimatedInvestment) * 100;
-  const paybackMonths = Math.max(1, estimatedInvestment / monthlySavings);
-  const threeYearValue = annualSavings * 3 - estimatedInvestment;
+  // 3-year, ramped.
+  const threeYearGross = annualSavings * (RAMP[0] + RAMP[1] + RAMP[2]);
+  const threeYearValue = threeYearGross - estimatedInvestment;
+  const roiPercentage = Math.round(
+    Math.min(ROI_CAP, (threeYearValue / estimatedInvestment) * 100),
+  );
+  const paybackMonths = Math.min(
+    PAYBACK_CAP,
+    Math.max(PAYBACK_FLOOR, estimatedInvestment / (annualSavings * RAMP[0] / 12)),
+  );
 
-  // Projection data for charts
+  const fteEquivalents = totalHoursSaved / 2080;
+  const savingsLow = annualSavings * 0.7;
+  const savingsHigh = annualSavings * 1.25;
+
   const projectionData = [
     {
       year: "Year 1",
-      savings: Math.round(annualSavings),
-      cumulative: Math.round(annualSavings - estimatedInvestment),
+      savings: Math.round(annualSavings * RAMP[0]),
+      cumulative: Math.round(annualSavings * RAMP[0] - estimatedInvestment),
     },
     {
       year: "Year 2",
-      savings: Math.round(annualSavings * 1.15),
-      cumulative: Math.round(annualSavings * 2.15 - estimatedInvestment),
+      savings: Math.round(annualSavings * RAMP[1]),
+      cumulative: Math.round(
+        annualSavings * (RAMP[0] + RAMP[1]) - estimatedInvestment,
+      ),
     },
     {
       year: "Year 3",
-      savings: Math.round(annualSavings * 1.25),
-      cumulative: Math.round(annualSavings * 3.4 - estimatedInvestment),
-    },
-    {
-      year: "Year 4",
-      savings: Math.round(annualSavings * 1.3),
-      cumulative: Math.round(annualSavings * 4.7 - estimatedInvestment),
-    },
-    {
-      year: "Year 5",
-      savings: Math.round(annualSavings * 1.35),
-      cumulative: Math.round(annualSavings * 6.05 - estimatedInvestment),
+      savings: Math.round(annualSavings * RAMP[2]),
+      cumulative: Math.round(threeYearValue),
     },
   ];
 
-  // Breakdown data
   const breakdownData = [
     {
-      name: "Time Savings",
-      value: Math.round(timeSavings * revenueBracket.factor * efficiencyFactor),
+      name: "Time & labour",
+      value: Math.round(timeSavings),
       color: "hsl(var(--primary))",
     },
     {
-      name: "Error Reduction",
-      value: Math.round(
-        errorSavings * revenueBracket.factor * efficiencyFactor,
-      ),
-      color: "hsl(280, 85%, 60%)",
-    },
-    {
-      name: "Productivity Gain",
-      value: Math.round(
-        productivityGain * revenueBracket.factor * efficiencyFactor,
-      ),
+      name: "Quality & error reduction",
+      value: Math.round(errorSavings),
       color: "hsl(160, 85%, 45%)",
     },
   ];
 
   return {
     annualSavings: Math.round(annualSavings),
+    savingsLow: Math.round(savingsLow),
+    savingsHigh: Math.round(savingsHigh),
     monthlySavings: Math.round(monthlySavings),
     hoursSavedPerYear: Math.round(totalHoursSaved),
-    errorsPreventedPerYear: Math.round(errorsPreventedPerYear),
-    roiPercentage: Math.round(roiPercentage),
+    fteEquivalents: Math.round(fteEquivalents),
+    roiPercentage,
     paybackMonths: Math.round(paybackMonths * 10) / 10,
     threeYearValue: Math.round(threeYearValue),
     estimatedInvestment: Math.round(estimatedInvestment),
-    timeSavings: Math.round(
-      timeSavings * revenueBracket.factor * efficiencyFactor,
-    ),
-    errorSavings: Math.round(
-      errorSavings * revenueBracket.factor * efficiencyFactor,
-    ),
-    productivityGain: Math.round(
-      productivityGain * revenueBracket.factor * efficiencyFactor,
-    ),
-    sectorInsight: benchmark.insight,
-    keyMetric: benchmark.keyMetric,
-    source: benchmark.source,
+    timeSavings: Math.round(timeSavings),
+    errorSavings: Math.round(errorSavings),
+    productivityGain: 0,
+    sectorInsight: b.insight,
+    keyMetric: b.keyMetric,
+    source: b.source,
     projectionData,
     breakdownData,
   };
@@ -937,8 +807,8 @@ const AiRoiCalculator = () => {
               >
                 {[
                   { value: "12+", label: "Sectors" },
-                  { value: "350%", label: "Avg ROI" },
-                  { value: "8mo", label: "Avg Payback" },
+                  { value: "100–300%", label: "Typical 3-yr ROI" },
+                  { value: "12–24mo", label: "Typical payback" },
                 ].map((stat, i) => (
                   <div key={i} className="text-center">
                     <div className="text-3xl font-bold text-foreground">
@@ -1119,29 +989,41 @@ const AiRoiCalculator = () => {
                             exit={{ opacity: 0, x: -20 }}
                             className="space-y-6"
                           >
+                            {/* Honest caveat banner */}
+                            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+                              <span className="font-semibold text-foreground">Illustrative estimate, not a guarantee.</span>{" "}
+                              These figures assume a well-scoped, well-adopted deployment and are
+                              modelled on published AI/automation ROI research (Deloitte, Forrester
+                              TEI, McKinsey, MIT, 2024-2025). Most AI programmes underperform this;
+                              MIT found ~95% of enterprise AI projects deliver no measurable ROI.
+                              Real results depend far more on how the work is scoped and adopted than
+                              on the technology. Use this as a directional range, then let us model
+                              your actual workflows.
+                            </div>
+
                             {/* Key Metrics Grid */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                               {[
                                 {
-                                  label: "Annual Savings",
-                                  value: formatCurrency(results.annualSavings),
+                                  label: "Est. Annual Savings",
+                                  value: `${formatCurrency(results.savingsLow)} – ${formatCurrency(results.savingsHigh)}`,
                                   icon: DollarSign,
                                   color: "text-emerald-500",
                                 },
                                 {
-                                  label: "ROI",
+                                  label: "3-Year ROI (est.)",
                                   value: `${results.roiPercentage}%`,
                                   icon: TrendingUp,
                                   color: "text-primary",
                                 },
                                 {
                                   label: "Payback Period",
-                                  value: `${results.paybackMonths} mo`,
+                                  value: `${Math.round(results.paybackMonths)} mo`,
                                   icon: Clock,
                                   color: "text-amber-500",
                                 },
                                 {
-                                  label: "3-Year Value",
+                                  label: "3-Year Net Value",
                                   value: formatCurrency(results.threeYearValue),
                                   icon: Target,
                                   color: "text-violet-500",
@@ -1297,10 +1179,10 @@ const AiRoiCalculator = () => {
                               </div>
                               <div className="p-4 rounded-xl bg-muted/30 border border-border/50 text-center">
                                 <div className="text-xl font-bold text-foreground">
-                                  {formatNumber(results.errorsPreventedPerYear)}
+                                  {formatNumber(results.fteEquivalents)}
                                 </div>
                                 <div className="text-xs text-muted-foreground">
-                                  Errors Prevented
+                                  FTE-equivalents freed
                                 </div>
                               </div>
                               <div className="p-4 rounded-xl bg-muted/30 border border-border/50 text-center">

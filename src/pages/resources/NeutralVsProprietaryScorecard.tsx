@@ -213,9 +213,9 @@ const bandConfig = {
     bgColor: "hsl(142,70%,45%)",
     icon: ShieldCheck,
     analysis: [
-      "Your choices favor neutral tools, reducing migration costs by up to 50% (Gartner, 2024).",
-      "Easy scaling, low TCO, high innovation agility.",
-      "30% faster adoption of new tech (McKinsey, 2025).",
+      "Your choices favour neutral tools, which keeps switching costs low and your options open.",
+      "Easier scaling, lower total cost of ownership, and more freedom to adopt new tools.",
+      "You are well positioned to move with the market rather than a single vendor's roadmap.",
     ],
     recommendations: [
       {
@@ -231,7 +231,7 @@ const bandConfig = {
       {
         title: "Scale with Multi-Cloud",
         detail:
-          "Explore Kubernetes for redundancy across providers. Netflix's migration saved 15% on infra (Netflix Engineering Blog, 2023).",
+          "Explore Kubernetes for redundancy across providers to reduce single-vendor risk.",
       },
     ],
     cta: "Book a scoping call",
@@ -245,9 +245,9 @@ const bandConfig = {
     bgColor: "hsl(45,90%,50%)",
     icon: ShieldAlert,
     analysis: [
-      "Mixed stack exposes you to partial lock-in, with migration costs potentially 2-3x higher (Journal of Cloud Computing, 2024).",
-      "Vendor price hikes of 10-20% annually are common. Limited scalability.",
-      "Hybrid approach saves 25% vs full rip-and-replace (Forrester, 2025).",
+      "A mixed stack exposes you to partial lock-in, which can make a future migration slower and more expensive.",
+      "You are more exposed to vendor price increases and roadmap changes.",
+      "A phased approach is usually safer and cheaper than a full rip-and-replace.",
     ],
     recommendations: [
       {
@@ -295,7 +295,7 @@ const bandConfig = {
       {
         title: "Implement Data Portability",
         detail:
-          "Adopt open data standards now (JSON, Parquet). A financial firm saved $10M escaping AWS lock-in (Bloomberg, 2024).",
+          "Adopt open data standards now (JSON, Parquet) so you can move later without a costly re-platform.",
       },
     ],
     cta: "Book a scoping call",
