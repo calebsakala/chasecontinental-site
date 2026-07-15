@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/imageUrl";
+import { getLocalArticle } from "@/content/localArticles";
 
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 
@@ -106,9 +107,39 @@ const BlogPostPage = () => {
 
   useEffect(() => {
     if (!slug) return;
+    // Locally-authored articles render without a CMS round-trip.
+    const local = getLocalArticle(slug);
+    if (local) {
+      setPost({
+        title: local.title,
+        slug: local.slug,
+        publishedAt: local.publishedAt,
+        authorName: local.authorName,
+        body: local.body,
+      });
+      setLoading(false);
+      return;
+    }
+    const stripEmDash = (data: SanityPost): SanityPost => {
+      if (!data) return data;
+      const fix = (t?: string) => (t ? t.replace(/\s*\u2014\s*/g, ", ") : t);
+      return {
+        ...data,
+        title: fix(data.title) ?? data.title,
+        body: (data.body || []).map((block) => {
+          const b = block as { children?: Array<{ text?: string }> };
+          if (Array.isArray(b.children)) {
+            b.children = b.children.map((c) =>
+              c && typeof c.text === "string" ? { ...c, text: fix(c.text) } : c,
+            );
+          }
+          return block;
+        }),
+      };
+    };
     client
       .fetch(POST_QUERY, { slug })
-      .then((data: SanityPost) => setPost(data))
+      .then((data: SanityPost) => setPost(data ? stripEmDash(data) : data))
       .catch((err) => console.error("Failed to fetch post:", err))
       .finally(() => setLoading(false));
   }, [slug]);

@@ -1,5 +1,5 @@
 /*
-  LM07 — Deterministic Mastery Protocol™ Blueprint (Interactive Template)
+  LM07, Deterministic Mastery Protocol™ Blueprint (Interactive Template)
   Slug: /resources/deterministic-blueprint
   Accent: deep purple | Highlight: electric blue | Gold accents
 */
@@ -160,11 +160,11 @@ const faqItems = [
   },
   {
     q: "Is it really free?",
-    a: "Yes, instant access after opt-in—no strings attached.",
+    a: "Yes, instant access after opt-in, no strings attached.",
   },
   {
     q: "What format is the template?",
-    a: "Downloadable PDF — you'll get a blank template PLUS a populated version with the data you entered in the builder.",
+    a: "Downloadable PDF, you'll get a blank template PLUS a populated version with the data you entered in the builder.",
   },
   {
     q: "How do I use it?",
@@ -535,7 +535,7 @@ const DeterministicBlueprint = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8"
           >
-            Build your workflow right here — then download a blank template and
+            Build your workflow right here, then download a blank template and
             a populated blueprint with your data.
           </motion.p>
 
@@ -680,7 +680,7 @@ const DeterministicBlueprint = () => {
                   Define Your Workflow Steps
                 </h3>
                 <p className="text-white/70 text-sm mt-1">
-                  List each step — who does it and what tool is used.
+                  List each step, who does it and what tool is used.
                 </p>
               </div>
               <CardContent className="p-6 md:p-8 space-y-4">

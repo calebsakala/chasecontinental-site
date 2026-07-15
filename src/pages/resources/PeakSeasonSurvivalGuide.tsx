@@ -1,5 +1,5 @@
 /*
-  LM06 — Peak Season Automation Survival Guide
+  LM06, Peak Season Automation Survival Guide
   Slug: /resources/peak-season-survival-guide
   Accent: cobalt | Highlight: emerald/teal | Gold accents
 */
@@ -135,7 +135,7 @@ const failureModes = [
   },
   {
     title: "Order Processing Delays",
-    desc: "Manual or semi-automated systems get overwhelmed — picking, packing and labeling bottleneck as volume spikes.",
+    desc: "Manual or semi-automated systems get overwhelmed, picking, packing and labeling bottleneck as volume spikes.",
     icon: TrendingUp,
   },
   {
@@ -155,7 +155,7 @@ const failureModes = [
   },
   {
     title: "Returns Processing Overload",
-    desc: "Increased returns flood systems — automation fails to handle exceptions like damaged goods or fraud.",
+    desc: "Increased returns flood systems, automation fails to handle exceptions like damaged goods or fraud.",
     icon: AlertTriangle,
   },
   {
@@ -185,7 +185,7 @@ const checklistItems = [
 const faqItems = [
   {
     q: "What is peak season?",
-    a: "High-demand periods like holidays when order volumes spike significantly — typically Black Friday through Q1 returns.",
+    a: "High-demand periods like holidays when order volumes spike significantly, typically Black Friday through Q1 returns.",
   },
   {
     q: "Who is this guide for?",
@@ -459,7 +459,7 @@ const PeakSeasonSurvivalGuide = () => {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8"
           >
-            Learn the failure modes that show up under volume — and the fixes
+            Learn the failure modes that show up under volume, and the fixes
             that keep delivery stable.
           </motion.p>
 
@@ -524,7 +524,7 @@ const PeakSeasonSurvivalGuide = () => {
               {
                 icon: AlertTriangle,
                 title: "7 Failure Modes at Peak",
-                desc: "The exact breakpoints that surface when order volume spikes — and why most automation crumbles.",
+                desc: "The exact breakpoints that surface when order volume spikes, and why most automation crumbles.",
               },
               {
                 icon: ClipboardCheck,

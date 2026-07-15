@@ -147,8 +147,8 @@ const HeinekenCaseStudy = () => {
               </p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 Greenway Africa, the programme's delivery partner, was a finalist in the 2024
-                Nedbank Business Ignite (Nedbank &amp; CapeTalk) — South Africa's premier SME
-                growth campaign — and was featured on <em>Good Morning Cape Town with Lester
+                Nedbank Business Ignite (Nedbank &amp; CapeTalk), South Africa's premier SME
+                growth campaign, and was featured on <em>Good Morning Cape Town with Lester
                 Kiewit</em>. We were honoured to represent this work on air.
               </p>
             </div>
@@ -198,8 +198,8 @@ const HeinekenCaseStudy = () => {
           </p>
           <p className="mt-4 text-muted-foreground leading-relaxed">
             The raw field data was messy: inconsistent formats, duplicates, gaps, and the same
-            KPI defined differently from one region to the next. Our first job was to clean it —
-            de-duplicating records, correcting errors, filling gaps — and then organise it into
+            KPI defined differently from one region to the next. Our first job was to clean it , 
+            de-duplicating records, correcting errors, filling gaps, and then organise it into
             one consistent structure with a single, standard definition for every KPI. That
             clean, structured foundation is what made everything downstream possible.
           </p>

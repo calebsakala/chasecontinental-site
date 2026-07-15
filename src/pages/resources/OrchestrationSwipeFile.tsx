@@ -1,5 +1,5 @@
 /*
-  LM05 — Neutral Orchestration Swipe File
+  LM05, Neutral Orchestration Swipe File
   Slug: /resources/orchestration-swipe-file
   Accent: cobalt | Highlight: neon-lime | Gold accents
 */
@@ -107,7 +107,7 @@ const workflows = [
     title: "Automated Order Fulfillment",
     category: "E-commerce",
     description:
-      "End-to-end order processing from receipt to delivery—stock checks, payment, labels, tracking.",
+      "End-to-end order processing from receipt to delivery, stock checks, payment, labels, tracking.",
     breaksAt:
       "Inventory discrepancies or ERP/CRM integration lag cause over-promising.",
     tip: "Start with 20% of orders automated; use API contracts for all handoffs.",
@@ -264,7 +264,7 @@ const faqs = [
   {
     question: "Is this really free?",
     answer:
-      "Yes. We provide this swipe file to help teams build better automations. There's no catch—just useful patterns you can steal and adapt.",
+      "Yes. We provide this swipe file to help teams build better automations. There's no catch, just useful patterns you can steal and adapt.",
   },
   {
     question: "Do I need technical skills to use these patterns?",
@@ -279,7 +279,7 @@ const faqs = [
   {
     question: "How is this different from generic automation advice?",
     answer:
-      "Every pattern includes real 'where it breaks' analysis from production deployments. We don't just tell you what to build—we tell you where it fails and how to prevent it.",
+      "Every pattern includes real 'where it breaks' analysis from production deployments. We don't just tell you what to build, we tell you where it fails and how to prevent it.",
   },
 ];
 
@@ -659,7 +659,7 @@ const OrchestrationSwipeFile = () => {
               What's Inside
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to build resilient automation—stolen from real
+              Everything you need to build resilient automation, stolen from real
               deployments.
             </p>
           </motion.div>
@@ -701,7 +701,7 @@ const OrchestrationSwipeFile = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Most teams build one-off automations that fail at handoffs and
               exceptions. These patterns emphasize integration, resilience, and
-              scalability—drawing from real deployments to deliver{" "}
+              scalability, drawing from real deployments to deliver{" "}
               <span className="font-semibold text-foreground">
                 20–50% efficiency gains
               </span>

@@ -1,5 +1,5 @@
 /*
-  LM08 — 5-Day Automation Pilot Challenge
+  LM08, 5-Day Automation Pilot Challenge
   Slug: /resources/5-day-pilot-challenge
   Accent: teal/cyan | Highlight: gold | Deep navy base
 */
@@ -154,7 +154,7 @@ const guideSectionCards = [
   {
     section: 3,
     title: "Define exceptions + approvals",
-    desc: "Identify potential exceptions—unusual cases, errors—and define approval workflows. Design for flexibility to handle real-world variations.",
+    desc: "Identify potential exceptions, unusual cases, errors, and define approval workflows. Design for flexibility to handle real-world variations.",
     stat: "Reduce errors by up to 70%",
     icon: CheckCircle2,
     color: "hsl(160, 84%, 39%)",
@@ -185,7 +185,7 @@ const faqItems = [
   },
   {
     q: "Do I need technical skills?",
-    a: "No. The focus is on strategic planning—no coding required.",
+    a: "No. The focus is on strategic planning, no coding required.",
   },
   {
     q: "How much time does it take?",
@@ -206,7 +206,7 @@ const faqItems = [
   { q: "Is there a cost?", a: "Completely free. No credit card required." },
   {
     q: "What tools are needed?",
-    a: "None—this is strategic planning. Just a document or notepad.",
+    a: "None, this is strategic planning. Just a document or notepad.",
   },
   {
     q: "How do I measure success?",

@@ -633,9 +633,9 @@ const CcidCaseStudy = () => {
                       <SelectValue placeholder="How close is this to your use case?" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="yes">Yes — same use case</SelectItem>
+                      <SelectItem value="yes">Yes, same use case</SelectItem>
                       <SelectItem value="similar">
-                        Similar — adjacent use case
+                        Similar, adjacent use case
                       </SelectItem>
                       <SelectItem value="different">
                         Different vertical

@@ -99,7 +99,7 @@ const WHAT_WE_DO = [
   {
     icon: Library,
     title: "Institutional knowledge",
-    description: "How your business runs, kept in the system — not in someone's head.",
+    description: "How your business runs, kept in the system, not in someone's head.",
   },
   {
     icon: ShieldCheck,
@@ -125,7 +125,7 @@ const PROCESS = [
     n: "03",
     title: "Structure the information",
     description:
-      "We get your data and knowledge foundations right. The limiting factor is rarely the technology — it's whether the business is structured to support automation at all.",
+      "We get your data and knowledge foundations right. The limiting factor is rarely the technology, it's whether the business is structured to support automation at all.",
   },
   {
     n: "04",
@@ -243,7 +243,7 @@ const SectionRule = () => (
 );
 
 /* ── Hero glow: a soft, living light over the augmented screens.
-   No floating cards — just the image, made to feel alive. ── */
+   No floating cards, just the image, made to feel alive. ── */
 const HeroGlow = () => (
   <div className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen">
     <motion.div
@@ -506,7 +506,7 @@ const LandingPage = () => {
                   Most AI projects fail because the tools get chosen before the problem is
                   understood. We do it the other way around: understand the business, fix the
                   process, structure the information, and only then automate. We don't just sell
-                  you technology — we help you get the whole thing right.
+                  you technology, we help you get the whole thing right.
                 </p>
               </div>
             </Reveal>
@@ -553,7 +553,7 @@ const LandingPage = () => {
                   </h2>
                   <p className="mt-5 max-w-lg leading-relaxed text-muted-foreground">
                     From strategy to tooling to the automations themselves, we handle the whole
-                    thing — and the knowledge stays in the system, so it outlasts the team.
+                    thing, and the knowledge stays in the system, so it outlasts the team.
                   </p>
                 </div>
               </Reveal>

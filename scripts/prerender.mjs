@@ -25,6 +25,12 @@ const ROUTES = [
   "/resources/ccid-case-study",
   "/blogs",
   "/privacy",
+  "/blog/why-most-ai-projects-fail-inside-organizations",
+  "/blog/the-shift-from-tools-to-agent-systems",
+  "/blog/why-reliable-ai-matters-more-than-powerful-ai",
+  "/blog/the-production-possibility-frontier-of-organizations",
+  "/blog/intelligence-as-operating-expenditure",
+  "/blog/designing-organizations-that-think",
 ];
 
 const MIME = {

@@ -9,7 +9,7 @@ const resources = [
     href: "/case-study/",
     title: "AI Enablement Case Study: Scaling a Research Practice",
     badge: "Case Study",
-    description: "A three-week research cycle compressed to under an hour—10.4× efficiency, +18% revenue, under $5/month. See the full breakdown.",
+    description: "A three-week research cycle compressed to under an hour, 10.4× efficiency, +18% revenue, under $5/month. See the full breakdown.",
     icon: FileBarChart,
     accent: "from-teal-500 to-emerald-400",
     status: "available" as const,
@@ -27,7 +27,7 @@ const resources = [
     slug: "automation-roi-calculator",
     title: "AI ROI Calculator (2026 Benchmarks)",
     badge: "Free Calculator",
-    description: "Pick sector + size to get projected savings, ROI, and payback in seconds—benchmarks do the work.",
+    description: "Pick sector + size to get projected savings, ROI, and payback in seconds, benchmarks do the work.",
     icon: Calculator,
     accent: "from-violet-500 to-fuchsia-400",
     status: "coming-soon" as const,
@@ -72,7 +72,7 @@ const resources = [
     slug: "deterministic-blueprint",
     title: "Deterministic Mastery Protocol™ Blueprint",
     badge: "Template",
-    description: "Define steps, exceptions, and checkpoints—so automation stays consistent.",
+    description: "Define steps, exceptions, and checkpoints, so automation stays consistent.",
     icon: FileText,
     accent: "from-purple-600 to-indigo-400",
     status: "coming-soon" as const,
@@ -124,7 +124,7 @@ const resources = [
   },
   {
     slug: "charles",
-    title: "Charles — AI Systems Builder",
+    title: "Charles: AI Systems Builder",
     badge: "Profile",
     description: "Meet the founder building reliable AI systems and intelligent workflows for real organizations.",
     icon: User,
@@ -151,7 +151,7 @@ const ResourcesPage = () => {
             <span className="text-teal">reliable automation</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Checklists, calculators, playbooks, and templates—built from real engagements, backed by industry research.
+            Checklists, calculators, playbooks, and templates, built from real engagements, backed by industry research.
           </p>
         </div>
       </section>

@@ -1,5 +1,5 @@
 /*
-  LM10 — Neutral vs Proprietary Scorecard
+  LM10, Neutral vs Proprietary Scorecard
   Slug: /resources/neutral-vs-proprietary-scorecard
   Palette: Slate #2F4F4F + Aqua #00FFFF + Gold #FFD700
 */
@@ -1102,7 +1102,7 @@ const NeutralVsProprietaryScorecard = () => {
               {[
                 {
                   q: "What does this scorecard measure?",
-                  a: "It assesses your tech stack's vendor lock-in risk across 10 critical categories — from cloud infrastructure to AI/ML components.",
+                  a: "It assesses your tech stack's vendor lock-in risk across 10 critical categories, from cloud infrastructure to AI/ML components.",
                 },
                 {
                   q: "How long does it take?",

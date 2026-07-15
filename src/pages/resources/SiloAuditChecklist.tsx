@@ -34,7 +34,7 @@ import { queueResourceEmail } from "@/lib/resourceEmail";
 import siloHero from "@/assets/silo-audit-hero.jpg";
 
 /* ─── Constants ─── */
-const META_TITLE = "AI Agent Silo Checklist — Free Assessment | Chase Agents";
+const META_TITLE = "AI Agent Silo Checklist: Free Assessment | Chase Agents";
 const META_DESC =
   "Uncover whether your AI initiatives are creating new silos. 20-point assessment with an operating-layer action plan.";
 const BOOK_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
@@ -83,7 +83,7 @@ const CHECKLIST_ITEMS = [
     id: 3,
     category: "AI Visibility & Strategy",
     question:
-      "Each AI initiative has a defined, measurable business outcome it's tracked against — not just 'we're using AI.'",
+      "Each AI initiative has a defined, measurable business outcome it's tracked against, not just 'we're using AI.'",
   },
   {
     id: 4,
@@ -95,7 +95,7 @@ const CHECKLIST_ITEMS = [
     id: 5,
     category: "AI Visibility & Strategy",
     question:
-      "We have full visibility of our total AI spend — including tools, compute, licences, and internal time — across all teams.",
+      "We have full visibility of our total AI spend, including tools, compute, licences, and internal time, across all teams.",
   },
 
   // System Connectivity & Data Flow
@@ -103,7 +103,7 @@ const CHECKLIST_ITEMS = [
     id: 6,
     category: "Connectivity & Data Flow",
     question:
-      "Our AI agents can access data from multiple business systems — not just the one they were built for.",
+      "Our AI agents can access data from multiple business systems, not just the one they were built for.",
   },
   {
     id: 7,
@@ -115,7 +115,7 @@ const CHECKLIST_ITEMS = [
     id: 8,
     category: "Connectivity & Data Flow",
     question:
-      "Our AI tools share a common, high-quality data layer — they're not each working from their own inconsistent copy of the truth.",
+      "Our AI tools share a common, high-quality data layer, they're not each working from their own inconsistent copy of the truth.",
   },
   {
     id: 9,
@@ -153,13 +153,13 @@ const CHECKLIST_ITEMS = [
     id: 14,
     category: "Risk & Governance",
     question:
-      "Our AI initiatives follow a consistent, organisation-wide framework for testing, rollout, and monitoring — not team-by-team improvisation.",
+      "Our AI initiatives follow a consistent, organisation-wide framework for testing, rollout, and monitoring, not team-by-team improvisation.",
   },
   {
     id: 15,
     category: "Risk & Governance",
     question:
-      "We know which AI agents handle sensitive data — and access is strictly controlled, audited, and compliant with regulations.",
+      "We know which AI agents handle sensitive data, and access is strictly controlled, audited, and compliant with regulations.",
   },
 
   // Scale-Readiness & Orchestration
@@ -167,7 +167,7 @@ const CHECKLIST_ITEMS = [
     id: 16,
     category: "Scale & Orchestration",
     question:
-      "Our AI agents are orchestrated centrally — not managed as isolated projects by different teams.",
+      "Our AI agents are orchestrated centrally, not managed as isolated projects by different teams.",
   },
   {
     id: 17,
@@ -191,7 +191,7 @@ const CHECKLIST_ITEMS = [
     id: 20,
     category: "Scale & Orchestration",
     question:
-      "We review and rationalise our AI agent portfolio on a regular cadence — retiring what doesn't perform.",
+      "We review and rationalise our AI agent portfolio on a regular cadence, retiring what doesn't perform.",
   },
 ];
 
@@ -252,7 +252,7 @@ const ORG_SIZE_OPTIONS = ["1-25", "26-100", "101-500", "501-2000", "2000+"];
 const FAQ_ITEMS = [
   {
     q: "Who is this checklist designed for?",
-    a: "Operations leaders, transformation leads, and senior managers at organisations that have started deploying AI agents or automation — and want to ensure those initiatives aren't creating new silos.",
+    a: "Operations leaders, transformation leads, and senior managers at organisations that have started deploying AI agents or automation, and want to ensure those initiatives aren't creating new silos.",
   },
   {
     q: "How long does it take?",
@@ -260,7 +260,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Do I need to be technical?",
-    a: "Not at all. The questions focus on operational outcomes, governance, and business impact — not technical implementation details.",
+    a: "Not at all. The questions focus on operational outcomes, governance, and business impact, not technical implementation details.",
   },
   {
     q: "Will you spam me?",
@@ -593,7 +593,7 @@ const SiloAuditChecklist = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* ─── HERO — Dark immersive with visible image ─── */}
+      {/* ─── HERO, Dark immersive with visible image ─── */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Full-bleed background image with strong overlays for text legibility */}
         <div className="absolute inset-0 z-0">
@@ -714,7 +714,7 @@ const SiloAuditChecklist = () => {
                   {
                     stat: "70%",
                     label:
-                      "of AI projects never move beyond pilot — often due to integration failures",
+                      "of AI projects never move beyond pilot, often due to integration failures",
                     source: "McKinsey",
                   },
                   {
@@ -726,7 +726,7 @@ const SiloAuditChecklist = () => {
                   {
                     stat: "$4T+",
                     label:
-                      "global AI & DX spend projected by 2027 — much of it at risk from siloed deployments",
+                      "global AI & DX spend projected by 2027, much of it at risk from siloed deployments",
                     source: "IDC",
                   },
                 ].map((item, i) => (
@@ -744,7 +744,7 @@ const SiloAuditChecklist = () => {
                       {item.label}
                     </p>
                     <p className="text-[10px] text-white/50 mt-1 italic">
-                      — {item.source}
+                     , {item.source}
                     </p>
                   </motion.div>
                 ))}
@@ -764,7 +764,7 @@ const SiloAuditChecklist = () => {
             {[
               {
                 icon: Bot,
-                text: "Whether your AI agents are working together — or duplicating effort across isolated teams",
+                text: "Whether your AI agents are working together, or duplicating effort across isolated teams",
               },
               {
                 icon: BarChart3,
@@ -776,7 +776,7 @@ const SiloAuditChecklist = () => {
               },
               {
                 icon: DollarSign,
-                text: "Visibility into whether your AI investments are creating leverage — or just overhead",
+                text: "Visibility into whether your AI investments are creating leverage, or just overhead",
               },
             ].map((item, i) => (
               <motion.div
@@ -1310,7 +1310,7 @@ const SiloAuditChecklist = () => {
                           : "text-teal"
                     }
                   >
-                    {score}/10 — {band}
+                    {score}/10, {band}
                   </strong>
                 </p>
 
@@ -1335,8 +1335,8 @@ const SiloAuditChecklist = () => {
                     What to do next:
                   </h4>
                   {[
-                    "Review your category scores — focus on the lowest-scoring area first.",
-                    "Share the PDF with your leadership team — use it to quantify AI silo risk across the organisation.",
+                    "Review your category scores, focus on the lowest-scoring area first.",
+                    "Share the PDF with your leadership team, use it to quantify AI silo risk across the organisation.",
                     "Use your score to prioritise one operating-layer workflow and deploy it with deterministic execution.",
                   ].map((text, i) => (
                     <div key={i} className="flex gap-3 items-start">

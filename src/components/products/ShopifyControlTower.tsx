@@ -1,4 +1,4 @@
-/* Coded mock dashboards for Shopify Ops Control Tower gallery — 8 views */
+/* Coded mock dashboards for Shopify Ops Control Tower gallery, 8 views */
 import { 
   ShoppingCart, Package, Truck, RotateCcw, Headphones, DollarSign,
   AlertTriangle, CheckCircle2, Clock, TrendingUp, ArrowUpRight,
@@ -63,7 +63,7 @@ const TopBar = ({ title }: { title: string }) => (
 
 const OverviewView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
-    <TopBar title="Ops Control Tower — Overview" />
+    <TopBar title="Ops Control Tower, Overview" />
     <div className="p-4 space-y-4">
       <div className="grid grid-cols-4 gap-3">
         <KpiCard label="Orders today" value="847" change="+12% vs yesterday" positive />
@@ -76,11 +76,11 @@ const OverviewView = () => (
           <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">Exception feed (live)</p>
           <div className="space-y-2">
             {[
-              { icon: Truck, text: "3 shipments delayed > 48h — carrier: FedEx Ground", status: "critical", time: "2m ago" },
+              { icon: Truck, text: "3 shipments delayed > 48h, carrier: FedEx Ground", status: "critical", time: "2m ago" },
               { icon: Package, text: "SKU #4821 stock mismatch: Shopify 42, WMS 38", status: "warning", time: "8m ago" },
               { icon: RotateCcw, text: "High-value return ($349) flagged for manual review", status: "review", time: "15m ago" },
               { icon: DollarSign, text: "Payout reconciliation anomaly: $1,247 variance", status: "warning", time: "22m ago" },
-              { icon: ShoppingCart, text: "Order #10847 — potential fraud signal (address mismatch)", status: "critical", time: "31m ago" },
+              { icon: ShoppingCart, text: "Order #10847, potential fraud signal (address mismatch)", status: "critical", time: "31m ago" },
             ].map((item, i) => {
               const Icon = item.icon;
               return (
@@ -121,7 +121,7 @@ const OverviewView = () => (
 
 const OrdersView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
-    <TopBar title="Order Queue — Risk & Hold Management" />
+    <TopBar title="Order Queue, Risk & Hold Management" />
     <div className="p-4 space-y-4">
       <div className="grid grid-cols-4 gap-3">
         <KpiCard label="Orders in queue" value="34" change="12 flagged" positive={false} />
@@ -146,10 +146,10 @@ const OrdersView = () => (
               { id: "#10847", customer: "J. Martinez", total: "$489.00", risk: "critical", flag: "Address mismatch", status: "held" },
               { id: "#10846", customer: "S. Chen", total: "$1,249.00", risk: "critical", flag: "Multiple cards declined", status: "held" },
               { id: "#10845", customer: "A. Williams", total: "$67.50", risk: "warning", flag: "New account, high qty", status: "review" },
-              { id: "#10844", customer: "M. Johnson", total: "$234.00", risk: "healthy", flag: "—", status: "approved" },
-              { id: "#10843", customer: "R. Davis", total: "$89.99", risk: "healthy", flag: "—", status: "approved" },
+              { id: "#10844", customer: "M. Johnson", total: "$234.00", risk: "healthy", flag: ", ", status: "approved" },
+              { id: "#10843", customer: "R. Davis", total: "$89.99", risk: "healthy", flag: ", ", status: "approved" },
               { id: "#10842", customer: "L. Kim", total: "$1,799.00", risk: "warning", flag: "Shipping ≠ billing", status: "review" },
-              { id: "#10841", customer: "P. Thompson", total: "$45.00", risk: "healthy", flag: "—", status: "approved" },
+              { id: "#10841", customer: "P. Thompson", total: "$45.00", risk: "healthy", flag: ", ", status: "approved" },
             ].map((order, i) => (
               <tr key={i} className="border-t border-border/30 text-[11px] hover:bg-muted/30 transition-colors">
                 <td className="p-2.5 font-mono font-semibold">{order.id}</td>
@@ -193,7 +193,7 @@ const InventoryView = () => (
           <tbody>
             {[
               { sku: "BLK-TEE-L", product: "Classic Tee (L, Black)", shopify: 42, wms: 38, tpl: 38, delta: -4, action: "Auto-adjust queued" },
-              { sku: "WHT-SNK-10", product: "Runner V2 (10, White)", shopify: 3, wms: 3, tpl: 0, delta: -3, action: "Hidden — OOS at 3PL" },
+              { sku: "WHT-SNK-10", product: "Runner V2 (10, White)", shopify: 3, wms: 3, tpl: 0, delta: -3, action: "Hidden, OOS at 3PL" },
               { sku: "GRY-HOOD-M", product: "Zip Hoodie (M, Grey)", shopify: 156, wms: 156, tpl: 156, delta: 0, action: "Synced ✓" },
               { sku: "NVY-CAP-OS", product: "Dad Cap (OS, Navy)", shopify: 89, wms: 91, tpl: 91, delta: 2, action: "Review pending" },
               { sku: "RED-SOCK-S", product: "Crew Sock Pack (S)", shopify: 0, wms: 24, tpl: 24, delta: 24, action: "Relisting queued" },
@@ -237,8 +237,8 @@ const FulfillmentView = () => (
         <div className="divide-y divide-border/30">
           {[
             { tracking: "FX8294710", carrier: "FedEx Ground", order: "#10832", issue: "Delayed > 48h", eta: "Overdue 2d", status: "critical", action: "Claim filed auto" },
-            { tracking: "UP7183920", carrier: "UPS", order: "#10829", issue: "Label failed", eta: "—", status: "warning", action: "Re-label queued" },
-            { tracking: "US9471820", carrier: "USPS", order: "#10825", issue: "Lost in transit", eta: "—", status: "critical", action: "Claim + reship" },
+            { tracking: "UP7183920", carrier: "UPS", order: "#10829", issue: "Label failed", eta: ", ", status: "warning", action: "Re-label queued" },
+            { tracking: "US9471820", carrier: "USPS", order: "#10825", issue: "Lost in transit", eta: ", ", status: "critical", action: "Claim + reship" },
             { tracking: "FX8294688", carrier: "FedEx Express", order: "#10821", issue: "Damaged scan", eta: "Delivered", status: "warning", action: "Customer notified" },
             { tracking: "DH2948710", carrier: "DHL eComm", order: "#10818", issue: "Customs hold", eta: "TBD", status: "warning", action: "Docs uploaded" },
           ].map((item, i) => (
@@ -287,7 +287,7 @@ const ReturnsView = () => (
               { rma: "RMA-4819", type: "Damaged", product: "Puffer Jacket (M)", value: "$349.00", risk: "critical", decision: "Manual review" },
               { rma: "RMA-4818", type: "Refund", product: "Dad Cap (Navy)", value: "$34.00", risk: "healthy", decision: "Auto-approved" },
               { rma: "RMA-4817", type: "Missing item", product: "Crew Sock 3-Pack", value: "$24.00", risk: "warning", decision: "Reship queued" },
-              { rma: "RMA-4816", type: "Refund", product: "Classic Tee (S, White)", value: "$29.00", risk: "warning", decision: "Policy flag — repeat" },
+              { rma: "RMA-4816", type: "Refund", product: "Classic Tee (S, White)", value: "$29.00", risk: "warning", decision: "Policy flag, repeat" },
             ].map((item, i) => (
               <tr key={i} className="border-t border-border/30 text-[11px] hover:bg-muted/30 transition-colors">
                 <td className="p-2.5 font-mono font-semibold">{item.rma}</td>
@@ -355,13 +355,13 @@ const SupportView = () => (
 
 const FinanceView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
-    <TopBar title="Finance — Daily Ops Close" />
+    <TopBar title="Finance, Daily Ops Close" />
     <div className="p-4 space-y-4">
       <div className="grid grid-cols-4 gap-3">
         <KpiCard label="Gross revenue" value="$47,891" change="+14% vs target" positive />
         <KpiCard label="Refunds" value="$4,289" change="9.0% of gross" positive={false} />
         <KpiCard label="Net revenue" value="$43,602" change="+11% vs avg" positive />
-        <KpiCard label="Payout variance" value="$12.40" change="0.03% — healthy" positive />
+        <KpiCard label="Payout variance" value="$12.40" change="0.03%, healthy" positive />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="rounded-lg border border-border/60 p-3">

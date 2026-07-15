@@ -1,5 +1,5 @@
 /*
-  LEAD MAGNET #3 — Ops-Led AI Transformation Playbook
+  LEAD MAGNET #3, Ops-Led AI Transformation Playbook
   Slug: /resources/transformation-playbook
   Accent: emerald/teal | Highlight: gold
 */
@@ -40,7 +40,7 @@ import workflowLines from "@/assets/playbook/workflow-lines.jpg";
 /* ─── Constants ─── */
 const META_TITLE = "AI Transformation Playbook (Free) | Chase Agents";
 const META_DESC =
-  "A practical guide to ship reliable AI automation—without failed pilots, wasted budget, or chaos.";
+  "A practical guide to ship reliable AI automation, without failed pilots, wasted budget, or chaos.";
 const CHASE_AGENTS_URL = "https://chaseagents.com";
 const BOOK_SCOPING_CALL_URL = "https://calendar.app.google/8oZYnnuHcaiH64Ky8";
 const ASSET_KEY = "transformation-playbook";
@@ -109,7 +109,7 @@ const WHY_THIS_WORKS = [
   {
     icon: Shield,
     title: "We design for edge cases up front",
-    desc: "Exceptions kill automation. We build approval flows, fallback paths, and human escalation into the design—before you hit production.",
+    desc: "Exceptions kill automation. We build approval flows, fallback paths, and human escalation into the design, before you hit production.",
   },
   {
     icon: BarChart3,
@@ -121,7 +121,7 @@ const WHY_THIS_WORKS = [
 const FAQ_ITEMS = [
   {
     q: "Is this technical?",
-    a: "No. This playbook is written for operations leaders and transformation leads—not engineers. It focuses on strategy, process design, and execution frameworks.",
+    a: "No. This playbook is written for operations leaders and transformation leads, not engineers. It focuses on strategy, process design, and execution frameworks.",
   },
   {
     q: "How long is it?",
@@ -129,7 +129,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Who is it for?",
-    a: "Operations leaders, transformation managers, and senior executives who want AI automation that actually works—without failed pilots or wasted budget.",
+    a: "Operations leaders, transformation managers, and senior executives who want AI automation that actually works, without failed pilots or wasted budget.",
   },
   {
     q: "What if we have messy data?",
@@ -375,7 +375,7 @@ const TransformationPlaybook = () => {
                   Free Playbook
                 </span>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-6 leading-tight">
-                  A practical playbook to ship AI automation—
+                  A practical playbook to ship AI automation, 
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
                     without failed pilots.
                   </span>
@@ -457,7 +457,7 @@ const TransformationPlaybook = () => {
                   of digital initiatives meet outcomes
                 </p>
                 <p className="text-xs text-muted-foreground/60 mt-1">
-                  — Gartner, 2024
+                 , Gartner, 2024
                 </p>
               </div>
               <div>
@@ -467,7 +467,7 @@ const TransformationPlaybook = () => {
                 <p className="text-sm text-muted-foreground mt-1">
                   global DX spend by 2027
                 </p>
-                <p className="text-xs text-muted-foreground/60 mt-1">— IDC</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">,  IDC</p>
               </div>
               <div className="col-span-2 md:col-span-1">
                 <p className="text-3xl md:text-4xl font-bold text-amber-400">
@@ -477,7 +477,7 @@ const TransformationPlaybook = () => {
                   of AI pilots never reach production
                 </p>
                 <p className="text-xs text-muted-foreground/60 mt-1">
-                  — Industry estimate
+                 , Industry estimate
                 </p>
               </div>
             </div>

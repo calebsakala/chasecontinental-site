@@ -1,5 +1,5 @@
 /*
-  Charles — Personal profile & thesis.
+  Charles, Personal profile & thesis.
   Content authored by Charles; consistent with the main site's light theme.
 */
 
@@ -36,7 +36,7 @@ const HOW_I_BUILD = [
   {
     n: "01",
     title: "Encode judgement",
-    desc: "The most valuable asset in any organization is rarely its data — it's the judgement experienced people develop over years of operating. I build systems that capture that judgement and make it available whenever it's needed.",
+    desc: "The most valuable asset in any organization is rarely its data, it's the judgement experienced people develop over years of operating. I build systems that capture that judgement and make it available whenever it's needed.",
   },
   {
     n: "02",
@@ -46,7 +46,7 @@ const HOW_I_BUILD = [
   {
     n: "03",
     title: "Design for compounding",
-    desc: "The first implementation is always the hardest — that's where workflows are mapped, decisions classified, and knowledge structured. Every deployment after that is faster. Every new customer improves the platform. Every improvement benefits the next organization.",
+    desc: "The first implementation is always the hardest, that's where workflows are mapped, decisions classified, and knowledge structured. Every deployment after that is faster. Every new customer improves the platform. Every improvement benefits the next organization.",
   },
 ];
 
@@ -54,20 +54,23 @@ const SYSTEMS = [
   {
     icon: Cpu,
     name: "Chase Agents",
-    desc: "An execution platform that turns organizational knowledge into operational systems. Rather than another chatbot, Chase Agents embeds intelligence directly into existing workflows across WhatsApp, Slack, Microsoft Teams, and other business systems. The objective isn't conversation — it's execution.",
+    desc: "An execution platform that turns organizational knowledge into operational systems. Rather than another chatbot, Chase Agents embeds intelligence directly into existing workflows across WhatsApp, Slack, Microsoft Teams, and other business systems. The objective isn't conversation, it's execution.",
     href: "https://chaseagents.com",
+    image: "/static/images/chase-agents-hero.png",
   },
   {
     icon: Layers,
     name: "OptiWeb",
     desc: "A platform for organizations that need their digital presence and internal operations to work as one system rather than separate projects.",
     href: "https://www.optiweb.it.com/",
+    image: "/static/images/optiweb-og.webp",
   },
   {
     icon: Building2,
     name: "Precinct",
     desc: "Technology for organizations responsible for managing physical environments, combining operational data with spatial intelligence to improve decision-making.",
     href: null,
+    image: null,
   },
 ];
 
@@ -113,7 +116,7 @@ const PRINCIPLES = [
   },
   {
     title: "Fractal Fit comes before automation.",
-    desc: "Digital systems should mirror reality before attempting to improve it. Organizations don't fail because people resist technology — they fail because the technology doesn't reflect how work actually happens.",
+    desc: "Digital systems should mirror reality before attempting to improve it. Organizations don't fail because people resist technology, they fail because the technology doesn't reflect how work actually happens.",
   },
   {
     title: "Build once. Compound forever.",
@@ -122,12 +125,12 @@ const PRINCIPLES = [
 ];
 
 const WRITING = [
-  "Why Most AI Projects Fail Inside Organizations",
-  "The Shift From Tools to Agent Systems",
-  "Why Reliable AI Matters More Than Powerful AI",
-  "The Production Possibility Frontier of Organizations",
-  "Intelligence as Operating Expenditure",
-  "Designing Organizations That Think",
+  { title: "Why Most AI Projects Fail Inside Organizations", slug: "why-most-ai-projects-fail-inside-organizations" },
+  { title: "The Shift From Tools to Agent Systems", slug: "the-shift-from-tools-to-agent-systems" },
+  { title: "Why Reliable AI Matters More Than Powerful AI", slug: "why-reliable-ai-matters-more-than-powerful-ai" },
+  { title: "The Production Possibility Frontier of Organizations", slug: "the-production-possibility-frontier-of-organizations" },
+  { title: "Intelligence as Operating Expenditure", slug: "intelligence-as-operating-expenditure" },
+  { title: "Designing Organizations That Think", slug: "designing-organizations-that-think" },
 ];
 
 const SectionRule = () => (
@@ -171,7 +174,7 @@ const CharlesPage = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background">
       <Helmet>
-        <title>Charles K. Chirongoma — Building organizations that think</title>
+        <title>Charles K. Chirongoma: Building organizations that think</title>
         <meta
           name="description"
           content="I design how organizations make decisions, then build the systems that execute them. Chase Agents, OptiWeb, Precinct, and the thesis behind them."
@@ -307,7 +310,7 @@ const CharlesPage = () => {
                   organization learns.
                 </p>
                 <p className="font-medium text-background">
-                  Artificial intelligence makes this possible — but only when it's built into the
+                  Artificial intelligence makes this possible, but only when it's built into the
                   operating model rather than layered on top of it.
                 </p>
               </div>
@@ -325,7 +328,7 @@ const CharlesPage = () => {
                 <p>
                   I began my career in management consulting, working on industrial development,
                   operational redesign, and large-scale transformation programmes across South
-                  Africa — from redesigning waste management systems to helping manufacturers
+                  Africa, from redesigning waste management systems to helping manufacturers
                   coordinate around shared operational goals.
                 </p>
                 <p>
@@ -355,14 +358,14 @@ const CharlesPage = () => {
                 <p>
                   Organizations are information-processing systems. Every workflow is a sequence of
                   observations, decisions, and actions. Before software exists, that system already
-                  exists inside people — the conversations they have, the approvals they make, the
+                  exists inside people, the conversations they have, the approvals they make, the
                   judgement they apply, the exceptions they recognise.
                 </p>
                 <p>
                   Technology should never invent a new way of working simply because it can. It
                   should first understand how the organization naturally operates, then replicate
                   that structure digitally. When the digital system reflects reality, adoption
-                  becomes natural — the software feels obvious because it behaves the way the
+                  becomes natural, the software feels obvious because it behaves the way the
                   organization already thinks.
                 </p>
                 <p className="font-medium text-foreground">
@@ -410,15 +413,31 @@ const CharlesPage = () => {
             <div className="mt-12 grid gap-5 md:grid-cols-3">
               {SYSTEMS.map((s, i) => {
                 const inner = (
-                  <div className="group flex h-full flex-col rounded-2xl border border-background/10 bg-background/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:bg-background/[0.07]">
-                    <div className="mb-4 inline-flex rounded-xl bg-teal/10 p-3">
-                      <s.icon className="h-5 w-5 text-teal" />
+                  <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-background/10 bg-background/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:bg-background/[0.07]">
+                    <div className="aspect-[16/9] overflow-hidden border-b border-background/10 bg-[#0d1526]">
+                      {s.image ? (
+                        <img
+                          src={s.image}
+                          alt={s.name}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-center">
+                          <s.icon className="h-6 w-6 text-teal/70" />
+                          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-background/40">Coming soon</span>
+                        </div>
+                      )}
                     </div>
-                    <h4 className="flex items-center gap-1.5 font-heading text-lg font-bold text-background">
-                      {s.name}
-                      {s.href && <ArrowUpRight className="h-4 w-4 text-teal opacity-0 transition-opacity group-hover:opacity-100" />}
-                    </h4>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-background/60">{s.desc}</p>
+                    <div className="flex flex-1 flex-col p-7">
+                      <div className="mb-4 inline-flex w-fit rounded-xl bg-teal/10 p-3">
+                        <s.icon className="h-5 w-5 text-teal" />
+                      </div>
+                      <h4 className="flex items-center gap-1.5 font-heading text-lg font-bold text-background">
+                        {s.name}
+                        {s.href && <ArrowUpRight className="h-4 w-4 text-teal opacity-0 transition-opacity group-hover:opacity-100" />}
+                      </h4>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-background/60">{s.desc}</p>
+                    </div>
                   </div>
                 );
                 return (
@@ -510,10 +529,10 @@ const CharlesPage = () => {
               <h2 className="mt-5 text-foreground">On organizational design, AI, and the future of execution.</h2>
             </Reveal>
             <div className="mt-8 divide-y divide-border/70 border-y border-border/70">
-              {WRITING.map((title, i) => (
-                <Reveal key={title} delay={i * 0.04}>
-                  <Link to="/blogs" className="group flex items-center justify-between gap-4 py-4">
-                    <span className="font-medium text-foreground transition-colors group-hover:text-teal">{title}</span>
+              {WRITING.map((item, i) => (
+                <Reveal key={item.slug} delay={i * 0.04}>
+                  <Link to={`/blog/${item.slug}`} className="group flex items-center justify-between gap-4 py-4">
+                    <span className="font-medium text-foreground transition-colors group-hover:text-teal">{item.title}</span>
                     <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-teal" />
                   </Link>
                 </Reveal>
@@ -534,7 +553,7 @@ const CharlesPage = () => {
                 </p>
                 <p>
                   Over time, I see this evolving into an operating-focused investment firm that
-                  acquires and grows companies by redesigning how they work — not through financial
+                  acquires and grows companies by redesigning how they work, not through financial
                   engineering, but through operational engineering: encoding institutional
                   knowledge, removing friction, and building systems that let organizations improve
                   continuously.
@@ -557,7 +576,7 @@ const CharlesPage = () => {
                 <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">Contact</span>
                 <h2 className="mt-5 text-foreground">Building something difficult?</h2>
                 <p className="mt-5 leading-relaxed text-muted-foreground">
-                  I work with a small number of organizations willing to rethink how they operate —
+                  I work with a small number of organizations willing to rethink how they operate , 
                   not just adopt new technology. If you're dealing with complex workflows, large
                   volumes of structured information, or institutional knowledge that's difficult to
                   scale, I'd like to hear about it.

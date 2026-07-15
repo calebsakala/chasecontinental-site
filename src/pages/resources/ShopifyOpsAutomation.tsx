@@ -47,10 +47,10 @@ const USE_CASES = [
     id: "order-fulfillment",
     icon: ShoppingCart,
     title: "Order & Fraud Management",
-    subtitle: "From checkout to fulfillment — zero manual handoffs",
+    subtitle: "From checkout to fulfillment: zero manual handoffs",
     image: orderFulfillment,
     description:
-      "Automatically flag high-risk orders, route fraud signals to review queues, and sync holds across Shopify and your WMS — before a single package ships.",
+      "Automatically flag high-risk orders, route fraud signals to review queues, and sync holds across Shopify and your WMS, before a single package ships.",
     automations: [
       "Auto-hold orders with fraud signals (address mismatch, velocity, card patterns)",
       "Route flagged orders to a review queue with pre-built evidence packs",
@@ -84,9 +84,9 @@ const USE_CASES = [
     subtitle: "Catch exceptions before your customers do",
     image: shippingLogistics,
     description:
-      "A unified control tower for every shipment. Delayed packages, failed labels, lost parcels — surfaced and acted on automatically, not discovered by angry customers.",
+      "A unified control tower for every shipment. Delayed packages, failed labels, lost parcels, surfaced and acted on automatically, not discovered by angry customers.",
     automations: [
-      "Exception control tower: delayed, failed, lost — all in one view",
+      "Exception control tower: delayed, failed, lost, all in one view",
       "Auto-open carrier claims with pre-filled shipment details",
       "Proactive customer notifications for delayed shipments",
       "SLA monitoring and 'what is late right now' reporting",
@@ -101,7 +101,7 @@ const USE_CASES = [
     subtitle: "Auto-approve the easy ones. Escalate the rest.",
     image: returnsProcessing,
     description:
-      "Classify every return request automatically. Low-risk returns get instant approval. High-value or suspicious returns get routed for manual review — with full context.",
+      "Classify every return request automatically. Low-risk returns get instant approval. High-value or suspicious returns get routed for manual review, with full context.",
     automations: [
       "Auto-classify: refund, exchange, damaged, missing item",
       "Low-risk auto-approval with instant label generation",
@@ -115,10 +115,10 @@ const USE_CASES = [
     id: "support",
     icon: Headphones,
     title: "Support Ticket Routing",
-    subtitle: "Classify, route, draft — before an agent touches it",
+    subtitle: "Classify, route, draft: before an agent touches it",
     image: supportAutomation,
     description:
-      "Every incoming ticket is classified by type, routed to the right queue, and presented with an AI-drafted, policy-safe response template — ready for agent approval.",
+      "Every incoming ticket is classified by type, routed to the right queue, and presented with an AI-drafted, policy-safe response template, ready for agent approval.",
     automations: [
       "Auto-classify tickets: WISMO, refund, product question, billing",
       "Route to specialised queues (returns, escalations, VIP)",
@@ -135,12 +135,12 @@ const USE_CASES = [
     subtitle: "Close the day in minutes, not hours",
     image: financeReconciliation,
     description:
-      "Automated payout reconciliation, refund tracking, and leakage detection. A daily ops-close summary generated automatically — so finance never chases ops for numbers.",
+      "Automated payout reconciliation, refund tracking, and leakage detection. A daily ops-close summary generated automatically, so finance never chases ops for numbers.",
     automations: [
       "Shopify payout reconciliation against orders, refunds, and fees",
       "Anomaly detection and variance alerting",
       "Refund and discount leakage reports",
-      "Daily 'ops close' summary — fulfillment, exceptions, revenue",
+      "Daily 'ops close' summary, fulfillment, exceptions, revenue",
     ],
     stats: { metric: "< 2 hrs", label: "Daily ops close (from 6+ hrs)" },
     dashboardView: "finance" as const,
@@ -167,11 +167,11 @@ const GALLERY_FRAMES = [
 const FAQ_ITEMS = [
   {
     q: "Do we need to replace our existing Shopify apps?",
-    a: "No. Chase Agents layers automation on top of your existing stack — Shopify, your WMS, 3PL, helpdesk, and accounting tools stay in place. We connect and orchestrate them.",
+    a: "No. Chase Agents layers automation on top of your existing stack, Shopify, your WMS, 3PL, helpdesk, and accounting tools stay in place. We connect and orchestrate them.",
   },
   {
     q: "How is this different from Shopify Flow?",
-    a: "Shopify Flow is great for simple triggers. Chase Agents builds production-grade, cross-system workflows with exception handling, monitoring, audit logs, and deterministic execution — the kind that actually survive in production.",
+    a: "Shopify Flow is great for simple triggers. Chase Agents builds production-grade, cross-system workflows with exception handling, monitoring, audit logs, and deterministic execution, the kind that actually survive in production.",
   },
   {
     q: "Is AI going to make decisions without human oversight?",
@@ -183,7 +183,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What does it cost?",
-    a: "Paid pilots start at $5K–$10K. You get a working, measurable automation — not a strategy deck.",
+    a: "Paid pilots start at $5K–$10K. You get a working, measurable automation, not a strategy deck.",
   },
 ];
 
@@ -197,12 +197,12 @@ const ShopifyOpsAutomation = () => {
 
   useEffect(() => {
     document.title =
-      "Shopify Automation — AI-Powered Ops for Shopify | Chase Agents";
+      "Shopify Automation, AI-Powered Ops for Shopify | Chase Agents";
     const meta = document.querySelector('meta[name="description"]');
     if (meta)
       meta.setAttribute(
         "content",
-        "Production-grade Shopify automation: orders, inventory, fulfillment, returns, support, and finance — all orchestrated by Chase Agents.",
+        "Production-grade Shopify automation: orders, inventory, fulfillment, returns, support, and finance, all orchestrated by Chase Agents.",
       );
   }, []);
 
@@ -283,7 +283,7 @@ const ShopifyOpsAutomation = () => {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed"
             >
-              Orders, inventory, fulfillment, returns, support, and finance —
+              Orders, inventory, fulfillment, returns, support, and finance , 
               connected end-to-end with deterministic AI automation that doesn't
               break in production.
             </motion.p>
@@ -333,7 +333,7 @@ const ShopifyOpsAutomation = () => {
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Six automation pillars. Each one connects to your existing tools
-                — no rip-and-replace.
+               , no rip-and-replace.
               </p>
             </div>
           </Reveal>
@@ -484,12 +484,12 @@ const ShopifyOpsAutomation = () => {
               {
                 icon: Bot,
                 title: "AI-assisted",
-                desc: "Classification, drafting, summarization — AI handles the fuzzy work",
+                desc: "Classification, drafting, summarization, AI handles the fuzzy work",
               },
               {
                 icon: ShieldCheck,
                 title: "Deterministic execution",
-                desc: "Refunds, holds, inventory — workflows that must be correct run deterministically",
+                desc: "Refunds, holds, inventory, workflows that must be correct run deterministically",
               },
               {
                 icon: Eye,
@@ -499,7 +499,7 @@ const ShopifyOpsAutomation = () => {
               {
                 icon: Users,
                 title: "Human approvals",
-                desc: "Approval gates on every high-stakes decision — nothing ships without oversight",
+                desc: "Approval gates on every high-stakes decision, nothing ships without oversight",
               },
             ].map((item, i) => {
               const Icon = item.icon;
@@ -533,7 +533,7 @@ const ShopifyOpsAutomation = () => {
                 The Shopify Ops Control Tower
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                A unified view of every order, shipment, return, and exception —
+                A unified view of every order, shipment, return, and exception , 
                 across every tool in your stack. Powered by Chase Agents.
               </p>
             </div>
@@ -672,16 +672,16 @@ const ShopifyOpsAutomation = () => {
                 </h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   Chase Agents is the operating layer that connects Shopify to
-                  your entire ops stack — WMS, 3PL, helpdesk, email/SMS, and
-                  accounting — with deterministic reliability.
+                  your entire ops stack, WMS, 3PL, helpdesk, email/SMS, and
+                  accounting, with deterministic reliability.
                 </p>
                 <ul className="space-y-3 mb-8">
                   {[
-                    "Neutral control layer — works with every tool, no rip-and-replace",
+                    "Neutral control layer, works with every tool, no rip-and-replace",
                     "Deterministic workflows for the parts that must be correct",
                     "AI assistance for classification, drafting, and summarization",
                     "Full audit logs, permissions, rollback, and monitoring",
-                    "Ops-owned — your team controls the workflows",
+                    "Ops-owned, your team controls the workflows",
                     "Live in 2–4 weeks with measurable KPIs",
                   ].map((item, i) => (
                     <li key={i} className="flex gap-2 text-sm">

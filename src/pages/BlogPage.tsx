@@ -9,6 +9,7 @@ import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/imageUrl";
 import type { SanityImageSource } from "@sanity/image-url";
 import aiNetwork from "@/assets/ai-network.jpg";
+import { LOCAL_ARTICLES } from "@/content/localArticles";
 
 interface Post {
   _id: string;
@@ -35,10 +36,38 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const locals: Post[] = LOCAL_ARTICLES.map((a) => ({
+      _id: a._id,
+      title: a.title,
+      slug: a.slug,
+      publishedAt: a.publishedAt,
+      excerpt: a.excerpt,
+      authorName: a.authorName,
+    }));
+    const noEmDash = (s?: string) => (s ? s.replace(/\s*\u2014\s*/g, ", ") : s);
+    const merge = (sanity: Post[]) => {
+      const localSlugs = new Set(locals.map((l) => l.slug.current));
+      const clean = sanity.map((p) => ({
+        ...p,
+        title: noEmDash(p.title) ?? p.title,
+        excerpt: noEmDash(p.excerpt),
+      }));
+      const combined = [
+        ...locals,
+        ...clean.filter((p) => !localSlugs.has(p.slug?.current)),
+      ].sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+      );
+      setPosts(combined);
+    };
     client
       .fetch(BLOG_QUERY)
-      .then((data: Post[]) => setPosts(data || []))
-      .catch((err) => console.error("Failed to fetch posts:", err))
+      .then((data: Post[]) => merge(data || []))
+      .catch((err) => {
+        console.error("Failed to fetch posts:", err);
+        merge([]); // still show locally-authored articles
+      })
       .finally(() => setLoading(false));
   }, []);
 

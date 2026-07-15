@@ -265,7 +265,7 @@ const LogisticsOverview = ({ accent }: MockProps) => (
         />
         <div className="relative flex items-center gap-1 text-[9px] text-muted-foreground">
           <MapPin className="w-3 h-3" style={{ color: accent }} />
-          <span>Live route map — 142 active, 7 exceptions flagged</span>
+          <span>Live route map, 142 active, 7 exceptions flagged</span>
         </div>
         {[
           { x: 20, y: 30 },
@@ -312,31 +312,31 @@ const LogisticsExceptions = ({ accent }: MockProps) => (
         </div>
         {[
           [
-            "Carrier delay — Route #4821",
+            "Carrier delay, Route #4821",
             { status: "critical" },
             { status: "pending" },
             "2.1h",
           ],
           [
-            "Address mismatch — ORD-9912",
+            "Address mismatch, ORD-9912",
             { status: "warning" },
             { status: "active" },
             "0.5h",
           ],
           [
-            "Temp excursion — Cold chain #77",
+            "Temp excursion, Cold chain #77",
             { status: "critical" },
             { status: "pending" },
             "1.8h",
           ],
           [
-            "Weight discrepancy — WH-East",
+            "Weight discrepancy, WH-East",
             { status: "warning" },
             { status: "resolved" },
-            "—",
+            ", ",
           ],
           [
-            "Customs hold — INT-3301",
+            "Customs hold, INT-3301",
             { status: "warning" },
             { status: "active" },
             "4.2h",
@@ -380,31 +380,31 @@ const LogisticsSyncHealth = ({ accent }: MockProps) => (
       </p>
       {[
         {
-          name: "WMS — Eastern DC",
+          name: "WMS, Eastern DC",
           status: "active",
           latency: "120ms",
           uptime: 99.8,
         },
         {
-          name: "Carrier API — FedEx",
+          name: "Carrier API, FedEx",
           status: "active",
           latency: "340ms",
           uptime: 99.2,
         },
         {
-          name: "Carrier API — UPS",
+          name: "Carrier API, UPS",
           status: "warning",
           latency: "890ms",
           uptime: 97.1,
         },
         {
-          name: "OMS — Shopify Plus",
+          name: "OMS, Shopify Plus",
           status: "active",
           latency: "95ms",
           uptime: 99.9,
         },
         {
-          name: "TMS — Oracle",
+          name: "TMS, Oracle",
           status: "active",
           latency: "210ms",
           uptime: 98.7,
@@ -502,20 +502,20 @@ const BpoWorkQueue = ({ accent }: MockProps) => (
         </div>
         {[
           [
-            "INV-2847 — Billing dispute",
+            "INV-2847, Billing dispute",
             { status: "critical" },
             "2h 14m",
             "J. Park",
           ],
-          ["REQ-1093 — Onboarding", { status: "active" }, "1d 6h", "M. Chen"],
+          ["REQ-1093, Onboarding", { status: "active" }, "1d 6h", "M. Chen"],
           [
-            "ESC-0412 — Compliance flag",
+            "ESC-0412, Compliance flag",
             { status: "warning" },
             "4h 30m",
             "S. Gupta",
           ],
           [
-            "INV-2901 — Refund request",
+            "INV-2901, Refund request",
             { status: "pending" },
             "3d 2h",
             "Unassigned",
@@ -622,7 +622,7 @@ const BpoClientReporting = ({ accent }: MockProps) => (
         />
       </div>
       <p className="text-[10px] font-bold text-foreground">
-        Error Taxonomy — This Week
+        Error Taxonomy, This Week
       </p>
       {[
         "Missing documentation",
@@ -775,7 +775,7 @@ const EcommerceRootCause = ({ accent }: MockProps) => (
   >
     <div className="space-y-3">
       <p className="text-[10px] font-bold text-foreground">
-        Refund Root Causes — Last 30 Days
+        Refund Root Causes, Last 30 Days
       </p>
       {[
         "Inventory sync failure",
@@ -877,7 +877,7 @@ const FieldJobPackets = ({ accent }: MockProps) => (
       <div className="rounded-lg border border-border/30 p-3 space-y-2">
         <div className="flex items-center justify-between">
           <p className="text-[10px] font-bold text-foreground">
-            Job #FS-4821 — HVAC Compressor Replacement
+            Job #FS-4821, HVAC Compressor Replacement
           </p>
           <StatusBadge status="active" accent={accent} />
         </div>
@@ -885,7 +885,7 @@ const FieldJobPackets = ({ accent }: MockProps) => (
           <div>
             <span className="text-muted-foreground">Customer:</span>{" "}
             <span className="text-foreground font-medium">
-              Acme Corp — Building 3
+              Acme Corp, Building 3
             </span>
           </div>
           <div>
@@ -962,7 +962,7 @@ const FieldParts = ({ accent }: MockProps) => (
         />
       </div>
       <p className="text-[10px] font-bold text-foreground">
-        Predicted Needs — Next 48h
+        Predicted Needs, Next 48h
       </p>
       {[
         {
@@ -1079,25 +1079,25 @@ const MfgEventInbox = ({ accent }: MockProps) => (
         </div>
         {[
           [
-            "NCR-0891 — Dimensional variance",
+            "NCR-0891, Dimensional variance",
             { status: "critical" },
             "Line 3",
             { status: "pending" },
           ],
           [
-            "NCR-0890 — Surface finish defect",
+            "NCR-0890, Surface finish defect",
             { status: "warning" },
             "Line 1",
             { status: "active" },
           ],
           [
-            "NCR-0887 — Material cert missing",
+            "NCR-0887, Material cert missing",
             { status: "warning" },
             "Incoming",
             { status: "resolved" },
           ],
           [
-            "NCR-0885 — Assembly torque OOS",
+            "NCR-0885, Assembly torque OOS",
             { status: "critical" },
             "Line 2",
             { status: "active" },
@@ -1120,7 +1120,7 @@ const MfgRcaWorkspace = ({ accent }: MockProps) => (
     <div className="space-y-3">
       <div className="rounded-lg border border-border/30 p-3">
         <p className="text-[10px] font-bold text-foreground mb-2">
-          NCR-0891 — Root Cause Analysis
+          NCR-0891, Root Cause Analysis
         </p>
         <p className="text-[9px] text-muted-foreground mb-2">5 Whys Analysis</p>
         {[
@@ -1219,7 +1219,7 @@ const MfgCapaTracker = ({ accent }: MockProps) => (
         <div key={i} className="p-2 rounded bg-muted/20 space-y-1">
           <div className="flex items-center justify-between text-[9px]">
             <span className="font-bold text-foreground">
-              {c.id} — {c.desc}
+              {c.id}, {c.desc}
             </span>
           </div>
           <div className="flex items-center gap-2 text-[8px] text-muted-foreground">
@@ -1336,7 +1336,7 @@ const HealthAuthTimeline = ({ accent }: MockProps) => (
     <div className="space-y-3">
       <div className="rounded-lg border border-border/30 p-3">
         <p className="text-[10px] font-bold text-foreground mb-2">
-          Auth Request — J. Martinez (Cardiology)
+          Auth Request, J. Martinez (Cardiology)
         </p>
         <div className="space-y-2">
           {[

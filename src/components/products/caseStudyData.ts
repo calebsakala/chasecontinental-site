@@ -25,7 +25,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     outcome: "41% fewer failed deliveries in 90 days",
     accentColor: "hsl(210, 100%, 56%)",
     problem:
-      "Route and order changes break downstream automations daily. Carrier updates arrive via EDI, email, and portal — each in different formats. Operations teams firefight exceptions manually, burning 6+ hours per shift on calls and spreadsheets. Downstream warehouse prep, customer notifications, and billing all lag behind.",
+      "Route and order changes break downstream automations daily. Carrier updates arrive via EDI, email, and portal, each in different formats. Operations teams firefight exceptions manually, burning 6+ hours per shift on calls and spreadsheets. Downstream warehouse prep, customer notifications, and billing all lag behind.",
     fix: "A control tower that ingests live changes from carriers, WMS, and OMS. It detects exceptions automatically, classifies severity, and triggers deterministic resolution workflows. AI suggests next-best actions and drafts carrier/customer comms, but approvals and execution follow rule-based paths with full audit trails.",
     results: [
       { label: "Failed deliveries", value: "↓ 41%" },
@@ -78,7 +78,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     outcome: "52% faster cycle time, 94% first-pass QA",
     accentColor: "hsl(270, 80%, 56%)",
     problem:
-      "High-volume requests arrive via email, portal, and phone — then get stuck across spreadsheets, ticketing systems, and shared inboxes. Quality drifts as teams apply inconsistent standards. SLA breaches increase during volume spikes, and clients lose visibility into case status.",
+      "High-volume requests arrive via email, portal, and phone, then get stuck across spreadsheets, ticketing systems, and shared inboxes. Quality drifts as teams apply inconsistent standards. SLA breaches increase during volume spikes, and clients lose visibility into case status.",
     fix: "Structured intake → AI-assisted triage → deterministic task routing → QA workflow. Incoming requests are classified and routed based on complexity, skill match, and SLA tier. AI drafts responses for review; deterministic checklists enforce quality standards. Full audit trail from intake to close.",
     results: [
       { label: "Cycle time", value: "↓ 52%" },
@@ -185,7 +185,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     accentColor: "hsl(145, 63%, 42%)",
     problem:
       "Missed appointments and repeat visits due to poor dispatching and parts readiness. Schedulers juggle technician skills, travel windows, SLA tiers, and parts availability across disconnected systems.",
-    fix: "AI recommends optimal schedules and predicts parts needs based on job type, equipment history, and failure patterns. Deterministic rules enforce constraints — skills, certifications, travel windows, SLA tiers. Job packets auto-generate with steps, parts, and safety checklists.",
+    fix: "AI recommends optimal schedules and predicts parts needs based on job type, equipment history, and failure patterns. Deterministic rules enforce constraints, skills, certifications, travel windows, SLA tiers. Job packets auto-generate with steps, parts, and safety checklists.",
     results: [
       { label: "First-time fix", value: "89%" },
       { label: "Missed appts", value: "↓ 34%" },
@@ -228,7 +228,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
     ],
     aiNativeCallout:
-      "AI predicts parts needs and recommends schedules, but dispatch assignments enforce hard constraints — certifications, SLA tiers, travel limits. Job packets are template-based with AI-suggested additions flagged for review.",
+      "AI predicts parts needs and recommends schedules, but dispatch assignments enforce hard constraints, certifications, SLA tiers, travel limits. Job packets are template-based with AI-suggested additions flagged for review.",
   },
   {
     id: "manufacturing",

@@ -7,7 +7,7 @@ const ScrollToTop = () => {
   useEffect(() => {
     if (hash) {
       // the destination section may not be rendered yet (lazy routes,
-      // images shifting layout) — retry briefly until the anchor exists
+      // images shifting layout), retry briefly until the anchor exists
       const id = hash.slice(1);
       let attempts = 0;
       const timer = setInterval(() => {

@@ -1,5 +1,5 @@
 /*
-  LM04 — Production Reliability Assessment (Quiz)
+  LM04, Production Reliability Assessment (Quiz)
   Slug: /resources/reliability-assessment
   Accent: amber/orange | Highlight: gold
 */
@@ -283,7 +283,7 @@ const faqs = [
   {
     question: "Do I need exact numbers?",
     answer:
-      "No. Best estimates work fine. The goal is to identify patterns and areas of concern, not precise measurements. If you're unsure, go with your gut—it's usually right.",
+      "No. Best estimates work fine. The goal is to identify patterns and areas of concern, not precise measurements. If you're unsure, go with your gut, it's usually right.",
   },
   {
     question: "What happens after I complete this?",
