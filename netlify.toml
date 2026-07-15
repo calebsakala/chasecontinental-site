@@ -2,6 +2,11 @@
   command = "npm install && npm run build"
   publish = "dist"
 
+[build.environment]
+  # Cache Chromium under node_modules (which Netlify caches between builds) so
+  # puppeteer downloads it once instead of on every deploy.
+  PUPPETEER_CACHE_DIR = "/opt/build/repo/node_modules/.cache/puppeteer"
+
 [[edge_functions]]
   path = "/*"
   function = "inject-meta"

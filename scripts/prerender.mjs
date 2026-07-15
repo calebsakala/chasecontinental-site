@@ -74,11 +74,29 @@ function startServer() {
 }
 
 async function run() {
+  // Hard watchdog: never let prerender hang the deploy. If anything stalls,
+  // exit 0 so the build ships whatever was produced (plus the SPA fallback).
+  const watchdog = setTimeout(() => {
+    console.warn("prerender watchdog: time budget exceeded, shipping what we have");
+    process.exit(0);
+  }, 240000);
+  if (typeof watchdog.unref === "function") watchdog.unref();
+
   const server = await startServer();
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+
+  let browser;
+  try {
+    browser = await puppeteer.launch({
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      timeout: 60000,
+    });
+  } catch (e) {
+    console.warn(`prerender: could not launch Chrome, shipping SPA: ${e.message}`);
+    server.close();
+    clearTimeout(watchdog);
+    process.exit(0);
+  }
 
   let ok = 0;
   for (const route of ROUTES) {
@@ -114,11 +132,13 @@ async function run() {
 
   await browser.close();
   server.close();
+  clearTimeout(watchdog);
   console.log(`prerender complete: ${ok}/${ROUTES.length} routes`);
-  if (ok === 0) process.exit(1); // signal failure so caller can fall back
+  // Always exit 0: prerender is an enhancement, never a reason to fail a deploy.
+  process.exit(0);
 }
 
 run().catch((e) => {
-  console.error("prerender failed:", e.message);
-  process.exit(1);
+  console.warn(`prerender skipped, shipping SPA: ${e.message}`);
+  process.exit(0);
 });
