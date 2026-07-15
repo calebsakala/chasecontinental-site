@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/prerender.mjs || echo 'prerender skipped; shipping SPA'",
+    "postbuild": "npx puppeteer browsers install chrome || echo 'chrome install skipped'; node scripts/prerender.mjs || echo 'prerender skipped; shipping SPA'",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

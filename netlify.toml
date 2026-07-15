@@ -6,6 +6,10 @@
   # Cache Chromium under node_modules (which Netlify caches between builds) so
   # puppeteer downloads it once instead of on every deploy.
   PUPPETEER_CACHE_DIR = "/opt/build/repo/node_modules/.cache/puppeteer"
+  # Keep the Chromium download OUT of `npm install` so a flaky download can
+  # never fail or stall the build. The browser is fetched non-fatally in the
+  # postbuild step instead, right before prerendering.
+  PUPPETEER_SKIP_DOWNLOAD = "true"
 
 [[edge_functions]]
   path = "/*"
