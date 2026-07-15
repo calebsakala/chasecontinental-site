@@ -42,16 +42,14 @@
     }
     </script>
 
-    <!-- Google Analytics 4 -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJWFC68WCH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      // Only track on the live domain, never during prerender or local dev.
-      if (/(^|\.)chasecontinental\.com$/.test(location.hostname)) {
-        gtag('config', 'G-CJWFC68WCH');
-      }
+
+      gtag('config', 'G-CJWFC68WCH');
     </script>
   </head>
 
