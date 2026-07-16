@@ -393,13 +393,18 @@ const ShopifyOpsAutomation = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="inline-flex items-center gap-3 rounded-xl backdrop-blur-xl bg-white/10 border border-white/20 px-5 py-3">
-                      <span className="text-3xl font-bold font-heading text-white">
-                        {currentUseCase.stats.metric}
+                    <div className="inline-flex flex-col rounded-xl backdrop-blur-xl bg-white/10 border border-white/20 px-5 py-3">
+                      <span className="text-[9px] font-semibold uppercase tracking-widest text-white/60">
+                        Illustrative
                       </span>
-                      <span className="text-xs text-white/80">
-                        {currentUseCase.stats.label}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl font-bold font-heading text-white">
+                          {currentUseCase.stats.metric}
+                        </span>
+                        <span className="text-xs text-white/80">
+                          {currentUseCase.stats.label}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -637,7 +642,15 @@ const ShopifyOpsAutomation = () => {
 
       {/* ─── STATS BAND ─── */}
       <section className="py-16 px-6 bg-card/50 border-y border-border/40">
-        <div className="mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-center text-xs font-bold uppercase tracking-widest text-emerald-500 mb-2">
+            Illustrative outcomes
+          </p>
+          <p className="text-center text-sm text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Illustrative targets for a well-instrumented Shopify ops setup, not
+            guaranteed results. Actual outcomes vary by store, catalog, and volume.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { value: "90%", label: "Reduction in manual exception handling" },
             { value: "4x", label: "Faster fulfillment issue resolution" },
@@ -655,6 +668,7 @@ const ShopifyOpsAutomation = () => {
               </div>
             </Reveal>
           ))}
+          </div>
         </div>
       </section>
 

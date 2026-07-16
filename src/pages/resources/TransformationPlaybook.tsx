@@ -471,13 +471,13 @@ const TransformationPlaybook = () => {
               </div>
               <div className="col-span-2 md:col-span-1">
                 <p className="text-3xl md:text-4xl font-bold text-amber-400">
-                  70%
+                  74%
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  of AI pilots never reach production
+                  of companies struggle to scale value from AI
                 </p>
                 <p className="text-xs text-muted-foreground/60 mt-1">
-                 , Industry estimate
+                 , BCG, 2024
                 </p>
               </div>
             </div>

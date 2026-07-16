@@ -66,7 +66,7 @@ export const ROUTE_META: Record<string, RouteMeta> = {
   "/resources/ai-roi-calculator": {
     title: "AI Automation ROI Calculator | Chase Continental",
     description:
-      "Estimate your AI automation ROI with industry benchmarks across 12+ sectors, based on revenue and headcount.",
+      "Estimate your AI automation ROI with grounded, illustrative projections across 12+ sectors, based on revenue and headcount. Not a guarantee.",
     image: DEFAULT_IMAGE,
   },
   "/resources/deterministic-blueprint": {

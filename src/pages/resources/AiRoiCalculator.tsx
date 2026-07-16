@@ -728,16 +728,16 @@ const AiRoiCalculator = () => {
     <>
       <Helmet>
         <title>
-          AI Automation ROI Calculator | Enterprise Benchmarks 2025-2026 | Chase
+          AI Automation ROI Calculator | Grounded 2025-2026 Estimates | Chase
           Agents
         </title>
         <meta
           name="description"
-          content="Calculate your AI automation ROI with industry-specific benchmarks from McKinsey, Deloitte, and PwC. 12+ sectors, revenue & headcount based projections."
+          content="Estimate your AI automation ROI with grounded, illustrative projections informed by AI ROI research from Deloitte, Forrester, McKinsey and MIT. 12+ sectors, revenue & headcount based. Not a guarantee."
         />
         <meta
           name="keywords"
-          content="AI ROI calculator, automation ROI, AI investment calculator, McKinsey AI benchmarks, enterprise AI"
+          content="AI ROI calculator, automation ROI, AI investment calculator, AI ROI research, enterprise AI"
         />
       </Helmet>
 
@@ -769,7 +769,7 @@ const AiRoiCalculator = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
                   <Sparkles className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-primary">
-                    2025-2026 McKinsey • Deloitte • PwC • Gartner Benchmarks
+                    Informed by Deloitte • Forrester • McKinsey • MIT research
                   </span>
                 </div>
               </motion.div>
@@ -1276,15 +1276,14 @@ const AiRoiCalculator = () => {
               {/* Research Sources */}
               <div className="mt-8 text-center">
                 <p className="text-sm text-muted-foreground mb-4">
-                  Benchmarks sourced from
+                  Informed by AI ROI research from
                 </p>
                 <div className="flex flex-wrap justify-center gap-6 opacity-60">
                   {[
-                    "McKinsey Global Institute",
-                    "Deloitte Insights",
-                    "PwC",
-                    "Gartner",
-                    "Stanford HAI",
+                    "Deloitte",
+                    "Forrester TEI",
+                    "McKinsey",
+                    "MIT",
                   ].map((source, i) => (
                     <span
                       key={i}

@@ -701,9 +701,9 @@ const OrchestrationSwipeFile = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Most teams build one-off automations that fail at handoffs and
               exceptions. These patterns emphasize integration, resilience, and
-              scalability, drawing from real deployments to deliver{" "}
+              scalability, drawing on real deployments to help you move from{" "}
               <span className="font-semibold text-foreground">
-                20–50% efficiency gains
+                fragile demos to production-grade automation
               </span>
               .
             </p>
@@ -711,8 +711,8 @@ const OrchestrationSwipeFile = () => {
               <CardContent className="p-8">
                 <div className="grid grid-cols-3 gap-6 text-center">
                   {[
-                    { stat: "40–50%", label: "Processing time reduced" },
-                    { stat: "70%", label: "Error reduction" },
+                    { stat: "Integration", label: "Where most failures happen" },
+                    { stat: "Resilience", label: "Handle exceptions gracefully" },
                     { stat: "15+", label: "Proven patterns" },
                   ].map((s, i) => (
                     <div key={i}>

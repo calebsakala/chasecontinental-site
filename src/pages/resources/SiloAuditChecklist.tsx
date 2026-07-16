@@ -706,27 +706,27 @@ const SiloAuditChecklist = () => {
               <div className="space-y-4">
                 {[
                   {
-                    stat: "48%",
+                    stat: "52%",
                     label:
-                      "of digital initiatives miss their business outcome targets",
-                    source: "Gartner",
+                      "of digital initiatives fail to meet their business outcome targets",
+                    source: "Gartner, 2024",
                   },
                   {
-                    stat: "70%",
+                    stat: "74%",
                     label:
-                      "of AI projects never move beyond pilot, often due to integration failures",
-                    source: "McKinsey",
+                      "of companies struggle to achieve and scale value from AI",
+                    source: "BCG, 2024",
                   },
                   {
-                    stat: "3×",
+                    stat: "95%",
                     label:
-                      "higher failure rate when AI agents are deployed without cross-system connectivity",
-                    source: "Forrester",
+                      "of enterprise AI projects deliver no measurable ROI, often because they stay siloed",
+                    source: "MIT, 2025",
                   },
                   {
-                    stat: "$4T+",
+                    stat: "$4T",
                     label:
-                      "global AI & DX spend projected by 2027, much of it at risk from siloed deployments",
+                      "global digital transformation spend projected by 2027, much of it at risk from siloed deployments",
                     source: "IDC",
                   },
                 ].map((item, i) => (
