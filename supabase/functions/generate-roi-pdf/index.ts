@@ -352,7 +352,7 @@ async function generateExecutiveSummaryPdf(
   addSectionHeader(
     "Section 1 - The What",
     "Executive Overview",
-    `Based on ${sectorName.toLowerCase()} benchmarks, your organization is positioned for significant returns on AI automation investment.`,
+    `This summary estimates the potential return on AI automation for a ${sectorName.toLowerCase()} organization at your scale, using published industry benchmarks. Figures are illustrative, not a guarantee.`,
   );
 
   drawMetricCard(
@@ -454,7 +454,7 @@ async function generateExecutiveSummaryPdf(
   doc.setTextColor(148, 163, 184);
   addWrappedText(
     doc,
-    "Projections are based on 2025-2026 industry benchmarks from McKinsey, Deloitte, PwC, and Gartner. Actual results vary based on implementation quality, organizational readiness, and market conditions.",
+    "Illustrative estimate, not a guarantee. These projections are modelled on published AI and automation ROI research (Deloitte, Forrester Total Economic Impact, McKinsey, MIT, 2024-2025) and will vary with implementation quality, organizational readiness, and market conditions. Most AI programmes underperform: MIT's 2025 research found about 95% of enterprise AI projects deliver no measurable ROI.",
     margin,
     y,
     contentWidth,
@@ -470,7 +470,7 @@ async function generateExecutiveSummaryPdf(
 
   drawInsightCard(
     "Competitive advantage",
-    `88% of enterprises are actively deploying AI automation. Organizations that delay risk falling behind competitors who achieve ${formatCurrency(outputs.annualSavings || 0)} in annual operational savings.`,
+    `Most enterprises now use AI in at least one function (McKinsey 2025: 88%). The advantage comes less from being first and more from capturing durable operational savings, estimated here at ${formatCurrency(outputs.annualSavings || 0)} a year, through disciplined execution.`,
     [99, 102, 241],
   );
   drawInsightCard(

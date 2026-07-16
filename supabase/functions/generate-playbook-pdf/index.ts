@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
       doc.text(`Page ${pageNum}`, pageWidth / 2, pageHeight - 10, {
         align: "center",
       });
-      doc.text("Confidential – For Internal Use Only", margin, pageHeight - 10);
+      doc.text("Confidential - For Internal Use Only", margin, pageHeight - 10);
       doc.text("Chase Agents", pageWidth - margin, pageHeight - 10, {
         align: "right",
       });
@@ -107,7 +107,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...GRAY);
     const subtitle = doc.splitTextToSize(
-      "A Practical Guide to Shipping Reliable AI Automation – Without Failed Pilots, Wasted Budget, or Chaos",
+      "A Practical Guide to Shipping Reliable AI Automation - Without Failed Pilots, Wasted Budget, or Chaos",
       contentWidth,
     );
     doc.text(subtitle, margin, y);
@@ -197,7 +197,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
 
     const execContent = [
-      "In a world where worldwide spending on Digital Transformation (DX) is forecast to reach nearly $4 trillion by 2027 (IDC), only 48% of digital initiatives meet or exceed their business outcome targets (Gartner). This playbook distills a proven, end-to-end approach to AI automation that mitigates risks, ensures reliability, and drives measurable ROI.",
+      "In a world where worldwide spending on Digital Transformation (DX) is forecast to reach nearly $4 trillion by 2027 (IDC), only 48% of digital initiatives meet or exceed their business outcome targets (Gartner). This playbook distills a practical, end-to-end approach to AI automation focused on reducing risk, improving reliability, and working toward measurable ROI.",
       "",
       "Drawing from real-world insights, we address why most AI pilots fail in production and provide actionable frameworks to:",
     ];
@@ -246,7 +246,7 @@ Deno.serve(async (req) => {
     const keyStats = [
       "DX Market Growth: 16.2% CAGR, reaching ~$4T by 2027 (IDC).",
       "Success Rate Gap: Average 48% vs. Digital Vanguard 71% (Gartner).",
-      "Investment Priorities: 80%+ of CIOs increasing spend on AI/GenAI, cybersecurity, and data analytics (Gartner).",
+      "Investment Priorities: most CIOs are increasing spend on AI/GenAI, cybersecurity, and data analytics (Gartner 2025 CIO Survey).",
     ];
 
     keyStats.forEach((stat) => {
@@ -378,7 +378,7 @@ Deno.serve(async (req) => {
     const section1Bullets = [
       "Only 48% of enterprise-wide digital initiatives meet or exceed targets.",
       '"Digital Vanguard" leaders (co-owning delivery between CIOs and CxOs) achieve 71% success.',
-      "Key enablers: CxOs dedicate 35% of staff to tech work (vs. 21% average) and meet CIOs 4x more often.",
+      "Key enablers: Vanguard CxOs dedicate 35% of their business-area staff to technology work (vs. 21% for other CxOs) and are more personally involved in delivery.",
     ];
 
     section1Bullets.forEach((bullet) => {
@@ -391,7 +391,7 @@ Deno.serve(async (req) => {
 
     y += 5;
     const section1Content2 =
-      "IDC forecasts DX spending at a 16.2% CAGR, hitting nearly $4T by 2027 – potentially two-thirds of all ICT spend. Fastest growth in financial services (20.5% CAGR) and discrete manufacturing ($700B+ by 2027).";
+      "IDC forecasts DX spending at a 16.2% CAGR, hitting nearly $4T by 2027, potentially two-thirds of all ICT spend. Growth is broad-based, with financial services and manufacturing among the fastest-moving sectors.";
     const lines1c2 = doc.splitTextToSize(section1Content2, contentWidth);
     doc.text(lines1c2, margin, y);
     y += lines1c2.length * 5 + 10;
@@ -432,7 +432,7 @@ Deno.serve(async (req) => {
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text(
-      "Most transformations fail due to execution gaps, not ideas. Here's why – and how to fix it:",
+      "Most transformations fail due to execution gaps, not ideas. Here's why - and how to fix it:",
       margin,
       y,
     );
@@ -521,7 +521,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...DARK);
     doc.text(
-      "43% of CIOs are decreasing legacy infra spend for cloud/AI experiments (Gartner) – but without these fixes, waste ensues.",
+      "Many CIOs are shifting spend away from legacy infrastructure toward cloud and AI, but without these fixes, that investment is easily wasted.",
       margin + 28,
       y + 7,
     );
@@ -624,7 +624,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(...GRAY);
     doc.setFont("helvetica", "italic");
     doc.text(
-      "Example: Automate claims processing (financial services) – 35.1% CAGR growth potential (IDC).",
+      "Example: Automate claims processing, a high-volume, rules-based workflow common in financial services.",
       margin,
       y,
     );
@@ -698,7 +698,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...DARK);
     doc.text(
-      "Reduces failure from 52% (average) to Vanguard levels (Gartner).",
+      "Digital Vanguard leaders lift success from the 48% average toward 71% (Gartner).",
       margin + 23,
       y + 7,
     );
@@ -779,7 +779,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...DARK);
     doc.text(
-      "Dedicate 26% of business staff to tech work, as in Vanguard orgs (Gartner).",
+      "Vanguard organisations dedicate 35% of their business-area staff to technology work, vs. 21% for other CxOs (Gartner).",
       margin + 15,
       y + 7,
     );
@@ -885,15 +885,15 @@ Deno.serve(async (req) => {
     const whyCards = [
       {
         title: "We Start with the Workflow, Not the Tool",
-        desc: "Ensures fit, avoiding 80% of mismatches.",
+        desc: "Ensures the automation fits the real process, avoiding tool-first mismatches.",
       },
       {
         title: "We Design for Edge Cases Upfront",
-        desc: "Handles reality, boosting success to 71% (Vanguard).",
+        desc: "Handles reality, the practice that separates Vanguard leaders (71% success) from the 48% average (Gartner).",
       },
       {
         title: "We Measure Outcomes, Then Expand",
-        desc: "Data-driven scaling, aligning with 80% CIO investment priorities (Gartner).",
+        desc: "Data-driven scaling, aligned with where most CIOs are increasing investment (Gartner).",
       },
     ];
 
@@ -993,9 +993,17 @@ Deno.serve(async (req) => {
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...TEAL);
-    doc.text("• Gartner 2025 CIO Survey: gartner.com/cio-survey", margin, y);
+    doc.text(
+      "• Gartner 2025 CIO and Technology Executive Survey (gartner.com)",
+      margin,
+      y,
+    );
     y += 6;
-    doc.text("• IDC DX Spending Guide: idc.com/dx-spending", margin, y);
+    doc.text(
+      "• IDC Worldwide Digital Transformation Spending Guide (idc.com)",
+      margin,
+      y,
+    );
     y += 6;
     doc.text(
       "• Chase Agents Resources: chaseagents.com/resources",

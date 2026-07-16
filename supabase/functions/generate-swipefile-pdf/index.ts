@@ -24,7 +24,7 @@ const PATTERNS = [
     overview:
       "Streamlines end-to-end order processing from receipt to delivery, automating stock checks, payment confirmation, warehouse notification, label generation, and tracking updates.",
     realInsights:
-      "Platforms like NetworkON automate this to handle peak volumes, reducing manual emails and boosting fulfillment speed by 30%. Companies with mature fulfillment automation report 40% fewer shipping errors and 25% faster order-to-door times.",
+      "Order fulfillment automation earns its keep during peak volume, replacing manual emails and keeping order-to-door times consistent. The reliability payoff comes from removing the manual handoffs where orders stall or get lost.",
     whereItBreaks:
       "Fails during inventory discrepancies (e.g., real-time stockouts) or integration lags between ERP/CRM systems, leading to over-promising deliveries. Multi-warehouse routing adds complexity when stock levels aren't synchronized in real-time. Payment gateway timeouts can stall the entire chain.",
     implementationTips: [
@@ -42,7 +42,7 @@ const PATTERNS = [
     overview:
       "Uses AI to forecast demand and auto-trigger replenishment orders based on historical data, sales trends, and external factors like weather and economic indicators.",
     realInsights:
-      "Striim's real-time analytics prevent stockouts in supply chains, with ML models analyzing routes and bundling dead stock for clearance, improving profitability by 15-20%. Companies using predictive replenishment see 30% reduction in carrying costs.",
+      "Real-time analytics can flag demand shifts and dead stock early, so replenishment reacts before a stockout or overstock builds up. The value is in acting on signals sooner, not in a magic forecast.",
     whereItBreaks:
       "Inaccurate data inputs (e.g., unaccounted seasonal spikes) cause overstocking. Lacks human oversight for black-swan events like supply disruptions. New product launches have no historical data to train on. Supplier lead time variability undermines auto-ordering accuracy.",
     implementationTips: [
@@ -60,7 +60,7 @@ const PATTERNS = [
     overview:
       "Dynamically plans routes using AI to factor in traffic, weather, load, and deadlines, minimizing fuel consumption and delivery time across the fleet.",
     realInsights:
-      "Datamatics' Agentic AI agents optimize LTL consignments, reducing delivery times by 25% in logistics networks. JD.com's real-time routing handles 1M+ daily deliveries with 99.2% on-time rates.",
+      "AI routing factors in traffic, weather, load, and deadlines to keep deliveries on time and fuel down. The biggest gains come from dense networks with many stops per route.",
     whereItBreaks:
       "Relies on accurate geo-data; breaks in rural areas with poor connectivity or unexpected road closures. Real-time recalculation under high load can cause timeout cascades. Driver override behavior (ignoring suggested routes) creates data integrity issues.",
     implementationTips: [
@@ -78,13 +78,13 @@ const PATTERNS = [
     overview:
       "Deploys robots and automated systems for picking, sorting, and packing, guided by ML for efficient travel paths within warehouse zones.",
     realInsights:
-      "AI-powered warehouses reduce sorting time by 40%, as seen in e-commerce giants with AS/RS cutting human travel. Amazon's Kiva robots handle 300+ picks/hour vs 100 for manual processes.",
+      "Automated picking and sorting cut human travel time in the warehouse and pair well with AS/RS in high-throughput operations. The reliability challenge is graceful handling of hardware faults and odd item sizes.",
     whereItBreaks:
       "Hardware failures or mismatched item sizes disrupt flow. High initial costs ($2-5M+) limit scalability for SMEs. Software bugs in path planning can cause robot gridlock. Mixed-SKU pallets confuse picking algorithms.",
     implementationTips: [
       "Start with hybrid human-robot setups; use barcode integration for accuracy",
       "Monitor with analytics to refine picking algorithms weekly",
-      "Implement graceful degradation — manual fallback when robots fail",
+      "Implement graceful degradation, manual fallback when robots fail",
       "Zone your warehouse to minimize robot travel distance",
       "Maintain 99.5%+ barcode scan accuracy as your quality gate",
     ],
@@ -96,15 +96,15 @@ const PATTERNS = [
     overview:
       "Automates data entry, validation, and reconciliation of invoices using software bots across multiple formats, currencies, and regulatory requirements.",
     realInsights:
-      "BPO firms cut processing time by 40% via RPA, handling global logistics workflows across 15 countries. Staple.ai reports 92% straight-through processing rates for standardized invoice formats.",
+      "RPA is well suited to high-volume, standardized invoices, where straight-through processing removes repetitive data entry. Value drops sharply on non-standard or handwritten formats, which still need human review.",
     whereItBreaks:
       "Non-standard invoice formats cause OCR errors (handwritten notes, unusual layouts). Security risks if bots access sensitive financial data without encryption. Currency conversion edge cases create reconciliation mismatches. PDF image quality directly impacts accuracy.",
     implementationTips: [
       "Deploy rule-based bots first, then add AI for OCR on complex formats",
-      "Audit logs for compliance — every bot action must be traceable",
+      "Audit logs for compliance, every bot action must be traceable",
       "Integrate with ERP systems like SAP or Oracle Financials",
       "Build exception queues for invoices that fail validation",
-      "Set confidence thresholds — anything below 95% goes to human review",
+      "Set confidence thresholds, anything below 95% goes to human review",
     ],
   },
   {
@@ -114,9 +114,9 @@ const PATTERNS = [
     overview:
       "Provides end-to-end tracking via IoT sensors and analytics platforms, alerting stakeholders on delays, temperature deviations, or anomalies in real-time.",
     realInsights:
-      "Flow.space uses big data for accurate inventory positioning, enabling proactive adjustments in e-commerce supply chains. Companies with real-time visibility report 20% faster response to disruptions.",
+      "Real-time visibility via IoT and streaming analytics lets teams react to delays and anomalies before they cascade. The hard part is getting consistent data standards across every partner in the chain.",
     whereItBreaks:
-      "Data silos between partners fragment visibility — each tier may use different standards. IoT feed latency during peak loads degrades real-time accuracy. Sensor battery failures create blind spots. Legacy partner systems resist API integration.",
+      "Data silos between partners fragment visibility, each tier may use different standards. IoT feed latency during peak loads degrades real-time accuracy. Sensor battery failures create blind spots. Legacy partner systems resist API integration.",
     implementationTips: [
       "Use unified streaming platforms like Striim or Kafka for data aggregation",
       "Implement dashboards with anomaly detection and auto-alerting",
@@ -132,13 +132,13 @@ const PATTERNS = [
     overview:
       "Analyzes massive datasets to predict sales volumes, incorporating promotions, market trends, competitor pricing, and macroeconomic indicators.",
     realInsights:
-      "JD.com's AI models improve forecasting accuracy by 20% using explainable AI for promotion planning. Best-in-class forecasters achieve MAPE (Mean Absolute Percentage Error) under 15%.",
+      "ML demand forecasting works best on clean, multi-year data and for planning promotions. It cannot predict truly novel events, so treat it as decision support, not an oracle.",
     whereItBreaks:
-      "Biased historical data leads to flawed predictions — garbage in, garbage out. Models can't account for truly novel events (pandemics, trade wars). Promotional cannibalization effects confuse simple models. Real-time data pipeline failures cause stale predictions.",
+      "Biased historical data leads to flawed predictions, garbage in, garbage out. Models can't account for truly novel events (pandemics, trade wars). Promotional cannibalization effects confuse simple models. Real-time data pipeline failures cause stale predictions.",
     implementationTips: [
       "Train models on diverse, clean datasets spanning 3+ years",
       "Use ensemble methods (combine multiple model outputs) for robustness",
-      "Validate with A/B testing — compare ML forecasts vs baseline",
+      "Validate with A/B testing, compare ML forecasts vs baseline",
       "Build human override capabilities for known upcoming anomalies",
       "Monitor model drift monthly and retrain when accuracy drops 5%+",
     ],
@@ -150,7 +150,7 @@ const PATTERNS = [
     overview:
       "Detects and resolves workflow issues like delays, quality failures, and data anomalies via intelligent alerts, auto-rerouting, and escalation protocols.",
     realInsights:
-      "NetSuite's supply chain automation handles exceptions in manufacturing, reducing downtime by 30%. Mature exception management systems resolve 70% of incidents without human intervention.",
+      "Automated exception management resolves routine incidents without human intervention and routes the rest intelligently. The skill is calibrating thresholds so genuine issues are not lost to alert fatigue.",
     whereItBreaks:
       "Over-reliance on static rules misses nuanced, multi-factor cases. Escalation loops can overwhelm teams when thresholds are miscalibrated. Alert fatigue causes operators to ignore genuine critical issues. New exception types aren't caught by existing rules.",
     implementationTips: [
@@ -168,7 +168,7 @@ const PATTERNS = [
     overview:
       "Automates return requests, quality inspections, refund processing, restocking decisions, and customer communication in a single orchestrated flow.",
     realInsights:
-      "RPA cuts e-commerce returns processing time by 50%, with AI-powered fraud detection reducing fraudulent returns by 35%. Companies with automated returns report 20% higher customer satisfaction scores.",
+      "Automated returns processing speeds refunds and restocking while flagging likely fraud. The stress test is sales-event volume and clean integration with inventory.",
     whereItBreaks:
       "High return volumes during sales events overwhelm queue capacity. Poor integration with inventory systems causes double-counting or ghost stock. Subjective quality assessments resist full automation. Cross-border returns add customs and currency complexity.",
     implementationTips: [
@@ -186,9 +186,9 @@ const PATTERNS = [
     overview:
       "Suppliers auto-monitor retail stock levels and replenish based on shared real-time data, shifting inventory management responsibility to the vendor.",
     realInsights:
-      "Lean supply chain systems optimize manufacturing supply chains, reducing holding costs by 25%. Walmart's VMI program with P&G is the gold standard, eliminating 15% of distribution costs.",
+      "Vendor-managed inventory shifts replenishment to suppliers using shared real-time data, trimming holding costs when trust and data standards are in place. It succeeds or fails on data-sharing trust between retailer and supplier.",
     whereItBreaks:
-      "Trust issues in data sharing — retailers fear exposing sales data; suppliers fear demand manipulation. Delays if supplier ERP systems are incompatible with retailer platforms. Demand spikes require faster response than VMI agreements typically allow.",
+      "Trust issues in data sharing, retailers fear exposing sales data; suppliers fear demand manipulation. Delays if supplier ERP systems are incompatible with retailer platforms. Demand spikes require faster response than VMI agreements typically allow.",
     implementationTips: [
       "Establish SLAs with clear performance penalties and rewards",
       "Use secure API gateways with data masking for sensitive information",
@@ -204,7 +204,7 @@ const PATTERNS = [
     overview:
       "Adjusts prices in real-time based on demand signals, competitive pricing, inventory levels, time of day, and customer segments.",
     realInsights:
-      "Datamatics' AI agents for logistics generate competitive LTL pricing, boosting margins by 8-12%. Airlines and hotels pioneered this — e-commerce adoption is growing 30% year-over-year.",
+      "Dynamic pricing, pioneered by airlines and hotels, adjusts to demand, competition, and inventory in real time. Guardrails matter: unbounded changes alienate customers and can trigger price wars.",
     whereItBreaks:
       "Rapid fluctuations alienate customers who see different prices minutes apart. Regulatory hurdles in some markets (EU price discrimination rules). Competitor scraping introduces noisy signals. Price wars can emerge from two dynamic engines competing.",
     implementationTips: [
@@ -222,7 +222,7 @@ const PATTERNS = [
     overview:
       "Identifies slow-moving inventory using velocity analysis and auto-triggers markdown sequences, channel-specific bundling, or liquidation auction workflows.",
     realInsights:
-      "Striim's analytics bundle dead stock for e-commerce discounts, clearing inventory efficiently. Companies with automated liquidation recover 40% more value vs ad-hoc markdown approaches.",
+      "Automated liquidation spots slow-movers early and triggers markdowns or bundling before value erodes. The risk is misflagging seasonal items and over-discounting the brand.",
     whereItBreaks:
       "Misidentification of seasonal items (winter coats flagged in summer). Over-discounting erodes brand perception and trains customers to wait for sales. Bundling slow-movers with popular items can hurt star product margins.",
     implementationTips: [
@@ -240,13 +240,13 @@ const PATTERNS = [
     overview:
       "Routes customer queries to AI chatbots or specialist teams using intent classification, automating responses for common issues while escalating complex cases.",
     realInsights:
-      "Staple.ai's CRM handles 1M queries monthly, boosting satisfaction by 20%. Best-in-class systems resolve 65% of tickets without human intervention and reduce average handling time by 40%.",
+      "AI ticketing resolves common queries automatically and escalates the complex ones with context intact. The failure modes are multi-issue queries and hallucinated free-text answers, so keep a human path open.",
     whereItBreaks:
       "Complex multi-issue queries confuse single-intent classifiers. AI hallucinations in unstructured free-text responses erode trust. Sentiment detection fails on sarcasm and cultural nuances. Escalated tickets lose context in the handoff to human agents.",
     implementationTips: [
       "Train on historical tickets with balanced positive/negative examples",
       "Use sentiment analysis for smart escalation timing",
-      "Maintain hybrid approach — never remove human escalation path",
+      "Maintain hybrid approach, never remove human escalation path",
       "Build context-passing protocols so agents see full conversation history",
       "Monitor CSAT by channel to detect automation quality degradation",
     ],
@@ -258,9 +258,9 @@ const PATTERNS = [
     overview:
       "Automates regulatory compliance checks against current rules, generates audit reports, flags violations, and routes remediation tasks to responsible teams.",
     realInsights:
-      "DHL's AI analytics ensure resilient supply chains with prescriptive compliance optimization. Automated compliance reduces audit preparation time by 60% and catches 3× more violations than manual processes.",
+      "Automated compliance auditing checks against current rules, generates audit trails, and routes remediation tasks. Its weak point is keeping rule engines current as laws change across jurisdictions.",
     whereItBreaks:
-      "Evolving laws outpace rule engine updates — especially across jurisdictions. Incomplete data inputs lead to false positives that waste investigator time. Natural language regulations resist rule-based encoding. Cross-border compliance multiplies complexity exponentially.",
+      "Evolving laws outpace rule engine updates, especially across jurisdictions. Incomplete data inputs lead to false positives that waste investigator time. Natural language regulations resist rule-based encoding. Cross-border compliance multiplies complexity exponentially.",
     implementationTips: [
       "Update rule engines quarterly with legal team sign-off",
       "Integrate with legal databases for live regulatory feed updates",
@@ -276,11 +276,11 @@ const PATTERNS = [
     overview:
       "Agentic AI coordinates planning, sourcing, manufacturing, logistics, and delivery optimization across all stages using autonomous decision-making agents.",
     realInsights:
-      "ArXiv research frameworks use generative AI for e-commerce, bridging intent to action. Early adopters report 25% improvement in supply chain responsiveness and 15% reduction in total logistics cost.",
+      "Agentic orchestration coordinates planning, sourcing, logistics, and delivery with autonomous agents. Start modular: multi-agent systems are powerful but hard to debug and explain, so build guardrails and override paths first.",
     whereItBreaks:
       "Over-complexity in multi-agent systems creates debugging nightmares. Dependency on high-quality, real-time data across all stages. Agent conflicts when optimizing for competing objectives (cost vs speed). Lack of explainability makes stakeholders distrustful of autonomous decisions.",
     implementationTips: [
-      "Build modular agents — each responsible for one domain",
+      "Build modular agents, each responsible for one domain",
       "Use natural language interfaces for ops teams to monitor and override",
       "Iterate based on feedback; don't attempt full orchestration from day one",
       "Implement guardrails: maximum autonomous decision value, escalation rules",
@@ -420,7 +420,7 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
   doc.setTextColor(71, 85, 105);
 
   const execSummary = [
-    "In today's hyper-competitive landscape, automation is not just an efficiency tool — it's a strategic imperative. This swipe file distills 15 battle-tested workflow patterns drawn from real implementations across logistics, supply chain, big data, BPO, and e-commerce.",
+    "In today's hyper-competitive landscape, automation is not just an efficiency tool, it's a strategic imperative. This swipe file distills 15 battle-tested workflow patterns drawn from real implementations across logistics, supply chain, big data, BPO, and e-commerce.",
     "",
     "These patterns address core challenges like handoffs, exceptions, and scalability, drawing insights from leaders like JD.com, DHL, and Amazon-inspired models.",
     "",
@@ -440,7 +440,7 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
 
   y += 3;
   const keyTakeaways = [
-    "Automation can reduce processing times by 40-50% while cutting errors by up to 70%",
+    "Well-scoped automation can cut processing time and errors, but results vary widely and most programmes underperform, so plan conservatively",
     "Focus on integration points to avoid silos; real-time analytics turns data into decisions",
     "Implementation success hinges on starting small, iterating with AI, and monitoring for edge cases",
   ];
@@ -591,13 +591,13 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
   const whyParas = [
     "Most teams build fragile, siloed automations that work in demos but fail in production. These 15 patterns emphasize three principles that separate successful deployments from expensive experiments:",
     "",
-    "Integration — Every pattern addresses the handoff points where data moves between systems. These are where 80% of automation failures occur.",
+    "Integration: every pattern addresses the handoff points where data moves between systems. These are where most automation failures occur.",
     "",
-    "Resilience — Each pattern includes explicit failure analysis and recovery strategies. Production automation must handle exceptions gracefully, not just happy paths.",
+    "Resilience: each pattern includes explicit failure analysis and recovery strategies. Production automation must handle exceptions gracefully, not just happy paths.",
     "",
-    "Scalability — Tips focus on incremental rollout strategies that let you prove value before committing. Start with 20%, measure, then expand.",
+    "Scalability: tips focus on incremental rollout strategies that let you prove value before committing. Start small, measure, then expand.",
     "",
-    "Organizations that implement these patterns consistently report 20-50% efficiency gains, 40-70% error reduction, and significantly faster time-to-resolution when issues do occur.",
+    "Applied consistently, these patterns help teams move from fragile demos to production-grade automation and recover faster when issues do occur. Outcomes still depend on execution and vary by organisation.",
   ];
 
   for (const p of whyParas) {
@@ -615,9 +615,9 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
   y += 10;
   checkSpace(25);
   const stats = [
-    { value: "40-50%", label: "Processing Time Reduced" },
-    { value: "70%", label: "Error Reduction" },
-    { value: "3.2×", label: "Fewer Incidents" },
+    { value: "Integration", label: "Where failures happen" },
+    { value: "Resilience", label: "Design for exceptions" },
+    { value: "Scalability", label: "Prove value, then expand" },
   ];
   const boxW = (CW - 10) / 3;
   for (let s = 0; s < stats.length; s++) {
@@ -645,7 +645,7 @@ async function buildPdf(req: SwipeFileRequest): Promise<Uint8Array> {
   const nextSteps = [
     "Pick 2-3 patterns most relevant to your operations",
     "Map your current workflow against the 'Where It Breaks' analysis",
-    "Implement the tips — start small, measure, iterate",
+    "Implement the tips, start small, measure, iterate",
     "Explore Chase Agents and book a scoping call if you want to pressure-test one workflow",
   ];
 

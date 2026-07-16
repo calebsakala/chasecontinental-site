@@ -137,7 +137,7 @@ serve(async (req) => {
       } else {
         doc.setFontSize(14);
         doc.setTextColor(200, 200, 220);
-        doc.text("Blank Template — Fill in your details", margin, 340);
+        doc.text("Blank Template, Fill in your details", margin, 340);
       }
 
       doc.setFontSize(11);
@@ -326,7 +326,7 @@ serve(async (req) => {
       doc.setFont("helvetica", "normal");
       for (let i = 1; i <= 3; i++) {
         doc.text(
-          `Checkpoint ${i}: [After Step ___] — Approver: [___] — Criteria: [___]`,
+          `Checkpoint ${i}: [After Step ___], Approver: [___], Criteria: [___]`,
           margin,
           y,
         );

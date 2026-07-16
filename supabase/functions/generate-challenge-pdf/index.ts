@@ -113,56 +113,45 @@ serve(async (req) => {
     doc.setFont("helvetica", "normal");
     const summary = [
       "This 5-day challenge provides a structured framework for building your first",
-      "automation pilot plan. Each day focuses on a critical planning step—from",
+      "automation pilot plan. Each day focuses on a critical planning step, from",
       "identifying the right workflow to defining success metrics and rollout strategy.",
       "",
-      "Key Statistics:",
-      "• Automation can reduce processing time by up to 77%",
-      "• Worker productivity can increase by up to 90%",
-      "• Error reduction of up to 70% through structured exception handling",
-      "• ROI of 30-200% achievable in the first year",
-      "• 80% of finance tasks can be automated with proper planning",
-      "• 60% of companies are already implementing automation",
+      "Why this matters:",
+      "• Well-scoped automation can cut processing time and errors and free staff for",
+      "  higher-value work.",
+      "• Results vary widely, and most AI and automation programmes underperform",
+      "  expectations (MIT 2025: about 95% of enterprise AI projects show no measurable",
+      "  ROI), so plan conservatively.",
+      "• The goal of this challenge is a defensible pilot plan, not a guaranteed number.",
     ];
     summary.forEach((line) => {
       doc.text(line, margin, y);
       y += 16;
     });
 
-    // ── Automation Benefits Breakdown ──
+    // ── Focus areas of this challenge ──
     y += 20;
     doc.setTextColor(15, 30, 55);
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
-    doc.text("Automation Benefits Breakdown", margin, y);
+    doc.text("What This Challenge Covers", margin, y);
     y += 25;
 
-    const benefits = [
-      { label: "Productivity Increase", pct: 40, color: [0, 180, 190] },
-      { label: "Error Reduction", pct: 25, color: [100, 84, 39] },
-      { label: "Cost Savings", pct: 20, color: [212, 175, 55] },
-      { label: "Time Savings", pct: 15, color: [80, 45, 168] },
+    const focusAreas = [
+      "Productivity: freeing staff from repetitive work",
+      "Error reduction: designing for the edge cases that break automation",
+      "Cost savings: quantifying labour hours saved against investment",
+      "Time savings: shortening cycle time on a high-volume workflow",
     ];
 
     doc.setFontSize(10);
-    benefits.forEach((b) => {
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(60, 60, 60);
-      doc.text(`${b.label} (${b.pct}%)`, margin, y + 12);
-      // Bar
-      doc.setFillColor(235, 235, 235);
-      doc.roundedRect(margin + 200, y, 250, 16, 4, 4, "F");
-      doc.setFillColor(b.color[0], b.color[1], b.color[2]);
-      doc.roundedRect(
-        margin + 200,
-        y,
-        250 * (b.pct / 100) * 2.5,
-        16,
-        4,
-        4,
-        "F",
-      );
-      y += 28;
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(60, 60, 60);
+    focusAreas.forEach((area) => {
+      doc.setFillColor(0, 180, 190);
+      doc.circle(margin + 2, y + 8, 2, "F");
+      doc.text(area, margin + 12, y + 11);
+      y += 22;
     });
 
     // ── Day pages ──
@@ -189,7 +178,7 @@ serve(async (req) => {
           "Action: List your top 3 candidate workflows and score them on",
           "volume, complexity, and impact. Pick the highest-scoring one.",
           "",
-          "Key stat: Automation can reduce processing time by up to 77%.",
+          "Why day 1 matters: choosing a high-volume, rules-based workflow is the single biggest driver of a successful pilot.",
         ],
       },
       {
@@ -200,7 +189,7 @@ serve(async (req) => {
           "",
           "How to map your workflow:",
           "1. Walk through the process with the team who does it daily",
-          "2. Document every step—including the 'unofficial' ones",
+          "2. Document every step, including the 'unofficial' ones",
           "3. Note where handoffs happen between people or systems",
           "4. Identify wait times and decision points",
           "5. Use a simple flowchart or numbered list",
@@ -213,7 +202,7 @@ serve(async (req) => {
           "",
           "Action: Create a step-by-step map of your chosen workflow.",
           "",
-          "Key stat: Proper process mapping can boost productivity by 90%.",
+          "Why mapping matters: most automation failures trace back to steps that were never documented, especially the 'unofficial' ones.",
         ],
       },
       {
@@ -240,7 +229,7 @@ serve(async (req) => {
           "• Parallel: multiple approvers simultaneously",
           "• Threshold-based: auto-approve below certain values",
           "",
-          "Key stat: Structured exception handling reduces errors by 70%.",
+          "Why this matters: most automation breakage happens at the edge cases, so handling exceptions well is what makes a pilot reliable.",
         ],
       },
       {
@@ -253,11 +242,11 @@ serve(async (req) => {
           "",
           "1. Time Saved",
           "   • Cycle time: from start to completion",
-          "   • Target: 50-77% reduction",
+          "   • Target: set a realistic reduction based on your baseline",
           "",
           "2. Error Rate",
           "   • Exceptions per 100 transactions",
-          "   • Target: 70% fewer errors",
+          "   • Target: a meaningful reduction against your current error rate",
           "",
           "3. Cost Savings",
           "   • Labor hours saved × hourly cost",
@@ -265,11 +254,11 @@ serve(async (req) => {
           "",
           "4. Throughput",
           "   • Volume processed per day/week",
-          "   • Target: 2-5x current capacity",
+          "   • Target: higher throughput per person, sized to your workflow",
           "",
           "5. ROI",
           "   • (Savings - Investment) / Investment × 100",
-          "   • Target: 30-200% in year one",
+          "   • Target: a positive, conservatively estimated ROI (most programmes underperform, so do not over-forecast)",
           "",
           "Action: Set baseline measurements for your chosen workflow.",
         ],
@@ -280,17 +269,17 @@ serve(async (req) => {
         content: [
           "Objective: Create a phased implementation plan.",
           "",
-          "Phase 1 — Pilot (Weeks 1-2):",
+          "Phase 1, Pilot (Weeks 1-2):",
           "• Deploy automation for a small subset (10-20% of volume)",
           "• Monitor closely with daily check-ins",
           "• Document issues and quick wins",
           "",
-          "Phase 2 — Validate (Weeks 3-4):",
+          "Phase 2, Validate (Weeks 3-4):",
           "• Compare metrics against baseline",
           "• Gather team feedback",
           "• Refine exception handling",
           "",
-          "Phase 3 — Scale (Month 2+):",
+          "Phase 3, Scale (Month 2+):",
           "• Expand to full volume",
           "• Train all team members",
           "• Set up ongoing monitoring dashboards",
@@ -335,7 +324,7 @@ serve(async (req) => {
     doc.setTextColor(15, 30, 55);
     doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
-    doc.text("Sources & References", margin, y);
+    doc.text("Further Reading", margin, y);
     y += 10;
     doc.setFillColor(0, 180, 190);
     doc.rect(margin, y, 60, 3, "F");
@@ -345,12 +334,12 @@ serve(async (req) => {
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
     const sources = [
-      "• McKinsey Global Institute — Jobs Lost, Jobs Gained: Workforce Transitions",
-      "• Deloitte — The robots are ready. Are you? (Global RPA Survey)",
-      "• Forrester — The Total Economic Impact of RPA",
-      "• UiPath — State of Automation Report 2025",
-      "• Gartner — Hyperautomation Strategic Technology Trend",
-      "• Harvard Business Review — Process Mapping and Automation",
+      "• McKinsey Global Institute, Jobs Lost, Jobs Gained: Workforce Transitions",
+      "• Deloitte, The robots are ready. Are you? (Global RPA Survey)",
+      "• Forrester, The Total Economic Impact of RPA",
+      "• UiPath, State of Automation Report 2025",
+      "• Gartner, Hyperautomation Strategic Technology Trend",
+      "• Harvard Business Review, Process Mapping and Automation",
     ];
     sources.forEach((s) => {
       doc.text(s, margin, y);

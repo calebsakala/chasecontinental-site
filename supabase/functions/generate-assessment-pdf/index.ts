@@ -44,35 +44,35 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "Your workflow operates within a tight integration boundary (1–2 tools). This minimises API surface area, reduces latency between steps, and limits the blast radius of any single tool failure.",
+          "Your workflow operates within a tight integration boundary (1-2 tools). This minimises API surface area, reduces latency between steps, and limits the blast radius of any single tool failure.",
         impact:
-          "Organisations with minimal tool sprawl experience 73% fewer integration-related incidents (Gartner 2025). Your compact architecture makes debugging straightforward and reduces vendor dependency risk.",
+          "A compact integration footprint means fewer moving parts that can fail. Your architecture makes debugging straightforward and reduces vendor dependency risk.",
         action:
           "Maintain this discipline as you scale. Document integration contracts between tools so new team members understand data flows. Consider API versioning strategies to protect against upstream changes.",
       },
       "5": {
         diagnosis:
-          "Your workflow spans 3–5 tools — a common pattern for mid-complexity automation. Each additional tool introduces authentication, data mapping, and failure mode complexity. At this level, a single API change can cascade through dependent steps.",
+          "Your workflow spans 3-5 tools, a common pattern for mid-complexity automation. Each additional tool introduces authentication, data mapping, and failure mode complexity. At this level, a single API change can cascade through dependent steps.",
         impact:
-          "Research shows that each additional integration point increases failure probability by 18% (Forrester). With 3–5 tools, you're in a manageable but watchful zone — one more tool could tip into fragility.",
+          "Each additional integration point adds another place where a data handoff or API change can fail. With 3 to 5 tools you are in a manageable but watchful zone: one more tool can tip a workflow into fragility.",
         action:
           "Map every data handoff between tools. Identify which integrations are the most fragile (hint: it's usually the ones with the least standardised APIs). Consider middleware or an orchestration layer to decouple direct tool-to-tool dependencies.",
       },
       "0": {
         diagnosis:
-          "Your workflow touches 6+ tools — a significant reliability risk. Each tool has its own failure modes, authentication mechanisms, rate limits, and data formats. The combinatorial complexity means failures are difficult to diagnose and reproduce.",
+          "Your workflow touches 6+ tools, a significant reliability risk. Each tool has its own failure modes, authentication mechanisms, rate limits, and data formats. The combinatorial complexity means failures are difficult to diagnose and reproduce.",
         impact:
-          "Organisations with 6+ tool workflows report 3.2× more production incidents and 2.4× longer mean-time-to-resolution (McKinsey). Every tool outage becomes your outage. API deprecations can break chains you didn't know existed.",
+          "As the number of tools grows, production incidents and time-to-resolution tend to rise with them. Every tool outage becomes your outage, and API deprecations can break chains you did not know existed.",
         action:
-          "Urgently consolidate. Identify which tools perform overlapping functions and eliminate redundancy. Implement an orchestration layer (e.g., workflow engine) that abstracts tool interactions. Target reducing to 3–4 tools within 90 days.",
+          "Urgently consolidate. Identify which tools perform overlapping functions and eliminate redundancy. Implement an orchestration layer (e.g., workflow engine) that abstracts tool interactions. Target reducing to 3-4 tools within 90 days.",
       },
       "3": {
         diagnosis:
-          "You're unsure how many tools your workflow touches — which is itself a risk signal. Without visibility into your integration landscape, you can't assess failure modes, plan for outages, or optimise data flows.",
+          "You're unsure how many tools your workflow touches, which is itself a risk signal. Without visibility into your integration landscape, you can't assess failure modes, plan for outages, or optimise data flows.",
         impact:
-          "Lack of integration visibility correlates with 40% higher unplanned downtime (Deloitte). Shadow integrations — tools connected by individuals without central knowledge — are a common source of silent failures.",
+          "Without visibility into your integrations you cannot plan for outages or spot fragile handoffs. Shadow integrations, tools connected by individuals without central knowledge, are a common source of silent failures.",
         action:
-          "Conduct an immediate integration audit. Map every system that sends or receives data in your workflow. Create a dependency diagram. This single exercise often reveals 2–3 unknown failure points.",
+          "Conduct an immediate integration audit. Map every system that sends or receives data in your workflow. Create a dependency diagram. This single exercise often reveals 2-3 unknown failure points.",
       },
     },
   },
@@ -82,35 +82,35 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "Your inputs are consistently complete — a strong foundation for reliable automation. This suggests robust upstream data collection, validation, and standardisation processes are in place.",
+          "Your inputs are consistently complete, a strong foundation for reliable automation. This suggests robust upstream data collection, validation, and standardisation processes are in place.",
         impact:
-          "Complete inputs reduce AI error rates by up to 60% (MIT Sloan). When models receive what they expect, hallucination risk drops dramatically and output confidence increases.",
+          "When models receive complete, well-formed inputs, hallucination risk drops and output confidence increases. Clean inputs are one of the strongest levers on automation reliability.",
         action:
-          "Document your input validation patterns as a reusable template. Monitor for drift — what's complete today may degrade as upstream systems change. Implement automated data quality checks at ingestion.",
+          "Document your input validation patterns as a reusable template. Monitor for drift, what's complete today may degrade as upstream systems change. Implement automated data quality checks at ingestion.",
       },
       "7": {
         diagnosis:
           "Inputs arrive incomplete in less than 10% of cases. While this seems manageable, at scale even 10% incompleteness translates to significant error volume. For example, 10,000 daily transactions × 10% = 1,000 potential failures.",
         impact:
-          "Partial input issues compound downstream. An incomplete address field may not just fail delivery — it may trigger incorrect tax calculations, wrong warehouse routing, and customer service escalations. Each incomplete input touches 3–5 downstream processes on average.",
+          "Partial input issues compound downstream. An incomplete address field may not just fail delivery: it can trigger incorrect tax calculations, wrong warehouse routing, and customer service escalations. A single incomplete input often touches several downstream processes.",
         action:
           "Implement input validation with fallback logic: default values for non-critical fields, queue-and-alert for critical ones. Track which specific fields are most often incomplete and address the root cause upstream.",
       },
       "3": {
         diagnosis:
-          "10–30% incomplete inputs is a serious reliability concern. At this rate, your automation is essentially operating with degraded inputs a third of the time. AI models trained on complete data will produce unreliable outputs when inputs are missing.",
+          "10-30% incomplete inputs is a serious reliability concern. At this rate, your automation is essentially operating with degraded inputs a third of the time. AI models trained on complete data will produce unreliable outputs when inputs are missing.",
         impact:
-          "Organisations with 20%+ incomplete inputs report 2.8× higher rework rates (BCG). The cost isn't just the immediate error — it's the cascading trust erosion. Teams start manually checking AI outputs, negating the automation benefit.",
+          "At this rate the cost is not just the immediate error, it is the cascading trust erosion. Teams start manually checking AI outputs, which negates much of the automation benefit.",
         action:
           "This is a priority fix. Implement required field validation at the point of entry. For existing workflows, add a pre-processing step that checks completeness before AI processing. Route incomplete cases to a human review queue rather than letting the AI guess.",
       },
       "0": {
         diagnosis:
-          "Over 30% of your inputs arrive incomplete — your automation is operating on fundamentally unreliable data. At this rate, the AI is essentially improvising a third of the time, leading to unpredictable and often incorrect outputs.",
+          "Over 30% of your inputs arrive incomplete, your automation is operating on fundamentally unreliable data. At this rate, the AI is essentially improvising a third of the time, leading to unpredictable and often incorrect outputs.",
         impact:
-          "This level of data incompleteness makes any AI output suspect. Teams lose trust in the automation, manual overrides become the norm, and the ROI case for automation collapses. McKinsey reports that data quality issues are the #1 reason AI pilots fail to scale.",
+          "This level of data incompleteness makes any AI output suspect. Teams lose trust in the automation, manual overrides become the norm, and the ROI case for automation collapses. Data quality is one of the most common reasons AI pilots fail to scale.",
         action:
-          "Stop expanding automation until input quality is addressed. Audit your data sources and identify why inputs are incomplete. Implement hard validation — reject or queue incomplete submissions rather than processing them. This single change can improve reliability by 40–60%.",
+          "Stop expanding automation until input quality is addressed. Audit your data sources and identify why inputs are incomplete. Implement hard validation: reject or queue incomplete submissions rather than processing them. This single change can materially improve reliability.",
       },
     },
   },
@@ -120,15 +120,15 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "Your workflow rarely requires human intervention — an ideal state for scalable automation. Rules are well-defined, edge cases are handled programmatically, and the process runs autonomously.",
+          "Your workflow rarely requires human intervention, an ideal state for scalable automation. Rules are well-defined, edge cases are handled programmatically, and the process runs autonomously.",
         impact:
-          "Fully autonomous workflows achieve 5–8× throughput versus human-in-the-loop alternatives (Deloitte). Consistency is near-perfect because human variability is removed from the equation.",
+          "Fully autonomous workflows process far higher volume than human-in-the-loop alternatives, and consistency improves because human variability is removed from the routine path.",
         action:
           "Monitor for edge cases that emerge as volume grows. What works at 100 transactions may surface exceptions at 10,000. Build automated exception detection that flags novel patterns before they become failures.",
       },
       "7": {
         diagnosis:
-          "Less than 5% exception rate is manageable but worth monitoring. These exceptions often represent legitimate edge cases — unusual transactions, regulatory requirements, or high-value decisions that warrant human judgment.",
+          "Less than 5% exception rate is manageable but worth monitoring. These exceptions often represent legitimate edge cases, unusual transactions, regulatory requirements, or high-value decisions that warrant human judgment.",
         impact:
           "A 5% exception rate at high volume still creates significant human workload. More importantly, the delay introduced by human approval creates bottlenecks. If the approver is unavailable, the entire workflow stalls.",
         action:
@@ -136,15 +136,15 @@ const QUESTION_ANALYSIS: Record<
       },
       "3": {
         diagnosis:
-          "5–20% exception rate means your automation is partially automated at best. One in five cases requires human intervention, creating inconsistent processing times, variable quality, and dependency on specific individuals.",
+          "5-20% exception rate means your automation is partially automated at best. One in five cases requires human intervention, creating inconsistent processing times, variable quality, and dependency on specific individuals.",
         impact:
-          "At this exception rate, you're paying for automation infrastructure while still requiring significant human capacity. The ROI case weakens because you can't reduce headcount or reallocate staff — they're needed for exceptions.",
+          "At this exception rate, you're paying for automation infrastructure while still requiring significant human capacity. The ROI case weakens because you can't reduce headcount or reallocate staff, they're needed for exceptions.",
         action:
           "Analyse your top 10 exception types. For each, determine: can this be automated with additional rules? Is this a data quality issue masquerading as an exception? Can approval authority be delegated to lower thresholds? Target reducing exceptions to <5% within 60 days.",
       },
       "0": {
         diagnosis:
-          "Over 20% exception rate means your workflow isn't truly automated — it's human-assisted at best. The AI handles the straightforward cases while humans manage the complex, high-value, or unusual ones.",
+          "Over 20% exception rate means your workflow isn't truly automated, it's human-assisted at best. The AI handles the straightforward cases while humans manage the complex, high-value, or unusual ones.",
         impact:
           "High exception rates create a 'worst of both worlds' scenario: the cost of automation infrastructure plus the cost of human exception handling. Throughput is limited by human capacity. Quality varies by who handles the exception.",
         action:
@@ -158,15 +158,15 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "A single, authoritative source for workflow status is a hallmark of mature automation. Everyone — from operators to executives — can see what's happening, where things are stuck, and what needs attention.",
+          "A single, authoritative source for workflow status is a hallmark of mature automation. Everyone, from operators to executives, can see what's happening, where things are stuck, and what needs attention.",
         impact:
-          "Centralised status tracking reduces mean-time-to-resolution (MTTR) by 65% (PwC). When an issue occurs, you're not asking 'where is this?' or 'what happened?' — the answer is visible immediately.",
+          "Centralised status tracking sharply reduces mean-time-to-resolution (MTTR). When an issue occurs you are not asking 'where is this?' or 'what happened?': the answer is visible immediately.",
         action:
           "Enhance your single source of truth with predictive indicators. Beyond 'what is the status now,' can you surface 'what is likely to fail next'? Add SLA tracking and trend analysis to move from reactive to proactive.",
       },
       "5": {
         diagnosis:
-          "Partial implementation — some tools or stages have status tracking, but gaps exist. This creates a frustrating experience where you can see part of the workflow but are blind to other parts.",
+          "Partial implementation, some tools or stages have status tracking, but gaps exist. This creates a frustrating experience where you can see part of the workflow but are blind to other parts.",
         impact:
           "Partial visibility is often worse than no visibility because it creates false confidence. Teams assume they have the full picture when they're actually missing critical status information from untracked systems.",
         action:
@@ -176,17 +176,17 @@ const QUESTION_ANALYSIS: Record<
         diagnosis:
           "No single source of truth means every debugging session starts with 'let me check in this system... and this one... and maybe this spreadsheet...' It's archaeology, not engineering.",
         impact:
-          "Without centralised status, MTTR increases 3× and team frustration compounds. When workflows fail, you spend more time finding the problem than fixing it. Cross-functional workflows are especially impacted — no one knows the full picture.",
+          "Without centralised status, resolution takes far longer and team frustration compounds. When workflows fail you spend more time finding the problem than fixing it. Cross-functional workflows are especially exposed because no one holds the full picture.",
         action:
           "This is a foundational fix. Implement a simple status dashboard that aggregates state from all workflow tools. Even a shared spreadsheet updated via API is better than nothing. Target: every workflow stage should be visible in one place within 30 days.",
       },
       "3": {
         diagnosis:
-          "You're planning to implement centralised status tracking — which shows awareness of the problem. However, without it in place, you're currently operating blind during incidents.",
+          "You're planning to implement centralised status tracking, which shows awareness of the problem. However, without it in place, you're currently operating blind during incidents.",
         impact:
           "Every day without centralised status increases your exposure to extended outages. The cost of building it now is a fraction of the cost of a major incident where you can't quickly identify the failure point.",
         action:
-          "Accelerate implementation. Start with the MVP: a single dashboard showing the status of your top 5 workflows. Don't over-engineer — a simple API aggregation is better than a perfect system that takes months to build.",
+          "Accelerate implementation. Start with the MVP: a single dashboard showing the status of your top 5 workflows. Don't over-engineer, a simple API aggregation is better than a perfect system that takes months to build.",
       },
     },
   },
@@ -196,17 +196,17 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "Automated monitoring with dashboards is the gold standard. You can detect anomalies in real-time, track trends over time, and set alerts for threshold breaches — all without manual effort.",
+          "Automated monitoring with dashboards is the gold standard. You can detect anomalies in real-time, track trends over time, and set alerts for threshold breaches, all without manual effort.",
         impact:
-          "Automated error monitoring catches issues 12× faster than manual spot-checks (Gartner). Early detection means smaller blast radius — a problem caught in 5 minutes affects 50 transactions; caught in 5 hours, it affects 5,000.",
+          "Automated error monitoring catches issues far faster than manual spot-checks. Early detection means a smaller blast radius: a problem caught in minutes affects a handful of transactions, while one caught hours later can affect thousands.",
         action:
-          "Enhance your monitoring with anomaly detection. Static thresholds miss gradual drifts. Machine learning-based anomaly detection can surface 'slow leaks' — error rates creeping up 0.5% per week — that manual reviews miss.",
+          "Enhance your monitoring with anomaly detection. Static thresholds miss gradual drifts. Machine learning-based anomaly detection can surface 'slow leaks', error rates creeping up 0.5% per week, that manual reviews miss.",
       },
       "5": {
         diagnosis:
           "Manual spot-checks mean you're sampling error rate rather than measuring it comprehensively. You'll catch systemic issues but miss intermittent failures, edge cases, and gradual drifts between check intervals.",
         impact:
-          "Spot-checking creates a 'measurement gap' — the time between checks is a blind spot. A study by MIT found that manual monitoring misses 40% of incidents that automated monitoring catches. The incidents it misses are often the subtle, high-impact ones.",
+          "Spot-checking creates a 'measurement gap': the time between checks is a blind spot. Manual monitoring reliably misses incidents that continuous monitoring would catch, and the ones it misses are often the subtle, high-impact failures.",
         action:
           "Automate your spot-checks. If you're already checking specific metrics, scripting those checks and running them continuously is often a small effort. Start with your top 3 error-prone areas and expand from there.",
       },
@@ -214,17 +214,17 @@ const QUESTION_ANALYSIS: Record<
         diagnosis:
           "No systematic error measurement means you're flying blind. You don't know your current error rate, whether it's improving or degrading, or which workflows are the most unreliable. You only learn about errors when they cause visible failures.",
         impact:
-          "Without measurement, silent failures compound. A 2% error rate sounds small, but over 10,000 daily transactions that's 200 errors per day — potentially 73,000 per year. Each one has a cost, and you can't manage what you can't measure.",
+          "Without measurement, silent failures compound. A 2% error rate sounds small, but over 10,000 daily transactions that is 200 errors a day, and tens of thousands over a year. Each one has a cost, and you cannot manage what you cannot measure.",
         action:
           "Implement basic error tracking immediately. Start simple: log every error with timestamp, workflow, and error type. Create a daily error rate metric. This alone will transform your ability to prioritise reliability improvements.",
       },
       "3": {
         diagnosis:
-          "Basic logging captures what happened but doesn't surface patterns. Logs sit in files until someone manually searches them — usually after a major incident has already occurred.",
+          "Basic logging captures what happened but doesn't surface patterns. Logs sit in files until someone manually searches them, usually after a major incident has already occurred.",
         impact:
           "Logging without monitoring is like having a security camera that nobody watches. The data exists but isn't being used proactively. When you do need it, searching through logs is time-consuming and often incomplete.",
         action:
-          "Turn your logs into metrics. Use a log aggregation tool to create dashboards from your existing log data. Set up alerts for error rate thresholds. Your logs already contain the information — you just need to make it visible and actionable.",
+          "Turn your logs into metrics. Use a log aggregation tool to create dashboards from your existing log data. Set up alerts for error rate thresholds. Your logs already contain the information, you just need to make it visible and actionable.",
       },
     },
   },
@@ -236,15 +236,15 @@ const QUESTION_ANALYSIS: Record<
         diagnosis:
           "Stable rules (changing less than quarterly) provide a reliable foundation for automation. Your AI models and business logic have time to be tested, optimised, and trusted before the next change cycle.",
         impact:
-          "Stable environments see 2.5× higher automation ROI because the investment in building and testing automation has a longer payback period (BCG). Trust in AI outputs is higher because rules don't shift under people's feet.",
+          "Stable environments earn more from automation because the investment in building and testing it has a longer useful life before rules change. Trust in AI outputs is higher because the rules do not shift under people's feet.",
         action:
-          "Use this stability as an advantage — invest in more sophisticated automation knowing that the rules won't obsolete your work quickly. Build change management processes so that when rules do change, updates are systematic rather than ad-hoc.",
+          "Use this stability as an advantage, invest in more sophisticated automation knowing that the rules won't obsolete your work quickly. Build change management processes so that when rules do change, updates are systematic rather than ad-hoc.",
       },
       "5": {
         diagnosis:
-          "Quarterly rule changes are manageable but require disciplined change management. Each change cycle means reviewing AI logic, updating rules, testing, and validating outputs — a non-trivial effort that must be planned for.",
+          "Quarterly rule changes are manageable but require disciplined change management. Each change cycle means reviewing AI logic, updating rules, testing, and validating outputs, a non-trivial effort that must be planned for.",
         impact:
-          "Without proper change management, quarterly updates create quarterly risk windows. The period immediately after a rule change is when most errors occur — new rules haven't been fully tested, edge cases haven't been discovered, and teams are still adjusting.",
+          "Without proper change management, quarterly updates create quarterly risk windows. The period immediately after a rule change is when most errors occur, new rules haven't been fully tested, edge cases haven't been discovered, and teams are still adjusting.",
         action:
           "Build a rule change playbook: 1) Document current rules in a centralised repository, 2) Create a testing protocol for rule changes, 3) Implement a staged rollout with monitoring during the first week, 4) Set a review cadence to catch issues early.",
       },
@@ -258,7 +258,7 @@ const QUESTION_ANALYSIS: Record<
       },
       "3": {
         diagnosis:
-          "You're unsure how often rules change — indicating either that changes happen without your awareness or that the boundary between 'rules' and 'ad-hoc adjustments' isn't clear.",
+          "You're unsure how often rules change, indicating either that changes happen without your awareness or that the boundary between 'rules' and 'ad-hoc adjustments' isn't clear.",
         impact:
           "Untracked rule changes are a silent automation killer. Your AI may be operating on outdated logic without anyone realising it. Outputs drift, accuracy degrades, and by the time someone notices, the damage has compounded.",
         action:
@@ -274,33 +274,33 @@ const QUESTION_ANALYSIS: Record<
         diagnosis:
           "A dedicated owner for the end-to-end workflow is the single strongest predictor of automation reliability. This person or team has full visibility, accountability, and authority to make changes across the entire process.",
         impact:
-          "Owned workflows have 4× faster incident resolution and 60% fewer recurring issues (McKinsey). The owner catches problems early, prioritises fixes based on business impact, and maintains institutional knowledge that prevents regression.",
+          "Workflows with a clear owner resolve incidents faster and see fewer recurring issues. The owner catches problems early, prioritises fixes based on business impact, and maintains the institutional knowledge that prevents regression.",
         action:
           "Empower your workflow owner with the authority to make changes without multi-team approval for routine fixes. Ensure they have dashboards, alerts, and tools to monitor the workflow proactively. Document their knowledge to mitigate key-person risk.",
       },
       "5": {
         diagnosis:
-          "Shared ownership across departments with clear roles can work, but it requires exceptional coordination. In practice, 'shared' often means 'nobody's primary responsibility' — especially during incidents when everyone assumes someone else is handling it.",
+          "Shared ownership across departments with clear roles can work, but it requires exceptional coordination. In practice, 'shared' often means 'nobody's primary responsibility', especially during incidents when everyone assumes someone else is handling it.",
         impact:
-          "Shared ownership increases coordination cost by 40% and slows decision-making during incidents (Deloitte). Cross-department priorities may conflict — one team's urgent fix is another team's low-priority request.",
+          "Shared ownership raises coordination cost and slows decision-making during incidents. Cross-department priorities may conflict: one team's urgent fix is another team's low-priority request.",
         action:
-          "Designate a 'first responder' — even in a shared model, one person should be the primary point of contact for incidents. Create clear escalation paths and SLAs between departments. Hold regular cross-team reviews to prevent ownership gaps.",
+          "Designate a 'first responder', even in a shared model, one person should be the primary point of contact for incidents. Create clear escalation paths and SLAs between departments. Hold regular cross-team reviews to prevent ownership gaps.",
       },
       "0": {
         diagnosis:
           "No clear owner is the root cause of chronic automation reliability issues. When nobody owns the workflow, nobody is responsible for monitoring it, fixing it, or improving it. Issues accumulate until they cause visible failures.",
         impact:
-          "Ownerless workflows have 5× higher failure rates and 8× longer resolution times. When an incident occurs, the first 30 minutes are often spent figuring out who should handle it — time that should be spent fixing the problem.",
+          "Ownerless workflows fail more often and take far longer to resolve. When an incident occurs, the first stretch is often spent figuring out who should handle it, time that should be spent fixing the problem.",
         action:
           "Assign an owner immediately. This is the single highest-impact change you can make. Choose someone with cross-functional authority and give them explicit accountability for workflow uptime, error rates, and throughput.",
       },
       "3": {
         diagnosis:
-          "Ownership is being defined — a positive signal that you've recognised the gap. However, until ownership is formalised with accountability and authority, you're in the same position as having no owner.",
+          "Ownership is being defined, a positive signal that you've recognised the gap. However, until ownership is formalised with accountability and authority, you're in the same position as having no owner.",
         impact:
           "The definition process itself can stall if not driven to completion. Organisations often spend months 'defining ownership' while workflows continue to operate without accountability.",
         action:
-          "Set a 2-week deadline to finalise ownership. Don't let perfect be the enemy of good — assign an interim owner now and refine the structure later. The interim owner should immediately establish monitoring and an incident response process.",
+          "Set a 2-week deadline to finalise ownership. Don't let perfect be the enemy of good, assign an interim owner now and refine the structure later. The interim owner should immediately establish monitoring and an incident response process.",
       },
     },
   },
@@ -310,33 +310,33 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "Full logging and traceability means you can reconstruct exactly what happened in any workflow execution — every input, decision, transformation, and output. This is the foundation of both reliability engineering and regulatory compliance.",
+          "Full logging and traceability means you can reconstruct exactly what happened in any workflow execution, every input, decision, transformation, and output. This is the foundation of both reliability engineering and regulatory compliance.",
         impact:
-          "Full auditability reduces MTTR by 75% because root-cause analysis goes from 'guessing and testing' to 'reading the log.' It also enables proactive pattern detection — you can identify failure patterns before they become incidents.",
+          "Full auditability slashes MTTR because root-cause analysis goes from 'guessing and testing' to 'reading the log.' It also enables proactive pattern detection: you can identify failure patterns before they become incidents.",
         action:
           "Leverage your audit logs for continuous improvement. Analyse patterns: which steps fail most often? Which inputs correlate with errors? Use this data to prioritise reliability investments. Consider AI-assisted log analysis for large-volume workflows.",
       },
       "5": {
         diagnosis:
-          "Partial auditing — covering key steps but not all — leaves blind spots. You can see the highlights but miss the details. When failures occur between audited steps, root-cause analysis becomes speculative.",
+          "Partial auditing, covering key steps but not all, leaves blind spots. You can see the highlights but miss the details. When failures occur between audited steps, root-cause analysis becomes speculative.",
         impact:
-          "Partial auditing catches 60% of issues but misses the other 40% — and those tend to be the most complex and impactful ones. The failures that occur in unaudited steps are the hardest to diagnose and the most likely to recur.",
+          "Partial auditing catches the obvious issues but misses failures in the unaudited steps, and those tend to be the most complex and impactful ones. They are the hardest to diagnose and the most likely to recur.",
         action:
-          "Extend auditing to cover all steps, not just key ones. Modern logging frameworks make comprehensive auditing lightweight. Prioritise auditing the steps between your currently audited checkpoints — that's where the gap is.",
+          "Extend auditing to cover all steps, not just key ones. Modern logging frameworks make comprehensive auditing lightweight. Prioritise auditing the steps between your currently audited checkpoints, that's where the gap is.",
       },
       "0": {
         diagnosis:
           "No auditing capability means every failure investigation starts from scratch. You can't determine what happened, when, or why. Fixes are based on hypotheses rather than evidence, leading to incomplete solutions and recurring issues.",
         impact:
-          "Without auditing, the same issues recur because you never truly identify root causes. Teams develop workarounds instead of fixes. Regulatory risk increases — many industries require process traceability that you can't provide.",
+          "Without auditing, the same issues recur because you never truly identify root causes. Teams develop workarounds instead of fixes. Regulatory risk increases, many industries require process traceability that you can't provide.",
         action:
-          "Implement logging immediately. Start with structured logs at input, decision points, and output for your highest-volume workflows. Use a standardised format (JSON) so logs are machine-parseable. This is a foundational capability — everything else builds on it.",
+          "Implement logging immediately. Start with structured logs at input, decision points, and output for your highest-volume workflows. Use a standardised format (JSON) so logs are machine-parseable. This is a foundational capability, everything else builds on it.",
       },
       "3": {
         diagnosis:
           "Basic timestamps tell you when things happened but not what happened or why. You can establish a timeline but can't understand causality. It's like having a security camera with no audio and low resolution.",
         impact:
-          "Timestamp-only auditing extends diagnosis time by 3–4× because you have to infer what happened between timestamps from other evidence. It's better than nothing but far from sufficient for reliable automation at scale.",
+          "Timestamp-only auditing lengthens diagnosis because you have to infer what happened between timestamps from other evidence. It is better than nothing but far from sufficient for reliable automation at scale.",
         action:
           "Enrich your timestamps with context. For each logged timestamp, add: what action was taken, what data was involved, what the outcome was. This transforms timestamps from a timeline into a narrative.",
       },
@@ -348,35 +348,35 @@ const QUESTION_ANALYSIS: Record<
     insights: {
       "10": {
         diagnosis:
-          "Low error cost provides a safety margin for experimentation and learning. Errors are annoying but not harmful — you can afford to iterate, test, and improve without catastrophic consequences.",
+          "Low error cost provides a safety margin for experimentation and learning. Errors are annoying but not harmful, you can afford to iterate, test, and improve without catastrophic consequences.",
         impact:
           "Low-cost error environments are ideal for building automation confidence. Teams can deploy, learn, and improve rapidly because the cost of failure is manageable. This accelerates the path to reliable automation.",
         action:
-          "Use your low error cost as a competitive advantage. Move faster than organisations paralysed by high error costs. Implement automated testing and canary deployments — if something goes wrong, the cost is manageable.",
+          "Use your low error cost as a competitive advantage. Move faster than organisations paralysed by high error costs. Implement automated testing and canary deployments, if something goes wrong, the cost is manageable.",
       },
       "5": {
         diagnosis:
-          "Medium error costs mean each failure is noticeable but recoverable. The business impact is real — customer dissatisfaction, rework costs, operational delays — but doesn't threaten the organisation.",
+          "Medium error costs mean each failure is noticeable but recoverable. The business impact is real, customer dissatisfaction, rework costs, operational delays, but doesn't threaten the organisation.",
         impact:
-          "At medium cost, errors are tolerated individually but accumulate. 100 medium-cost errors per month may equal the impact of one high-cost error. The danger is normalisation — teams stop treating medium errors as serious because each one seems manageable.",
+          "At medium cost, errors are tolerated individually but accumulate. 100 medium-cost errors per month may equal the impact of one high-cost error. The danger is normalisation, teams stop treating medium errors as serious because each one seems manageable.",
         action:
           "Track total error cost, not just individual incidents. Set a monthly error cost budget and treat exceeding it as seriously as a single catastrophic failure. This prevents the 'death by a thousand cuts' pattern.",
       },
       "0": {
         diagnosis:
-          "High error cost means each failure causes significant business harm — financial losses, regulatory penalties, reputation damage, or customer churn. The stakes are real and the margin for error is slim.",
+          "High error cost means each failure causes significant business harm, financial losses, regulatory penalties, reputation damage, or customer churn. The stakes are real and the margin for error is slim.",
         impact:
-          "High-cost errors demand high reliability. A single failure can wipe out months of automation ROI. The psychological impact is also significant — teams become risk-averse, slowing innovation and creating excessive manual checks.",
+          "High-cost errors demand high reliability. A single failure can wipe out months of automation ROI. The psychological impact is also significant, teams become risk-averse, slowing innovation and creating excessive manual checks.",
         action:
           "Invest proportionally in reliability. If a single error costs $10K, spending $50K on error prevention and detection has a clear payback. Implement automated safeguards: validation checks, rollback mechanisms, and human-in-the-loop for high-risk decisions.",
       },
       "0_catastrophic": {
         diagnosis:
-          "Catastrophic error costs — where a single failure could cause existential business harm — require the highest level of automation discipline. Every workflow must be tested, monitored, and validated with zero tolerance for error.",
+          "Catastrophic error costs, where a single failure could cause existential business harm, require the highest level of automation discipline. Every workflow must be tested, monitored, and validated with zero tolerance for error.",
         impact:
           "At this risk level, the question isn't whether to invest in reliability but how much. Regulatory bodies, customers, and stakeholders expect near-perfect execution. A single failure can trigger investigations, lawsuits, or permanent reputation damage.",
         action:
-          "Implement defence-in-depth: multiple independent checks, mandatory human approval for high-risk actions, automated rollback, and real-time monitoring with immediate alerting. Consider whether full automation is appropriate — some high-cost processes may be better served by AI-assisted human decision-making.",
+          "Implement defence-in-depth: multiple independent checks, mandatory human approval for high-risk actions, automated rollback, and real-time monitoring with immediate alerting. Consider whether full automation is appropriate, some high-cost processes may be better served by AI-assisted human decision-making.",
       },
     },
   },
@@ -388,31 +388,31 @@ const QUESTION_ANALYSIS: Record<
         diagnosis:
           "Less than 5% rework rate indicates that your automation produces correct outputs the vast majority of the time. Errors are rare, identified quickly, and don't require re-processing entire batches.",
         impact:
-          "Low rework means your automation ROI is realised fully — you're not paying for the same work twice. Team morale is higher because they're working on new value, not fixing repeated mistakes.",
+          "Low rework means your automation ROI is realised fully, you're not paying for the same work twice. Team morale is higher because they're working on new value, not fixing repeated mistakes.",
         action:
           "Investigate your remaining 5% rework. Are these truly novel edge cases, or recurring patterns that could be eliminated? Even reducing rework from 5% to 2% at scale represents significant operational savings.",
       },
       "5": {
         diagnosis:
-          "5–15% rework rate means 1 in 10 to 1 in 7 tasks needs to be done again. This isn't catastrophic but it's a significant drag on efficiency and team morale. It suggests that your automation handles the common cases but struggles with variations.",
+          "5-15% rework rate means 1 in 10 to 1 in 7 tasks needs to be done again. This isn't catastrophic but it's a significant drag on efficiency and team morale. It suggests that your automation handles the common cases but struggles with variations.",
         impact:
-          "At 10% rework, you're effectively operating at 90% efficiency — your automation ROI is reduced proportionally. Additionally, rework tasks often require senior team members, creating bottleneck dependencies.",
+          "At 10% rework, you're effectively operating at 90% efficiency, your automation ROI is reduced proportionally. Additionally, rework tasks often require senior team members, creating bottleneck dependencies.",
         action:
           "Analyse your rework by category. What types of tasks are most often redone? Is it always the same step that fails? Build targeted fixes for the top 3 rework causes. Often, 80% of rework comes from 20% of error types.",
       },
       "0": {
         diagnosis:
-          "Over 15% rework rate is a critical reliability issue. You're essentially paying 1.15× or more for every task — and the rework itself is often more expensive than the original work because it requires diagnosis, correction, and re-validation.",
+          "Over 15% rework rate is a critical reliability issue. You're essentially paying 1.15× or more for every task, and the rework itself is often more expensive than the original work because it requires diagnosis, correction, and re-validation.",
         impact:
-          "High rework is a symptom of deeper issues: poor input quality, inadequate rules, insufficient testing, or fundamental misalignment between the automation and the actual process. It also erodes team trust — if 1 in 6 outputs is wrong, people stop trusting any output.",
+          "High rework is a symptom of deeper issues: poor input quality, inadequate rules, insufficient testing, or fundamental misalignment between the automation and the actual process. It also erodes team trust, if 1 in 6 outputs is wrong, people stop trusting any output.",
         action:
-          "Declare rework reduction a priority initiative. Conduct a root-cause analysis of your last 50 rework incidents. You'll likely find 3–5 patterns that account for the majority. Fix those patterns and your rework rate will drop dramatically.",
+          "Declare rework reduction a priority initiative. Conduct a root-cause analysis of your last 50 rework incidents. You'll likely find 3-5 patterns that account for the majority. Fix those patterns and your rework rate will drop dramatically.",
       },
       "3": {
         diagnosis:
-          "You're unsure about your rework rate — which means you're not tracking it. Without measurement, you can't assess whether reliability is improving or degrading, and you can't prioritise fixes based on actual impact.",
+          "You're unsure about your rework rate, which means you're not tracking it. Without measurement, you can't assess whether reliability is improving or degrading, and you can't prioritise fixes based on actual impact.",
         impact:
-          "Untracked rework is often higher than people estimate. In surveys, organisations that 'guessed' their rework rate and then measured it found actual rates were 40–60% higher than estimated (Deloitte).",
+          "Untracked rework is often higher than people estimate. Teams that guess their rework rate and then actually measure it are routinely surprised by how much higher the real number is.",
         action:
           "Start tracking rework immediately. Tag every task that requires re-processing, log the reason, and calculate the rate weekly. This data will be your most valuable input for prioritising reliability improvements.",
       },
@@ -432,33 +432,33 @@ const BAND_STRATEGY: Record<
 > = {
   "high-risk": {
     summary:
-      "Your automation has significant reliability vulnerabilities across multiple dimensions. Production failures are likely frequent and costly. The priority is stabilisation — building foundational reliability before expanding automation scope.",
+      "Your automation has significant reliability vulnerabilities across multiple dimensions. Production failures are likely frequent and costly. The priority is stabilisation, building foundational reliability before expanding automation scope.",
     risk_profile:
       "Critical exposure. Multiple failure modes are active simultaneously, creating compounding risk. A single incident can trigger cascading failures across interconnected workflows. Manual overrides are likely consuming significant team capacity.",
     investment_thesis:
-      "Focus investment on the 3 lowest-scoring areas first. Foundational reliability improvements (monitoring, ownership, input validation) typically deliver 3–5× ROI within 90 days because they prevent the most common and costly failure modes.",
+      "Focus investment on the 3 lowest-scoring areas first. Foundational reliability improvements (monitoring, ownership, input validation) tend to pay back quickly because they prevent the most common and costly failure modes.",
     timeline:
-      "Expect 60–90 days to achieve baseline stability. Full reliability transformation typically takes 6–9 months. Quick wins (monitoring, ownership assignment) can be achieved within 2 weeks.",
+      "Expect 60-90 days to achieve baseline stability. Full reliability transformation typically takes 6-9 months. Quick wins (monitoring, ownership assignment) can be achieved within 2 weeks.",
   },
   "medium-risk": {
     summary:
       "Your automation has a solid foundation but specific gaps that could cause issues under stress or at scale. You're past the basics but haven't yet achieved the resilience needed for enterprise-grade reliability.",
     risk_profile:
-      "Moderate exposure. Your strongest areas provide genuine value, but weaker areas create vulnerability windows. Failures tend to occur in predictable patterns — which means they're fixable with targeted investment.",
+      "Moderate exposure. Your strongest areas provide genuine value, but weaker areas create vulnerability windows. Failures tend to occur in predictable patterns, which means they're fixable with targeted investment.",
     investment_thesis:
-      "Your ROI case is compelling because you're close to reliable. Addressing 2–3 specific gaps can shift you from 'works most of the time' to 'works reliably at scale.' The marginal cost of these improvements is low relative to the value unlock.",
+      "Your ROI case is compelling because you're close to reliable. Addressing 2-3 specific gaps can shift you from 'works most of the time' to 'works reliably at scale.' The marginal cost of these improvements is low relative to the value unlock.",
     timeline:
-      "Targeted improvements can be implemented in 30–60 days. Full gap closure typically takes 3–4 months. The key is prioritisation — focus on the gaps that create the most risk.",
+      "Targeted improvements can be implemented in 30-60 days. Full gap closure typically takes 3-4 months. The key is prioritisation, focus on the gaps that create the most risk.",
   },
   strong: {
     summary:
-      "Your automation foundation is solid with strong practices across most reliability dimensions. The focus now shifts from building reliability to optimising and extending it — catching edge cases, reducing the last 5% of errors, and scaling confidently.",
+      "Your automation foundation is solid with strong practices across most reliability dimensions. The focus now shifts from building reliability to optimising and extending it, catching edge cases, reducing the last 5% of errors, and scaling confidently.",
     risk_profile:
       "Low exposure with residual risks. Your main threats are complacency (assuming reliability will maintain itself) and edge cases that emerge as volume increases. Monitor for gradual drift rather than sudden failures.",
     investment_thesis:
-      "Your reliability investment has paid off. The next phase is optimisation — extracting more value from your reliable foundation. Consider advanced capabilities: predictive monitoring, automated remediation, and cross-workflow orchestration.",
+      "Your reliability investment has paid off. The next phase is optimisation, extracting more value from your reliable foundation. Consider advanced capabilities: predictive monitoring, automated remediation, and cross-workflow orchestration.",
     timeline:
-      "Continuous improvement is the model. Monthly reviews to catch drift, quarterly capability expansions. Major reliability incidents should be rare — when they occur, treat them as learning opportunities.",
+      "Continuous improvement is the model. Monthly reviews to catch drift, quarterly capability expansions. Major reliability incidents should be rare, when they occur, treat them as learning opportunities.",
   },
 };
 
@@ -716,7 +716,7 @@ Deno.serve(async (req) => {
     // Footer
     doc.setTextColor(60, 75, 100);
     doc.setFontSize(7.5);
-    doc.text("Confidential — For internal use only", m, 272);
+    doc.text("Confidential, For internal use only", m, 272);
     doc.text("chaseagents.com", pw - m, 278, { align: "right" });
 
     // ═══════════════════════════════════════
@@ -884,7 +884,7 @@ Deno.serve(async (req) => {
 
       // Score badge
       doc.setFillColor(qColor[0], qColor[1], qColor[2]);
-      const scoreTxt = `${answer.score} / 10  —  ${answer.selected_option}`;
+      const scoreTxt = `${answer.score} / 10, ${answer.selected_option}`;
       const badgeW = Math.min(doc.getTextWidth(scoreTxt) * 0.37 + 10, cw);
       doc.roundedRect(m, y, badgeW, 8, 2, 2, "F");
       doc.setTextColor(255, 255, 255);
@@ -1017,12 +1017,12 @@ Deno.serve(async (req) => {
     const phases = [
       {
         title: "Phase 1: Stabilise",
-        timeline: "0–30 days",
+        timeline: "0-30 days",
         color: [220, 60, 60] as [number, number, number],
         actions: [
           weakAreas[0]
             ? `Address Q${weakAreas[0].question_id} (${weakAreas[0].question_text}): ${QUESTION_RECS[weakAreas[0].question_id] || "Implement immediate improvements."}`
-            : "Conduct a full workflow reliability audit — catalogue every failure point.",
+            : "Conduct a full workflow reliability audit, catalogue every failure point.",
           "Assign clear end-to-end ownership for each automated workflow.",
           "Implement basic error monitoring and alerting for production workflows.",
           "Create an incident response playbook for automation failures.",
@@ -1030,7 +1030,7 @@ Deno.serve(async (req) => {
       },
       {
         title: "Phase 2: Strengthen",
-        timeline: "30–90 days",
+        timeline: "30-90 days",
         color: [245, 158, 11] as [number, number, number],
         actions: [
           weakAreas[1]
@@ -1043,7 +1043,7 @@ Deno.serve(async (req) => {
       },
       {
         title: "Phase 3: Optimise",
-        timeline: "90–180 days",
+        timeline: "90-180 days",
         color: [40, 160, 100] as [number, number, number],
         actions: [
           weakAreas[2]
@@ -1120,7 +1120,7 @@ Deno.serve(async (req) => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(160, 175, 200);
     const nLines = doc.splitTextToSize(
-      "This assessment is a starting point, not a destination. The insights in this report are most valuable when acted on within 30 days — before organisational momentum shifts.",
+      "This assessment is a starting point, not a destination. The insights in this report are most valuable when acted on within 30 days, before organisational momentum shifts.",
       cw,
     );
     doc.text(nLines, m, 82);
@@ -1128,7 +1128,7 @@ Deno.serve(async (req) => {
     const nextSteps = [
       {
         num: "01",
-        text: "Review your question-by-question analysis — understand why each area scored as it did.",
+        text: "Review your question-by-question analysis, understand why each area scored as it did.",
       },
       {
         num: "02",
@@ -1136,7 +1136,7 @@ Deno.serve(async (req) => {
       },
       {
         num: "03",
-        text: "Start with Phase 1 of the roadmap — focus on your weakest area first for maximum impact.",
+        text: "Start with Phase 1 of the roadmap, focus on your weakest area first for maximum impact.",
       },
       {
         num: "04",
@@ -1188,7 +1188,7 @@ Deno.serve(async (req) => {
     // Bottom branding
     doc.setTextColor(60, 75, 100);
     doc.setFontSize(8);
-    doc.text("Chase Agents — Operating Layer", m, 272);
+    doc.text("Chase Agents, Operating Layer", m, 272);
     doc.text("chaseagents.com", m, 279);
 
     // ═══════════════════════════════════════

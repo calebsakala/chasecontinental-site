@@ -123,7 +123,7 @@ serve(async (req) => {
         : band === "medium"
           ? "Medium Risk"
           : "High Risk";
-    doc.text(`${bandLabel} — Score: ${score}/30`, margin, 310);
+    doc.text(`${bandLabel}, Score: ${score}/30`, margin, 310);
 
     doc.setFontSize(11);
     doc.setTextColor(180, 200, 200);
@@ -162,8 +162,8 @@ serve(async (req) => {
     const summaries: Record<string, string[]> = {
       low: [
         `Your score of ${score}/30 indicates minimal vendor lock-in risk.`,
-        "Your stack favors neutral, portable tools — reducing migration costs",
-        "by up to 50% (Gartner, 2024). You're well-positioned for agility.",
+        "Your stack favors neutral, portable tools, which keeps migration",
+        "cost and switching risk low. You're well-positioned for agility.",
         "",
         "Key strengths: Open standards, portable infrastructure, flexible integrations.",
         "Continue maintaining neutrality and audit annually for compliance.",
@@ -171,15 +171,15 @@ serve(async (req) => {
       medium: [
         `Your score of ${score}/30 indicates moderate vendor lock-in risk.`,
         "Mixed dependencies expose you to partial lock-in, with migration",
-        "costs potentially 2-3x higher (Journal of Cloud Computing, 2024).",
+        "cost and switching risk rising as those dependencies deepen.",
         "",
         "Priority: Identify high-impact areas for migration. Start with databases",
         "and authentication to reduce risk without disrupting operations.",
       ],
       high: [
         `Your score of ${score}/30 indicates severe vendor lock-in risk.`,
-        "Heavy proprietary reliance increases exit barriers, with costs up to",
-        "3x implementation (Nutanix, 2025). Urgent action is recommended.",
+        "Heavy proprietary reliance increases exit barriers and raises",
+        "switching costs materially. Urgent action is recommended.",
         "",
         "Immediate steps: Audit dependencies, plan phased exits, implement",
         "data portability standards. Explore Chase Agents, then book a scoping call for guided migration.",
@@ -264,14 +264,14 @@ serve(async (req) => {
           title: "2. Enhance with Open AI",
           detail: [
             "Integrate open models from Hugging Face to boost automation.",
-            "Reduces costs by 20% vs proprietary alternatives.",
+            "Often lowers cost and increases flexibility vs proprietary alternatives.",
           ],
         },
         {
           title: "3. Scale with Multi-Cloud",
           detail: [
             "Explore Kubernetes for redundancy across providers.",
-            "Netflix's migration saved 15% on infrastructure (Netflix Engineering Blog, 2023).",
+            "Multi-cloud redundancy reduces exposure to any single provider's outage or price hike.",
           ],
         },
       ],
@@ -279,7 +279,7 @@ serve(async (req) => {
         {
           title: "1. Prioritize Database Migration",
           detail: [
-            "Switch proprietary databases to PostgreSQL for 40% cost savings.",
+            "Switch proprietary databases to an open engine like PostgreSQL to cut licensing cost and improve portability.",
             "Export via pg_dump, refactor queries for compatibility.",
           ],
         },
@@ -294,7 +294,7 @@ serve(async (req) => {
           title: "3. Review Vendor Contracts",
           detail: [
             "Negotiate exit clauses for flexibility in all agreements.",
-            "A tech firm reduced penalties by 50% through audits (HBR, 2024).",
+            "Regular contract audits surface exit penalties before they become blockers.",
           ],
         },
       ],
@@ -310,14 +310,14 @@ serve(async (req) => {
           title: "2. Shift to Open Alternatives",
           detail: [
             "Replace proprietary AI with TensorFlow or Hugging Face models.",
-            "Can cut ML costs by 30% while maintaining capability.",
+            "Open models can lower licensing cost while maintaining capability.",
           ],
         },
         {
           title: "3. Implement Data Portability",
           detail: [
             "Adopt open data standards immediately (JSON, CSV, Parquet).",
-            "A financial firm escaped AWS lock-in, saving $10M (Bloomberg, 2024).",
+            "Open data standards are what make a future migration feasible without a rewrite.",
           ],
         },
       ],
@@ -346,19 +346,16 @@ serve(async (req) => {
     doc.setTextColor(47, 79, 79);
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Sources", margin, y);
+    doc.text("About This Scorecard", margin, y);
     y += 20;
     doc.setTextColor(100, 100, 100);
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     const sources = [
-      'Gartner, "Avoiding Vendor Lock-In in Cloud Ecosystems," 2024',
-      'McKinsey, "Digital Transformation Report," 2025',
-      'Journal of Cloud Computing, "Vendor Lock-In Costs," 2024',
-      'Forrester, "Hybrid Cloud Strategies," 2025',
-      'Harvard Business Review, "Escaping Vendor Lock-In," 2024',
-      'Nutanix, "Ecosystem Scorecards," 2025',
-      'Netflix Engineering Blog, "Cloud Migration Results," 2023',
+      "This scorecard reflects widely recognised principles for avoiding vendor lock-in:",
+      "favouring open standards and formats (JSON, CSV, Parquet), portable infrastructure",
+      "(containers, Kubernetes), open model ecosystems, and contracts with clear exit terms.",
+      "It is a directional self-assessment based on your answers, not a formal audit of your stack.",
     ];
     sources.forEach((s) => {
       doc.text(`• ${s}`, margin, y);
