@@ -263,7 +263,7 @@ const bandConfig = {
       {
         title: "Review Vendor Contracts",
         detail:
-          "Negotiate exit clauses. A tech firm reduced penalties by 50% through audits (HBR, 2024).",
+          "Negotiate exit clauses and audit your contracts so leaving is not prohibitively expensive.",
       },
     ],
     cta: "Book a scoping call",
@@ -277,9 +277,9 @@ const bandConfig = {
     bgColor: "hsl(0,75%,55%)",
     icon: Shield,
     analysis: [
-      "Heavy proprietary reliance increases exit barriers, with costs up to 3x implementation (Nutanix, 2025).",
-      "Innovation stall, high dependency on vendor roadmaps, vulnerability to disruptions.",
-      "15-25% higher TCO long-term (OutSystems, 2025). 2x higher downtime risk.",
+      "Heavy proprietary reliance raises exit barriers, so a future migration can cost far more than the original build.",
+      "Innovation can stall, with high dependency on vendor roadmaps and exposure to their pricing and outages.",
+      "Total cost of ownership tends to be higher over the long term, and you carry more concentration risk.",
     ],
     recommendations: [
       {
