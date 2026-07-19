@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "timeout 420 bash -c 'npx puppeteer browsers install chrome && node scripts/prerender.mjs' || echo 'prerender skipped or timed out; shipping SPA (build still succeeds)'",
+    "postbuild": "npx puppeteer browsers install chrome || echo 'chrome install skipped'; node scripts/prerender.mjs || echo 'prerender skipped; shipping SPA'",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
