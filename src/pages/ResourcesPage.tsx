@@ -158,11 +158,11 @@ const ResourcesPage = () => {
 
       {/* Grid */}
       <section className="relative pb-24 px-6">
-        <div className="mx-auto max-w-6xl grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto max-w-6xl grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
           {resources.map((r) => {
             const Icon = r.icon;
             const cardClass =
-              "group relative flex flex-col rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm p-6 hover:border-teal/40 transition-all duration-300 hover:shadow-lg hover:shadow-teal/5";
+              "group relative flex flex-col rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm p-4 sm:p-6 hover:border-teal/40 transition-all duration-300 hover:shadow-lg hover:shadow-teal/5";
             const inner = (
               <>
                 <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${r.accent} mb-4`}>
@@ -171,13 +171,13 @@ const ResourcesPage = () => {
                 <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 mb-2">
                   {r.badge}
                 </span>
-                <h3 className="text-lg font-bold font-heading mb-2 group-hover:text-teal transition-colors">
+                <h3 className="text-base sm:text-lg font-bold font-heading mb-2 group-hover:text-teal transition-colors">
                   {r.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                   {r.description}
                 </p>
-                <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-teal opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-teal opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
                   Explore <ArrowRight className="h-4 w-4" />
                 </div>
               </>
