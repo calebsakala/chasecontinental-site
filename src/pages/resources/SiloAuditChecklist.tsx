@@ -1099,7 +1099,7 @@ const SiloAuditChecklist = () => {
                 </p>
 
                 {/* Honeypot */}
-                <div className="absolute -left-[9999px]">
+                <div className="hidden" aria-hidden="true">
                   <input
                     name="cc_hp"
                     value={honeypot}
