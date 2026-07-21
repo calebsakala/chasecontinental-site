@@ -321,7 +321,7 @@ const ShopifyOpsAutomation = () => {
       </section>
 
       {/* ─── WHAT WE AUTOMATE ─── */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <div className="text-center mb-16">
@@ -468,7 +468,7 @@ const ShopifyOpsAutomation = () => {
       </section>
 
       {/* ─── HOW IT WORKS (Reliability) ─── */}
-      <section className="py-24 px-6 bg-card/50">
+      <section className="py-14 md:py-24 px-6 bg-card/50">
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <div className="text-center mb-14">
@@ -527,7 +527,7 @@ const ShopifyOpsAutomation = () => {
       </section>
 
       {/* ─── CONTROL TOWER GALLERY ─── */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="text-center mb-14">
@@ -641,7 +641,7 @@ const ShopifyOpsAutomation = () => {
       </AnimatePresence>
 
       {/* ─── STATS BAND ─── */}
-      <section className="py-16 px-6 bg-card/50 border-y border-border/40">
+      <section className="py-10 md:py-16 px-6 bg-card/50 border-y border-border/40">
         <div className="mx-auto max-w-5xl">
           <p className="text-center text-xs font-bold uppercase tracking-widest text-emerald-500 mb-2">
             Illustrative outcomes
@@ -673,7 +673,7 @@ const ShopifyOpsAutomation = () => {
       </section>
 
       {/* ─── WHY CHASE AGENTS ─── */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-5xl">
           <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-card to-emerald-500/5 p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -758,7 +758,7 @@ const ShopifyOpsAutomation = () => {
       </section>
 
       {/* ─── FAQ ─── */}
-      <section className="py-24 px-6 bg-card/50">
+      <section className="py-14 md:py-24 px-6 bg-card/50">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-3xl font-bold font-heading text-center mb-10">
             Frequently asked questions
@@ -802,7 +802,7 @@ const ShopifyOpsAutomation = () => {
       </section>
 
       {/* ─── FINAL CTA ─── */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
             Ready to automate{" "}

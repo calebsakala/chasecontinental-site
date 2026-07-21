@@ -755,7 +755,7 @@ const SiloAuditChecklist = () => {
       </section>
 
       {/* ─── WHAT YOU'LL GET ─── */}
-      <section className="py-20 px-6 bg-card/50">
+      <section className="py-12 md:py-20 px-6 bg-card/50">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold font-heading text-foreground mb-10 text-center">
             What you'll uncover
@@ -797,7 +797,7 @@ const SiloAuditChecklist = () => {
 
       {/* ─── HOW IT WORKS ─── */}
       {phase === "landing" && (
-        <section className="py-20 px-6">
+        <section className="py-12 md:py-20 px-6">
           <div className="mx-auto max-w-4xl">
             <h2 className="text-3xl font-bold font-heading text-foreground mb-10 text-center">
               How it works
@@ -848,7 +848,7 @@ const SiloAuditChecklist = () => {
 
       {/* ─── AUDIT PREVIEW ─── */}
       {phase === "landing" && (
-        <section className="py-20 px-6 bg-card/50">
+        <section className="py-12 md:py-20 px-6 bg-card/50">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-3xl font-bold font-heading text-foreground mb-8 text-center">
               Preview the 20-point assessment
@@ -906,7 +906,7 @@ const SiloAuditChecklist = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="py-20 px-6"
+            className="py-12 md:py-20 px-6"
           >
             <div className="mx-auto max-w-3xl">
               <h2 className="text-3xl font-bold font-heading text-foreground mb-3 text-center">
@@ -1053,7 +1053,7 @@ const SiloAuditChecklist = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="py-20 px-6"
+            className="py-12 md:py-20 px-6"
           >
             <div className="mx-auto max-w-2xl">
               {/* Score preview */}
@@ -1291,7 +1291,7 @@ const SiloAuditChecklist = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="py-20 px-6"
+            className="py-12 md:py-20 px-6"
           >
             <div className="mx-auto max-w-2xl text-center">
               <div className="rounded-2xl p-10 border border-teal/30 bg-card">
@@ -1389,7 +1389,7 @@ const SiloAuditChecklist = () => {
 
       {/* ─── PROOF ─── */}
       {phase === "landing" && (
-        <section className="py-16 px-6">
+        <section className="py-10 md:py-16 px-6">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs uppercase tracking-wider text-muted-foreground/60 mb-6">
               Trusted by operations teams at
@@ -1412,7 +1412,7 @@ const SiloAuditChecklist = () => {
       )}
 
       {/* ─── FAQ ─── */}
-      <section className="py-20 px-6 bg-card/50">
+      <section className="py-12 md:py-20 px-6 bg-card/50">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl font-bold font-heading text-foreground mb-10 text-center">
             Frequently asked questions
@@ -1458,7 +1458,7 @@ const SiloAuditChecklist = () => {
       </section>
 
       {/* ─── FINAL CTA ─── */}
-      <section className="py-20 px-6">
+      <section className="py-12 md:py-20 px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold font-heading text-foreground mb-4">
             Ready to move from siloed pilots to a connected{" "}

@@ -583,7 +583,7 @@ const DeterministicBlueprint = () => {
       </section>
 
       {/* ════════ WHAT'S INCLUDED ════════ */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -631,7 +631,7 @@ const DeterministicBlueprint = () => {
       {/* ════════ INTERACTIVE WORKFLOW BUILDER ════════ */}
       <section
         id="workflow-builder"
-        className="py-24 px-6 bg-gradient-to-b from-background via-[hsl(270,20%,96%)] to-background"
+        className="py-14 md:py-24 px-6 bg-gradient-to-b from-background via-[hsl(270,20%,96%)] to-background"
       >
         <div className="mx-auto max-w-5xl">
           <motion.div
@@ -941,7 +941,7 @@ const DeterministicBlueprint = () => {
       </section>
 
       {/* ════════ FAQ ════════ */}
-      <section className="py-16 px-6">
+      <section className="py-10 md:py-16 px-6">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl md:text-3xl font-bold font-heading mb-3">
             Ready to run this as an operating layer?
@@ -964,7 +964,7 @@ const DeterministicBlueprint = () => {
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-card/50">
+      <section className="py-14 md:py-24 px-6 bg-card/50">
         <div className="mx-auto max-w-3xl">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

@@ -352,7 +352,7 @@ const TransformationPlaybook = () => {
         <Header />
 
         {/* ─── Hero Section ─── */}
-        <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
+        <section className="relative pt-20 pb-12 md:pt-36 md:pb-28 overflow-hidden">
           {/* Background */}
           <div className="absolute inset-0 -z-10">
             <img
@@ -485,7 +485,7 @@ const TransformationPlaybook = () => {
         </section>
 
         {/* ─── What's Inside ─── */}
-        <section className="py-20 md:py-28">
+        <section className="py-12 md:py-28">
           <div className="mx-auto max-w-5xl px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -522,7 +522,7 @@ const TransformationPlaybook = () => {
         </section>
 
         {/* ─── Why This Works ─── */}
-        <section className="py-20 md:py-28 bg-muted/30">
+        <section className="py-12 md:py-28 bg-muted/30">
           <div className="mx-auto max-w-6xl px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -563,7 +563,7 @@ const TransformationPlaybook = () => {
         </section>
 
         {/* ─── Opt-in Form / Thank You ─── */}
-        <section ref={formRef} className="py-20 md:py-28" id="download">
+        <section ref={formRef} className="py-12 md:py-28" id="download">
           <div className="mx-auto max-w-4xl px-6">
             <AnimatePresence mode="wait">
               {phase === "landing" ? (
@@ -835,7 +835,7 @@ const TransformationPlaybook = () => {
         </section>
 
         {/* ─── FAQ ─── */}
-        <section className="py-20 md:py-28 bg-muted/30">
+        <section className="py-12 md:py-28 bg-muted/30">
           <div className="mx-auto max-w-3xl px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -891,7 +891,7 @@ const TransformationPlaybook = () => {
         </section>
 
         {/* ─── Final CTA ─── */}
-        <section className="py-20 md:py-28">
+        <section className="py-12 md:py-28">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

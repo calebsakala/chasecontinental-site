@@ -539,7 +539,7 @@ const OrchestrationSwipeFile = () => {
       </section>
 
       {/* ───── PREVIEW GRID ───── */}
-      <section className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-14 md:py-24 px-6 bg-gradient-to-b from-background to-muted/30">
         <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -647,7 +647,7 @@ const OrchestrationSwipeFile = () => {
       </section>
 
       {/* ───── WHAT'S INSIDE ───── */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -688,7 +688,7 @@ const OrchestrationSwipeFile = () => {
       </section>
 
       {/* ───── WHY THIS MATTERS ───── */}
-      <section className="py-24 px-6 bg-gradient-to-b from-muted/30 to-background">
+      <section className="py-14 md:py-24 px-6 bg-gradient-to-b from-muted/30 to-background">
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -732,7 +732,7 @@ const OrchestrationSwipeFile = () => {
       </section>
 
       {/* ───── OPT-IN CTA ───── */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-2xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -788,7 +788,7 @@ const OrchestrationSwipeFile = () => {
       </section>
 
       {/* ───── FAQ ───── */}
-      <section className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-14 md:py-24 px-6 bg-gradient-to-b from-background to-muted/30">
         <div className="mx-auto max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -288,7 +288,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── The Thesis ── */}
-        <section className="relative bg-foreground px-6 py-16 md:py-20">
+        <section className="relative bg-foreground px-6 py-10 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">The Thesis</span>
@@ -319,7 +319,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── Why I Care ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-3xl">
             <Reveal>
@@ -346,7 +346,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── How I Think: Fractal Fit ── */}
-        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+        <section className="relative bg-secondary/40 px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-3xl">
             <Reveal>
@@ -378,7 +378,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── How I Build ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-5xl">
             <Reveal>
@@ -402,7 +402,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── The Systems ── */}
-        <section className="relative bg-foreground px-6 py-16 md:py-20">
+        <section className="relative bg-foreground px-6 py-10 md:py-20">
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <div className="max-w-2xl">
@@ -455,7 +455,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── Selected Work ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-5xl">
             <Reveal>
@@ -498,7 +498,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── Principles ── */}
-        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+        <section className="relative bg-secondary/40 px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-4xl">
             <Reveal>
@@ -521,7 +521,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── Writing ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-3xl">
             <Reveal>
@@ -542,7 +542,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── What I'm Building Toward ── */}
-        <section className="relative bg-foreground px-6 py-16 md:py-20">
+        <section className="relative bg-foreground px-6 py-10 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-teal">What I'm Building Toward</span>
@@ -568,7 +568,7 @@ const CharlesPage = () => {
         </section>
 
         {/* ── Contact ── */}
-        <section id="contact" className="relative scroll-mt-20 bg-background px-6 py-16 md:py-20">
+        <section id="contact" className="relative scroll-mt-20 bg-background px-6 py-10 md:py-20">
           <SectionRule />
           <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
             <Reveal>

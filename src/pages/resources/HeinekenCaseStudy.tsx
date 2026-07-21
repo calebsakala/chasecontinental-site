@@ -112,7 +112,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── Overview ── */}
-      <section className="py-16 md:py-20 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">Overview</h2>
           <p className="mt-5 text-muted-foreground leading-relaxed">
@@ -157,7 +157,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── The Challenge ── */}
-      <section className="py-16 md:py-20 px-6 bg-secondary/40">
+      <section className="py-10 md:py-20 px-6 bg-secondary/40">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">The Challenge</h2>
           <p className="mt-5 text-muted-foreground leading-relaxed">
@@ -185,7 +185,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── Our Approach ── */}
-      <section className="py-16 md:py-20 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="mx-auto max-w-3xl">
           <span className="text-xs font-bold uppercase tracking-widest text-teal">Our Approach</span>
           <h2 className="mt-3 font-heading text-2xl md:text-3xl font-bold">
@@ -230,7 +230,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── Intelligent Reporting & Operational Automation ── */}
-      <section className="py-16 md:py-20 px-6 bg-secondary/40">
+      <section className="py-10 md:py-20 px-6 bg-secondary/40">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">
             Intelligent reporting &amp; operational automation
@@ -253,7 +253,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── Reporting Framework (KPIs) ── */}
-      <section className="py-16 md:py-20 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">
             One consolidated performance view
@@ -285,7 +285,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── Business Impact ── */}
-      <section className="py-16 md:py-20 px-6 bg-foreground text-background">
+      <section className="py-10 md:py-20 px-6 bg-foreground text-background">
         <div className="mx-auto max-w-4xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold text-background">
             Business impact
@@ -312,7 +312,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── Why It Matters ── */}
-      <section className="py-16 md:py-20 px-6">
+      <section className="py-10 md:py-20 px-6">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">Why it matters</h2>
           <p className="mt-5 text-muted-foreground leading-relaxed">
@@ -331,7 +331,7 @@ const HeinekenCaseStudy = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-16 md:py-20 px-6 bg-secondary/40">
+      <section className="py-10 md:py-20 px-6 bg-secondary/40">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-2xl md:text-3xl font-bold">
             Have a programme that needs a reliable operational data layer?

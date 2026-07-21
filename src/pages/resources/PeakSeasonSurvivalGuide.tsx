@@ -502,7 +502,7 @@ const PeakSeasonSurvivalGuide = () => {
       </section>
 
       {/* ═══ WHAT YOU'LL LEARN ═══ */}
-      <section className="py-24 px-6 bg-card">
+      <section className="py-14 md:py-24 px-6 bg-card">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -565,7 +565,7 @@ const PeakSeasonSurvivalGuide = () => {
       </section>
 
       {/* ═══ 7 FAILURE MODES ═══ */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -616,7 +616,7 @@ const PeakSeasonSurvivalGuide = () => {
       </section>
 
       {/* ═══ PRE-PEAK CHECKLIST TEASER ═══ */}
-      <section className="py-24 px-6 bg-card relative overflow-hidden">
+      <section className="py-14 md:py-24 px-6 bg-card relative overflow-hidden">
         {/* subtle seasonal border accent */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500/50 via-[hsl(var(--teal))]/50 to-amber-500/50" />
 
@@ -700,7 +700,7 @@ const PeakSeasonSurvivalGuide = () => {
       </section>
 
       {/* ═══ OPT-IN + FAQ ═══ */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16">
           {/* Opt-in form inline */}
           <motion.div

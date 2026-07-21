@@ -586,7 +586,7 @@ const FiveDayPilotChallenge = () => {
       </section>
 
       {/* ════════ GUIDE SECTIONS ════════ */}
-      <section className="py-24 px-6">
+      <section className="py-14 md:py-24 px-6">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -670,7 +670,7 @@ const FiveDayPilotChallenge = () => {
       </section>
 
       {/* ════════ CTA BAND ════════ */}
-      <section className="py-24 px-6 bg-gradient-to-b from-background via-[hsl(190,20%,96%)] to-background">
+      <section className="py-14 md:py-24 px-6 bg-gradient-to-b from-background via-[hsl(190,20%,96%)] to-background">
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -697,7 +697,7 @@ const FiveDayPilotChallenge = () => {
       </section>
 
       {/* ════════ FAQ ════════ */}
-      <section className="py-24 px-6 bg-card/50">
+      <section className="py-14 md:py-24 px-6 bg-card/50">
         <div className="mx-auto max-w-3xl">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

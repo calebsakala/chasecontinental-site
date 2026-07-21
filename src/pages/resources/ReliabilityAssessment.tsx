@@ -741,7 +741,7 @@ const ReliabilityAssessment = () => {
             </section>
 
             {/* Why this exists section */}
-            <section className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
+            <section className="py-14 md:py-24 px-6 bg-gradient-to-b from-background to-muted/30">
               <div className="mx-auto max-w-5xl">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -806,7 +806,7 @@ const ReliabilityAssessment = () => {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-24 px-6">
+            <section className="py-14 md:py-24 px-6">
               <div className="mx-auto max-w-3xl">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}

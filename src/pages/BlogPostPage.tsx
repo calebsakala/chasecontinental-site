@@ -240,7 +240,7 @@ const BlogPostPage = () => {
         </article>
 
         {/* CTA */}
-        <section className="bg-gradient-to-b from-primary/5 to-gold/5 py-20 px-6">
+        <section className="bg-gradient-to-b from-primary/5 to-gold/5 py-12 md:py-20 px-6">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-4 text-foreground">
               Want this in your business?

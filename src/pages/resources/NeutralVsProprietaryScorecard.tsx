@@ -1041,7 +1041,7 @@ const NeutralVsProprietaryScorecard = () => {
 
       {/* ════════ FAQ (show on hero phase) ════════ */}
       {phase === "hero" && (
-        <section className="py-24 px-6 bg-card/50">
+        <section className="py-14 md:py-24 px-6 bg-card/50">
           <div className="mx-auto max-w-3xl">
             <div className="mb-14 rounded-2xl border border-border/60 bg-background p-6 md:p-8 text-center">
               <h2 className="text-2xl md:text-3xl font-bold font-heading mb-3">

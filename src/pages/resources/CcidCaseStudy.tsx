@@ -293,7 +293,7 @@ const CcidCaseStudy = () => {
       <Header />
 
       {/* ── Hero ── */}
-      <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
+      <section className="relative pt-20 pb-12 md:pt-36 md:pb-28 overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImg}
@@ -352,7 +352,7 @@ const CcidCaseStudy = () => {
       </section>
 
       {/* ── The Challenge ── */}
-      <section className="py-20 px-6 bg-secondary/30">
+      <section className="py-12 md:py-20 px-6 bg-secondary/30">
         <div className="mx-auto max-w-4xl">
           <motion.h2
             initial="hidden"
@@ -384,7 +384,7 @@ const CcidCaseStudy = () => {
       </section>
 
       {/* ── What Changed ── */}
-      <section className="py-20 px-6">
+      <section className="py-12 md:py-20 px-6">
         <div className="mx-auto max-w-4xl">
           <motion.h2
             initial="hidden"
@@ -416,7 +416,7 @@ const CcidCaseStudy = () => {
       </section>
 
       {/* ── Results KPI Tiles ── */}
-      <section className="py-20 px-6 bg-primary text-primary-foreground">
+      <section className="py-12 md:py-20 px-6 bg-primary text-primary-foreground">
         <div className="mx-auto max-w-5xl">
           <motion.h2
             initial="hidden"
@@ -458,7 +458,7 @@ const CcidCaseStudy = () => {
       </section>
 
       {/* ── Timeline ── */}
-      <section className="py-20 px-6">
+      <section className="py-12 md:py-20 px-6">
         <div className="mx-auto max-w-4xl">
           <motion.h2
             initial="hidden"
@@ -503,7 +503,7 @@ const CcidCaseStudy = () => {
       </section>
 
       {/* ── Opt-in ── */}
-      <section id="ccid-optin" className="py-20 px-6 bg-secondary/30">
+      <section id="ccid-optin" className="py-12 md:py-20 px-6 bg-secondary/30">
         <div className="mx-auto max-w-lg">
           {phase === "done" ? (
             <motion.div
@@ -664,7 +664,7 @@ const CcidCaseStudy = () => {
       </section>
 
       {/* ── Book a Call CTA ── */}
-      <section className="py-20 px-6 bg-primary text-primary-foreground">
+      <section className="py-12 md:py-20 px-6 bg-primary text-primary-foreground">
         <motion.div
           initial="hidden"
           whileInView="visible"
