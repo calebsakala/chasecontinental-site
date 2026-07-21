@@ -436,7 +436,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 3. THE PROBLEM ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-12 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
@@ -456,7 +456,7 @@ const LandingPage = () => {
               </div>
             </Reveal>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
               {PROBLEMS.map((p, i) => (
                 <Reveal key={p.title} delay={i * 0.08}>
                   <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-destructive/25 hover:shadow-md">
@@ -490,7 +490,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 4. HOW WE WORK (PROCESS) ── */}
-        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+        <section className="relative bg-secondary/40 px-6 py-12 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
@@ -511,7 +511,7 @@ const LandingPage = () => {
               </div>
             </Reveal>
 
-            <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid gap-4 sm:mt-14 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
               {PROCESS.map((step, i) => (
                 <Reveal key={step.n} delay={i * 0.08}>
                   <div className="group relative h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
@@ -538,7 +538,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 5. WHAT WE ACTUALLY DO ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-12 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-7xl">
             <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -584,7 +584,7 @@ const LandingPage = () => {
             </div>
 
             {/* animated capability cards */}
-            <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-5 lg:grid-cols-3">
               {WHAT_WE_DO.map((s, i) => (
                 <Reveal key={s.title} delay={i * 0.07}>
                   <motion.div
@@ -606,7 +606,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 5. FLAGSHIP PRODUCT: CHASE AGENTS ── */}
-        <section id="products" className="scroll-mt-16 bg-foreground px-6 py-16 md:py-20">
+        <section id="products" className="scroll-mt-16 bg-foreground px-6 py-12 md:py-20">
           <div className="mx-auto max-w-6xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal direction="left">
@@ -675,7 +675,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 6. PROOF: IMPACT + CASE STUDIES ── */}
-        <section id="results" className="relative scroll-mt-16 bg-background px-6 py-16 md:py-20">
+        <section id="results" className="relative scroll-mt-16 bg-background px-6 py-12 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
@@ -755,7 +755,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 7. INDUSTRIES ── */}
-        <section className="relative bg-secondary/40 px-6 py-16 md:py-20">
+        <section className="relative bg-secondary/40 px-6 py-12 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
@@ -770,7 +770,7 @@ const LandingPage = () => {
                 </p>
               </div>
             </Reveal>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-4">
               {INDUSTRIES.map((ind, i) => (
                 <Reveal key={ind.title} delay={i * 0.05}>
                   <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal/30 hover:shadow-md">
@@ -787,7 +787,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 8. WHO WE ARE: VALUES + LEADERSHIP ── */}
-        <section className="relative bg-background px-6 py-16 md:py-20">
+        <section className="relative bg-background px-6 py-12 md:py-20">
           <SectionRule />
           <div className="mx-auto max-w-6xl">
             <Reveal>
@@ -803,7 +803,7 @@ const LandingPage = () => {
               </div>
             </Reveal>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-4">
               {VALUES.map((v, i) => (
                 <Reveal key={v.title} delay={i * 0.06}>
                   <div className="h-full rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
@@ -845,7 +845,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 9. FINAL CTA ── */}
-        <section className="relative overflow-hidden bg-foreground px-6 py-20 md:py-24">
+        <section className="relative overflow-hidden bg-foreground px-6 py-14 md:py-24">
           <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/10 blur-[160px]" />
           <div className="relative z-10 mx-auto max-w-3xl text-center">
             <Reveal>
