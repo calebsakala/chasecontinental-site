@@ -223,7 +223,7 @@ const LogisticsOverview = ({ accent }: MockProps) => (
     }
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Active Routes"
           value="142"
@@ -463,7 +463,7 @@ const BpoWorkQueue = ({ accent }: MockProps) => (
     }
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Open Cases"
           value="68"
@@ -591,7 +591,7 @@ const BpoClientReporting = ({ accent }: MockProps) => (
     activeTab={2}
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Cases Closed"
           value="124"
@@ -664,7 +664,7 @@ const EcommerceIntegrity = ({ accent }: MockProps) => (
     }
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="At-Risk Orders"
           value="23"
@@ -814,7 +814,7 @@ const FieldDispatch = ({ accent }: MockProps) => (
     activeTab={0}
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Jobs Today"
           value="38"
@@ -1040,7 +1040,7 @@ const MfgEventInbox = ({ accent }: MockProps) => (
     }
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Open NCRs"
           value="12"
@@ -1245,7 +1245,7 @@ const HealthIntake = ({ accent }: MockProps) => (
     activeTab={0}
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Pending Refs"
           value="34"
@@ -1390,7 +1390,7 @@ const HealthOpsMetrics = ({ accent }: MockProps) => (
     activeTab={2}
   >
     <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <KpiCard
           label="Avg Turnaround"
           value="2.2d"

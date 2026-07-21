@@ -65,7 +65,7 @@ const OverviewView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Ops Control Tower, Overview" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Orders today" value="847" change="+12% vs yesterday" positive />
         <KpiCard label="Exceptions" value="23" change="-8% vs avg" positive />
         <KpiCard label="Fulfillment rate" value="96.8%" change="+1.2pp" positive />
@@ -123,14 +123,14 @@ const OrdersView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Order Queue, Risk & Hold Management" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Orders in queue" value="34" change="12 flagged" positive={false} />
         <KpiCard label="Auto-approved" value="813" change="96% approval rate" positive />
         <KpiCard label="Held for review" value="12" change="Avg hold: 4 min" positive />
         <KpiCard label="Fraud detected" value="3" change="$2,847 saved" positive />
       </div>
-      <div className="rounded-lg border border-border/60 overflow-hidden">
-        <table className="w-full">
+      <div className="rounded-lg border border-border/60 overflow-x-auto">
+        <table className="w-full min-w-[560px]">
           <thead className="bg-muted/50">
             <tr className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="text-left p-2.5">Order</th>
@@ -171,14 +171,14 @@ const InventoryView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Inventory Reconciliation" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Total SKUs" value="2,847" change="12 new this week" positive />
         <KpiCard label="Sync accuracy" value="98.6%" change="+0.4pp" positive />
         <KpiCard label="Mismatches" value="18" change="-6 vs yesterday" positive />
         <KpiCard label="Auto-hidden" value="4" change="OOS prevention" positive />
       </div>
-      <div className="rounded-lg border border-border/60 overflow-hidden">
-        <table className="w-full">
+      <div className="rounded-lg border border-border/60 overflow-x-auto">
+        <table className="w-full min-w-[560px]">
           <thead className="bg-muted/50">
             <tr className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="text-left p-2.5">SKU</th>
@@ -224,17 +224,17 @@ const FulfillmentView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Fulfillment Control Tower" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Shipped today" value="623" change="+8% vs target" positive />
         <KpiCard label="In transit" value="1,847" change="On track" positive />
         <KpiCard label="Exceptions" value="14" change="7 auto-resolved" positive />
         <KpiCard label="Avg delivery" value="2.4d" change="-0.3d vs last month" positive />
       </div>
-      <div className="rounded-lg border border-border/60 overflow-hidden">
+      <div className="rounded-lg border border-border/60 overflow-x-auto">
         <div className="bg-muted/50 p-2.5">
           <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Active exceptions</p>
         </div>
-        <div className="divide-y divide-border/30">
+        <div className="divide-y divide-border/30 min-w-[520px]">
           {[
             { tracking: "FX8294710", carrier: "FedEx Ground", order: "#10832", issue: "Delayed > 48h", eta: "Overdue 2d", status: "critical", action: "Claim filed auto" },
             { tracking: "UP7183920", carrier: "UPS", order: "#10829", issue: "Label failed", eta: ", ", status: "warning", action: "Re-label queued" },
@@ -262,14 +262,14 @@ const ReturnsView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Returns & Refunds Hub" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Returns today" value="31" change="74% auto-approved" positive />
         <KpiCard label="Refunds issued" value="$4,289" change="-12% vs avg" positive />
         <KpiCard label="Pending review" value="8" change="Avg: 6 min" positive />
         <KpiCard label="Leakage flagged" value="$347" change="2 policy violations" positive={false} />
       </div>
-      <div className="rounded-lg border border-border/60 overflow-hidden">
-        <table className="w-full">
+      <div className="rounded-lg border border-border/60 overflow-x-auto">
+        <table className="w-full min-w-[560px]">
           <thead className="bg-muted/50">
             <tr className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="text-left p-2.5">RMA</th>
@@ -309,14 +309,14 @@ const SupportView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Support Ticket Routing" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Tickets today" value="127" change="68% auto-classified" positive />
         <KpiCard label="WISMO deflected" value="43" change="34% of total" positive />
         <KpiCard label="Avg handle time" value="3.2m" change="-1.4m vs manual" positive />
         <KpiCard label="CSAT (today)" value="4.7" change="+0.2 vs avg" positive />
       </div>
-      <div className="rounded-lg border border-border/60 overflow-hidden">
-        <table className="w-full">
+      <div className="rounded-lg border border-border/60 overflow-x-auto">
+        <table className="w-full min-w-[560px]">
           <thead className="bg-muted/50">
             <tr className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="text-left p-2.5">Ticket</th>
@@ -357,7 +357,7 @@ const FinanceView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Finance, Daily Ops Close" />
     <div className="p-4 space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard label="Gross revenue" value="$47,891" change="+14% vs target" positive />
         <KpiCard label="Refunds" value="$4,289" change="9.0% of gross" positive={false} />
         <KpiCard label="Net revenue" value="$43,602" change="+11% vs avg" positive />
@@ -415,8 +415,8 @@ const SettingsView = () => (
   <div className="bg-background rounded-lg border border-border overflow-hidden text-foreground">
     <TopBar title="Automation Rules & Workflows" />
     <div className="p-4 space-y-4">
-      <div className="rounded-lg border border-border/60 overflow-hidden">
-        <table className="w-full">
+      <div className="rounded-lg border border-border/60 overflow-x-auto">
+        <table className="w-full min-w-[560px]">
           <thead className="bg-muted/50">
             <tr className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               <th className="text-left p-2.5">Rule</th>
