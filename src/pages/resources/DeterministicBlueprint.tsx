@@ -689,7 +689,7 @@ const DeterministicBlueprint = () => {
                     key={step.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="grid grid-cols-12 gap-3 items-start"
+                    className="flex flex-col gap-3 md:grid md:grid-cols-12 md:items-start"
                   >
                     <div className="col-span-1 flex items-center justify-center h-10">
                       <span className="text-sm font-bold text-muted-foreground">
@@ -761,7 +761,7 @@ const DeterministicBlueprint = () => {
                     key={exc.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="grid grid-cols-12 gap-3 items-start"
+                    className="flex flex-col gap-3 md:grid md:grid-cols-12 md:items-start"
                   >
                     <div className="col-span-3">
                       <Input
@@ -851,7 +851,7 @@ const DeterministicBlueprint = () => {
                     key={m.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="grid grid-cols-12 gap-3 items-start"
+                    className="flex flex-col gap-3 md:grid md:grid-cols-12 md:items-start"
                   >
                     <div className="col-span-3">
                       <Input
